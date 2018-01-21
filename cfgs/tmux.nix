@@ -1,6 +1,10 @@
 { config, pkgs, ... } :
 
 { 
+  imports = [
+    ../options/tmux.nix
+  ];
+
   programs.tmux = {
     enable = true;
     newSession = true;
@@ -8,6 +12,11 @@
     keyMode = "vi";
     customPaneNavigationAndResize = true;
     escapeTime = 0;
+
+    theme = {
+      primaryColor = "magenta";
+      secondaryColor = "green";
+    };
 
     extraTmuxConf = ''
       # enable mouse support
@@ -29,27 +38,6 @@
       bind-key -r 'j' select-pane -D
       bind-key -r 'k' select-pane -U
       bind-key -r 'l' select-pane -R
-
-      # colors
-      set-option -g pane-active-border-fg brightmagenta
-      set-option -g pane-border-fg brightblack
-      set-option -g display-panes-colour green
-      set-option -g display-panes-active-colour brightred
-      set-option -g clock-mode-colour brightwhite
-      set-option -g mode-bg magenta
-      set-option -g mode-fg brightwhite
-      set-window-option -g window-status-bg black
-      set-window-option -g window-status-fg brightgreen
-      set-window-option -g window-status-current-bg black
-      set-window-option -g window-status-current-fg brightwhite
-      set-window-option -g window-status-bell-bg black
-      set-window-option -g window-status-bell-fg brightred
-      set-window-option -g window-status-activity-bg black
-      set-window-option -g window-status-activity-fg brightred
-      set -g status-bg black
-      set -g status-fg brightmagenta
-      set -g message-bg magenta
-      set -g message-fg brightwhite
     '';
   };
 }
