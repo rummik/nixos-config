@@ -12,6 +12,8 @@
 
   time.timeZone = "America/New_York";
 
+  programs.tmux.theme.primaryColor = "green";
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "us";

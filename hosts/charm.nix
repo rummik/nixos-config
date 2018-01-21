@@ -11,8 +11,5 @@
   boot.loader.grub.device = "/dev/vda";
   fileSystems."/" = { device = "/dev/vda1"; fsType = "ext4"; };
 
-  programs.tmux.theme = {
-    primaryColor = "magenta";
-    secondaryColor = "cyan";
-  };
+  programs.tmux.theme.secondaryColor = "magenta";
 }
