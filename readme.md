@@ -1,6 +1,6 @@
 Personal NixOS configs
 
-Usage: Symlink host file from `misc/<hostname>.nix` to `configuration.nix`
+Usage: Symlink host file from `hosts/<hostname>.nix` to `configuration.nix`
 
 Layout:
 - `cfgs/` - Package configurations
