@@ -5,6 +5,7 @@
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ../misc/general.nix
     ../misc/server.nix
+    ../cfgs/bitlbee.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
