@@ -36,9 +36,6 @@
     lsscsi
   ];
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
-
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "17.09";
 }
