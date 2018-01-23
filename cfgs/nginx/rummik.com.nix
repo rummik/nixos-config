@@ -59,16 +59,8 @@ in
         rewrite ^/?$ https://www.rummik.com;
       '';
 
-      locations = {
-        "~ ^/k".extraConfig = ''
-          autoindex on;
-          auth_basic "Sorry";
-          auth_basic_user_file /home/rummik/pub/k/.htpasswd;
-        '';
-
-        "~ ^/.+".extraConfig = ''
-          autoindex on;
-        '';
-      };
+      locations."~ ^/.+".extraConfig = ''
+        autoindex on;
+      '';
     };
   }
