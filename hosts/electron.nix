@@ -28,4 +28,10 @@
     device = "/dev/disk/by-uuid/8b35a14f-6c0d-4c97-a4c4-cd594936f789";
     fsType = "ext2";
   };
+
+  environment.systemPackages = with pkgs; [
+    parted
+    pv
+    debootstrap
+  ];
 }
