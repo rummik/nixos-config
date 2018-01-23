@@ -28,6 +28,7 @@
     htop
     telnet
     ack
+    nmap
 
     gitAndTools.git-hub
     gitAndTools.hub
