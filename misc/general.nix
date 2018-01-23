@@ -29,6 +29,7 @@
     telnet
     ack
     nmap
+    pv
 
     gitAndTools.git-hub
     gitAndTools.hub
