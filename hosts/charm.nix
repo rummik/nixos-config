@@ -6,10 +6,16 @@
     ../misc/general.nix
     ../misc/server.nix
     ../cfgs/bitlbee.nix
+    ../cfgs/nginx.nix
+    ../cfgs/nginx/rummik.com.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
-  fileSystems."/" = { device = "/dev/vda1"; fsType = "ext4"; };
+  fileSystems."/" = {
+    device = "/dev/vda1";
+    fsType = "ext4";
+    options = [ "defaults" "acl" ];
+  };
 
   programs.tmux.theme.secondaryColor = "magenta";
 
