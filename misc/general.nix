@@ -10,6 +10,8 @@
     ./users.nix
   ];
 
+  services.gpm.enable = true;
+
   time.timeZone = "America/New_York";
 
   programs.tmux.theme.primaryColor = "green";
