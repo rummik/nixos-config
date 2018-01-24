@@ -39,8 +39,6 @@
 
   services.xserver = {
     enable = true;
-    layout = "us";
-    xkbOptions = "caps:swapescape,compose:prsc";
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
   };
