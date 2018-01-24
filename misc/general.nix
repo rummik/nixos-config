@@ -10,14 +10,21 @@
     ./users.nix
   ];
 
+  services.gpm.enable = true;
+
   time.timeZone = "America/New_York";
 
   programs.tmux.theme.primaryColor = "green";
 
+  services.xserver = {
+    layout = "us";
+    xkbOptions = "caps:swapescape,compose:prsc";
+  };
+
   i18n = {
     consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "us";
     defaultLocale = "en_US.UTF-8";
+    consoleUseXkbConfig = true;
   };
 
   environment.systemPackages = with pkgs; [
