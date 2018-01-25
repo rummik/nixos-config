@@ -18,6 +18,8 @@
     partition-manager
     filelight
 
+    kdeconnect
+
     kdeApplications.kdenlive
     frei0r
     ffmpeg

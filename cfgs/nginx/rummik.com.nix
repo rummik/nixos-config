@@ -2,8 +2,8 @@
 
 let
   acmeOptions = {
-    #enableACME = true;
-    #onlySSL = true;
+    enableACME = true;
+    onlySSL = true;
   };
 in
   {
@@ -27,12 +27,22 @@ in
 
     services.nginx.virtualHosts."blg.rummik.com" = acmeOptions // {
       root = "/home/rummik/public_html/blog";
-    };
-
-    services.nginx.virtualHosts."git.rummik.com" = acmeOptions // {
-      serverAliases = [ "src.rummik.com" ];
 
       extraConfig = ''
+        error_page 404 = ../pub/404.html;
+      '';
+    };
+
+    services.nginx.virtualHosts."src.rummik.com" = {
+      serverAliases = [ "git.rummik.com" ];
+
+      root = "/home/rummik/public_html/pub";
+
+      extraConfig = ''
+        error_page 404 = /404.html;
+      '';
+
+      locations."~ ^/(?!\.well-known)".extraConfig = ''
         rewrite ^/\.(.+) https://github.com/rummik/dotfiles/raw/master/.$1 last;
         rewrite ^/~ https://github.com/rummik last;
         rewrite ^((/[a-zA-Z0-9_-]+)+)? https://github.com/rummik$1 last;
@@ -51,7 +61,7 @@ in
       '';
     };
 
-    services.nginx.virtualHosts."pub.rummik.com" = acmeOptions // {
+    services.nginx.virtualHosts."pub.rummik.com" = {
       root = "/home/rummik/public_html/pub";
 
       extraConfig = ''
