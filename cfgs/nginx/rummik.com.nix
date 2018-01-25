@@ -27,12 +27,20 @@ in
 
     services.nginx.virtualHosts."blg.rummik.com" = acmeOptions // {
       root = "/home/rummik/public_html/blog";
+
+      extraConfig = ''
+        error_page 404 = ../pub/404.html;
+      '';
     };
 
     services.nginx.virtualHosts."src.rummik.com" = {
       serverAliases = [ "git.rummik.com" ];
 
-      root = "/home/rummik/public_html/git";
+      root = "/home/rummik/public_html/pub";
+
+      extraConfig = ''
+        error_page 404 = /404.html;
+      '';
 
       locations."~ ^/(?!\.well-known)".extraConfig = ''
         rewrite ^/\.(.+) https://github.com/rummik/dotfiles/raw/master/.$1 last;
