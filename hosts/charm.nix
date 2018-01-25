@@ -21,7 +21,7 @@
   programs.tmux.theme.secondaryColor = "magenta";
 
   services.udev.extraRules = ''
-    ATTR{address}=="82:dc:8e:11:53:9c", NAME="eth0"
+    ATTR{address}=="3e:18:30:44:0f:e2", NAME="eth0"
   '';
 
   networking = {
@@ -32,18 +32,18 @@
       "8.8.4.4"
     ];
 
-    defaultGateway = "104.131.128.1";
-    defaultGateway6 = "";
+    defaultGateway = "198.199.104.1";
+    defaultGateway6 = "2604:a880:1:20::1";
 
     interfaces = {
       eth0 = {
         ip4 = [
-          { address = "104.131.133.191"; prefixLength = 20; }
-          { address = "10.12.0.6"; prefixLength = 16; }
+          { address = "198.199.104.142"; prefixLength = 20; }
         ];
 
         ip6 = [
-          { address = "fe80::80dc:8eff:fe11:539c"; prefixLength = 64; }
+          { address = "fe80::80dc:8eff:fe44:0fe2"; prefixLength = 64; }
+          { address = "2604:a880:1:20::26c:d001"; prefixLength = 64; }
         ];
       };
     };
