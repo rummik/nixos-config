@@ -5,6 +5,7 @@
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ../misc/general.nix
     ../misc/server.nix
+    ../cfgs/weechat.nix
     ../cfgs/bitlbee.nix
     ../cfgs/nginx.nix
     ../cfgs/nginx/rummik.com.nix
