@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 
-with import <nixpkgs> {};
 {
   services.bitlbee = {
     enable = true;
@@ -9,8 +8,8 @@ with import <nixpkgs> {};
       bitlbee-facebook
       bitlbee-steam
 
-      (callPackage ../pkgs/bitlbee-mastodon/default.nix { })
-      (callPackage ../pkgs/bitlbee-discord/default.nix { })
+      (pkgs.callPackage ../pkgs/bitlbee-mastodon/default.nix { })
+      (pkgs.callPackage ../pkgs/bitlbee-discord/default.nix { })
     ];
 
     libpurple_plugins = with pkgs; [
