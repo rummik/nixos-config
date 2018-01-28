@@ -5,8 +5,8 @@
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../cfgs/networkmanager.nix
     ../cfgs/virtualbox.nix
-    ../misc/desktop.nix
-    ../misc/general.nix
+    ../misc/common.nix
+    ../misc/graphical.nix
     ../misc/thinkpad.nix
   ];
 
