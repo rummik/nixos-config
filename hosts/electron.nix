@@ -5,9 +5,9 @@
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../cfgs/networkmanager.nix
     ../cfgs/virtualbox.nix
-    ../misc/common.nix
-    ../misc/graphical.nix
-    ../misc/thinkpad.nix
+    ../presets/common.nix
+    ../presets/graphical.nix
+    ../presets/thinkpad.nix
   ];
 
   networking.hostName = "electron";

@@ -7,8 +7,8 @@
     ../cfgs/nginx.nix
     ../cfgs/nginx/rummik.com.nix
     ../cfgs/weechat.nix
-    ../misc/common.nix
-    ../misc/server.nix
+    ../presets/common.nix
+    ../presets/server.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
