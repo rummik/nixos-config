@@ -14,6 +14,10 @@
         url = "http://weechat.org/files/src/weechat-${version}.tar.bz2";
         sha256 = "0jvvlyz1hnf8kqargvvq253vh6vispqq0hsm203agclwzil34ps2";
       };
+
+      buildInputs = with pkgs; oldAttrs.buildInputs ++ [
+        python27Packages.websocket_client
+      ];
     });
   };
 

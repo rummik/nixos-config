@@ -3,12 +3,12 @@
 {
   imports = [
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
-    ../misc/general.nix
-    ../misc/server.nix
-    ../cfgs/weechat.nix
     ../cfgs/bitlbee.nix
     ../cfgs/nginx.nix
     ../cfgs/nginx/rummik.com.nix
+    ../cfgs/weechat.nix
+    ../presets/common.nix
+    ../presets/server.nix
   ];
 
   boot.loader.grub.device = "/dev/vda";
