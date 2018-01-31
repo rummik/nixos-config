@@ -2,7 +2,6 @@
 
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../cfgs/networkmanager.nix
     ../hardware-configuration.nix
     ../presets/common.nix
