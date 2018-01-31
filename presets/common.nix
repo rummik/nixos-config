@@ -11,10 +11,12 @@
   ];
 
   services.gpm.enable = true;
+  services.miredo.enable = true;
 
   time.timeZone = "America/New_York";
 
   programs.tmux.theme.primaryColor = "green";
+  networking.firewall.enable = true;
 
   services.xserver = {
     layout = "us";

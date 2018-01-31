@@ -35,8 +35,6 @@
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
 
-  networking.firewall.enable = false;
-
   services.avahi.enable = true;
   services.geoclue2.enable = true;
   services.printing.enable = true;
