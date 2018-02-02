@@ -8,12 +8,15 @@ let
   ];
 in
   {
+    imports = [ ../options/loginctl-enable-linger.nix ];
+
     users.defaultUserShell = pkgs.zsh;
 
     users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
     users.extraUsers.rummik = {
       isNormalUser = true;
+      linger = true;
       uid = 1000;
       # Dialout for accessing ttyACM*
       extraGroups = [ "wheel" "video" "audio" "networkmanager" "dialout" ];
