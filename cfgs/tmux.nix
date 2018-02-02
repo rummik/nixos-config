@@ -33,6 +33,10 @@
       bind-key -r 'j' select-pane -D
       bind-key -r 'k' select-pane -U
       bind-key -r 'l' select-pane -R
+
+      # status line
+      set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
+      set -g status-left '#H  '
     '';
   };
 }
