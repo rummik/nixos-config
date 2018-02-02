@@ -13,6 +13,6 @@
 
 
   networking.hostName = "charm";
-  filesystems."/".options = [ "defaults" "acl" ];
+  fileSystems."/".options = [ "defaults" "acl" ];
   programs.tmux.theme.secondaryColor = "magenta";
 }
