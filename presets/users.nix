@@ -8,11 +8,20 @@ let
   ];
 in
   {
-    imports = [ ../options/loginctl-enable-linger.nix ];
+    imports = [
+      ../cfgs/home-manager.nix
+      ../options/loginctl-enable-linger.nix
+    ];
 
     users.defaultUserShell = pkgs.zsh;
 
     users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
+
+    home-manager.users.root = { ... }: {
+      imports = [
+        ../cfgs/home/git.nix
+      ];
+    };
 
     users.extraUsers.rummik = {
       isNormalUser = true;
@@ -24,5 +33,11 @@ in
       initialPassword = "correct horse battery staple";
       useDefaultShell = true;
       openssh.authorizedKeys.keys = authorizedKeys;
+    };
+
+    home-manager.users.rummik = { ... }: {
+      imports = [
+        ../cfgs/home/git.nix
+      ];
     };
   }
