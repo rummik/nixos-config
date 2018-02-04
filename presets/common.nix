@@ -16,7 +16,7 @@
   time.timeZone = "America/New_York";
 
   programs.tmux.theme.primaryColor = "green";
-  networking.firewall.enable = true;
+  networking.firewall.enable = false;
 
   services.xserver = {
     layout = "us";

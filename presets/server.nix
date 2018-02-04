@@ -2,6 +2,8 @@
 
 {
   boot.cleanTmpDir = true;
+
+  networking.firewall.enable = false;
   networking.firewall.allowPing = true;
 
   programs.tmux.shortcut = "s";
