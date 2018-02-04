@@ -66,48 +66,6 @@ in
           ''if [[ $USER != 'root' ]]; then''
         };
 
-        source ${pkg}/share/nvm/nvm.sh
-
-        ${optionalString (cfg.buildFromSource) ''
-          export NVM_SOURCE_INSTALL=1
-          export npm_config_build_from_source=true
-        ''}
-
-        ${optionalString (cfg.enableCompletion) "source ${pkg}/share/nvm/bash_completion"}
-
-        ${optionalString (cfg.autoUse) ''
-          export NVM_AUTO_USE=true
-
-          autoload -U add-zsh-hook
-
-          load-nvmrc() {
-            local node_version="$(nvm version)"
-            local nvmrc_path="$(nvm_find_nvmrc)"
-          
-            if [[ -n "$nvmrc_path" ]]; then
-              local nvmrc_node_version=$(nvm version "$(cat "$nvmrc_path")")
-          
-              if [[ "$nvmrc_node_version" = "N/A" ]]; then
-                nvm install
-              elif [[ "$nvmrc_node_version" != "$node_version" ]]; then
-                nvm use
-              fi
-            elif [[ "$node_version" != "$(nvm version default)" ]]; then
-              echo "Reverting to nvm default version"
-              nvm use default
-            fi
-          }
-
-          add-zsh-hook chpwd load-nvmrc
-          load-nvmrc
-        ''}
-
-        ${optionalString (cfg.force32Bit) ''
-          nvm_get_arch() { nvm_echo "x86" }
-          export npm_config_arch=ia32
-          export npm_config_target_arch=ia32
-        ''}
-
         NNW_LD_LIBRARY_PATH=(
           ${pkgs.glibc}/lib
           ${pkgs.gcc-unwrapped}/lib
@@ -159,6 +117,11 @@ in
           -I${pkgs.sqlite.dev}/include
           -I${pkgs.sqlcipher}/include
         )
+
+        LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
+        CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
+        LD_LIBRARY_PATH=''${(j/:/)NNW_LD_LIBRARY_PATH} \
+          source ${pkg}/share/nvm/nvm.sh
 
         # this is quite gross
         function _nnw-wrap {
@@ -226,6 +189,51 @@ in
 
         autoload -Uz add-zsh-hook
         add-zsh-hook preexec _nnw-auto-wrap
+
+        ${optionalString (cfg.enableCompletion) "source ${pkg}/share/nvm/bash_completion"}
+
+        ${optionalString (cfg.buildFromSource) ''
+          export NVM_SOURCE_INSTALL=1
+          export npm_config_build_from_source=true
+        ''}
+
+        ${optionalString (!cfg.buildFromSource) ''
+          export NVM_SOURCE_INSTALL=0
+          export npm_config_build_from_source=false
+        ''}
+
+        ${optionalString (cfg.force32Bit) ''
+          nvm_get_arch() { nvm_echo "x86" }
+          export npm_config_arch=ia32
+          export npm_config_target_arch=ia32
+        ''}
+
+        ${optionalString (cfg.autoUse) ''
+          export NVM_AUTO_USE=true
+
+          autoload -U add-zsh-hook
+
+          load-nvmrc() {
+            local node_version="$(nvm version)"
+            local nvmrc_path="$(nvm_find_nvmrc)"
+
+            if [[ -n "$nvmrc_path" ]]; then
+              local nvmrc_node_version=$(nvm version "$(cat "$nvmrc_path")")
+
+              if [[ "$nvmrc_node_version" = "N/A" ]]; then
+                nvm install
+              elif [[ "$nvmrc_node_version" != "$node_version" ]]; then
+                nvm use
+              fi
+            elif [[ "$node_version" != "$(nvm version default)" ]]; then
+              echo "Reverting to nvm default version"
+              nvm use default
+            fi
+          }
+
+          add-zsh-hook chpwd load-nvmrc
+          load-nvmrc
+        ''}
 
         ${optionalString (!cfg.enableForRoot)
           ''fi''

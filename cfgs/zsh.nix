@@ -11,7 +11,8 @@
 
     nvm = {
       enable = true;
-      autoUse = true;
+      autoUse = false;
+      buildFromSource = false;
     };
 
     zplug = {
@@ -46,5 +47,19 @@
       bindkey -M vicmd 'k' up-line-or-beginning-search
       bindkey -M vicmd 'j' down-line-or-beginning-search
     '';
+  };
+
+  fileSystems."lib" = {
+    options = [ "bind" ];
+    fsType = "bind";
+    device = pkgs.glibc + "/lib";
+    mountPoint = "/lib";
+  };
+
+  fileSystems."lib64" = {
+    options = [ "bind" ];
+    fsType = "bind";
+    device = pkgs.glibc + "/lib64";
+    mountPoint = "/lib64";
   };
 }
