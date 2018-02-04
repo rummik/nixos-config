@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = [ pkgs.chromium ];
+  environment.systemPackages = with pkgs; [ chromium ];
 
   nixpkgs.config.chromium.enablePepperFlash = true;
 
@@ -9,10 +9,20 @@
     BROWSER = pkgs.lib.mkOverride 0 "chromium";
   };
 
-  programs.chromium.extensions = [
-    "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
-    "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
-    "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere
-    "klbibkeccnjlkjkiokjodocebajanakg" # The Great Suspender
-  ];
+  programs.chromium = {
+    enable = true;
+
+    extensions = [
+      "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
+      "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium
+      "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere
+      "klbibkeccnjlkjkiokjodocebajanakg" # The Great Suspender
+    ];
+
+    # Enable Chrome Cast
+    extraOpts = {
+      EnableMediaRouter = true;
+      ShowCastIconInToolbar = true;
+    };
+  };
 }
