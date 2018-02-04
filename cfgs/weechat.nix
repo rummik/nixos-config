@@ -20,7 +20,4 @@
       ];
     });
   };
-
-  environment.etc."weechat.conf".text = ''
-  '';
 } 
