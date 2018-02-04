@@ -1,9 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    weechat
-  ];
+  environment.systemPackages = with pkgs; [ weechat ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     weechat = pkgs.weechat.overrideAttrs (oldAttrs: rec {
