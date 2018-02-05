@@ -10,7 +10,6 @@ in
   {
     imports = [
       ../cfgs/home-manager.nix
-      ../options/loginctl-enable-linger.nix
     ];
 
     users.defaultUserShell = pkgs.zsh;
