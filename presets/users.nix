@@ -8,10 +8,6 @@ let
   ];
 in
   {
-    imports = [
-      ../cfgs/home-manager.nix
-    ];
-
     users.defaultUserShell = pkgs.zsh;
 
     users.users.root.openssh.authorizedKeys.keys = authorizedKeys;

@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ../cfgs/home-manager.nix
     ../cfgs/networkmanager.nix
     ../cfgs/virtualbox.nix
     ../hardware-configuration.nix
