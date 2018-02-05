@@ -1,9 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
     ../cfgs/networkmanager.nix
     ../cfgs/sc-controller.nix
+    ../cfgs/synergy2.nix
     ../cfgs/virtualbox.nix
     ../cfgs/wireshark.nix
     ../hardware-configuration.nix
