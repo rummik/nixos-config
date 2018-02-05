@@ -18,8 +18,8 @@
     KERNEL=="uinput", MODE="0660", GROUP="wheel", OPTIONS+="static_node=uinput"
   '';
 
-  networking.firewall = {
-    allowedTCPPorts = [ 27036 27037 ];
-    allowedUDPPorts = [ 27031 27036 ];
-  };
+#  networking.firewall = {
+#    allowedTCPPorts = [ 27036 27037 ];
+#    allowedUDPPorts = [ 27031 27036 ];
+#  };
 }

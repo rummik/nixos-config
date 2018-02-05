@@ -15,6 +15,11 @@
 
   programs.tmux.theme.secondaryColor = "cyan";
 
+  networking.firewall.trustedInterfaces = [
+    "enp0s25"
+    "wlp2s0"
+  ];
+
   environment.systemPackages = with pkgs; [
     parted
     pv
