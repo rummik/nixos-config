@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -26,5 +26,6 @@
     parted
     pv
     debootstrap
+    (pkgs.callPackage ../pkgs/synergy2/default.nix {})
   ];
 }
