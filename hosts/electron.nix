@@ -13,6 +13,8 @@
 
   networking.hostName = "electron";
 
+  services.miredo.enable = true;
+
   programs.tmux.theme.secondaryColor = "cyan";
 
   networking.firewall.trustedInterfaces = [
