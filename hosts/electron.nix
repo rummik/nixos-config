@@ -6,7 +6,7 @@
     ../cfgs/virtualbox.nix
     ../hardware-configuration.nix
     ../presets/common.nix
-    ../presets/graphical.nix
+    ../presets/workstation.nix
     ../presets/thinkpad.nix
   ];
 
