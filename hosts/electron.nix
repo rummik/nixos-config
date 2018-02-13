@@ -6,8 +6,9 @@
     ../cfgs/virtualbox.nix
     ../hardware-configuration.nix
     ../presets/common.nix
-    ../presets/workstation.nix
+    ../presets/haskell.nix
     ../presets/thinkpad.nix
+    ../presets/workstation.nix
   ];
 
   networking.hostName = "electron";
