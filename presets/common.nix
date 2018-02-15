@@ -18,15 +18,15 @@
 
   networking.firewall.enable = true;
 
-  services.xserver = {
-    layout = "us";
-    xkbOptions = "caps:swapescape,compose:prsc";
-  };
-
   i18n = {
     consoleFont = "Lat2-Terminus16";
     defaultLocale = "en_US.UTF-8";
     consoleUseXkbConfig = true;
+  };
+
+  services.xserver = {
+    layout = "us";
+    xkbOptions = "caps:swapescape,compose:prsc";
   };
 
   environment.systemPackages = with pkgs; [
@@ -43,8 +43,6 @@
     gitAndTools.git-hub
     gitAndTools.hub
     gitAndTools.git-fame
-
-    lsscsi
   ];
 
   nixpkgs.config.allowUnfree = true;
