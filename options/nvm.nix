@@ -44,6 +44,34 @@ in
           '';
         };
 
+        additionalLDLibraries = mkOption {
+          default = "";
+          description = ''
+            Additional LD libraries to be included as part of LD_LIBRARY_PATH
+          '';
+        };
+
+        additionalLDFlags = mkOption {
+          default = "";
+          description = ''
+            Additional LD flags to be included as part of LDFLAGS
+          '';
+        };
+
+        additionalCPPFlags = mkOption {
+          default = "";
+          description = ''
+            Additional CPP flags to be included as part of CPPFLAGS
+          '';
+        };
+
+        additionalPath = mkOption {
+          default = "";
+          description = ''
+            Additional paths to be included as part of PATH
+          '';
+        };
+
         force32Bit = mkOption {
           default = false;
           description = ''
@@ -98,24 +126,27 @@ in
           ${pkgs.alsaLib}/lib
           ${pkgs.cups.lib}/lib
           ${pkgs.expat}/lib
-          ${pkgs.libudev.lib}/lib
           ${pkgs.zlib}/lib
-          ${pkgs.sqlcipher}/lib
-          ${pkgs.sqlite.dev}/lib
+
+          ${cfg.additionalLDLibraries}
         )
 
         NNW_LDFLAGS=(
           -L${pkgs.glibc}/lib
-          -L${pkgs.libudev.lib}/lib
-          -L${pkgs.sqlite}/lib
-          -L${pkgs.sqlcipher}/lib
+
+          ${cfg.additionalLDFlags}
         )
 
         NNW_CPPFLAGS=(
           -I${pkgs.glibc.dev}/include
-          -I${pkgs.libudev.dev}/include
-          -I${pkgs.sqlite.dev}/include
-          -I${pkgs.sqlcipher}/include
+
+          ${cfg.additionalCPPFlags}
+        )
+
+        NNW_PATH=(
+          ${pkgs.gnumake}/bin
+          ${pkgs.python}/bin
+          ${cfg.additionalPath}
         )
 
         LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
@@ -144,6 +175,11 @@ in
             $LD_LIBRARY_PATH
           )
 
+          local NNWP=(
+            $NNW_PATH
+            $PATH
+          )
+
           if [[ $nnw_set_prefix -eq 1 ]]; then
             local nnw_set_prefix=0
 
@@ -154,22 +190,32 @@ in
 
             npm_config_prefix=$npm_config_prefix _nnw-exec $@
           else
-            local env 
+            local env
+            local nnw_set_path=''${nnw_set_path:-1}
 
             if [[ $1 == 'command' ]]; then
               shift
               env=env
             fi
 
-            LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
-            CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
-            LD_LIBRARY_PATH=''${(j/:/)LLP} \
-              $env $@
+            if [[ $nnw_set_path -eq 0 ]]; then
+              LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
+              CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
+              LD_LIBRARY_PATH=''${(j/:/)LLP} \
+                $env $@
+            else
+              PATH=''${(j/:/)NNWP} \
+              LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
+              CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
+              LD_LIBRARY_PATH=''${(j/:/)LLP} \
+                $env $@
+            fi
           fi
         }
 
         if functions nvm >/dev/null; then
           _nnw-wrap nvm $'
+            local nnw_set_path=0
             local npm_config_prefix
             if [[ $1 == "use" ]]; then
               npm_config_prefix=$(nvm_version_path $(nvm_match_version $2))

@@ -8,6 +8,7 @@
     ../presets/common.nix
     ../presets/haskell.nix
     ../presets/thinkpad.nix
+    ../presets/work.nix
     ../presets/workstation.nix
   ];
 
@@ -24,7 +25,5 @@
 
   environment.systemPackages = with pkgs; [
     parted
-    pv
-    debootstrap
   ];
 }
