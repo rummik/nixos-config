@@ -35,6 +35,13 @@
   hardware.bluetooth.enable = true;
   hardware.pulseaudio.enable = true;
 
+  fonts.fonts = with pkgs; [
+    fira
+    fira-mono
+    fira-code
+    emojione
+  ];
+
   services.avahi.enable = true;
   services.geoclue2.enable = true;
   services.printing.enable = true;
