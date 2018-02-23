@@ -23,7 +23,7 @@ in
       linger = true;
       uid = 1000;
       # Dialout for accessing ttyACM*
-      extraGroups = [ "wheel" "video" "audio" "networkmanager" "dialout" ];
+      extraGroups = [ "wheel" "video" "audio" "networkmanager" "dialout" "vboxusers" ];
       createHome = true;
       initialPassword = "correct horse battery staple";
       useDefaultShell = true;
