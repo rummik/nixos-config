@@ -14,7 +14,8 @@
     usbutils
     sqliteman
     libusb
-    #python
+    zip
+    unzip
   ];
 
   programs.zsh.nvm.additionalLDLibraries = ''
