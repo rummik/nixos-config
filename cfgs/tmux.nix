@@ -13,6 +13,8 @@
     customPaneNavigationAndResize = true;
     escapeTime = 0;
 
+    theme.primaryColor = "green";
+
     extraTmuxConf = ''
       # enable mouse support
       set-option -g mouse on

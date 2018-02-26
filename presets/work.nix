@@ -12,7 +12,6 @@
     debootstrap
     fakechroot
     usbutils
-    sqliteman
     libusb
     zip
     unzip

@@ -14,8 +14,6 @@
 
   time.timeZone = "America/New_York";
 
-  programs.tmux.theme.primaryColor = "green";
-
   networking.firewall.enable = true;
 
   i18n = {
@@ -30,16 +28,20 @@
   };
 
   environment.systemPackages = with pkgs; [
-    git
-    curl
-    wget
-    mosh
-    htop
-    telnet
     ack
+    curl
+    file
+    htop
+    mosh
     nmap
     pv
+    telnet
+    w3m
+    wget
+    whois
+    youtube-dl
 
+    git
     gitAndTools.git-hub
     gitAndTools.hub
     gitAndTools.git-fame

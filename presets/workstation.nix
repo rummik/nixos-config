@@ -6,51 +6,17 @@
     ../cfgs/keybase.nix
     ../cfgs/networkmanager.nix
     ../cfgs/steam.nix
+    ../cfgs/plasma5.nix
   ];
 
   environment.systemPackages = with pkgs; [
     vlc
-    youtube-dl
     electrum
-
-    redshift-plasma-applet
-
-    partition-manager
-    filelight
-
+    sqlite
+    speedtest-cli
+    xclip
     mycli
-
-    kdeconnect
-
-    kdeApplications.kdenlive
-    frei0r
-    ffmpeg
-    gifsicle
-
-    kdeFrameworks.kdesu
-
-    p7zip
   ];
-
-  hardware.bluetooth.enable = true;
-  hardware.pulseaudio.enable = true;
-
-  fonts.fonts = with pkgs; [
-    fira
-    fira-mono
-    fira-code
-    emojione
-  ];
-
-  services.avahi.enable = true;
-  services.geoclue2.enable = true;
-  services.printing.enable = true;
-
-  services.xserver = {
-    enable = true;
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-  };
 
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_interface", \
