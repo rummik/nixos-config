@@ -3,9 +3,7 @@
 {
   environment.systemPackages = [ pkgs.neovim ];
 
-  environment.shellAliases = {
-    vi = "vim";
-  };
+  environment.shellAliases.vi = "vim";
 
   environment.variables = {
     EDITOR = pkgs.lib.mkOverride 0 "vim";
