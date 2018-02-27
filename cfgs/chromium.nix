@@ -3,7 +3,10 @@
 {
   environment.systemPackages = with pkgs; [ chromium ];
 
-  nixpkgs.config.chromium.enablePepperFlash = true;
+  nixpkgs.config.chromium = {
+    enablePepperFlash = true; # Needed for Hulu
+    #enableWideVine = true; # Needed for Netflix
+  };
 
   environment.variables = {
     BROWSER = pkgs.lib.mkOverride 0 "chromium";
