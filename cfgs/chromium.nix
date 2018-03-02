@@ -12,17 +12,17 @@
     BROWSER = pkgs.lib.mkOverride 0 "chromium";
   };
 
-#  networking.firewall.allowedUDPPortRanges = [
-#    { from = 32768; to = 61000; }
-#  ];
-#
-#  networking.firewall.allowedTCPPortRanges = [
-#    { from = 8008; to = 8009; }
-#  ];
-#
-#  networking.firewall.allowedUDPPorts = [
-#    1900
-#  ];
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 32768; to = 61000; }
+  ];
+
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 8008; to = 8009; }
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    1900
+  ];
 
   programs.chromium = {
     enable = true;
