@@ -4,8 +4,8 @@
   environment.systemPackages = with pkgs; [ chromium ];
 
   nixpkgs.config.chromium = {
-    enablePepperFlash = true; # Needed for Hulu
-    #enableWideVine = true; # Needed for Netflix
+    enablePepperFlash = true; # Because apparently it's not completely dead...
+    #enableWideVine = true; # DRM nonsense
   };
 
   environment.variables = {
