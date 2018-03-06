@@ -99,6 +99,7 @@
                   editorconfig-vim
                   vim-markdown
                   vim-javascript
+                  typescript-vim
                 ];
 
                 opt = [ ];
