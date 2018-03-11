@@ -15,6 +15,7 @@
 
       buildInputs = with pkgs; oldAttrs.buildInputs ++ [
         python27Packages.websocket_client
+        python27Packages.dbus-python
       ];
     });
   };
