@@ -4,6 +4,7 @@
   imports = [
     ../cfgs/networkmanager.nix
     ../cfgs/virtualbox.nix
+    ../cfgs/wireshark.nix
     ../hardware-configuration.nix
     ../presets/common.nix
     ../presets/haskell.nix
