@@ -39,6 +39,10 @@
       # status line
       set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
       set -g status-left '#H  '
+
+      # Pane resize options
+      set -g main-pane-width 125
+      set -g main-pane-height 45
     '';
   };
 }
