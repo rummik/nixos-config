@@ -5,12 +5,12 @@
 
   nixpkgs.config.packageOverrides = pkgs: {
     weechat = pkgs.weechat.overrideAttrs (oldAttrs: rec {
-      version = "2.0.1";
+      version = "2.1";
       name = "weechat-${version}";
 
       src = pkgs.fetchurl {
         url = "http://weechat.org/files/src/weechat-${version}.tar.bz2";
-        sha256 = "0jvvlyz1hnf8kqargvvq253vh6vispqq0hsm203agclwzil34ps2";
+        sha256 = "0fq68wgynv2c3319gmzi0lz4ln4yrrk755y5mbrlr7fc1sx7ffd8";
       };
 
       buildInputs = with pkgs; oldAttrs.buildInputs ++ [
