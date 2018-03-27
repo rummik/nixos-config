@@ -15,6 +15,7 @@
     libusb
     zip
     unzip
+    archivemount
   ];
 
   programs.zsh.nvm.additionalLDLibraries = ''
