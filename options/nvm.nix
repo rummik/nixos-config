@@ -82,12 +82,6 @@ in
     };
 
     config = mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        pkg
-        python
-        gnumake
-        gcc
-      ];
 
       programs.zsh.interactiveShellInit = with builtins; ''
         ${optionalString (!cfg.enableForRoot)
@@ -144,8 +138,10 @@ in
         )
 
         NNW_PATH=(
+          ${pkgs.gcc}/bin
           ${pkgs.gnumake}/bin
           ${pkgs.python}/bin
+          ${pkgs.binutils-unwrapped}/bin
           ${cfg.additionalPath}
         )
 
