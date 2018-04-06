@@ -40,6 +40,7 @@
     wget
     whois
     youtube-dl
+    nix-prefetch-git
 
     git
     gitAndTools.git-hub

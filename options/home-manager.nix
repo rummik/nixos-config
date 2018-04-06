@@ -5,6 +5,9 @@ let
 in
   {
     imports = [
-      (import (builtins.fetchTarball "https://github.com/rycee/home-manager/archive/${ref}.tar.gz") {}).nixos
+      (import (builtins.fetchTarball {
+        url = "https://github.com/rycee/home-manager/archive/${ref}.tar.gz";
+        sha256 = "12hsk3bbpvycwzhh59xj10rynz2gicpilh6m7llknl70r2hykn4w";
+      }) {}).nixos
     ];
   }
