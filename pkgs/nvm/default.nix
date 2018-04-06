@@ -7,6 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     url = "https://github.com/creationix/nvm";
     rev = "v${version}";
+    sha256 = "0q6ikpk98a7y6jkj7zvi1nc2drp93lnfqq0p0974y5hz8yh9s9mf";
   };
 
   phases = "installPhase";
