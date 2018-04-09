@@ -15,7 +15,7 @@ let
   makeIncludePath = drvs:
     makeSearchPathOutput "include" "include" (chooseDevOutputs drvs);
 
-  mkMultiarch = fn: (fn pkgs) ++ (fn pkgsi686Linux);
+  mkMultiarch = fn: (fn pkgsi686Linux) ++ (fn pkgs);
 
   makeLibraryFlags = pkgsIn: makePathFlags "-L" (makeLibraryPath pkgsIn);
 
@@ -36,6 +36,7 @@ in
 
     ldLibraryPathPkgs = extraLDPathPkgs ++ mkMultiarch (ps: with ps; [
       glibc
+      gcc6
       gcc-unwrapped
 
       gtk2-x11
@@ -77,7 +78,7 @@ in
     ]);
 
     pathPkgs = extraPathPkgs ++ mkMultiarch (ps: with ps; [
-      gcc
+      gcc6
       gnumake
       python
       binutils-unwrapped

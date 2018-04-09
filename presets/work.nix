@@ -1,11 +1,11 @@
 { pkgs, ... } :
 
 let
-  mkMultiarch = fn: (fn pkgs) ++ (fn pkgs.pkgsi686Linux);
+  mkMultiarch = fn: (fn pkgs.pkgsi686Linux) ++ (fn pkgs);
   nvmPackages = mkMultiarch (ps: with ps; [
     ps.libudev
-    ps.sqlcipher
     ps.sqlite
+    ps.sqlcipher
   ]);
 in
   {
@@ -36,6 +36,7 @@ in
         extraCPPFlagsPkgs = nvmPackages;
 
         extraPathPkgs = mkMultiarch (ps: with ps; [
+          ps.sqlite
           ps.sqlcipher
         ]);
       };
