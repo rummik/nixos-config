@@ -4,7 +4,6 @@ with lib;
 
 let
   cfg = config.programs.zsh.nvm;
-  pkg = (import ../pkgs/nvm/default.nix);
 in
   {
     options = {
@@ -44,111 +43,45 @@ in
           '';
         };
 
-        additionalLDLibraries = mkOption {
-          default = "";
-          description = ''
-            Additional LD libraries to be included as part of LD_LIBRARY_PATH
-          '';
-        };
-
-        additionalLDFlags = mkOption {
-          default = "";
-          description = ''
-            Additional LD flags to be included as part of LDFLAGS
-          '';
-        };
-
-        additionalCPPFlags = mkOption {
-          default = "";
-          description = ''
-            Additional CPP flags to be included as part of CPPFLAGS
-          '';
-        };
-
-        additionalPath = mkOption {
-          default = "";
-          description = ''
-            Additional paths to be included as part of PATH
-          '';
-        };
-
         force32Bit = mkOption {
           default = false;
           description = ''
             Use 32-bit Node.js on a 64-bit system.
           '';
         };
+
+				package = mkOption {
+					default = (pkgs.callPackage ../pkgs/nvm/default.nix { });
+				};
       };
     };
 
     config = mkIf cfg.enable {
+      fileSystems."lib" = {
+        options = [ "bind" ];
+        fsType = "bind";
+        device = pkgs.pkgsi686Linux.glibc + "/lib";
+        mountPoint = "/lib";
+      };
+
+      fileSystems."lib64" = {
+        options = [ "bind" ];
+        fsType = "bind";
+        device = pkgs.glibc + "/lib64";
+        mountPoint = "/lib64";
+      };
 
       programs.zsh.interactiveShellInit = with builtins; ''
         ${optionalString (!cfg.enableForRoot)
           ''if [[ $USER != 'root' ]]; then''
         };
 
-        NNW_LD_LIBRARY_PATH=(
-          ${pkgs.glibc}/lib
-          ${pkgs.gcc-unwrapped}/lib
-          ${pkgs.gcc-unwrapped.lib}/lib
+        source ${cfg.package}/share/nvm/env.sh
 
-          ${pkgs.gtk2-x11}/lib
-          ${pkgs.atk}/lib
-          ${pkgs.glib}/lib
-          ${pkgs.pango.out}/lib
-          ${pkgs.gdk_pixbuf}/lib
-          ${pkgs.cairo}/lib
-          ${pkgs.freetype}/lib
-          ${pkgs.fontconfig.lib}/lib
-          ${pkgs.dbus.lib}/lib
-          ${pkgs.xorg.libXi}/lib
-          ${pkgs.xorg.libX11}/lib
-          ${pkgs.xorg.libXcursor}/lib
-          ${pkgs.xorg.libXdamage}/lib
-          ${pkgs.xorg.libXrandr}/lib
-          ${pkgs.xorg.libXcomposite}/lib
-          ${pkgs.xorg.libXext}/lib
-          ${pkgs.xorg.libXfixes}/lib
-          ${pkgs.xorg.libXrender}/lib
-          ${pkgs.xorg.libXtst}/lib
-          ${pkgs.xorg.libXScrnSaver}/lib
-          ${pkgs.xorg.libxcb}/lib
-          ${pkgs.gnome2.GConf}/lib
-          ${pkgs.nss}/lib
-          ${pkgs.nspr}/lib
-          ${pkgs.alsaLib}/lib
-          ${pkgs.cups.lib}/lib
-          ${pkgs.expat}/lib
-          ${pkgs.zlib}/lib
-
-          ${cfg.additionalLDLibraries}
-        )
-
-        NNW_LDFLAGS=(
-          -L${pkgs.glibc}/lib
-
-          ${cfg.additionalLDFlags}
-        )
-
-        NNW_CPPFLAGS=(
-          -I${pkgs.glibc.dev}/include
-
-          ${cfg.additionalCPPFlags}
-        )
-
-        NNW_PATH=(
-          ${pkgs.gcc}/bin
-          ${pkgs.gnumake}/bin
-          ${pkgs.python}/bin
-          ${pkgs.binutils-unwrapped}/bin
-          ${cfg.additionalPath}
-        )
-
-        LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
-        CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
-        LD_LIBRARY_PATH=''${(j/:/)NNW_LD_LIBRARY_PATH} \
-          source ${pkg}/share/nvm/nvm.sh
+        LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
+        CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
+        LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVM_LD_LIBRARY_PATH \
+          source ${cfg.package}/share/nvm/nvm.sh
 
         # this is quite gross
         function _nnw-wrap {
@@ -166,16 +99,6 @@ in
         }
 
         function _nnw-exec {
-          local LLP=(
-            $NNW_LD_LIBRARY_PATH
-            $LD_LIBRARY_PATH
-          )
-
-          local NNWP=(
-            $NNW_PATH
-            $PATH
-          )
-
           if [[ $nnw_set_prefix -eq 1 ]]; then
             local nnw_set_prefix=0
 
@@ -195,15 +118,15 @@ in
             fi
 
             if [[ $nnw_set_path -eq 0 ]]; then
-              LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
-              CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
-              LD_LIBRARY_PATH=''${(j/:/)LLP} \
+              LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
+              CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
+              LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVM_LD_LIBRARY_PATH \
                 $env $@
             else
-              PATH=''${(j/:/)NNWP} \
-              LDFLAGS="$LDFLAGS ''${(j: :)NNW_LDFLAGS}" \
-              CPPFLAGS="$CPPFLAGS ''${(j: :)NNW_CPPFLAGS}" \
-              LD_LIBRARY_PATH=''${(j/:/)LLP} \
+              LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
+              CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
+              LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVM_LD_LIBRARY_PATH \
+              PATH=$PATH:$NVM_PATH \
                 $env $@
             fi
           fi
@@ -232,7 +155,7 @@ in
         autoload -Uz add-zsh-hook
         add-zsh-hook preexec _nnw-auto-wrap
 
-        ${optionalString (cfg.enableCompletion) "source ${pkg}/share/nvm/bash_completion"}
+        ${optionalString (cfg.enableCompletion) "source ${cfg.package}/share/nvm/bash_completion"}
 
         ${optionalString (cfg.buildFromSource) ''
           export NVM_SOURCE_INSTALL=1

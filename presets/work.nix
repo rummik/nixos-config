@@ -1,41 +1,42 @@
 { pkgs, ... } :
 
-{
-  imports = [
-    ../options/nvm.nix
-  ];
+let
+  mkMultiarch = fn: (fn pkgs) ++ (fn pkgs.pkgsi686Linux);
+  nvmPackages = mkMultiarch (ps: with ps; [
+    ps.libudev
+    ps.sqlcipher
+    ps.sqlite
+  ]);
+in
+  {
+    imports = [
+      ../options/nvm.nix
+    ];
 
-  environment.systemPackages = with pkgs; [
-    git
-    pv
-    lsscsi
-    debootstrap
-    fakechroot
-    usbutils
-    libusb
-    zip
-    unzip
-    archivemount
-  ];
+    environment.systemPackages = with pkgs; [
+      git
+      pv
+      lsscsi
+      debootstrap
+      fakechroot
+      usbutils
+      libusb
+      zip
+      unzip
+      archivemount
+    ];
+    
 
-  programs.zsh.nvm.additionalLDLibraries = ''
-    ${pkgs.libudev.lib}/lib
-    ${pkgs.sqlcipher}/lib
-    ${pkgs.sqlite.dev}/lib
-  '';
+    programs.zsh.nvm.force32Bit = true;
 
-  programs.zsh.nvm.additionalLDFlags = ''
-    -L${pkgs.libudev.lib}/lib
-    -L${pkgs.sqlite}/lib
-    -L${pkgs.sqlcipher}/lib
-  '';
+    programs.zsh.nvm.package =
+      (pkgs.callPackage ../pkgs/nvm/default.nix { }).override {
+        extraLDPathPkgs = nvmPackages;
+        extraLDFlagsPkgs = nvmPackages;
+        extraCPPFlagsPkgs = nvmPackages;
 
-  programs.zsh.nvm.additionalCPPFlags = ''
-    -I${pkgs.libudev.dev}/include
-    -I${pkgs.sqlite.dev}/include
-    -I${pkgs.sqlcipher}/include
-  '';
-
-  programs.zsh.nvm.additionalPath = ''
-  '';
-}
+        extraPathPkgs = mkMultiarch (ps: with ps; [
+          ps.sqlcipher
+        ]);
+      };
+  }
