@@ -13,6 +13,8 @@
     ark
     p7zip
 
+    kdeApplications.kdialog
+
     kdeApplications.kdenlive
     ffmpeg
     frei0r
