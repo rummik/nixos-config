@@ -1,4 +1,4 @@
-with import <nixpkgs> {};
+{ stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   version = "2.4.1";

@@ -4,7 +4,7 @@ with lib;
 
 let
   cfg = config.programs.zsh.zplug;
-  pkg = (import ../pkgs/zplug/default.nix);
+  pkg = (pkgs.callPackage ../pkgs/zplug/default.nix { });
 in
   {
     options = {
