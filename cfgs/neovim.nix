@@ -75,35 +75,22 @@
             let g:javascript_plugin_flow = 1
           '';
 
-          packages.myVimPackage =
-            let 
-              customPlugins.vim-javascript = pkgs.vimUtils.buildVimPlugin {
-                name = "vim-javascript";
+          packages.myVimPackage = with pkgs.vimPlugins; {
+            start = [
+              vim-nix
+              vundle
+              ctrlp
+              multiple-cursors
+              vim-closetag
+              syntastic
+              editorconfig-vim
+              vim-markdown
+              vim-javascript
+              typescript-vim
+            ];
 
-                src = pkgs.fetchFromGitHub {
-                  owner = "pangloss";
-                  repo = "vim-javascript";
-                  rev = "7c73d8e1f9ce020ee8ea2ab0af60e9f8fef6c90d";
-                  sha256 = "1z7f25084frhildj1lla7445sc9na7vavm2dsbzq0lqkgmbqmbpw";
-                };
-              };
-            in
-              with pkgs.vimPlugins // customPlugins; {
-                start = [
-                  vim-nix
-                  vundle
-                  ctrlp
-                  multiple-cursors
-                  vim-closetag
-                  syntastic
-                  editorconfig-vim
-                  vim-markdown
-                  vim-javascript
-                  typescript-vim
-                ];
-
-                opt = [ ];
-              };      
+            opt = [ ];
+          };
         };
       };
     };
