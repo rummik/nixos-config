@@ -2,11 +2,11 @@
 
 {
   imports = [
+    ./plasma5.nix
     ../cfgs/chromium.nix
     ../cfgs/google-play-music-desktop-player.nix
     ../cfgs/keybase.nix
     ../cfgs/networkmanager.nix
-    ../cfgs/plasma5.nix
     ../cfgs/steam.nix
   ];
 
