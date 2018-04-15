@@ -11,25 +11,19 @@ in
       programs.zsh.zplug = {
         enable = mkOption {
           default = false;
-          description = ''
-            Enable zplug.
-          '';
+          description = "Enable zplug.";
         };
 
         theme = mkOption {
-	  type = types.str;
+          type = types.str;
           default = "";
-          description = ''
-            Repository of ZSH theme to use.
-          '';
+          description = "Repository of ZSH theme to use.";
         };
 
         plugins = mkOption {
           type = types.listOf(types.str);
           default = [];
-          description = ''
-            List of plugins to load.
-          '';
+          description = "List of plugins to load.";
           example = [
             "'lib/completion', from:oh-my-zsh"
             "'zsh-users/zsh-syntax-highlighting', defer:2"
