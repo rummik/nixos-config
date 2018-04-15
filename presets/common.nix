@@ -50,5 +50,5 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "17.09";
+  system.stateVersion = "18.03";
 }
