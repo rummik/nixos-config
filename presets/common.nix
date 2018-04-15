@@ -41,6 +41,7 @@
     whois
     youtube-dl
     nix-prefetch-git
+    gnupg
 
     git
     gitAndTools.git-hub
