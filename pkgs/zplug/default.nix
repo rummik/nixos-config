@@ -1,13 +1,13 @@
 { stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
-  version = "2.4.1";
+  version = "2.4.2";
   name = "zplug-${version}";
 
   src = fetchgit {
     url = "https://github.com/zplug/zplug";
     rev = "${version}";
-    sha256 = "034acnppfnfa9n72hzzlf83b0xgqp8f6070jr0pj6kkby6154p3q";
+    sha256 = "0hci1pbs3k5icwfyfw5pzcgigbh9vavprxxvakg1xm19n8zb61b3";
   };
 
   phases = "installPhase";
