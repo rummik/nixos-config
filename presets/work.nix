@@ -25,7 +25,8 @@ in
       unzip
       archivemount
     ];
-    
+
+    virtualisation.docker.enable = true;
 
     programs.zsh.nvm.force32Bit = true;
 
