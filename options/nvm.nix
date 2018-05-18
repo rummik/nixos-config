@@ -81,6 +81,7 @@ in
         LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
         CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
         LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVM_LD_LIBRARY_PATH \
+        PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$NVM_PKG_CONFIG_PATH \
           source ${cfg.package}/share/nvm/nvm.sh
 
         # this is quite gross
@@ -121,11 +122,13 @@ in
               LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
               CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
               LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVM_LD_LIBRARY_PATH \
+              PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$NVM_PKG_CONFIG_PATH \
                 $env $@
             else
               LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
               CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
               LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NVM_LD_LIBRARY_PATH \
+              PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$NVM_PKG_CONFIG_PATH \
               PATH=$PATH:$NVM_PATH \
                 $env $@
             fi

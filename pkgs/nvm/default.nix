@@ -2,7 +2,8 @@
   extraLDPathPkgs ? [],
   extraLDFlagsPkgs ? [],
   extraCPPFlagsPkgs ? [],
-  extraPathPkgs ? []
+  extraPathPkgs ? [],
+  extraPkgConfigPkgs ? []
 }:
 
 let
@@ -14,6 +15,9 @@ let
 
   makeIncludePath = drvs:
     makeSearchPathOutput "include" "include" (chooseDevOutputs drvs);
+
+  makePkgConfigPath = drvs:
+    makeSearchPathOutput "lib/pkgconfig" "lib/pkgconfig" (chooseDevOutputs drvs);
 
   mkMultiarch = fn: (fn pkgsi686Linux) ++ (fn pkgs);
 
@@ -84,6 +88,8 @@ in
       binutils-unwrapped
     ]);
 
+    pkgConfigPkgs = extraPkgConfigPkgs;
+
     installPhase = ''
       outdir=$out/share/nvm
     
@@ -98,6 +104,7 @@ in
         NVM_LDFLAGS="${makeLibraryFlags ldFlagsPkgs}"
         NVM_CPPFLAGS="${makeIncludeFlags cppFlagsPkgs}"
         NVM_PATH="${makeBinPath pathPkgs}"
+        NVM_PKG_CONFIG_PATH="${makePkgConfigPath pkgConfigPkgs}"
       EOT
 
       cat $src/nvm.sh - > nvm.sh <<- "EOT"
