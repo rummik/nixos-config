@@ -24,6 +24,8 @@ in
       zip
       unzip
       archivemount
+      sg3_utils
+      (pkgs.callPackage ../pkgs/ddpt/default.nix { })
     ];
 
     virtualisation.docker.enable = true;
