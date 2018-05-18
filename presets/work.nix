@@ -6,6 +6,7 @@ let
     ps.libudev
     ps.sqlite
     ps.sqlcipher
+    ps.dbus
   ]);
 in
   {
@@ -37,6 +38,10 @@ in
         extraLDPathPkgs = nvmPackages;
         extraLDFlagsPkgs = nvmPackages;
         extraCPPFlagsPkgs = nvmPackages;
+
+        extraPkgConfigPkgs = mkMultiarch (ps: with ps; [
+          ps.dbus
+        ]);
 
         extraPathPkgs = mkMultiarch (ps: with ps; [
           ps.sqlite
