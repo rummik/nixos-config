@@ -16,6 +16,8 @@
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", MODE="0666"
     KERNEL=="uinput", MODE="0660", GROUP="wheel", OPTIONS+="static_node=uinput"
+    KERNEL=="hidraw*", ATTRS{idVendor}=="28de", MODE="0666"
+    KERNEL=="hidraw*", KERNELS=="*28DE:*", MODE="0666"
   '';
 
   networking.firewall = {
