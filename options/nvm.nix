@@ -73,7 +73,7 @@ in
 
       programs.zsh.interactiveShellInit = with builtins; ''
         ${optionalString (!cfg.enableForRoot)
-          ''if [[ $USER != 'root' ]]; then''
+          ''if [[ $USER != 'root' || $NVM_ENABLE_ROOT = 'yes' ]]; then''
         };
 
         source ${cfg.package}/share/nvm/env.sh
