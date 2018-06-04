@@ -17,6 +17,7 @@
     speedtest-cli
     xclip
     mycli
+    (pkgs.callPackage ../pkgs/tio/default.nix { })
   ];
 
   services.udev.extraRules = ''
