@@ -17,6 +17,7 @@
     speedtest-cli
     xclip
     mycli
+    kicad
     (pkgs.callPackage ../pkgs/tio/default.nix { })
   ];
 
