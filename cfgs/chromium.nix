@@ -35,6 +35,7 @@
       "dhdgffkkebhmkfjojejmpbldmpobfkfo" # Tampermonkey - https://github.com/Tampermonkey/tampermonkey
       "hhinaapppaileiechjoiifaancjggfjm" # Last.fm scrobbler - https://github.com/web-scrobbler/web-scrobbler
       "mjoedlfflcchnleknnceiplgaeoegien" # Isometric contributions - https://github.com/jasonlong/isometric-contributions
+      "einpaelgookohagofgnnkcfjbkkgepnp" # Random User-Agent - https://github.com/tarampampam/random-user-agent
     ];
 
     # Enable Chrome Cast
