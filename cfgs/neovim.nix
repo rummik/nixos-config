@@ -87,6 +87,7 @@
               vim-markdown
               vim-javascript
               typescript-vim
+              gitgutter
             ];
 
             opt = [ ];
