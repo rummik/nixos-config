@@ -8,6 +8,7 @@
     ../cfgs/keybase.nix
     ../cfgs/networkmanager.nix
     ../cfgs/steam.nix
+    ../cfgs/vagrant.nix
   ];
 
   environment.systemPackages = with pkgs; [
