@@ -19,6 +19,7 @@
     xclip
     mycli
     kicad
+    kubectl
     (pkgs.callPackage ../pkgs/tio/default.nix { })
   ];
 
