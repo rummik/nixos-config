@@ -41,7 +41,7 @@
       set -g status-left '#H  '
 
       # Pane resize options
-      set -g main-pane-width 125
+      set -g main-pane-width 127
       set -g main-pane-height 45
     '';
   };
