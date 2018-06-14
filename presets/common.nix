@@ -44,9 +44,8 @@
     gnupg
 
     git
-    gitAndTools.git-hub
-    gitAndTools.hub
     gitAndTools.git-fame
+    (pkgs.callPackage ../pkgs/git-repo/default.nix { })
   ];
 
   nixpkgs.config.allowUnfree = true;
