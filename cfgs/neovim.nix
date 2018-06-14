@@ -80,7 +80,8 @@
             start = [
               vim-nix
               vundle
-              ctrlp
+              #ctrlp
+              fzf-vim
               multiple-cursors
               vim-closetag
               syntastic
