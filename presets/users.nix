@@ -34,6 +34,7 @@ in
         "vboxusers"
         "wireshark"
         "docker"
+        "adbusers"
       ];
       createHome = true;
       initialPassword = "correct horse battery staple";

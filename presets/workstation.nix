@@ -23,6 +23,8 @@
     (pkgs.callPackage ../pkgs/tio/default.nix { })
   ];
 
+  programs.adb.enable = true;
+
   services.udev.extraRules = ''
     ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_interface", \
       ATTRS{idVendor}=="0403", ATTRS{idProduct}=="a6d0", \
