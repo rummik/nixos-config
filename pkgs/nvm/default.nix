@@ -43,6 +43,7 @@ in
       gcc6
       gcc-unwrapped
 
+      gtk3
       gtk2-x11
       atk
       glib
