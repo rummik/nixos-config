@@ -8,6 +8,7 @@
     ../cfgs/google-play-music-desktop-player.nix
     ../cfgs/keybase.nix
     ../cfgs/networkmanager.nix
+    ../cfgs/rust.nix
     ../cfgs/steam.nix
     ../cfgs/vagrant.nix
   ];
@@ -19,7 +20,7 @@
     speedtest-cli
     xclip
     mycli
-    kicad
+    #kicad
     kubectl
     (pkgs.callPackage ../pkgs/tio/default.nix { })
   ];
