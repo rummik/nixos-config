@@ -17,6 +17,14 @@
 
   programs.tmux.theme.secondaryColor = "cyan";
 
+  networking.firewall.allowedTCPPorts = [
+    3000
+    4000
+    5000
+    9001
+    1337
+  ];
+
   environment.systemPackages = with pkgs; [
     parted
   ];
