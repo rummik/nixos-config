@@ -3,8 +3,8 @@
 
 buildGoPackage rec {
   name = "lab-${version}";
-  version = "v0.11.1";
-  rev = "ada6016bf44436732e8da09887633a3816b5193b";
+  version = "0.11.1";
+  rev = "v${version}";
 
   goPackagePath = "github.com/zaquestion/lab";
 
