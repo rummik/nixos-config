@@ -47,6 +47,7 @@
     gitAndTools.git-hub
     gitAndTools.hub
     gitAndTools.git-fame
+    (pkgs.callPackage ../pkgs/lab/default.nix { })
   ];
 
   nixpkgs.config.allowUnfree = true;

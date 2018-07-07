@@ -23,7 +23,6 @@
     #kicad
     kubectl
     (pkgs.callPackage ../pkgs/tio/default.nix { })
-    (pkgs.callPackage ../pkgs/lab/default.nix { })
   ];
 
   programs.adb.enable = true;
