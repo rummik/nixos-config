@@ -13,6 +13,8 @@
     ark
     p7zip
 
+    latte-dock
+
     kdeApplications.kdialog
 
     kdeApplications.kdenlive

@@ -44,7 +44,11 @@ in
 
     home-manager.users.rummik = { ... }: {
       imports = [
+        ../modules/konsole.nix
+
         ../cfgs/home/git.nix
+        ../cfgs/home/konsole.nix
+        #../cfgs/home/htop.nix
       ];
     };
   }
