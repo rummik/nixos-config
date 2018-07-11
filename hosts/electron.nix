@@ -27,5 +27,6 @@
 
   environment.systemPackages = with pkgs; [
     parted
+    (pkgs.callPackage_i686 ../pkgs/openobd/default.nix { })
   ];
 }
