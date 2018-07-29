@@ -5,6 +5,7 @@
     ../cfgs/networkmanager.nix
     ../cfgs/virtualbox.nix
     ../cfgs/wireshark.nix
+    ../cfgs/sc-controller.nix
     ../hardware-configuration.nix
     ../presets/common.nix
     ../presets/haskell.nix
