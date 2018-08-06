@@ -1,7 +1,7 @@
 { config, pkgs, users, ... }:
 
 let
-  authorizedKeys = ./authorized-keys.nix;
+  authorizedKeys = import ./authorized-keys.nix;
 in
   {
     users.defaultUserShell = pkgs.zsh;
