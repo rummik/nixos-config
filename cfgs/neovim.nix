@@ -3,8 +3,6 @@
 {
   environment.systemPackages = [ pkgs.neovim ];
 
-  environment.shellAliases.vi = "vim";
-
   environment.variables = {
     EDITOR = pkgs.lib.mkOverride 0 "vim";
   };
@@ -13,6 +11,7 @@
     packageOverrides = pkgs: {
       neovim = pkgs.neovim.override {
         vimAlias = true;
+        viAlias = true;
 
         configure = {
           customRC = ''
