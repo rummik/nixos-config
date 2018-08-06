@@ -54,4 +54,5 @@
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "18.09";
+  system.nixosVersion = "18.09";
 }
