@@ -43,7 +43,14 @@
     desktopManager.plasma5.enable = true;
   };
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+
+    extraConfig = "
+      [General]
+      Enable=Source,Sink,Media,Socket
+    ";
+  };
 
   hardware.pulseaudio = {
     enable = true;
