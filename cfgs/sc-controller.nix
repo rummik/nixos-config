@@ -5,18 +5,20 @@
 
   nixpkgs.config.packageOverrides = pkgs: {
     sc-controller = pkgs.sc-controller.overrideAttrs (oldAttrs: rec {
-      version = "0.4.3";
+      version = "0.4.4";
       name = "sc-controller-${version}";
 
       src = pkgs.fetchgit {
         url = "https://github.com/kozec/sc-controller.git";
-        rev = "cbfbe53871b91c82e67e312c73ca097f3a61db3f";
-        sha256 = "0w4ykl78vdppqr3d4d0h1f31wly6kis57a1gxhnrbpfrgpj0qhvj";
+        #rev = "v${version}";
+        rev = "0b00ece043262b4f2e7fe84ab6abc5090f8ddc3c";
+        sha256 = "1804grg0a912c5vvafm73c376higaldjf98kxpxx1lpnyc8s3qv5";
       };
 
       buildInputs = with pkgs;
         oldAttrs.buildInputs ++ [
           libudev
+          bluez
         ];
 
       propagatedBuildInputs = with pkgs; with python27Packages;
@@ -24,12 +26,14 @@
           pyudev
           wheel
           libudev
+          bluez
         ];
 
       patch = [ ./sc-controller.patch ];
 
       LD_LIBRARY_PATH = with pkgs; oldAttrs.LD_LIBRARY_PATH + ":" + lib.makeLibraryPath [
         libudev
+        bluez
       ];
     });
   };
