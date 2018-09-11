@@ -10,7 +10,7 @@
     enable = true;
 
     nvm = {
-      enable = true;
+      enable = false;
       autoUse = false;
       buildFromSource = false;
     };

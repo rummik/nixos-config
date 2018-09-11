@@ -7,6 +7,7 @@
     ../cfgs/firefox.nix
     ../cfgs/keybase.nix
     ../cfgs/networkmanager.nix
+    ../cfgs/nodejs.nix
     ../cfgs/rust.nix
     ../cfgs/steam.nix
     ../cfgs/vagrant.nix
