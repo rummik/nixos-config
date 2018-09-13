@@ -1,10 +1,13 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ chromium ];
+  environment.systemPackages = with pkgs; [
+    chromium
+    plasma-browser-integration
+  ];
 
   nixpkgs.config.chromium = {
-    enablePepperFlash = true; # Because apparently it's not completely dead...
+    #enablePepperFlash = true; # Because apparently it's not completely dead...
     #enableWideVine = true; # DRM nonsense
   };
 
@@ -28,6 +31,9 @@
     enable = true;
 
     extensions = [
+      "kpfdencgganfkljiacdcclkoohakjkjn" # KDE Breeze Theme
+      "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
+
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin - https://github.com/gorhill/uBlock
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium - https://github.com/philc/vimium
       "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere - https://github.com/EFForg/https-everywhere

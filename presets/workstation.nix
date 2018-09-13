@@ -15,7 +15,7 @@
 
   environment.systemPackages = with pkgs; [
     vlc
-    electrum
+    #electrum
     sqlite
     speedtest-cli
     xclip
