@@ -20,7 +20,7 @@
     speedtest-cli
     xclip
     mycli
-    #kicad
+    kicad
     kubectl
     (pkgs.callPackage ../pkgs/tio/default.nix { })
   ];
