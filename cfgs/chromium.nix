@@ -9,6 +9,7 @@
   nixpkgs.config.chromium = {
     #enablePepperFlash = true; # Because apparently it's not completely dead...
     #enableWideVine = true; # DRM nonsense
+    pulseSupport = true;
   };
 
   environment.variables = {
