@@ -33,15 +33,16 @@
 
     extensions = [
       "kpfdencgganfkljiacdcclkoohakjkjn" # KDE Breeze Theme
-      "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
+#      "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
 
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin - https://github.com/gorhill/uBlock
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium - https://github.com/philc/vimium
       "gcbommkclmclpchllfjekcdonpmejbdp" # HTTPS Everywhere - https://github.com/EFForg/https-everywhere
       "klbibkeccnjlkjkiokjodocebajanakg" # The Great Suspender - https://github.com/deanoemcke/thegreatsuspender
+#      "mippmhcfjhliihkkdobllhpdnmmciaim" # Tab Master 5000 - https://github.com/jaszhix/tab-master-5000-extension
       "dhdgffkkebhmkfjojejmpbldmpobfkfo" # Tampermonkey - https://github.com/Tampermonkey/tampermonkey
-      "hhinaapppaileiechjoiifaancjggfjm" # Last.fm scrobbler - https://github.com/web-scrobbler/web-scrobbler
-      "mjoedlfflcchnleknnceiplgaeoegien" # Isometric contributions - https://github.com/jasonlong/isometric-contributions
+#      "hhinaapppaileiechjoiifaancjggfjm" # Last.fm scrobbler - https://github.com/web-scrobbler/web-scrobbler
+#      "mjoedlfflcchnleknnceiplgaeoegien" # Isometric contributions - https://github.com/jasonlong/isometric-contributions
       "einpaelgookohagofgnnkcfjbkkgepnp" # Random User-Agent - https://github.com/tarampampam/random-user-agent
     ];
 
