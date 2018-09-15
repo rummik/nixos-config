@@ -8,6 +8,7 @@
     ../cfgs/wireshark.nix
     ../hardware-configuration.nix
     ../presets/common.nix
+    ../presets/games.nix
     ../presets/haskell.nix
     ../presets/thinkpad.nix
     ../presets/workstation.nix
