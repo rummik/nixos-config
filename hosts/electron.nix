@@ -3,14 +3,13 @@
 {
   imports = [
     ../cfgs/networkmanager.nix
+    ../cfgs/sc-controller.nix
     ../cfgs/virtualbox.nix
     ../cfgs/wireshark.nix
-    ../cfgs/sc-controller.nix
     ../hardware-configuration.nix
     ../presets/common.nix
     ../presets/haskell.nix
     ../presets/thinkpad.nix
-    ../presets/work.nix
     ../presets/workstation.nix
   ];
 

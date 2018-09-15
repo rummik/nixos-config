@@ -42,6 +42,8 @@
     youtube-dl
     nix-prefetch-git
     gnupg
+    zip
+    unzip
 
     git
     gitAndTools.git-hub
