@@ -33,7 +33,7 @@
 
     extensions = [
       "kpfdencgganfkljiacdcclkoohakjkjn" # KDE Breeze Theme
-#      "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
+      "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
 
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin - https://github.com/gorhill/uBlock
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium - https://github.com/philc/vimium
@@ -53,11 +53,17 @@
   };
 
   nixpkgs.config.packageOverrides = pkgs: {
-    chromium = (pkgs.chromium.override {
-      # load-media-router-component-extension is required for Chromecast/Google Cast
-      commandLineArgs = builtins.replaceStrings [ "\n" ] [ "" ] ''
-        --load-media-router-component-extension=1
-      '';
-    });
+    chromium =
+      (pkgs.chromium.override {
+        # load-media-router-component-extension is required for Chromecast/Google Cast
+        commandLineArgs = builtins.replaceStrings [ "\n" ] [ "" ] ''
+          --load-media-router-component-extension=1
+        '';
+      })
+      .overrideAttrs (oldAttrs: rec {
+        buildInputs = with pkgs; oldAttrs.buildInputs ++ [
+          plasma-browser-integration
+        ];
+      });
   };
 }
