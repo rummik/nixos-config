@@ -46,10 +46,18 @@
       "einpaelgookohagofgnnkcfjbkkgepnp" # Random User-Agent - https://github.com/tarampampam/random-user-agent
     ];
 
-    # Enable Chrome Cast
     extraOpts = {
       EnableMediaRouter = true;
       ShowCastIconInToolbar = true;
     };
+  };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    chromium = (pkgs.chromium.override {
+      # load-media-router-component-extension is required for Chromecast/Google Cast
+      commandLineArgs = builtins.replaceStrings [ "\n" ] [ "" ] ''
+        --load-media-router-component-extension=1
+      '';
+    });
   };
 }
