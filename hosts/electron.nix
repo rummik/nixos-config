@@ -29,4 +29,7 @@
   environment.systemPackages = with pkgs; [
     parted
   ];
+
+  # Fingerprint recognition (use `fprintd-enroll` to add fingerprints)
+  #services.fprintd.enable = true;
 }
