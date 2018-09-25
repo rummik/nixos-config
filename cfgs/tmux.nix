@@ -36,6 +36,9 @@
       bind-key -r 'k' select-pane -U
       bind-key -r 'l' select-pane -R
 
+      bind-key -r '>' swap-window -t +1
+      bind-key -r '<' swap-window -t -1
+
       # status line
       set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
       set -g status-left '#H  '
