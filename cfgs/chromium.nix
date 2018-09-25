@@ -33,7 +33,7 @@
 
     extensions = [
       "kpfdencgganfkljiacdcclkoohakjkjn" # KDE Breeze Theme
-      "cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
+      #"cimiefiiaegbelhefglklhhakcgmhkai" # Plasma Integration
 
       "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin - https://github.com/gorhill/uBlock
       "dbepggeogbaibhgnhhndojpepiihcmeb" # Vimium - https://github.com/philc/vimium
