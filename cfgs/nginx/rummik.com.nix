@@ -7,10 +7,14 @@ let
   };
 in
   {
-    security.acme.certs."www.rummik.com".extraDomains = {
-      "pub.rummik.com" = null;
-      "src.rummik.com" = null;
-      "git.rummik.com" = null;
+    security.acme.certs."www.rummik.com" = {
+      email = "acme@9k1.us";
+
+      extraDomains = {
+        "pub.rummik.com" = null;
+        "src.rummik.com" = null;
+        "git.rummik.com" = null;
+      };
     };
 
     services.nginx.virtualHosts."www.rummik.com" = acmeOptions // {
