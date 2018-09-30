@@ -13,3 +13,6 @@ Symlink host file from `hosts/<hostname>.nix` to `configuration.nix`
 - `options/` - Option files for custom packages
 - `pkgs/` - Custom packages
 - `presets/` - General shared configurations
+
+### Debugging
+Run `nix repl '<nixpkgs/nixos>'`, configuration results are under `config.*`
