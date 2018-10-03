@@ -14,6 +14,8 @@ in
         "pub.rummik.com" = null;
         "src.rummik.com" = null;
         "git.rummik.com" = null;
+        "blg.rummik.com" = null;
+        "dmo.rummik.com" = null;
       };
     };
 
@@ -63,6 +65,22 @@ in
 
       locations."~ ^/.+".extraConfig = ''
         autoindex on;
+      '';
+    };
+
+    services.nginx.virtualHosts."blg.rummik.com" = acmeOptions // {
+      root = "/home/rummik/public_html/blog";
+
+      extraConfig = ''
+        error_page 404 = /404.html;
+      '';
+    };
+
+    services.nginx.virtualHosts."dmo.rummik.com" = acmeOptions // {
+      root = "/home/rummik/public_html/demos";
+
+      extraConfig = ''
+        error_page 404 = /404.html;
       '';
     };
   }
