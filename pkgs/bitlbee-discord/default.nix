@@ -6,10 +6,10 @@ stdenv.mkDerivation rec {
   version = "0.4.1";
 
   src = fetchFromGitHub {
-    rev = "${version}";
+    rev = "ba47eed85a9e0a4c4673a48217df34b05513a812";
     owner = "sm00th";
     repo = "bitlbee-discord";
-    sha256 = "1n3xw5mcmg7224r09gbm39bd6h2158dwl6jx21290636b4345f4c";
+    sha256 = "08dfws8vbjar5f29jh1pyca1jjdxacfqdl67cl0wdaavzw5zppjl";
   };
 
   nativeBuildInputs = [ autoconf automake libtool pkgconfig ];
