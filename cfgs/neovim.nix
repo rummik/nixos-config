@@ -1,17 +1,43 @@
 { config, pkgs, ... } :
 
-{
-  environment.systemPackages = [ pkgs.neovim ];
+let
+  inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+  inherit (pkgs) fetchFromGitHub callPackage;
 
-  environment.variables = {
-    EDITOR = pkgs.lib.mkOverride 0 "vim";
-  };
 
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
+  deoplete-zsh = (buildVimPluginFrom2Nix {
+    name = "deoplete-zsh-2018-10-12";
+
+    src = fetchFromGitHub {
+      owner = "zchee";
+      repo = "deoplete-zsh";
+      rev = "6b08b2042699700ffaf6f51476485c5ca4d50a12";
+      sha256 = "0h62v9z5bh9xmaq22pqdb3z79i84a5rknqm68mjpy7nq7s3q42fa";
+    };
+  });
+
+  yats = (buildVimPluginFrom2Nix {
+    name = "yats.vim-2018-10-12";
+
+    src = fetchFromGitHub {
+      owner = "HerringtonDarkholme";
+      repo = "yats.vim";
+      rev = "29f8add1dd60f0105cabf60daabf578e2e0edfae";
+      sha256 = "0qkhmbz5gz7mrsc3v5yhgzra0zk6l8z5k9xr8ibq2k7ifvr26hwr";
+    };
+  });
+in
+  {
+    environment.systemPackages = with pkgs; [ neovim ];
+
+    environment.variables = {
+      EDITOR = pkgs.lib.mkOverride 0 "vim";
+    };
+
+    nixpkgs.config.packageOverrides = pkgs: {
       neovim = pkgs.neovim.override {
-        vimAlias = true;
         viAlias = true;
+        vimAlias = true;
 
         configure = {
           customRC = ''
@@ -46,6 +72,9 @@
             " Plugin Configuration
             " ====================
 
+            " Use deoplete.
+            let g:deoplete#enable_at_startup = 1
+
             " General
             filetype plugin indent on
 
@@ -77,18 +106,20 @@
 
           packages.myVimPackage = with pkgs.vimPlugins; {
             start = [
-              vim-nix
-              vundle
-              #ctrlp
-              fzf-vim
-              multiple-cursors
-              vim-closetag
-              syntastic
+              ctrlp
+              deoplete-nvim
+              deoplete-zsh
               editorconfig-vim
-              vim-markdown
-              vim-javascript
-              typescript-vim
+              fzf-vim
               gitgutter
+              multiple-cursors
+              syntastic
+              #typescript-vim
+              vim-closetag
+              vim-javascript
+              vim-markdown
+              vim-nix
+              yats
             ];
 
             opt = [ ];
@@ -96,5 +127,4 @@
         };
       };
     };
-  };
-}
+  }
