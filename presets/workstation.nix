@@ -10,6 +10,7 @@
     ../cfgs/nodejs.nix
     ../cfgs/rust.nix
     ../cfgs/vagrant.nix
+    ../cfgs/watson.nix
   ];
 
   environment.systemPackages = with pkgs; [
