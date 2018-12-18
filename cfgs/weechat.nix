@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  environment.systemPackages = with pkgs; [ weechat ];
+  environment.systemPackages = with pkgs; [ weechat aspell aspellDicts.en ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     weechat =
