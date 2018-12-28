@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkOption mkIf mkDefault mkMerge mkBefore types;
+  inherit (lib) mkOption mkIf mkAfter literalExample types;
 
   cfg = config.programs.tmux;
 
@@ -30,28 +30,39 @@ let
     set -g status-fg bright${cfg.theme.secondaryColor}
     set -g message-bg ${cfg.theme.secondaryColor}
     set -g message-fg brightwhite
+
+    ${lib.concatStrings (map (x: "run-shell ${x.rtp}\n") cfg.plugins)}
   '';
 in
   {
     options = {
-      programs.tmux.theme = {
-        primaryColor = mkOption {
-          default = defaultPrimaryColor;
-          example = "magenta";
-          type = types.enum colors;
-          description = "Primary theme color.";
+      programs.tmux = {
+        plugins = mkOption {
+          default = [];
+          example = literalExample "[ pkgs.tmuxPlugins.resurrect ]";
+          type = types.listOf types.package;
+          description = "List of TMUX plugins.";
         };
 
-        secondaryColor = mkOption {
-          default = defaultSecondaryColor;
-          example = "green";
-          type = types.enum colors;
-          description = "Secondary theme color.";
+        theme = {
+          primaryColor = mkOption {
+            default = defaultPrimaryColor;
+            example = "magenta";
+            type = types.enum colors;
+            description = "Primary theme color.";
+          };
+
+          secondaryColor = mkOption {
+            default = defaultSecondaryColor;
+            example = "green";
+            type = types.enum colors;
+            description = "Secondary theme color.";
+          };
         };
       };
     };
 
     config = mkIf cfg.enable {
-      environment.etc."tmux.conf".text = mkBefore tmuxConf;
+      environment.etc."tmux.conf".text = mkAfter tmuxConf;
     };
   }

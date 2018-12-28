@@ -5,13 +5,22 @@
     ../options/tmux.nix
   ];
 
+  environment.systemPackages = with pkgs; [
+    tmuxp
+    tmuxPlugins.resurrect
+  ];
+
   programs.tmux = {
     enable = true;
-    newSession = true;
     terminal = "screen-256color";
     keyMode = "vi";
     customPaneNavigationAndResize = true;
     escapeTime = 0;
+
+    plugins = with pkgs.tmuxPlugins; [
+      resurrect
+      continuum
+    ];
 
     theme.primaryColor = "green";
 
@@ -46,6 +55,14 @@
       # Pane resize options
       set -g main-pane-width 127
       set -g main-pane-height 45
+
+      # resurrect options
+      set -g @resurrect-capture-pane-contents 'on'
+      set -g @resurrect-processes 'mosh ssh "~yarn watch" "~yarn watch->yarn watch"'
+
+      # continuum options
+      set -g @continuum-save-interval '15'
+      set -g @continuum-restore 'on'
     '';
   };
 }
