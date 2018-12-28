@@ -7,7 +7,6 @@
 
   environment.systemPackages = with pkgs; [
     tmuxp
-    tmuxPlugins.resurrect
   ];
 
   programs.tmux = {
@@ -18,7 +17,20 @@
     escapeTime = 0;
 
     plugins = with pkgs.tmuxPlugins; [
-      resurrect
+      (resurrect.overrideAttrs (oldAttrs: rec {
+        patches = [
+          (pkgs.fetchpatch {
+            url = "https://github.com/tmux-plugins/tmux-resurrect/commit/edd8132befb336b71190f55498dccc1772a8a893.patch";
+            sha256 = "0px48gn5ja4z8mkhlm6b545r72rrqjp8wqnf642kh3r4walahy7j";
+          })
+
+          (pkgs.fetchpatch {
+            url = "https://github.com/tmux-plugins/tmux-resurrect/commit/55536f8685d7fe96459fdd09a29a6fb01f0c8a80.patch";
+            sha256 = "13sq0xa3z2msq0ldvff3qdfn217g7c2vc90py45vb8lg91p5r735";
+          })
+        ];
+      }))
+
       continuum
     ];
 
@@ -58,7 +70,10 @@
 
       # resurrect options
       set -g @resurrect-capture-pane-contents 'on'
-      set -g @resurrect-processes 'mosh ssh "~yarn watch" "~yarn watch->yarn watch"'
+      set -g @resurrect-processes 'mosh ssh ~nvim "~yarn watch"'
+      set -g @resurrect-save-command-strategy 'cmdline'
+      #set -g @resurrect-strategy-nvim 'session'
+      #set -g @resurrect-save-shell-history 'off'
 
       # continuum options
       set -g @continuum-save-interval '15'
