@@ -15,11 +15,6 @@
 
     kdeApplications.kdialog
 
-    kdeApplications.kdenlive
-    ffmpeg
-    frei0r
-    gifsicle
-
     kdeconnect
     redshift-plasma-applet
   ];
