@@ -28,3 +28,14 @@ SETUP
 
 ### Debugging
 Run `nix repl '<nixpkgs/nixos>'`, configuration results are under `config.*`
+
+### Syncing
+Assuming you have a separate local repository, and want to sync all refs in
+order to push them
+
+```
+git checkout --detach
+git fetch local '+refs/heads/*:refs/heads/*'
+git push origin --all
+git checkout master
+```
