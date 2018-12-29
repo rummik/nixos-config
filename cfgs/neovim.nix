@@ -26,6 +26,17 @@ let
       sha256 = "0qkhmbz5gz7mrsc3v5yhgzra0zk6l8z5k9xr8ibq2k7ifvr26hwr";
     };
   });
+
+  vim-workspace = (buildVimPluginFrom2Nix {
+    name = "vim-workspace-2018-12-11";
+
+    src = fetchFromGitHub {
+      owner = "thaerkh";
+      repo = "vim-workspace";
+      rev = "e48ca349c6dd0c9ea8261b7d626198907550306b";
+      sha256 = "1sknd5hg710lqvqnk8ymvjnfw65lgx5f8xz88wbf7fhl31r9sa89";
+    };
+  });
 in
   {
     environment.systemPackages = with pkgs; [ neovim ];
@@ -90,6 +101,10 @@ in
             " Make paragraph formatting a bit better (gq)
             set formatprg = "par 79"
 
+            " Vim-Workspace
+            let g:workspace_session_disable_on_args = 1
+            nnoremap <leader>s :ToggleWorkspace<CR>
+
 
             " Language Specifics
             " ==================
@@ -119,6 +134,7 @@ in
               vim-javascript
               vim-markdown
               vim-nix
+              vim-workspace
               yats
             ];
 
