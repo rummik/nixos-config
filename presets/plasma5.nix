@@ -16,7 +16,6 @@
     kdeApplications.kdialog
 
     kdeconnect
-    redshift-plasma-applet
   ];
 
   fonts.fonts = with pkgs; [
@@ -25,8 +24,6 @@
     fira-code
     emojione
   ];
-
-  services.geoclue2.enable = true; # For redshift-plasma-applet
 
   services.printing.enable = true;
 
