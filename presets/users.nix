@@ -29,6 +29,7 @@ in
         "wireshark"
         "docker"
         "adbusers"
+        "render"
       ];
       createHome = true;
       initialPassword = "correct horse battery staple";
