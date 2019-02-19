@@ -38,6 +38,11 @@
     parted
   ];
 
+  services.openssh = {
+    enable = true;
+    passwordAuthentication = false;
+  };
+
   networking.networkmanager.dispatcherScripts = [{
     type = "basic";
 
