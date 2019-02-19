@@ -16,5 +16,13 @@
       "*.undodir"
       "Session.vim"
     ];
+
+    extraConfig = {
+      diff.tool = "vimdiff";
+      merge.tool = "vimdiff";
+      difftool.prompt = false;
+      mergetool.prompt = true;
+      "mergetool \"vimdiff\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
+    };
   };
 }
