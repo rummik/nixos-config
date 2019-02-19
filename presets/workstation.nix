@@ -10,11 +10,11 @@
     ../cfgs/nodejs.nix
     ../cfgs/rust.nix
     ../cfgs/vagrant.nix
+    ../cfgs/vlc.nix
     ../cfgs/watson.nix
   ];
 
   environment.systemPackages = with pkgs; [
-    vlc
     #electrum
     sqlite
     speedtest-cli
