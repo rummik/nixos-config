@@ -18,6 +18,14 @@
 
   programs.tmux.theme.secondaryColor = "cyan";
 
+  networking.firewall.allowedTCPPortRanges = [
+    { from = 4100; to = 4105; }
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    5353
+  ];
+
   networking.firewall.allowedTCPPorts = [
     3000
     4000
