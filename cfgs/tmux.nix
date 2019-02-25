@@ -22,7 +22,7 @@
           # cmdline strategy
           (pkgs.fetchpatch {
             url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/283.patch";
-            sha256 = "05d1a5642rx8b2b0fxy55sjha8hf4ik6bwdl754hzawayh7jcy9d";
+            sha256 = "03kyrpsnxn4qxfkmanh0q9ykk0cln3ss938yx2n7p76lv9n7d0ar";
           })
 
           # mosh-client strategy
