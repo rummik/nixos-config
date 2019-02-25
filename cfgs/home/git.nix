@@ -23,6 +23,7 @@
       difftool.prompt = false;
       mergetool.prompt = true;
       "mergetool \"vimdiff\"".cmd = "nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'";
+      "include".path = "~/.gitconfig";
     };
   };
 }
