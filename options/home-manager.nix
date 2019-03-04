@@ -1,13 +1,13 @@
 { ... }:
 
 let
-  ref = "50de1a6885dc7c306fa85c3c4538ee8ba54a65f7";
+  ref = "465d08d99f5b72b38cecb7ca1865b7255de3ee86";
 in
   {
     imports = [
       (import (builtins.fetchTarball {
         url = "https://github.com/rycee/home-manager/archive/${ref}.tar.gz";
-        sha256 = "1jwz5q2hpyaspbfm4hmvaqi3dldr9pxkz1apsnc2b2dbbzp97vyk";
+        sha256 = "1dkvz0sx8kjvk1lap50d5vfgm2wprh1cmhcrx3bn28r3skpj4rbj";
       }) {}).nixos
     ];
   }
