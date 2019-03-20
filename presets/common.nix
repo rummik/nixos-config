@@ -25,7 +25,7 @@
 
   services.xserver = {
     layout = "us";
-    xkbOptions = "caps:scape,compose:prsc";
+    xkbOptions = "caps:escape,compose:prsc";
   };
 
   environment.systemPackages = with pkgs; [
