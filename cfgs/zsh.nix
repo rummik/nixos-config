@@ -28,6 +28,7 @@
         "'lib/completion', from:oh-my-zsh"
         "'lib/history', from:oh-my-zsh"
         "'zsh-users/zsh-syntax-highlighting', defer:2"
+        "'chisui/zsh-nix-shell', from:github"
       ];
     };
 
