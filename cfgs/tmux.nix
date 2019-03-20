@@ -75,8 +75,13 @@
       bind-key -r '<' swap-window -t -1
 
       # status line
-      set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
-      set -g status-left '#H  '
+      #set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
+      set -g status-right ' '
+      set -g status-right-length 30
+
+      #set -g status-left '[#{==:#{session_id},#S} #{session_id}] #h '
+      set -g status-left '[#S] #h '
+      set -g status-left-length 30
 
       # Pane resize options
       set -g main-pane-width 127
