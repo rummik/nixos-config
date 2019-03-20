@@ -2,41 +2,53 @@
 
 let
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
-  inherit (pkgs) fetchFromGitHub callPackage;
+  inherit (pkgs) fetchFromGitHub;
 
+  plugins = {
+    deoplete-zsh = (buildVimPluginFrom2Nix {
+      name = "deoplete-zsh-2018-10-12";
 
-  deoplete-zsh = (buildVimPluginFrom2Nix {
-    name = "deoplete-zsh-2018-10-12";
+      src = fetchFromGitHub {
+        owner = "zchee";
+        repo = "deoplete-zsh";
+        rev = "6b08b2042699700ffaf6f51476485c5ca4d50a12";
+        sha256 = "0h62v9z5bh9xmaq22pqdb3z79i84a5rknqm68mjpy7nq7s3q42fa";
+      };
+    });
 
-    src = fetchFromGitHub {
-      owner = "zchee";
-      repo = "deoplete-zsh";
-      rev = "6b08b2042699700ffaf6f51476485c5ca4d50a12";
-      sha256 = "0h62v9z5bh9xmaq22pqdb3z79i84a5rknqm68mjpy7nq7s3q42fa";
-    };
-  });
+    vim-workspace = (buildVimPluginFrom2Nix {
+      name = "vim-workspace-2018-12-11";
 
-  yats = (buildVimPluginFrom2Nix {
-    name = "yats.vim-2018-10-12";
+      src = fetchFromGitHub {
+        owner = "thaerkh";
+        repo = "vim-workspace";
+        rev = "e48ca349c6dd0c9ea8261b7d626198907550306b";
+        sha256 = "1sknd5hg710lqvqnk8ymvjnfw65lgx5f8xz88wbf7fhl31r9sa89";
+      };
+    });
 
-    src = fetchFromGitHub {
-      owner = "HerringtonDarkholme";
-      repo = "yats.vim";
-      rev = "29f8add1dd60f0105cabf60daabf578e2e0edfae";
-      sha256 = "0qkhmbz5gz7mrsc3v5yhgzra0zk6l8z5k9xr8ibq2k7ifvr26hwr";
-    };
-  });
+    yajs = (buildVimPluginFrom2Nix {
+      name = "yajs.vim-2019-02-01";
 
-  vim-workspace = (buildVimPluginFrom2Nix {
-    name = "vim-workspace-2018-12-11";
+      src = fetchFromGitHub {
+        owner = "othree";
+        repo = "yajs.vim";
+        rev = "437be4ccf0e78fe54cb482657091cff9e8479488";
+        sha256 = "157q2w2bq1p6g1wc67zl53n6iw4l04qz2sqa5j6mgqg71rgqzk0p";
+      };
+    });
 
-    src = fetchFromGitHub {
-      owner = "thaerkh";
-      repo = "vim-workspace";
-      rev = "e48ca349c6dd0c9ea8261b7d626198907550306b";
-      sha256 = "1sknd5hg710lqvqnk8ymvjnfw65lgx5f8xz88wbf7fhl31r9sa89";
-    };
-  });
+    yats = (buildVimPluginFrom2Nix {
+      name = "yats.vim-2018-10-12";
+
+      src = fetchFromGitHub {
+        owner = "HerringtonDarkholme";
+        repo = "yats.vim";
+        rev = "29f8add1dd60f0105cabf60daabf578e2e0edfae";
+        sha256 = "0qkhmbz5gz7mrsc3v5yhgzra0zk6l8z5k9xr8ibq2k7ifvr26hwr";
+      };
+    });
+  };
 in
   {
     environment.systemPackages = with pkgs; [ neovim ];
@@ -119,27 +131,27 @@ in
             let g:javascript_plugin_flow = 1
           '';
 
-          packages.myVimPackage = with pkgs.vimPlugins; {
-            start = [
-              ctrlp
-              deoplete-nvim
-              deoplete-zsh
-              editorconfig-vim
-              fzf-vim
-              gitgutter
-              multiple-cursors
-              syntastic
-              #typescript-vim
-              vim-closetag
-              vim-javascript
-              vim-markdown
-              vim-nix
-              vim-workspace
-              yats
-            ];
+          vam.knownPlugins = pkgs.vimPlugins // plugins;
 
-            opt = [ ];
-          };
+          vam.pluginDictionaries = [
+            { name = "deoplete-nvim"; exec = "UpdateRemotePlugins"; }
+            { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
+            { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
+            { name = "vim-markdown"; ft_regex = "^markdown\$"; }
+            { name = "yajs"; ft_regex = "^javascript\$"; }
+            { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
+            { names = [
+              "ctrlp"
+              "editorconfig-vim"
+              "fugitive"
+              "fzf-vim"
+              "gitgutter"
+              "multiple-cursors"
+              "syntastic"
+              "vim-closetag"
+              "vim-workspace"
+            ]; }
+          ];
         };
       };
     };
