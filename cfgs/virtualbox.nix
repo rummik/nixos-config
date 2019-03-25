@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  nixpkgs.config.virtualbox.enableExtensionPack = true;
+  #nixpkgs.config.virtualbox.enableExtensionPack = true;
 
   virtualisation.virtualbox.host = {
     enable = true;
     addNetworkInterface = true;
     enableHardening = false;
+    enableExtensionPack = true;
   };
 }
