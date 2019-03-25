@@ -95,6 +95,16 @@ in
             " Plugin Configuration
             " ====================
 
+            " Airline
+            "" Enable tabline
+            let g:airline#extensions#tabline#enabled = 1
+            let g:airline#extensions#tabline#formatter = 'default'
+
+            "" Hide flietype/encoding/etc
+            let g:airline_section_x=""
+            let g:airline_section_y=""
+            let g:airline_skip_empty_sections = 1
+
             " Use deoplete.
             let g:deoplete#enable_at_startup = 1
 
@@ -140,6 +150,16 @@ in
             { name = "vim-markdown"; ft_regex = "^markdown\$"; }
             { name = "yajs"; ft_regex = "^javascript\$"; }
             { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
+            { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
+
+            { name = "vim-SyntaxRange"; ft_regex = "^nix\$";
+              exec = builtins.replaceStrings [ "\n" "'" "call" ] [ "\n\\ | " "''" "autocmd Syntax nix call" ] ''
+                call SyntaxRange#Include("customRC = '''", "''';", "vim", "NonText", "nixInterpolation")
+                call SyntaxRange#Include("extraTmuxConf = '''", "''';", "tmux", "NonText", "nixInterpolation")
+                call SyntaxRange#Include("deviceSection = '''", "''';", "xf86conf", "NonText", "nixInterpolation")
+              '';
+            }
+
             { names = [
               "ctrlp"
               "editorconfig-vim"
@@ -148,6 +168,7 @@ in
               "gitgutter"
               "multiple-cursors"
               "syntastic"
+              "vim-airline"
               "vim-closetag"
               "vim-workspace"
             ]; }
