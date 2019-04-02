@@ -27,6 +27,7 @@
         "zick.kim/zsh/isup, from:gitlab"
         "zick.kim/zsh/please, from:gitlab"
         "zick.kim/zsh/psmin, from:gitlab"
+        "zick.kim/zsh/psmin-gitflow, from:gitlab"
         "zick.kim/zsh/slowcat, from:gitlab"
         "zick.kim/zsh/tailf, from:gitlab"
         "zsh-users/zsh-autosuggestions"
