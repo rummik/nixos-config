@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../cfgs/docker.nix
     ../cfgs/networkmanager.nix
     ../cfgs/sc-controller.nix
     ../cfgs/synergy2.nix
