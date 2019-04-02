@@ -75,7 +75,7 @@ in
         if stdenv.isDarwin then
           { tmuxConfig = cfg.extraConfig; }
         else
-          { extraTmuxConfig = cfg.extraConfig; }
+          { extraTmuxConf = cfg.extraConfig; }
       );
     };
   }
