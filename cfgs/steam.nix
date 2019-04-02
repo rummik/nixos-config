@@ -3,7 +3,18 @@
 {
   environment.systemPackages = with pkgs; [
     steam
+    steam.run
   ];
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    steam = pkgs.steam.override {
+      #nativeOnly = true;
+
+      extraPkgs = pkgs: with pkgs; [
+        libgdiplus
+      ];
+    };
+  };
 
   hardware.pulseaudio.support32Bit = true;
 
