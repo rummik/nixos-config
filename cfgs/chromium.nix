@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     chromium
-    plasma-browser-integration
+    #plasma-browser-integration
   ];
 
   nixpkgs.config.chromium = {
@@ -64,7 +64,7 @@
       })
       .overrideAttrs (oldAttrs: rec {
         buildInputs = with pkgs; oldAttrs.buildInputs ++ [
-          plasma-browser-integration
+          #plasma-browser-integration
         ];
       });
   };
