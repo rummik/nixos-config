@@ -127,6 +127,9 @@ in
             let g:workspace_session_disable_on_args = 1
             nnoremap <leader>s :ToggleWorkspace<CR>
 
+            " EditorConfig
+            let g:EditorConfig_exclude_patterns = ['fugitive://.*', '*.tsv', '*.csv'];
+
 
             " Language Specifics
             " ==================
