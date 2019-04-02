@@ -24,7 +24,7 @@ in
           type = types.listOf(types.str);
           default = [];
           description = "List of plugins to load.";
-          example = [
+          example = literalExample [
             "'lib/completion', from:oh-my-zsh"
             "'zsh-users/zsh-syntax-highlighting', defer:2"
           ];

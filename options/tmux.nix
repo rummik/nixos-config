@@ -2,6 +2,7 @@
 
 let
   inherit (lib) mkOption mkIf mkAfter literalExample types;
+  inherit (pkgs) stdenv;
 
   cfg = config.programs.tmux;
 
@@ -9,30 +10,6 @@ let
   defaultSecondaryColor = "green";
 
   colors = [ "magenta" "green" "cyan" "red" "blue" "yellow" ];
-
-  tmuxConf = ''
-    set-option -g pane-active-border-fg bright${cfg.theme.secondaryColor}
-    set-option -g pane-border-fg brightblack
-    set-option -g display-panes-colour ${cfg.theme.primaryColor}
-    set-option -g display-panes-active-colour brightred
-    set-option -g clock-mode-colour brightwhite
-    set-option -g mode-bg ${cfg.theme.secondaryColor}
-    set-option -g mode-fg brightwhite
-    set-window-option -g window-status-bg black
-    set-window-option -g window-status-fg bright${cfg.theme.primaryColor}
-    set-window-option -g window-status-current-bg black
-    set-window-option -g window-status-current-fg brightwhite
-    set-window-option -g window-status-bell-bg black
-    set-window-option -g window-status-bell-fg brightred
-    set-window-option -g window-status-activity-bg black
-    set-window-option -g window-status-activity-fg brightred
-    set -g status-bg black
-    set -g status-fg bright${cfg.theme.secondaryColor}
-    set -g message-bg ${cfg.theme.secondaryColor}
-    set -g message-fg brightwhite
-
-    ${lib.concatStrings (map (x: "run-shell ${x.rtp}\n") cfg.plugins)}
-  '';
 in
   {
     options = {
@@ -59,10 +36,46 @@ in
             description = "Secondary theme color.";
           };
         };
+
+        extraConfig = mkOption {
+          default = "";
+          example = "";
+          type = types.string;
+          description = "Text to be inserted into tmux.conf.";
+        };
       };
     };
 
     config = mkIf cfg.enable {
-      environment.etc."tmux.conf".text = mkAfter tmuxConf;
+      environment.etc."tmux.conf".text = mkAfter ''
+        set-option -g pane-active-border-fg bright${cfg.theme.secondaryColor}
+        set-option -g pane-border-fg brightblack
+        set-option -g display-panes-colour ${cfg.theme.primaryColor}
+        set-option -g display-panes-active-colour brightred
+        set-option -g clock-mode-colour brightwhite
+        set-option -g mode-bg ${cfg.theme.secondaryColor}
+        set-option -g mode-fg brightwhite
+        set-window-option -g window-status-bg black
+        set-window-option -g window-status-fg bright${cfg.theme.primaryColor}
+        set-window-option -g window-status-current-bg black
+        set-window-option -g window-status-current-fg brightwhite
+        set-window-option -g window-status-bell-bg black
+        set-window-option -g window-status-bell-fg brightred
+        set-window-option -g window-status-activity-bg black
+        set-window-option -g window-status-activity-fg brightred
+        set -g status-bg black
+        set -g status-fg bright${cfg.theme.secondaryColor}
+        set -g message-bg ${cfg.theme.secondaryColor}
+        set -g message-fg brightwhite
+
+        ${lib.concatStrings (map (x: "run-shell ${x.rtp}\n") cfg.plugins)}
+      '';
+
+      programs.tmux = mkIf (cfg.extraConfig != "") (
+        if stdenv.isDarwin then
+          { tmuxConfig = cfg.extraConfig; }
+        else
+          { extraTmuxConfig = cfg.extraConfig; }
+      );
     };
   }

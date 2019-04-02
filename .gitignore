@@ -1,3 +1,4 @@
 configuration.nix
+darwin-configuration.nix
 hardware-configuration.nix
 result

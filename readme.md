@@ -11,11 +11,23 @@ export NIXHOST=<HOST NAME>
 
 sudo sh <<SETUP
 mv /etc/nixos /etc/nixos-orig
-git clone https://gitlab.com/zick.kim/nixos/nixos-config /etc/nixos
+git clone https://gitlab.com/zick.kim/nixos/nixos-config.git /etc/nixos
 cp /etc/nixos-orig/hardware-configuration.nix /etc/nixos
-[ ! -e hosts/$NIXHOST.nix ] && mv /etc/nixos-orig/configuration.nix /etc/nixos/hosts/$NIXHOST.nix
+[ ! -e /etc/nixos/hosts/$NIXHOST.nix ] && mv /etc/nixos-orig/configuration.nix /etc/nixos/hosts/$NIXHOST.nix
 ln -sr /etc/nixos/hosts/$NIXHOST.nix /etc/nixos/configuration.nix
 SETUP
+```
+
+#### Nix Darwin
+```
+export NIXHOST=<HOST NAME>
+
+nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+./result/bin/darwin-installer
+git clone https://gitlab.com/zick.kim/nixos/nixos-config.git ~/Nix
+[ ! -e ~/Nix/hosts/$NIXHOST.nix ] && mv ~/.nixpkgs/darwin-configuration.nix ~/Nix/hosts/$NIXHOST.nix
+ln -s ~/Nix/hosts/$NIXHOST.nix ~/Nix/configuration.nix
+ln -sf ~/Nix/hosts/$NIXHOST.nix ~/.nixpkgs/darwin-configuration.nix
 ```
 
 ### Layout

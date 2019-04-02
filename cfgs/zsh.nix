@@ -1,6 +1,10 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ../options/zplug.nix
+  ];
+
   # disable zsh-newuser-install
   environment.etc."zshenv".text = lib.mkBefore ''
     zsh-newuser-install() { }
@@ -8,12 +12,6 @@
 
   programs.zsh = {
     enable = true;
-
-    nvm = {
-      enable = false;
-      autoUse = false;
-      buildFromSource = false;
-    };
 
     zplug = {
       enable = true;

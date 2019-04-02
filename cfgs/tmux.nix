@@ -1,6 +1,6 @@
 { config, pkgs, ... } :
 
-{ 
+{
   imports = [
     ../options/tmux.nix
   ];
@@ -11,10 +11,74 @@
 
   programs.tmux = {
     enable = true;
-    terminal = "screen-256color";
-    keyMode = "vi";
-    customPaneNavigationAndResize = true;
-    escapeTime = 0;
+
+    theme.primaryColor = "green";
+
+    extraConfig = ''
+      # enable mouse support
+      set -g mouse on
+
+      set -g status-keys vi
+      set -g mode-keys   vi
+
+      set -s escape-time 0
+      set -g default-terminal "screen-256color"
+
+      # more logical window splits
+      unbind-key '%'
+      unbind-key '"'
+      bind-key '|' split-window -h -c "#{pane_current_path}"
+      bind-key '\' split-window -v -c "#{pane_current_path}"
+
+      unbind-key 'n'
+      unbind-key 'p'
+      bind-key 'C-l' last-window
+      bind-key -r 'C-j' next-window
+      bind-key -r 'C-k' previous-window
+
+      bind-key -r 'h' select-pane -L
+      bind-key -r 'j' select-pane -D
+      bind-key -r 'k' select-pane -U
+      bind-key -r 'l' select-pane -R
+
+      bind-key h select-pane -L
+      bind-key j select-pane -D
+      bind-key k select-pane -U
+      bind-key l select-pane -R
+
+      bind-key -r H resize-pane -L 10
+      bind-key -r J resize-pane -D 10
+      bind-key -r K resize-pane -U 10
+      bind-key -r L resize-pane -R 10
+
+      bind-key -r '>' swap-window -t +1
+      bind-key -r '<' swap-window -t -1
+
+      # status line
+      #set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
+      set -g status-right ' '
+      set -g status-right-length 30
+
+      #set -g status-left '[#{==:#{session_id},#S} #{session_id}] #h '
+      set -g status-left '[#S] #h '
+      set -g status-left-length 30
+
+      # Pane resize options
+      set -g main-pane-width 127
+      set -g main-pane-height 45
+
+      # resurrect options
+      set -g @resurrect-capture-pane-contents 'on'
+      set -g @resurrect-processes 'mosh-client man "~yarn watch"'
+      set -g @resurrect-save-command-strategy 'cmdline'
+      set -g @resurrect-process-match-strategy 'basename'
+      #set -g @resurrect-strategy-nvim 'session'
+      #set -g @resurrect-save-shell-history 'on'
+
+      # continuum options
+      set -g @continuum-save-interval '15'
+      set -g @continuum-restore 'on'
+    '';
 
     plugins = with pkgs.tmuxPlugins; [
       (resurrect.overrideAttrs (oldAttrs: rec {
@@ -47,57 +111,5 @@
 
       continuum
     ];
-
-    theme.primaryColor = "green";
-
-    extraTmuxConf = ''
-      # enable mouse support
-      set-option -g mouse on
-
-      # more logical window splits
-      unbind-key '%'
-      unbind-key '"'
-      bind-key '|' split-window -h -c "#{pane_current_path}"
-      bind-key '\' split-window -v -c "#{pane_current_path}"
-
-      unbind-key 'n'
-      unbind-key 'p'
-      bind-key 'C-l' last-window
-      bind-key -r 'C-j' next-window
-      bind-key -r 'C-k' previous-window
-
-      bind-key -r 'h' select-pane -L
-      bind-key -r 'j' select-pane -D
-      bind-key -r 'k' select-pane -U
-      bind-key -r 'l' select-pane -R
-
-      bind-key -r '>' swap-window -t +1
-      bind-key -r '<' swap-window -t -1
-
-      # status line
-      #set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
-      set -g status-right ' '
-      set -g status-right-length 30
-
-      #set -g status-left '[#{==:#{session_id},#S} #{session_id}] #h '
-      set -g status-left '[#S] #h '
-      set -g status-left-length 30
-
-      # Pane resize options
-      set -g main-pane-width 127
-      set -g main-pane-height 45
-
-      # resurrect options
-      set -g @resurrect-capture-pane-contents 'on'
-      set -g @resurrect-processes 'mosh-client man "~yarn watch"'
-      set -g @resurrect-save-command-strategy 'cmdline'
-      set -g @resurrect-process-match-strategy 'basename'
-      #set -g @resurrect-strategy-nvim 'session'
-      #set -g @resurrect-save-shell-history 'on'
-
-      # continuum options
-      set -g @continuum-save-interval '15'
-      set -g @continuum-restore 'on'
-    '';
   };
 }
