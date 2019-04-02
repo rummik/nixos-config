@@ -15,18 +15,23 @@
 
     zplug = {
       enable = true;
-      theme = "rummik/zsh-theme";
+      theme = "zick.kim/zsh/theme, from:gitlab";
 
       plugins = [
-        "'rummik/zsh-psmin'"
-        "'rummik/zsh-isup'"
-        "'rummik/9k1.us'"
-        "'zsh-users/zsh-completions'"
-        "'plugins/vi-mode', from:oh-my-zsh"
-        "'lib/completion', from:oh-my-zsh"
-        "'lib/history', from:oh-my-zsh"
-        "'zsh-users/zsh-syntax-highlighting', defer:2"
-        "'chisui/zsh-nix-shell', from:github"
+        "chisui/zsh-nix-shell"
+        "lib/completion, from:oh-my-zsh"
+        "lib/history, from:oh-my-zsh"
+        "plugins/vi-mode, from:oh-my-zsh"
+        "zick.kim/zsh/dug, from:gitlab"
+        "zick.kim/zsh/ing, from:gitlab"
+        "zick.kim/zsh/isup, from:gitlab"
+        "zick.kim/zsh/please, from:gitlab"
+        "zick.kim/zsh/psmin, from:gitlab"
+        "zick.kim/zsh/slowcat, from:gitlab"
+        "zick.kim/zsh/tailf, from:gitlab"
+        "zsh-users/zsh-autosuggestions"
+        "zsh-users/zsh-completions"
+        "zsh-users/zsh-syntax-highlighting, defer:2"
       ];
     };
 
