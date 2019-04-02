@@ -128,7 +128,7 @@ in
             nnoremap <leader>s :ToggleWorkspace<CR>
 
             " EditorConfig
-            let g:EditorConfig_exclude_patterns = ['fugitive://.*', '*.tsv', '*.csv'];
+            "let g:EditorConfig_exclude_patterns = ['fugitive://.*', '*.tsv', '*.csv'];
 
 
             " Language Specifics
