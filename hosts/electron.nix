@@ -5,7 +5,6 @@
     ../cfgs/docker.nix
     ../cfgs/networkmanager.nix
     ../cfgs/sc-controller.nix
-    ../cfgs/synergy2.nix
     ../cfgs/virtualbox.nix
     ../cfgs/wireshark.nix
     ../hardware-configuration.nix
@@ -49,6 +48,7 @@
     type = "basic";
 
     source = pkgs.writeText "disable-wireless-when-wired" ''
+      # @begin=sh@
       IFACE=$1
       ACTION=$2
       nmcli=${pkgs.networkmanager}/bin/nmcli
@@ -67,6 +67,7 @@
               esac
               ;;
       esac
+      # @end=sh@
     '';
   }];
 }
