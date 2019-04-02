@@ -1,3 +1,5 @@
+.undodir
+Session.vim
 configuration.nix
 darwin-configuration.nix
 hardware-configuration.nix
