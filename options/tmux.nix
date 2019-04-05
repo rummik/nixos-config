@@ -1,8 +1,8 @@
 { config, pkgs, lib, ft, ... }:
 
 let
-  inherit (lib) mkOption mkIf mkAfter literalExample types;
-  inherit (pkgs) stdenv;
+  inherit (lib) mkOption mkIf mkAfter literalExample types optionalAttrs;
+  inherit (pkgs.stdenv) isLinux isDarwin;
 
   cfg = config.programs.tmux;
 
@@ -71,11 +71,8 @@ in
         ${lib.concatStrings (map (x: "run-shell ${x.rtp}\n") cfg.plugins)}
       '';
 
-      programs.tmux = mkIf (cfg.extraConfig != "") (
-        if stdenv.isDarwin then
-          { tmuxConfig = cfg.extraConfig; }
-        else
-          { extraTmuxConf = cfg.extraConfig; }
-      );
+      programs.tmux = 
+           optionalAttrs isDarwin { tmuxConfig = cfg.extraConfig; }
+        // optionalAttrs isLinux { extraTmuxConf = cfg.extraConfig; };
     };
   }

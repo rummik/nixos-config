@@ -1,58 +1,74 @@
-{ config, pkgs, ... } :
+{ config, lib, pkgs, __nixPath, ... }:
 
-{
-  imports = [
-    ../cfgs/htop.nix
-    ../cfgs/neovim.nix
-    ../cfgs/tmux.nix
-    ../cfgs/zsh.nix
-    ../options/default.nix
-    ./ft.nix
-    ./hosts.nix
-    ./users.nix
-  ];
+let
+  inherit (lib) optional optionals optionalAttrs;
+  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux isDarwin;
+in
+  {
+    imports =
+      [
+        <cfgs/htop.nix>
+        <cfgs/neovim.nix>
+        <cfgs/tmux.nix>
+        <cfgs/zsh.nix>
+        <options>
+      ]
 
-  services.gpm.enable = true;
+      ++ optionals isLinux [
+        <presets/hosts.nix>
+        <presets/users.nix>
+      ];
 
-  time.timeZone = "America/New_York";
+      environment.systemPackages =
+        (with pkgs; [
+          ack
+          curl
+          file
+          gnupg
+          mosh
+          nix-prefetch-git
+          nmap
+          pv
+          telnet
+          unzip
+          w3m
+          wget
+          youtube-dl
+          zip
 
-  networking.firewall.enable = true;
+          git
+          gitAndTools.git-hub
+          gitAndTools.hub
+          gitAndTools.git-fame
+          (callPackage <pkgs/lab/default.nix> { })
+        ])
+        ++ optional isLinux pkgs.whois
+        ++ optional isDarwin pkgs.coreutils;
 
-  i18n = {
-    consoleFont = "Lat2-Terminus16";
-    defaultLocale = "en_US.UTF-8";
-    consoleUseXkbConfig = true;
-  };
+        nixpkgs.config.allowUnfree = true;
+      }
 
-  services.xserver = {
-    layout = "us";
-    xkbOptions = "caps:escape,compose:prsc";
-  };
+      // optionalAttrs isLinux {
+        services.gpm.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    ack
-    curl
-    file
-    mosh
-    nmap
-    pv
-    telnet
-    w3m
-    wget
-    whois
-    youtube-dl
-    nix-prefetch-git
-    gnupg
-    zip
-    unzip
+        time.timeZone = "America/New_York";
 
-    git
-    gitAndTools.git-hub
-    gitAndTools.hub
-    gitAndTools.git-fame
-    (pkgs.callPackage ../pkgs/lab/default.nix { })
-  ];
+        networking.firewall.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
-  system.stateVersion = "18.09";
-}
+        i18n = {
+          consoleFont = "Lat2-Terminus16";
+          defaultLocale = "en_US.UTF-8";
+          consoleUseXkbConfig = true;
+        };
+
+        services.xserver = {
+          layout = "us";
+          xkbOptions = "caps:escape,compose:prsc";
+        };
+
+        system.stateVersion = "18.09";
+      }
+
+      // optionalAttrs isDarwin {
+        system.stateVersion = 3;
+      }

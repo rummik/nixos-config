@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  includes = [
+    ../cfgs/fonts.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     filelight
     kate
@@ -16,13 +20,6 @@
     kdeApplications.kdialog
 
     kdeconnect
-  ];
-
-  fonts.fonts = with pkgs; [
-    fira
-    fira-mono
-    fira-code
-    emojione
   ];
 
   services.printing = {
@@ -41,7 +38,7 @@
   hardware.bluetooth = {
     enable = true;
 
-    extraConfig = "
+    extraConfig = "${ft.dosini}
       [General]
       Enable=Source,Sink,Media,Socket
     ";

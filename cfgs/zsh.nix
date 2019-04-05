@@ -1,10 +1,6 @@
 { config, pkgs, lib, ft, ... }:
 
 {
-  imports = [
-    ../options/zplug.nix
-  ];
-
   # disable zsh-newuser-install
   environment.etc."zshenv".text = lib.mkBefore ''${ft.zsh}
     function zsh-newuser-install { }
@@ -51,6 +47,9 @@
       bindkey '^N' down-line-or-beginning-search
       bindkey -M vicmd 'k' up-line-or-beginning-search
       bindkey -M vicmd 'j' down-line-or-beginning-search
+
+      bindkey "^[[3~" delete-char
+      bindkey "^[3;5~" delete-char
     '';
   };
 }

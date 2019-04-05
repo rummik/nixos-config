@@ -11,7 +11,6 @@
     ../presets/server.nix
   ];
 
-
   networking.hostName = "charm";
   fileSystems."/".options = [ "defaults" "acl" ];
   programs.tmux.theme.secondaryColor = "magenta";

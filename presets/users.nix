@@ -1,4 +1,4 @@
-{ config, pkgs, users, ... }:
+{ pkgs, ... }:
 
 let
   authorizedKeys = import ./authorized-keys.nix;

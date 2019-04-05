@@ -1,13 +1,20 @@
-{ ... }:
+{ lib, ... }:
 
 let
-  ref = "465d08d99f5b72b38cecb7ca1865b7255de3ee86";
+  inherit (lib) optional optionalAttrs;
+  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux isDarwin;
+
+  home-manager = 
+    let ref = "995fa3af"; in fetchTarball {
+      url = "https://github.com/rycee/home-manager/archive/${ref}.tar.gz";
+      sha256 = "0b7aa863hjl60ccg61750i9qgzbgh1p5a8rcdbn54lz5d5r0r252";
+    };
 in
-  {
-    imports = [
-      (import (builtins.fetchTarball {
-        url = "https://github.com/rycee/home-manager/archive/${ref}.tar.gz";
-        sha256 = "1dkvz0sx8kjvk1lap50d5vfgm2wprh1cmhcrx3bn28r3skpj4rbj";
-      }) {}).nixos
-    ];
+  optionalAttrs isDarwin {
+    imports = [ "${home-manager}/nix-darwin" ];
+  }
+
+  // optionalAttrs isLinux {
+    imports = [ "${home-manager}/nixos" ];
+    home-manager.useUserPackages = true;
   }
