@@ -1,4 +1,4 @@
-{ config, pkgs, ... } :
+{ config, pkgs, ft, ... } :
 
 {
   imports = [
@@ -14,7 +14,7 @@
 
     theme.primaryColor = "green";
 
-    extraConfig = ''
+    extraConfig = ''${ft.tmux}
       # enable mouse support
       set -g mouse on
 
@@ -28,7 +28,7 @@
       unbind-key '%'
       unbind-key '"'
       bind-key '|' split-window -h -c "#{pane_current_path}"
-      bind-key '\' split-window -v -c "#{pane_current_path}"
+      bind-key '\\' split-window -v -c "#{pane_current_path}"
 
       unbind-key 'n'
       unbind-key 'p'

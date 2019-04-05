@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ft, ... }:
 
 {
   imports = [
@@ -6,8 +6,8 @@
   ];
 
   # disable zsh-newuser-install
-  environment.etc."zshenv".text = lib.mkBefore ''
-    zsh-newuser-install() { }
+  environment.etc."zshenv".text = lib.mkBefore ''${ft.zsh}
+    function zsh-newuser-install { }
   '';
 
   programs.zsh = {
@@ -36,7 +36,7 @@
       ];
     };
 
-    interactiveShellInit = ''
+    interactiveShellInit = ''${ft.zsh}
       autoload -U zcalc
 
       autoload -U up-line-or-beginning-search

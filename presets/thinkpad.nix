@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ft, ... }:
 
 {
   boot.initrd.availableKernelModules = [
@@ -47,7 +47,7 @@
     videoDrivers = [ "modesetting" ];
     useGlamor = true;
 
-    deviceSection = ''
+    deviceSection = ''${ft.xf86conf}
       Option "TearFree" "true"
       Option "AccelMethod" "sna"
     '';

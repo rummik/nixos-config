@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ft, ... }:
 
 # A temporary hack to `loginctl enable-linger $somebody` (for
 # multiplexer sessions to last), until this one is unresolved:
@@ -18,7 +18,7 @@ let
     (concatStrings (map (s: "${s}\n")
       (sort (a: b: a < b) lingeringUsers))); # this sorting is important for `comm` to work correctly
 
-  updateLingering = pkgs.writeScript "update-lingering" ''
+  updateLingering = pkgs.writeScript "update-lingering" ''${ft.sh}
     if [ -e ${dataDir} ] ; then
       ls ${dataDir} | sort | comm -3 -1 ${lingeringUsersFile} - | xargs -r ${pkgs.systemd}/bin/loginctl disable-linger
       ls ${dataDir} | sort | comm -3 -2 ${lingeringUsersFile} - | xargs -r ${pkgs.systemd}/bin/loginctl  enable-linger

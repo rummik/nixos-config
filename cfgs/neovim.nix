@@ -1,8 +1,12 @@
-{ config, pkgs, ... } :
+{ config, pkgs, lib, ft, ... } :
 
 let
-  inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
   inherit (pkgs) fetchFromGitHub;
+  inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+  inherit (lib) replaceStrings concatMapStringsSep attrNames toUpper substring stringLength;
+
+  ucFirst = name:
+    toUpper (substring 0 1 name) + substring 1 (stringLength name) name;
 
   plugins = {
     deoplete-zsh = (buildVimPluginFrom2Nix {
@@ -63,7 +67,7 @@ in
         vimAlias = true;
 
         configure = {
-          customRC = ''
+          customRC = ''${ft.vim}
             " UI Options
             " ==========
 
@@ -98,7 +102,7 @@ in
             " Airline
             "" Enable tabline
             let g:airline#extensions#tabline#enabled = 1
-            let g:airline#extensions#tabline#formatter = 'default'
+            let g:airline#extensions#tabline#formatter = "default"
 
             "" Hide flietype/encoding/etc
             let g:airline_section_x=""
@@ -112,13 +116,13 @@ in
             filetype plugin indent on
 
             " CTRLP ignores
-            let g:ctrlp_custom_ignore = '/\(bower_components\|node_modules\|\.DS_Store\|\.git\)$'
+            let g:ctrlp_custom_ignore = "/\(bower_components\|node_modules\|\.DS_Store\|\.git\)$"
 
             " Syntastic configurings
-            let g:syntastic_javascript_checkers = ['jshint']
-            let g:syntastic_htmldjango_checkers = ['jshint']
-            let g:syntastic_html_checkers = ['jshint']
-            let g:syntastic_typescript_checkers = ['tslint']
+            let g:syntastic_javascript_checkers = ["jshint"]
+            let g:syntastic_htmldjango_checkers = ["jshint"]
+            let g:syntastic_html_checkers = ["jshint"]
+            let g:syntastic_typescript_checkers = ["tslint"]
 
             " Make paragraph formatting a bit better (gq)
             set formatprg = "par 79"
@@ -128,7 +132,7 @@ in
             nnoremap <leader>s :ToggleWorkspace<CR>
 
             " EditorConfig
-            "let g:EditorConfig_exclude_patterns = ['fugitive://.*', '*.tsv', '*.csv'];
+            "let g:EditorConfig_exclude_patterns = ["fugitive://.*", "*.tsv", "*.csv"];
 
 
             " Language Specifics
@@ -147,7 +151,7 @@ in
           vam.knownPlugins = pkgs.vimPlugins // plugins;
 
           vam.pluginDictionaries = [
-            { name = "deoplete-nvim"; exec = "UpdateRemotePlugins"; }
+            { name = "deoplete-nvim"; exec = ":UpdateRemotePlugins"; }
             { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
             { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
             { name = "vim-markdown"; ft_regex = "^markdown\$"; }
@@ -156,11 +160,31 @@ in
             { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
 
             { name = "vim-SyntaxRange"; ft_regex = "^nix\$";
-              exec = builtins.replaceStrings [ "\n" "'" "call" ] [ "\n\\ | " "''" "autocmd Syntax nix call" ] ''
-                call SyntaxRange#Include("customRC = '''", "''';", "vim", "NonText", "nixInterpolation")
-                call SyntaxRange#Include("extraTmuxConf = '''", "''';", "tmux", "NonText", "nixInterpolation")
-                call SyntaxRange#Include("deviceSection = '''", "''';", "xf86conf", "NonText", "nixInterpolation")
-              '';
+              exec =
+                let
+                  syntaxFor = name: let Name = ucFirst name; in ''${ft.vim}
+                    call SyntaxRange#IncludeEx(
+                      printf(
+                        'matchgroup=nixStringSpecial keepend start="%s"lc=2 skip="%s" end="%s"me=s-1 containedin=nixString',
+                          "'''''${ft.${name}}",
+                          "'''['$\\\\]",
+                          "'''"
+                      ),
+                      '${name}',
+                      'ftnixInterpolation${Name},nixStringSpecial,nixInvalidStringEscape'
+                    )
+                    | syn region ftnixInterpolation${Name} matchgroup=nixInterpolationDelimiter start="\''${" end="}" contained contains=@nixExpr,nixInterpolationParam
+                    | syn region ftnixInterpolation${Name} matchgroup=nixStringSpecial start="'''\''${"rs=e-2,hs=e end="}"lc=1 contained contains=@synInclude${Name}
+                  '';
+                in
+                  replaceStrings [ "\n" "'" ] [ "\n\\ " "''" ]
+                    ("au Syntax nix au Syntax nix au Syntax nix" +
+                      concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft) + ''${ft.vim}
+                        | syn match nixStringSpecial /''''/me=s+1 contained
+                        | syn match nixStringSpecial /'''\\[nrt]/me=s+2 contained
+                        | syn match nixInvalidStringEscape /'''\\[^nrt]/ contained
+                      ''
+                    );
             }
 
             { names = [

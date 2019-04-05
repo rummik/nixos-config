@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ft, ... }:
 
 {
   imports = [
@@ -47,8 +47,7 @@
   networking.networkmanager.dispatcherScripts = [{
     type = "basic";
 
-    source = pkgs.writeText "disable-wireless-when-wired" ''
-      # @begin=sh@
+    source = pkgs.writeText "disable-wireless-when-wired" ''${ft.sh}
       IFACE=$1
       ACTION=$2
       nmcli=${pkgs.networkmanager}/bin/nmcli
@@ -67,7 +66,6 @@
               esac
               ;;
       esac
-      # @end=sh@
     '';
   }];
 }

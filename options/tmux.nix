@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ft, ... }:
 
 let
   inherit (lib) mkOption mkIf mkAfter literalExample types;
@@ -47,7 +47,7 @@ in
     };
 
     config = mkIf cfg.enable {
-      environment.etc."tmux.conf".text = mkAfter ''
+      environment.etc."tmux.conf".text = mkAfter ''${ft.tmux}
         set-option -g pane-active-border-fg bright${cfg.theme.secondaryColor}
         set-option -g pane-border-fg brightblack
         set-option -g display-panes-colour ${cfg.theme.primaryColor}

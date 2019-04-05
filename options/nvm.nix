@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, ft, ... }:
 
 with lib;
 
@@ -71,12 +71,10 @@ in
         mountPoint = "/lib64";
       };
 
-      programs.zsh.interactiveShellInit = with builtins; ''
-        ${optionalString (!cfg.enableForRoot)
-          ''if [[ $USER != 'root' || $NVM_ENABLE_ROOT = 'yes' ]]; then''
-        };
-
-        source ${cfg.package}/share/nvm/env.sh
+      programs.zsh.interactiveShellInit = with builtins; ''${ft.zsh}
+        ${optionalString (!cfg.enableForRoot) ''${ft.zsh}
+          if [[ $USER != 'root' || $NVM_ENABLE_ROOT = 'yes' ]]; then
+        ''}
 
         LDFLAGS="$NVM_LDFLAGS $LDFLAGS" \
         CPPFLAGS="$NVM_CPPFLAGS $CPPFLAGS" \
@@ -158,30 +156,32 @@ in
         autoload -Uz add-zsh-hook
         add-zsh-hook preexec _nnw-auto-wrap
 
-        ${optionalString (cfg.enableCompletion) "source ${cfg.package}/share/nvm/bash_completion"}
+        ${optionalString (cfg.enableCompletion) ''${ft.zsh}
+          source ${cfg.package}/share/nvm/bash_completion
+        ''}
 
-        ${optionalString (cfg.buildFromSource) ''
+        ${optionalString (cfg.buildFromSource) ''${ft.zsh}
           export NVM_SOURCE_INSTALL=1
           export npm_config_build_from_source=true
         ''}
 
-        ${optionalString (!cfg.buildFromSource) ''
+        ${optionalString (!cfg.buildFromSource) ''${ft.zsh}
           export NVM_SOURCE_INSTALL=0
           export npm_config_build_from_source=false
         ''}
 
-        ${optionalString (cfg.force32Bit) ''
-          nvm_get_arch() { nvm_echo "x86" }
+        ${optionalString (cfg.force32Bit) ''${ft.zsh}
+          function nvm_get_arch { nvm_echo "x86" }
           export npm_config_arch=ia32
           export npm_config_target_arch=ia32
         ''}
 
-        ${optionalString (cfg.autoUse) ''
+        ${optionalString (cfg.autoUse) ''${ft.zsh}
           export NVM_AUTO_USE=true
 
           autoload -U add-zsh-hook
 
-          load-nvmrc() {
+          function load-nvmrc {
             local node_version="$(nvm version)"
             local nvmrc_path="$(nvm_find_nvmrc)"
 
@@ -203,9 +203,9 @@ in
           load-nvmrc
         ''}
 
-        ${optionalString (!cfg.enableForRoot)
-          ''fi''
-        };
+        ${optionalString (!cfg.enableForRoot) ''${ft.zsh}
+          fi
+        ''}
       '';
     };
   }

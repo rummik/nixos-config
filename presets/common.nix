@@ -2,11 +2,12 @@
 
 {
   imports = [
-    ../options/default.nix
     ../cfgs/htop.nix
     ../cfgs/neovim.nix
     ../cfgs/tmux.nix
     ../cfgs/zsh.nix
+    ../options/default.nix
+    ./ft.nix
     ./hosts.nix
     ./users.nix
   ];

@@ -7,7 +7,7 @@
     gifsicle
     ffmpeg
 
-    (pkgs.runCommand "ln-frei0r" { } ''
+    (pkgs.runCommand "ln-frei0r" { } ''${ft.sh}
       mkdir -p $out/usr/lib
       ln -s {/run/current-system/sw,$out/usr}/lib/frei0r-1
     '')

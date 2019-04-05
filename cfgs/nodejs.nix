@@ -1,4 +1,4 @@
-{ cfg, pkgs, ... }:
+{ cfg, pkgs, ft, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -8,7 +8,7 @@
     gnumake
   ];
 
-  environment.interactiveShellInit = ''
+  environment.interactiveShellInit = ''${ft.sh}
     export PATH=$HOME/.yarn/bin:$PATH
   '';
 }
