@@ -1,22 +1,21 @@
-{ config, lib, pkgs, __nixPath, ... }:
+{ config, lib, pkgs, isLinux, isDarwin, ... }:
 
 let
   inherit (lib) optional optionals optionalAttrs;
-  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux isDarwin;
 in
   {
     imports =
       [
-        <cfgs/htop.nix>
-        <cfgs/neovim.nix>
-        <cfgs/tmux.nix>
-        <cfgs/zsh.nix>
-        <options>
+        ../cfgs/htop.nix
+        ../cfgs/neovim.nix
+        ../cfgs/tmux.nix
+        ../cfgs/zsh.nix
+        ../options
       ]
 
       ++ optionals isLinux [
-        <presets/hosts.nix>
-        <presets/users.nix>
+        ../presets/hosts.nix
+        ../presets/users.nix
       ];
 
       environment.systemPackages =
@@ -40,7 +39,7 @@ in
           gitAndTools.git-hub
           gitAndTools.hub
           gitAndTools.git-fame
-          (callPackage <pkgs/lab/default.nix> { })
+          (callPackage ../pkgs/lab/default.nix { })
         ])
         ++ optional isLinux pkgs.whois
         ++ optional isDarwin pkgs.coreutils;

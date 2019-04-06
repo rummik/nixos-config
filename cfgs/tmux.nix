@@ -1,114 +1,111 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, isLinux, ft, ... }:
 
-let
-  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux;
-in
-  {
-    environment.systemPackages = with pkgs; [
-      tmuxp
+{
+  environment.systemPackages = with pkgs; [
+    tmuxp
+  ];
+
+  programs.tmux = {
+    enable = true;
+
+    theme.primaryColor = "green";
+
+    extraConfig = ''${ft.tmux}
+      # enable mouse support
+      set -g mouse on
+
+      set -g status-keys vi
+      set -g mode-keys   vi
+
+      set -s escape-time 0
+      set -g default-terminal "screen-256color"
+
+      # more logical window splits
+      unbind-key "%"
+      unbind-key "\""
+      bind-key "|" split-window -h -c "#{pane_current_path}"
+      bind-key "\\" split-window -v -c "#{pane_current_path}"
+
+      unbind-key "n"
+      unbind-key "p"
+      bind-key "C-l" last-window
+      bind-key -r "C-j" next-window
+      bind-key -r "C-k" previous-window
+
+      bind-key -r "h" select-pane -L
+      bind-key -r "j" select-pane -D
+      bind-key -r "k" select-pane -U
+      bind-key -r "l" select-pane -R
+
+      bind-key h select-pane -L
+      bind-key j select-pane -D
+      bind-key k select-pane -U
+      bind-key l select-pane -R
+
+      bind-key -r H resize-pane -L 10
+      bind-key -r J resize-pane -D 10
+      bind-key -r K resize-pane -U 10
+      bind-key -r L resize-pane -R 10
+
+      bind-key -r ">" swap-window -t +1
+      bind-key -r "<" swap-window -t -1
+
+      # status line
+      #set -g status-right " #(echo ''${SSH_CONNECTION%%%% *}) "
+      set -g status-right " "
+      set -g status-right-length 30
+
+      #set -g status-left "[#{==:#{session_id},#S} #{session_id}] #h "
+      set -g status-left "[#S] #h "
+      set -g status-left-length 30
+
+      # Pane resize options
+      set -g main-pane-width 127
+      set -g main-pane-height 45
+
+      # resurrect options
+      set -g @resurrect-capture-pane-contents "on"
+      set -g @resurrect-processes "mosh-client man '~yarn watch'"
+      ${lib.optionalString isLinux "set -g @resurrect-save-command-strategy \"cmdline\""}
+      set -g @resurrect-process-match-strategy "basename"
+      #set -g @resurrect-strategy-nvim "session"
+      #set -g @resurrect-save-shell-history "on"
+
+      # continuum options
+      set -g @continuum-save-interval "15"
+      set -g @continuum-restore "on"
+    '';
+
+    plugins = with pkgs.tmuxPlugins; [
+      continuum
+
+      (resurrect.overrideAttrs (oldAttrs: rec {
+        patches = [
+          # cmdline strategy
+          (pkgs.fetchurl {
+            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/283.patch";
+            sha256 = "03kyrpsnxn4qxfkmanh0q9ykk0cln3ss938yx2n7p76lv9n7d0ar";
+          })
+
+          # mosh-client strategy
+          (pkgs.fetchurl {
+            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/284.patch";
+            sha256 = "1byhbi53dn1zglymva1h98zfw0m57nfravbv6pgppl7vvyw6f0v4";
+          })
+
+          # zsh history save/restore fixes
+          (pkgs.fetchurl {
+            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/285.patch";
+            sha256 = "1bdvr7vj459f0kwvgvmsh1br06wk2w5hr1zjc2jfhab6mw1wb084";
+          })
+
+          # basename match strategy
+          (pkgs.fetchurl {
+            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/286.patch";
+            sha256 = "033x10g8agkm5vswiyg0mjqswbq1n07927b0py6q9rc2g8r95k08";
+          })
+        ];
+      }))
     ];
-
-    programs.tmux = {
-      enable = true;
-
-      theme.primaryColor = "green";
-
-      extraConfig = ''${ft.tmux}
-        # enable mouse support
-        set -g mouse on
-
-        set -g status-keys vi
-        set -g mode-keys   vi
-
-        set -s escape-time 0
-        set -g default-terminal "screen-256color"
-
-        # more logical window splits
-        unbind-key '%'
-        unbind-key '"'
-        bind-key '|' split-window -h -c "#{pane_current_path}"
-        bind-key '\\' split-window -v -c "#{pane_current_path}"
-
-        unbind-key 'n'
-        unbind-key 'p'
-        bind-key 'C-l' last-window
-        bind-key -r 'C-j' next-window
-        bind-key -r 'C-k' previous-window
-
-        bind-key -r 'h' select-pane -L
-        bind-key -r 'j' select-pane -D
-        bind-key -r 'k' select-pane -U
-        bind-key -r 'l' select-pane -R
-
-        bind-key h select-pane -L
-        bind-key j select-pane -D
-        bind-key k select-pane -U
-        bind-key l select-pane -R
-
-        bind-key -r H resize-pane -L 10
-        bind-key -r J resize-pane -D 10
-        bind-key -r K resize-pane -U 10
-        bind-key -r L resize-pane -R 10
-
-        bind-key -r '>' swap-window -t +1
-        bind-key -r '<' swap-window -t -1
-
-        # status line
-        #set -g status-right ' #(echo ''${SSH_CONNECTION%%%% *}) '
-        set -g status-right ' '
-        set -g status-right-length 30
-
-        #set -g status-left '[#{==:#{session_id},#S} #{session_id}] #h '
-        set -g status-left '[#S] #h '
-        set -g status-left-length 30
-
-        # Pane resize options
-        set -g main-pane-width 127
-        set -g main-pane-height 45
-
-        # resurrect options
-        set -g @resurrect-capture-pane-contents 'on'
-        set -g @resurrect-processes 'mosh-client man "~yarn watch"'
-        ${lib.optionalString isLinux "set -g @resurrect-save-command-strategy 'cmdline'"}
-        set -g @resurrect-process-match-strategy 'basename'
-        #set -g @resurrect-strategy-nvim 'session'
-        #set -g @resurrect-save-shell-history 'on'
-
-        # continuum options
-        set -g @continuum-save-interval '15'
-        set -g @continuum-restore 'on'
-      '';
-
-      plugins = with pkgs.tmuxPlugins; [
-        continuum
-
-        (resurrect.overrideAttrs (oldAttrs: rec {
-          patches = [
-            # cmdline strategy
-            (pkgs.fetchurl {
-              url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/283.patch";
-              sha256 = "03kyrpsnxn4qxfkmanh0q9ykk0cln3ss938yx2n7p76lv9n7d0ar";
-            })
-
-            # mosh-client strategy
-            (pkgs.fetchurl {
-              url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/284.patch";
-              sha256 = "1byhbi53dn1zglymva1h98zfw0m57nfravbv6pgppl7vvyw6f0v4";
-            })
-
-            # zsh history save/restore fixes
-            (pkgs.fetchurl {
-              url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/285.patch";
-              sha256 = "1bdvr7vj459f0kwvgvmsh1br06wk2w5hr1zjc2jfhab6mw1wb084";
-            })
-
-            # basename match strategy
-            (pkgs.fetchurl {
-              url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/286.patch";
-              sha256 = "033x10g8agkm5vswiyg0mjqswbq1n07927b0py6q9rc2g8r95k08";
-            })
-          ];
-        }))
-      ];
-    };
-  }
+  };
+}

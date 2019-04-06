@@ -1,7 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, ft, ... }:
 
 {
-  includes = [
+  imports = [
     ../cfgs/fonts.nix
   ];
 

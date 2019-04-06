@@ -1,8 +1,7 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, isLinux, isDarwin, ... }:
 
 let
   inherit (lib) optionalAttrs;
-  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux isDarwin;
 in
   {
     fonts.fonts = with pkgs; [

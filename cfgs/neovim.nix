@@ -5,6 +5,8 @@ let
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
   inherit (lib) replaceStrings concatMapStringsSep attrNames toUpper substring stringLength;
 
+  escapeVimString = string: replaceStrings [ "\n" "'" ] [ "\n\\ " "''" ] string;
+
   ucFirst = name:
     toUpper (substring 0 1 name) + substring 1 (stringLength name) name;
 
@@ -180,7 +182,7 @@ in
                     | syn region ftnixInterpolation${Name} matchgroup=nixStringSpecial start="'''\''${"rs=e-2,hs=e end="}"lc=1 contained contains=@synInclude${Name}
                   '';
                 in
-                  replaceStrings [ "\n" "'" ] [ "\n\\ " "''" ]
+                  escapeVimString
                     ("au Syntax nix au Syntax nix au Syntax nix" +
                       concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft) + ''${ft.vim}
                         | syn match nixStringSpecial /''''/me=s+1 contained
@@ -191,7 +193,7 @@ in
             }
 
             { name = "multiple-cursors";
-              exec = ''${ft.vim}
+              exec = escapeVimString ''${ft.vim}
                 func! Multiple_cursors_before()
                   if deoplete#is_enabled()
                     call deoplete#disable()

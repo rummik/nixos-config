@@ -15,8 +15,6 @@
     ../presets/workstation.nix
   ];
 
-  networking.hostName = "electron";
-
   programs.tmux.theme.secondaryColor = "cyan";
 
   networking.firewall.allowedTCPPortRanges = [

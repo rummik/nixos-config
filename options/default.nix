@@ -1,8 +1,7 @@
-{ lib, ... }:
+{ lib, isLinux, ... }:
 
 let
   inherit (lib) optionals;
-  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux;
 in
   {
     imports =

@@ -1,33 +1,12 @@
-## Personal NixOS configs
+## *Kim's Personal NixOS configs
 
 This uses [Home Manager](https://github.com/rycee/home-manager) to manage (some)
 dotfiles
 
-### Usage
-Symlink host file from `hosts/<hostname>.nix` to `configuration.nix`
-
+### Installing
 ```
-export NIXHOST=<HOST NAME>
-
-sudo sh <<SETUP
-mv /etc/nixos /etc/nixos-orig
-git clone https://gitlab.com/zick.kim/nixos/nixos-config.git /etc/nixos
-cp /etc/nixos-orig/hardware-configuration.nix /etc/nixos
-[ ! -e /etc/nixos/hosts/$NIXHOST.nix ] && mv /etc/nixos-orig/configuration.nix /etc/nixos/hosts/$NIXHOST.nix
-ln -sr /etc/nixos/hosts/$NIXHOST.nix /etc/nixos/configuration.nix
-SETUP
-```
-
-#### Nix Darwin
-```
-export NIXHOST=<HOST NAME>
-
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
-git clone https://gitlab.com/zick.kim/nixos/nixos-config.git ~/Nix
-[ ! -e ~/Nix/hosts/$NIXHOST.nix ] && mv ~/.nixpkgs/darwin-configuration.nix ~/Nix/hosts/$NIXHOST.nix
-ln -s ~/Nix/hosts/$NIXHOST.nix ~/Nix/configuration.nix
-ln -sf ~/Nix/hosts/$NIXHOST.nix ~/.nixpkgs/darwin-configuration.nix
+# optionally set/export HOST to select a default host file
+curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
 ```
 
 ### Layout
@@ -39,7 +18,11 @@ ln -sf ~/Nix/hosts/$NIXHOST.nix ~/.nixpkgs/darwin-configuration.nix
 - `presets/` - General shared configurations
 
 ### Debugging
-Run `nix repl '<nixpkgs/nixos>'`, configuration results are under `config.*`
+Run `nix repl '<nixpkgs/nixos>'`, configuration results are under `config.*`,
+reload with `:r`
+
+Or use `nixos-option` to determine the current and default values for an option,
+and view the option's description
 
 ### Syncing
 Assuming you have a separate local repository, and want to sync all refs in
