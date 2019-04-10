@@ -1,7 +1,20 @@
-## *Kim's Personal NixOS configs
+## *Kim's Personal Nix(OS) configs
 
-This uses [Home Manager](https://github.com/rycee/home-manager) to manage (some)
-dotfiles
+_Warning: Does not fully conform to the Nix guidelines_
+
+Makes use of [Home Manager](https://github.com/rycee/home-manager) to manage
+(some) dotfiles
+
+Also works under [Nix-Darwin](https://github.com/LnL7/nix-darwin)
+
+Maybe useful to others?  There are shenanigans in `configuration.nix`, and some
+of the `default.nix` files -- primarily when dealing with imports, and platform
+specifics
+
+It also includes some very unconventional Nix syntax adjustments to hack in
+syntax highlighting within strings
+
+![Tmux syntax highlighting in Vim](screenshots/tmux.png)
 
 ### Installing
 ```
@@ -10,12 +23,12 @@ curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
 ```
 
 ### Layout
-- `cfgs/` - Package configurations
-  - `cfgs/home` - [Home Manager](https://github.com/rycee/home-manager) configurations
+- `config/` - Package configurations
+  - `config/home` - [Home Manager](https://github.com/rycee/home-manager) configurations
 - `hosts/` - Host specific configurations
-- `options/` - Option files for custom packages
-- `pkgs/` - Custom packages
-- `presets/` - General shared configurations
+- `modules/` - Custom  modules
+- `overlays/` - Package overlays
+- `profiles/` - Configuration profiles
 
 ### Debugging
 Run `nix repl '<nixpkgs/nixos>'`, configuration results are under `config.*`,
@@ -23,6 +36,8 @@ reload with `:r`
 
 Or use `nixos-option` to determine the current and default values for an option,
 and view the option's description
+
+Alternatively use `nix repl '<darwin>'`, or `darwin-option` if using nix-darwin
 
 ### Syncing
 Assuming you have a separate local repository, and want to sync all refs in

@@ -2,13 +2,11 @@
 
 {
   imports = [
-    ../cfgs/networkmanager.nix
-    ../hardware-configuration.nix
-    ../presets/common.nix
-    ../presets/server.nix
+    "config/networkmanager.nix"
+    "hardware-configuration.nix"
+    "profiles/common.nix"
+    "profiles/server.nix"
   ];
-
-  networking.hostName = "up";
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

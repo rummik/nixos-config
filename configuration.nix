@@ -1,11 +1,13 @@
-{ lib, ... }:
+{ lib, config, options, ... }:
+
 let
-  inherit (lib) optional isFunction functionArgs;
-  inherit (lib.systems.elaborate { system = __currentSystem; }) isLinux isDarwin;
-  inherit (builtins) substring getEnv pathExists stringLength readFile attrNames currentSystem;
+  inherit (builtins) getEnv currentSystem;
+  inherit (lib) optional substring stringLength isFunction isString
+    functionArgs pathExists readFile attrNames;
+  inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
   __nixPath = builtins.nixPath ++ [
-    #{ path = ./.; }
+    { prefix = "nixpkgs-overlays"; path = ./overlays; }
 
     {
       prefix = "home-manager";
@@ -36,19 +38,12 @@ let
   inject = {
     inherit __nixPath hostname isLinux isDarwin;
 
-    ft = (attrs: lib.genAttrs attrs (name: "")) [
-      "dosini"
-      "nix"
-      "sh"
-      "tmux"
-      "vim"
-      "xf86conf"
-      "zsh"
-    ];
+    ft = import ./overlays/ft.nix lib;
   };
 
   moduleArgs = m: removeAttrs (functionArgs m) (__attrNames inject);
-  wrapImports = imports: map (file: wrapModule file (import file)) imports;
+  pathFixup = path: if isString path then ./. + "/${path}" else path;
+  wrapImports = imports: map (file: wrapModule (pathFixup file) (import (pathFixup file))) imports;
 
   wrapModuleImports = file: m: m // {
     _file = toString file;
@@ -61,16 +56,31 @@ let
     __functionArgs = moduleArgs m;
   };
 
-  optionalIfExists = file: optional (pathExists file) file;
+  optionalIfExists = file: optional (pathExists (pathFixup file)) (pathFixup file);
 in
   wrapModule ./configuration.nix {
+    nix.nixPath =
+      options.nix.nixPath.default
+      ++ map
+        (
+          { prefix ? "", path }@args:
+            if args ? prefix then 
+              "${prefix}=${toString path}"
+            else
+              toString path
+        )
+        __nixPath;
+
+    nixpkgs.overlays = [ (import ./overlays) ];
+
     imports =
       [
-        ./presets/common.nix
-        (./. + "/hosts/${hostname}.nix")
+        ./modules
+        ./profiles/common.nix
+        "hosts/${hostname}.nix"
       ]
       ++ optionalIfExists ./hardware-configuration.nix
-      ++ optionalIfExists (./. + "/hosts/${hostname}-hardware.nix");
+      ++ optionalIfExists "hosts/${hostname}-hardware.nix";
 
     networking.hostName = hostname;
   }

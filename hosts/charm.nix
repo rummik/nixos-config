@@ -2,16 +2,14 @@
 
 {
   imports = [
-    ../cfgs/bitlbee.nix
-    ../cfgs/nginx.nix
-    ../cfgs/nginx/rummik.com.nix
-    ../cfgs/weechat.nix
-    ../hardware-configuration.nix
-    ../presets/common.nix
-    ../presets/server.nix
+    "config/bitlbee.nix"
+    "config/nginx.nix"
+    "config/nginx/rummik.com.nix"
+    "config/weechat.nix"
+    "profiles/common.nix"
+    "profiles/server.nix"
   ];
 
-  networking.hostName = "charm";
   fileSystems."/".options = [ "defaults" "acl" ];
   programs.tmux.theme.secondaryColor = "magenta";
 }

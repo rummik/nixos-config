@@ -2,12 +2,16 @@
 
 {
   imports = [
-    ../hardware-configuration.nix
+    "config/fonts.nix"
+    "config/nodejs.nix"
   ];
 
   programs.tmux.theme.secondaryColor = "cyan";
 
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [
+    #tpkb
+    folderify
+  ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
