@@ -68,7 +68,7 @@ let
   };
 in
   {
-    environment.systemPackages = with pkgs; [ neovim ctags ];
+    environment.systemPackages = with pkgs; [ neovim ctags wakatime ];
 
     environment.variables = {
       EDITOR = pkgs.lib.mkOverride 0 "vim";
@@ -224,6 +224,10 @@ in
 
             { name = "deoplete-nvim"; exec = "UpdateRemotePlugins"; }
             { name = "nerdtree"; exec = "map <C-k> :NERDTreeToggle<CR>"; }
+
+            # Using a filename regex to workaround Wakatime's API token prompt
+            # breaking rplugin manifest generation
+            { name = "vim-wakatime"; filename_regex = "."; }
 
             { names = [
               "ctrlp"

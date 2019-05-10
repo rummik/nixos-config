@@ -23,6 +23,7 @@
         "lib/completion, from:oh-my-zsh"
         "lib/history, from:oh-my-zsh"
         "plugins/vi-mode, from:oh-my-zsh"
+        "wbingli/zsh-wakatime"
         "zick.kim/zsh/dug, from:gitlab"
         "zick.kim/zsh/ing, from:gitlab"
         "zick.kim/zsh/isup, from:gitlab"
