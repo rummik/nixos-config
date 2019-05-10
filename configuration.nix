@@ -14,9 +14,9 @@ let
       path =
         fetchTarball {
           url =
-            let ref = "4323b351"; in
+            let ref = "c94eaa0"; in
             "https://github.com/rycee/home-manager/archive/${ref}.tar.gz";
-          sha256 = "15plwlv13w1slhb6wwr0barxh570l577g3qf6mkh8xjnkk66pza2";
+          sha256 = "1710mkpmnrbm8h77m6y2vh90zxdc1282skigkiaaralpk6wkis48";
         };
     }
   ];
@@ -59,7 +59,7 @@ let
   optionalIfExists = file: optional (pathExists (pathFixup file)) (pathFixup file);
 in
   wrapModule ./configuration.nix {
-    nix.nixPath =
+    /*nix.nixPath =
       options.nix.nixPath.default
       ++ map
         (
@@ -69,7 +69,7 @@ in
             else
               toString path
         )
-        __nixPath;
+        __nixPath;*/
 
     nixpkgs.overlays = [ (import ./overlays) ];
 

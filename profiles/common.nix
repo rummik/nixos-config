@@ -64,7 +64,7 @@ in
           xkbOptions = "caps:escape,compose:prsc";
         };
 
-        system.stateVersion = "18.09";
+        system.stateVersion = "19.03";
       }
 
       // optionalAttrs isDarwin {
