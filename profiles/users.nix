@@ -15,26 +15,28 @@ in
     };
 
     users.extraUsers.rummik = {
+      uid = 1000;
       isNormalUser = true;
       linger = true;
-      uid = 1000;
-      # Dialout for accessing ttyACM*
-      extraGroups = [
-        "wheel"
-        "video"
-        "audio"
-        "networkmanager"
-        "dialout"
-        "vboxusers"
-        "wireshark"
-        "docker"
-        "adbusers"
-        "render"
-      ];
-      createHome = true;
+
+      # should really choose something hashed, but XKCD-936 amuses me
       initialPassword = "correct horse battery staple";
-      useDefaultShell = true;
+
       openssh.authorizedKeys.keys = authorizedKeys;
+
+      extraGroups = [
+        "adbusers"
+        "audio"
+        "dialout" # ttyACM*
+        "docker"
+        "networkmanager"
+        "render"
+        "scanner" "lp" # SANE
+        "vboxusers"
+        "video"
+        "wheel"
+        "wireshark"
+      ];
     };
 
     home-manager.users.rummik = { ... }: {
