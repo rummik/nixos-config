@@ -13,6 +13,7 @@
     ktorrent
     partition-manager
     spectacle
+    skanlite
 
     ark
     p7zip
@@ -25,6 +26,12 @@
   services.printing = {
     enable = true;
     drivers = [ pkgs.hplip ];
+  };
+
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.hplipWithPlugin ];
+    netConf = "hp-printer.local";
   };
 
   services.avahi.enable = true;
