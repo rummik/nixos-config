@@ -222,7 +222,6 @@ in
               '';
             }
 
-            { name = "deoplete-nvim"; exec = "UpdateRemotePlugins"; }
             { name = "nerdtree"; exec = "map <C-k> :NERDTreeToggle<CR>"; }
 
             # Using a filename regex to workaround Wakatime's API token prompt
@@ -231,6 +230,7 @@ in
 
             { names = [
               "ctrlp"
+              "deoplete-nvim"
               "editorconfig-vim"
               "fugitive"
               "fzf-vim"
