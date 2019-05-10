@@ -68,7 +68,7 @@ let
   };
 in
   {
-    environment.systemPackages = with pkgs; [ neovim ];
+    environment.systemPackages = with pkgs; [ neovim ctags ];
 
     environment.variables = {
       EDITOR = pkgs.lib.mkOverride 0 "vim";
@@ -168,10 +168,9 @@ in
           vam.knownPlugins = pkgs.vimPlugins // plugins;
 
           vam.pluginDictionaries = [
-            { name = "deoplete-nvim"; exec = ":UpdateRemotePlugins"; }
             { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
-            { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
             { name = "vim-markdown"; ft_regex = "^markdown\$"; }
+            { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
             { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
             { name = "yajs"; ft_regex = "^javascript\$"; }
             { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
@@ -223,16 +222,21 @@ in
               '';
             }
 
+            { name = "deoplete-nvim"; exec = "UpdateRemotePlugins"; }
+            { name = "nerdtree"; exec = "map <C-k> :NERDTreeToggle<CR>"; }
+
             { names = [
               "ctrlp"
               "editorconfig-vim"
               "fugitive"
               "fzf-vim"
-              "gitgutter"
-              "multiple-cursors"
+              "nerdtree-git-plugin"
               "syntastic"
               "vim-airline"
-              "vim-closetag"
+              "vim-easytags"
+              "vim-gitgutter"
+              "vim-multiple-cursors"
+              "vim-surround"
               "vim-workspace"
             ]; }
           ];
