@@ -22,6 +22,17 @@ let
       };
     });
 
+    vim-smali = (buildVimPluginFrom2Nix {
+      name = "vim-smali-2017-03-07";
+
+      src = fetchFromGitHub {
+        owner = "rummik";
+        repo = "vim-smali";
+        rev = "46d2a7583234bf0819a18d9f73ab8c751d6a58ad";
+        sha256 = "1br3jir8v2hzrhmj2fdsd74gi65ikrwipimjfkwscd6z9c32s50d";
+      };
+    });
+
     vim-workspace = (buildVimPluginFrom2Nix {
       name = "vim-workspace-2018-12-11";
 
@@ -161,6 +172,7 @@ in
             { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
             { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
             { name = "vim-markdown"; ft_regex = "^markdown\$"; }
+            { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
             { name = "yajs"; ft_regex = "^javascript\$"; }
             { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
             { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
