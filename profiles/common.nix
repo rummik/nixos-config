@@ -34,6 +34,8 @@ in
           youtube-dl
           zip
 
+          cht-sh
+
           git
           gitAndTools.git-hub
           gitAndTools.hub
