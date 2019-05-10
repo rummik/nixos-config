@@ -3,8 +3,11 @@
 {
   environment.systemPackages = with pkgs; [
     openvpn
+    dnsmasq
     networkmanager_openvpn
   ];
+
+  services.hostapd.enable = true;
 
   networking.networkmanager = {
     enable = true;
