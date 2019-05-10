@@ -1,0 +1,62 @@
+From d27d0dd936cff42ef643d78666b301a1b47d2027 Mon Sep 17 00:00:00 2001
+From: "*Kim Zick (rummik)" <k@9k1.us>
+Date: Sat, 29 Dec 2018 11:49:23 -0500
+Subject: [PATCH] Add @resurrect-process-match-strategy option and "basename"
+ strategy
+
+---
+ scripts/process_restore_helpers.sh | 16 +++++++++++++---
+ scripts/variables.sh               |  6 ++++++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/process_restore_helpers.sh b/scripts/process_restore_helpers.sh
+index 0b88177..fcc2245 100644
+--- a/scripts/process_restore_helpers.sh
++++ b/scripts/process_restore_helpers.sh
+@@ -89,6 +89,8 @@ _process_on_the_restore_list() {
+ _proc_matches_full_command() {
+ 	local pane_full_command="$1"
+ 	local match="$2"
++	local match_strategy=$(get_tmux_option "$process_match_strategy_option" "$default_process_match_strategy")
++
+ 	if _proc_starts_with_tildae "$match"; then
+ 		match="$(remove_first_char "$match")"
+ 		# regex matching the command makes sure `$match` string is somewhere in the command string
+@@ -96,9 +98,17 @@ _proc_matches_full_command() {
+ 			return 0
+ 		fi
+ 	else
+-		# regex matching the command makes sure process is a "word"
+-		if [[ "$pane_full_command" =~ (^${match} ) ]] || [[ "$pane_full_command" =~ (^${match}$) ]]; then
+-			return 0
++		if [[ $match_strategy = "basename" ]]; then
++			# This is roughly equivalent to performing a basename on the first part of the command (program name)
++			# then matching against the result.  It will break on backslash escaped spaces in paths.
++			if [[ "$pane_full_command" =~ (^([^ ]+/)?${match} ) ]] || [[ "$pane_full_command" =~ (^([^ ]+/)?${match}$) ]]; then
++				return 0
++			fi
++		else # default to $match_strategy 'full'
++			# regex matching the command makes sure process is a "word"
++			if [[ "$pane_full_command" =~ (^${match} ) ]] || [[ "$pane_full_command" =~ (^${match}$) ]]; then
++				return 0
++			fi
+ 		fi
+ 	fi
+ 	return 1
+diff --git a/scripts/variables.sh b/scripts/variables.sh
+index 9436957..018e5f4 100644
+--- a/scripts/variables.sh
++++ b/scripts/variables.sh
+@@ -20,6 +20,12 @@ default_proc_list='vi vim nvim emacs man less more tail top htop irssi weechat m
+ restore_processes_option="@resurrect-processes"
+ restore_processes=""
+ 
++# Strategy for matching process names
++#  'full' - matches from the beginning of the full command
++#  'basename' - matches against a basename of the first part of the full command
++process_match_strategy_option="@resurrect-process-match-strategy"
++default_process_match_strategy="full"
++
+ # Defines part of the user variable. Example usage:
+ #   set -g @resurrect-strategy-vim "session"
+ restore_process_strategy_option="@resurrect-strategy-"

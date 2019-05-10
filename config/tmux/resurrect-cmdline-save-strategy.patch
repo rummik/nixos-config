@@ -1,0 +1,164 @@
+From edd8132befb336b71190f55498dccc1772a8a893 Mon Sep 17 00:00:00 2001
+From: donat-b <donat@opmbx.org>
+Date: Tue, 26 Sep 2017 22:08:25 +0300
+Subject: [PATCH 1/4] Add cmdline strategy
+
+---
+ save_command_strategies/cmdline.sh | 23 +++++++++++++++++++++++
+ scripts/restore.sh                 |  3 +++
+ 2 files changed, 26 insertions(+)
+ create mode 100755 save_command_strategies/cmdline.sh
+
+diff --git a/save_command_strategies/cmdline.sh b/save_command_strategies/cmdline.sh
+new file mode 100755
+index 0000000..90270fd
+--- /dev/null
++++ b/save_command_strategies/cmdline.sh
+@@ -0,0 +1,23 @@
++#!/usr/bin/env bash
++
++CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
++
++PANE_PID="$1"
++CPID=$(pgrep -P $PANE_PID)
++
++exit_safely_if_empty_ppid() {
++	if [ -z "$PANE_PID" ]; then
++		exit 0
++	fi
++}
++
++full_command() {
++	[[ -z "$CPID" ]] && exit 0
++	base64 /proc/${CPID}/cmdline
++}
++
++main() {
++	exit_safely_if_empty_ppid
++	full_command
++}
++main
+diff --git a/scripts/restore.sh b/scripts/restore.sh
+index 4104af3..666b99e 100755
+--- a/scripts/restore.sh
++++ b/scripts/restore.sh
+@@ -298,6 +298,9 @@ restore_all_pane_processes() {
+ 			while IFS=$d read session_name window_number pane_index dir pane_full_command; do
+ 				dir="$(remove_first_char "$dir")"
+ 				pane_full_command="$(remove_first_char "$pane_full_command")"
++				if base64 -d <<< $pane_full_command >/dev/null 2>&1; then
++					pane_full_command=$(base64 -d <<< $pane_full_command | perl -ne 'print join(" ", map quotemeta, split(/\000/)), "\n"')
++				fi
+ 				restore_pane_process "$pane_full_command" "$session_name" "$window_number" "$pane_index" "$dir"
+ 			done
+ 	fi
+
+From 15cabbb9300807685434a694ffb7c2366e4ade76 Mon Sep 17 00:00:00 2001
+From: "*Kim Zick (rummik)" <k@9k1.us>
+Date: Thu, 27 Dec 2018 22:38:59 -0500
+Subject: [PATCH 2/4] Fixes for cmdline save/restore strategy
+
+---
+ save_command_strategies/cmdline.sh | 2 +-
+ scripts/restore.sh                 | 5 +++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/save_command_strategies/cmdline.sh b/save_command_strategies/cmdline.sh
+index 90270fd..95cab3a 100755
+--- a/save_command_strategies/cmdline.sh
++++ b/save_command_strategies/cmdline.sh
+@@ -13,7 +13,7 @@ exit_safely_if_empty_ppid() {
+ 
+ full_command() {
+ 	[[ -z "$CPID" ]] && exit 0
+-	base64 /proc/${CPID}/cmdline
++	cat /proc/${CPID}/cmdline | perl -ne 'print join(" ", map quotemeta, split(/\000/))' | base64 -w0
+ }
+ 
+ main() {
+diff --git a/scripts/restore.sh b/scripts/restore.sh
+index 666b99e..d133a5f 100755
+--- a/scripts/restore.sh
++++ b/scripts/restore.sh
+@@ -293,13 +293,14 @@ restore_shell_history() {
+ 
+ restore_all_pane_processes() {
+ 	if restore_pane_processes_enabled; then
++		local save_command_strategy="$(get_tmux_option "$save_command_strategy_option" "$default_save_command_strategy")"
+ 		local pane_full_command
+ 		awk 'BEGIN { FS="\t"; OFS="\t" } /^pane/ && $11 !~ "^:$" { print $2, $3, $7, $8, $11; }' $(last_resurrect_file) |
+ 			while IFS=$d read session_name window_number pane_index dir pane_full_command; do
+ 				dir="$(remove_first_char "$dir")"
+ 				pane_full_command="$(remove_first_char "$pane_full_command")"
+-				if base64 -d <<< $pane_full_command >/dev/null 2>&1; then
+-					pane_full_command=$(base64 -d <<< $pane_full_command | perl -ne 'print join(" ", map quotemeta, split(/\000/)), "\n"')
++				if [ $save_command_strategy = "cmdline" ]; then
++					pane_full_command=$(base64 -d <<< $pane_full_command)
+ 				fi
+ 				restore_pane_process "$pane_full_command" "$session_name" "$window_number" "$pane_index" "$dir"
+ 			done
+
+From 913f693f80467d0793267b3e63050af56f50b3ad Mon Sep 17 00:00:00 2001
+From: "*Kim Zick (rummik)" <k@9k1.us>
+Date: Fri, 28 Dec 2018 19:37:33 -0500
+Subject: [PATCH 3/4] Remove cmdline dependency on base64 and perl
+
+---
+ save_command_strategies/cmdline.sh | 2 +-
+ scripts/restore.sh                 | 5 +----
+ 2 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/save_command_strategies/cmdline.sh b/save_command_strategies/cmdline.sh
+index 95cab3a..cf4edb5 100755
+--- a/save_command_strategies/cmdline.sh
++++ b/save_command_strategies/cmdline.sh
+@@ -13,7 +13,7 @@ exit_safely_if_empty_ppid() {
+ 
+ full_command() {
+ 	[[ -z "$CPID" ]] && exit 0
+-	cat /proc/${CPID}/cmdline | perl -ne 'print join(" ", map quotemeta, split(/\000/))' | base64 -w0
++	cat /proc/${CPID}/cmdline | xargs -0 printf "%q "
+ }
+ 
+ main() {
+diff --git a/scripts/restore.sh b/scripts/restore.sh
+index d133a5f..27bdcc0 100755
+--- a/scripts/restore.sh
++++ b/scripts/restore.sh
+@@ -296,12 +296,9 @@ restore_all_pane_processes() {
+ 		local save_command_strategy="$(get_tmux_option "$save_command_strategy_option" "$default_save_command_strategy")"
+ 		local pane_full_command
+ 		awk 'BEGIN { FS="\t"; OFS="\t" } /^pane/ && $11 !~ "^:$" { print $2, $3, $7, $8, $11; }' $(last_resurrect_file) |
+-			while IFS=$d read session_name window_number pane_index dir pane_full_command; do
++			while IFS=$d read -r session_name window_number pane_index dir pane_full_command; do
+ 				dir="$(remove_first_char "$dir")"
+ 				pane_full_command="$(remove_first_char "$pane_full_command")"
+-				if [ $save_command_strategy = "cmdline" ]; then
+-					pane_full_command=$(base64 -d <<< $pane_full_command)
+-				fi
+ 				restore_pane_process "$pane_full_command" "$session_name" "$window_number" "$pane_index" "$dir"
+ 			done
+ 	fi
+
+From ac8a4466678070f815fb9fcfbc91e6753ab14ace Mon Sep 17 00:00:00 2001
+From: "*Kim Zick (rummik)" <k@9k1.us>
+Date: Mon, 7 Jan 2019 11:34:59 -0500
+Subject: [PATCH 4/4] Remove lingering code from base64-dependent cmdline
+ solution
+
+---
+ scripts/restore.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/scripts/restore.sh b/scripts/restore.sh
+index 27bdcc0..62ce26f 100755
+--- a/scripts/restore.sh
++++ b/scripts/restore.sh
+@@ -293,7 +293,6 @@ restore_shell_history() {
+ 
+ restore_all_pane_processes() {
+ 	if restore_pane_processes_enabled; then
+-		local save_command_strategy="$(get_tmux_option "$save_command_strategy_option" "$default_save_command_strategy")"
+ 		local pane_full_command
+ 		awk 'BEGIN { FS="\t"; OFS="\t" } /^pane/ && $11 !~ "^:$" { print $2, $3, $7, $8, $11; }' $(last_resurrect_file) |
+ 			while IFS=$d read -r session_name window_number pane_index dir pane_full_command; do

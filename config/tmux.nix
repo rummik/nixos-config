@@ -78,34 +78,23 @@
 
     plugins = with pkgs.tmuxPlugins; [
       continuum
-
-      (resurrect.overrideAttrs (oldAttrs: rec {
-        patches = [
-          # cmdline strategy
-          (pkgs.fetchurl {
-            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/283.patch";
-            sha256 = "03kyrpsnxn4qxfkmanh0q9ykk0cln3ss938yx2n7p76lv9n7d0ar";
-          })
-
-          # mosh-client strategy
-          (pkgs.fetchurl {
-            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/284.patch";
-            sha256 = "1byhbi53dn1zglymva1h98zfw0m57nfravbv6pgppl7vvyw6f0v4";
-          })
-
-          # zsh history save/restore fixes
-          (pkgs.fetchurl {
-            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/285.patch";
-            sha256 = "1bdvr7vj459f0kwvgvmsh1br06wk2w5hr1zjc2jfhab6mw1wb084";
-          })
-
-          # basename match strategy
-          (pkgs.fetchurl {
-            url = "https://patch-diff.githubusercontent.com/raw/tmux-plugins/tmux-resurrect/pull/286.patch";
-            sha256 = "033x10g8agkm5vswiyg0mjqswbq1n07927b0py6q9rc2g8r95k08";
-          })
-        ];
-      }))
+      resurrect
     ];
+  };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    resurrect = (pkgs.resurrect.overrideAttrs (oldAttrs: rec {
+      src = pkgs.fetchFromGitHub {
+        owner = "tmux-plugins";
+        repo = "tmux-resurrect";
+        rev = "e3f05dd34f396a6f81bd9aa02f168e8bbd99e6b2";
+        sha256 = "0w7gn6pjcqqhwlv7qa6kkhb011wcrmzv0msh9z7w2y931hla4ppz";
+      };
+
+      patches = [
+        ./tmux/resurrect-basename-match-strategy.patch
+        ./tmux/resurrect-cmdline-save-strategy.patch
+      ];
+    }));
   };
 }
