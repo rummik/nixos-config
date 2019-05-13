@@ -3,7 +3,6 @@
 {
   imports = [
     "config/networkmanager.nix"
-    "hardware-configuration.nix"
     "profiles/common.nix"
     "profiles/server.nix"
   ];

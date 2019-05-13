@@ -7,7 +7,6 @@
     "config/sc-controller.nix"
     "config/virtualbox.nix"
     "config/wireshark.nix"
-    "hardware-configuration.nix"
     "profiles/common.nix"
     "profiles/games.nix"
     "profiles/haskell.nix"

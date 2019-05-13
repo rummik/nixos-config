@@ -6,6 +6,7 @@ let
     functionArgs pathExists readFile attrNames;
   inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
+  # Build up a nix path
   __nixPath = builtins.nixPath ++ [
     { prefix = "nixpkgs-overlays"; path = ./overlays; }
 
@@ -21,6 +22,7 @@ let
     }
   ];
 
+  # Yes, host name shenanigans
   HOST = getEnv "HOST";
   hostname = if HOST != "" then HOST else
     (h: substring 0 (stringLength h - 1) h) (readFile (
@@ -59,28 +61,16 @@ let
   optionalIfExists = file: optional (pathExists (pathFixup file)) (pathFixup file);
 in
   wrapModule ./configuration.nix {
-    /*nix.nixPath =
-      options.nix.nixPath.default
-      ++ map
-        (
-          { prefix ? "", path }@args:
-            if args ? prefix then 
-              "${prefix}=${toString path}"
-            else
-              toString path
-        )
-        __nixPath;*/
-
     nixpkgs.overlays = [ (import ./overlays) ];
 
     imports =
       [
         ./modules
         ./profiles/common.nix
-        "hosts/${hostname}.nix"
+        "hosts/${hostname}/configuration.nix"
       ]
       ++ optionalIfExists ./hardware-configuration.nix
-      ++ optionalIfExists "hosts/${hostname}-hardware.nix";
+      ++ optionalIfExists "hosts/${hostname}/hardware-configuration.nix";
 
     networking.hostName = hostname;
   }

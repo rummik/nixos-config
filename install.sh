@@ -24,8 +24,9 @@ fi
 git clone https://gitlab.com/zick.kim/nixos/nixos-config.git $INSTALL_PATH
 cd $INSTALL_PATH
 
-if [[ ! -e ./hosts/$HOST.nix ]]; then
-  cp $SOURCE_PATH ./hosts/$HOST.nix
+if [[ ! -e ./hosts/$HOST/configuration.nix ]]; then
+  mkdir -p ./hosts/$HOST
+  cp $SOURCE_PATH ./hosts/$HOST/configuration.nix
 fi
 
 if [[ $system = "Darwin" ]]; then
