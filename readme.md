@@ -52,3 +52,8 @@ git checkout master
 Language types to be included for highlight are at [overlays/ft.nix](overlays/ft.nix)
 
 ![Tmux syntax highlighting in Vim](screenshots/tmux.png)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frummik%2Fnixos-config.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frummik%2Fnixos-config?ref=badge_shield)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frummik%2Fnixos-config.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frummik%2Fnixos-config?ref=badge_large)
