@@ -12,10 +12,6 @@ specifics
 It also includes some very unconventional Nix syntax adjustments to hack in
 syntax highlighting within strings
 
-![Tmux syntax highlighting in Vim](screenshots/tmux.png)
-
-Language types to be included for highlight are at [overlays/ft.nix](overlays/ft.nix)
-
 ### Installing
 ```
 # optionally set/export HOST to select a default host file
@@ -28,6 +24,7 @@ curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
 - `hosts/` - Host specific configurations
 - `modules/` - Custom  modules
 - `overlays/` - Package overlays
+  - `overlays/ft.nix` - Highlighted languages
 - `profiles/` - Configuration profiles
 
 ### Debugging
@@ -49,3 +46,9 @@ git fetch local '+refs/heads/*:refs/heads/*'
 git push origin --all
 git checkout master
 ```
+
+### Syntax highlighting
+
+Language types to be included for highlight are at [overlays/ft.nix](overlays/ft.nix)
+
+![Tmux syntax highlighting in Vim](screenshots/tmux.png)
