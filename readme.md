@@ -24,7 +24,7 @@ curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
 
 ### Layout
 - `config/` - Package configurations
-  - `config/home` - [Home Manager](https://github.com/rycee/home-manager) configurations
+  - `config/home-manager` - [Home Manager](https://github.com/rycee/home-manager) configurations
 - `hosts/` - Host specific configurations
 - `modules/` - Custom  modules
 - `overlays/` - Package overlays

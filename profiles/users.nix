@@ -8,11 +8,8 @@ in
 
     users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
-    home-manager.users.root = { ... }: {
-      imports = [
-        ../config/home/git.nix
-      ];
-    };
+    home-manager.users.root = import ../config/home-manager.nix;
+    home-manager.users.rummik = import ../config/home-manager.nix;
 
     users.extraUsers.rummik = {
       uid = 1000;
@@ -36,12 +33,6 @@ in
         "video"
         "wheel"
         "wireshark"
-      ];
-    };
-
-    home-manager.users.rummik = { ... }: {
-      imports = [
-        ../config/home/git.nix
       ];
     };
   }
