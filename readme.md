@@ -1,7 +1,5 @@
 ## *Kim's Personal Nix(OS) configs
 
-_Warning: Does not fully conform to the Nix guidelines_
-
 Makes use of [Home Manager](https://github.com/rycee/home-manager) to manage
 (some) dotfiles
 
@@ -15,6 +13,8 @@ It also includes some very unconventional Nix syntax adjustments to hack in
 syntax highlighting within strings
 
 ![Tmux syntax highlighting in Vim](screenshots/tmux.png)
+
+Language types to be included for highlight are at [overlays/ft.nix](overlays/ft.nix)
 
 ### Installing
 ```
