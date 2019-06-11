@@ -183,6 +183,7 @@ in
             { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
             { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
             { name = "yajs"; ft_regex = "^javascript\$"; }
+            { name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
             { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
             { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
 
