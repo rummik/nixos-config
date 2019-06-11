@@ -17,6 +17,10 @@
       "Session.vim"
     ];
 
+    aliases = {
+      lg = "log --color --graph --abbrev-commit";
+    };
+
     extraConfig = {
       diff.tool = "vimdiff";
       merge.tool = "vimdiff";
