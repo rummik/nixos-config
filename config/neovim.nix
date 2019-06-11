@@ -131,6 +131,16 @@ in
             " General
             filetype plugin indent on
 
+            " Nerdtree
+            map <C-k> :NERDTreeToggle<CR>
+
+            let g:NERDTreeShowHidden = 0
+            let g:NERDTreeShowIgnoredStatus = 1
+
+            let g:NERDTreeChDirMode = 2
+            let g:ctrlp_working_path_mode = "rw"
+            let g:ctrlp_dont_split = "NERD_tree"
+
             " CTRLP ignores
             "let g:ctrlp_custom_ignore = "/\(bower_components\|node_modules\|\.DS_Store\|\.git)$"
             let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard"]
@@ -222,8 +232,6 @@ in
               '';
             }
 
-            { name = "nerdtree"; exec = "map <C-k> :NERDTreeToggle<CR>"; }
-
             # Using a filename regex to workaround Wakatime's API token prompt
             # breaking rplugin manifest generation
             { name = "vim-wakatime"; filename_regex = "."; }
@@ -234,6 +242,7 @@ in
               "editorconfig-vim"
               "fugitive"
               "fzf-vim"
+              "nerdtree"
               "nerdtree-git-plugin"
               "syntastic"
               "vim-airline"
