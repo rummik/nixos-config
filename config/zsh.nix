@@ -57,10 +57,16 @@
       bindkey "^[[3~" delete-char
       bindkey "^[3;5~" delete-char
 
+      # should probably wrap this for isDarwin
       function ack {
         $(head -n1 $(which -p ack) | tail -c +3) \
           $(which -p ack) $@
       }
+
+      # sillyness because zprofile contains shell aliases
+      if [[ ! $__ETC_ZPROFILE_SOURCED ]]; then
+        source /etc/zprofile
+      fi
     '';
   };
 }
