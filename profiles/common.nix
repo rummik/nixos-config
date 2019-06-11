@@ -10,11 +10,11 @@ in
         "config/neovim.nix"
         "config/tmux.nix"
         "config/zsh.nix"
+        "profiles/users.nix"
       ]
 
       ++ optionals isLinux [
         "profiles/hosts.nix"
-        "profiles/users.nix"
       ];
 
       environment.systemPackages =
