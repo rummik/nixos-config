@@ -17,58 +17,58 @@ in
         "profiles/hosts.nix"
       ];
 
-      environment.systemPackages =
-        (with pkgs; [
-          ack
-          curl
-          file
-          gnupg
-          mosh
-          nix-prefetch-git
-          nmap
-          pv
-          telnet
-          unzip
-          w3m
-          wget
-          youtube-dl
-          zip
+    environment.systemPackages =
+      (with pkgs; [
+        ack
+        curl
+        file
+        gnupg
+        mosh
+        nix-prefetch-git
+        nmap
+        pv
+        telnet
+        unzip
+        w3m
+        wget
+        youtube-dl
+        zip
 
-          cht-sh
+        cht-sh
 
-          git
-          gitAndTools.git-hub
-          gitAndTools.hub
-          gitAndTools.git-fame
-          lab
-        ])
-        ++ optional isLinux pkgs.whois
-        ++ optional isDarwin pkgs.coreutils;
+        git
+        gitAndTools.git-hub
+        gitAndTools.hub
+        gitAndTools.git-fame
+        lab
+      ])
+      ++ optional isLinux pkgs.whois
+      ++ optional isDarwin pkgs.coreutils;
 
-        nixpkgs.config.allowUnfree = true;
-      }
+    nixpkgs.config.allowUnfree = true;
+  }
 
-      // optionalAttrs isLinux {
-        services.gpm.enable = true;
+  // optionalAttrs isLinux {
+    services.gpm.enable = true;
 
-        time.timeZone = "America/New_York";
+    time.timeZone = "America/New_York";
 
-        networking.firewall.enable = true;
+    networking.firewall.enable = true;
 
-        i18n = {
-          consoleFont = "Lat2-Terminus16";
-          defaultLocale = "en_US.UTF-8";
-          consoleUseXkbConfig = true;
-        };
+    i18n = {
+      consoleFont = "Lat2-Terminus16";
+      defaultLocale = "en_US.UTF-8";
+      consoleUseXkbConfig = true;
+    };
 
-        services.xserver = {
-          layout = "us";
-          xkbOptions = "caps:escape,compose:prsc";
-        };
+    services.xserver = {
+      layout = "us";
+      xkbOptions = "caps:escape,compose:prsc";
+    };
 
-        system.stateVersion = "19.03";
-      }
+    system.stateVersion = "19.03";
+  }
 
-      // optionalAttrs isDarwin {
-        system.stateVersion = 3;
-      }
+  // optionalAttrs isDarwin {
+    system.stateVersion = 3;
+  }
