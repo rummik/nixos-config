@@ -39,8 +39,7 @@ let
 
   inject = {
     inherit __nixPath hostname isLinux isDarwin;
-
-    ft = import ./overlays/ft.nix lib;
+    ft = import ./overlays/ft.nix;
   };
 
   moduleArgs = m: removeAttrs (functionArgs m) (__attrNames inject);

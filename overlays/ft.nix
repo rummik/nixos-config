@@ -1,11 +1,13 @@
-lib:
-
-(attrs: lib.genAttrs attrs (name: "")) [
-  "dosini"
-  "nix"
-  "sh"
-  "tmux"
-  "vim"
-  "xf86conf"
-  "zsh"
-]
+let
+  attrsList = list:
+    builtins.listToAttrs (map (name: { inherit name; value = ""; }) list);
+in
+  attrsList [
+    "dosini"
+    "nix"
+    "sh"
+    "tmux"
+    "vim"
+    "xf86conf"
+    "zsh"
+  ]
