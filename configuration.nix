@@ -1,26 +1,12 @@
-{ lib, config, options, ... }:
+{ lib, ... }:
 
 let
+  inherit (import ./channels) __nixPath nixPath overlays;
+
   inherit (builtins) getEnv currentSystem;
   inherit (lib) optional substring stringLength isFunction isString
     functionArgs pathExists readFile attrNames;
   inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
-
-  # Build up a nix path
-  __nixPath = builtins.nixPath ++ [
-    { prefix = "nixpkgs-overlays"; path = ./overlays; }
-
-    {
-      prefix = "home-manager";
-      path =
-        fetchTarball {
-          url =
-            let ref = "c94eaa0"; in
-            "https://github.com/rycee/home-manager/archive/${ref}.tar.gz";
-          sha256 = "1710mkpmnrbm8h77m6y2vh90zxdc1282skigkiaaralpk6wkis48";
-        };
-    }
-  ];
 
   # Yes, host name shenanigans
   HOST = getEnv "HOST";
@@ -60,7 +46,10 @@ let
   optionalIfExists = file: optional (pathExists (pathFixup file)) (pathFixup file);
 in
   wrapModule ./configuration.nix {
-    nixpkgs.overlays = [ (import ./overlays) ];
+    networking.hostName = hostname;
+
+    nix.nixPath = nixPath;
+    nixpkgs.overlays = overlays;
 
     imports =
       [
@@ -70,6 +59,4 @@ in
       ]
       ++ optionalIfExists ./hardware-configuration.nix
       ++ optionalIfExists "hosts/${hostname}/hardware-configuration.nix";
-
-    networking.hostName = hostname;
   }
