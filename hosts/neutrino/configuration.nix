@@ -2,8 +2,8 @@
 
 {
   imports = [
-    "config/fonts.nix"
-    "config/nodejs.nix"
+    ../../config/fonts.nix
+    ../../config/nodejs.nix
   ];
 
   programs.tmux.theme.secondaryColor = "cyan";
