@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
-    "config/steam.nix"
+    ../config/steam.nix
   ];
 
   environment.systemPackages = with pkgs; [

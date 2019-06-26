@@ -2,16 +2,15 @@
 
 {
   imports = [
-    "config/docker.nix"
-    "config/networkmanager.nix"
-    "config/sc-controller.nix"
-    "config/virtualbox.nix"
-    "config/wireshark.nix"
-    "profiles/common.nix"
-    "profiles/games.nix"
-    "profiles/haskell.nix"
-    "profiles/thinkpad.nix"
-    "profiles/workstation.nix"
+    ../../config/docker.nix
+    ../../config/networkmanager.nix
+    ../../config/sc-controller.nix
+    ../../config/virtualbox.nix
+    ../../config/wireshark.nix
+    ../../profiles/games.nix
+    ../../profiles/haskell.nix
+    ../../profiles/thinkpad.nix
+    ../../profiles/workstation.nix
   ];
 
   programs.tmux.theme.secondaryColor = "cyan";

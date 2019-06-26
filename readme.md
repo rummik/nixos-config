@@ -19,12 +19,14 @@ curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
 ```
 
 ### Layout
+- `channels/` - Pinned channels
 - `config/` - Package configurations
   - `config/home-manager` - [Home Manager](https://github.com/rycee/home-manager) configurations
 - `hosts/` - Host specific configurations
+- `lib/` - Shared additions
+  - `lib/ft.nix` - Highlighted languages
 - `modules/` - Custom  modules
 - `overlays/` - Package overlays
-  - `overlays/ft.nix` - Highlighted languages
 - `profiles/` - Configuration profiles
 
 ### Debugging
@@ -49,6 +51,6 @@ git checkout master
 
 ### Syntax highlighting
 
-Language types to be included for highlight are at [overlays/ft.nix](overlays/ft.nix)
+Language types to be included for highlight are at [lib/ft.nix](lib/ft.nix)
 
 ![Tmux syntax highlighting in Vim](screenshots/tmux.png)

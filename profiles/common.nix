@@ -1,22 +1,27 @@
-{ config, lib, pkgs, __nixPath, isLinux, isDarwin, ... }:
+{ lib, pkgs, ... }:
 
 let
-  inherit (lib) optional optionals optionalAttrs;
+
+  inherit (lib) optional optionals mkIf mkMerge flatten;
+  inherit (builtins) currentSystem;
+  inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
+
 in
+
+{
+  imports = flatten [
+    ../config/htop.nix
+    ../config/neovim.nix
+    ../config/tmux.nix
+    ../config/zsh.nix
+    ./users.nix
+
+    (optional isLinux ./hosts.nix)
+  ];
+} //
+
+mkMerge [
   {
-    imports =
-      [
-        "config/htop.nix"
-        "config/neovim.nix"
-        "config/tmux.nix"
-        "config/zsh.nix"
-        "profiles/users.nix"
-      ]
-
-      ++ optionals isLinux [
-        "profiles/hosts.nix"
-      ];
-
     environment.systemPackages =
       (with pkgs; [
         ack
@@ -41,14 +46,16 @@ in
         gitAndTools.hub
         gitAndTools.git-fame
         lab
-      ])
-      ++ optional isLinux pkgs.whois
-      ++ optional isDarwin pkgs.coreutils;
+      ]);
 
     nixpkgs.config.allowUnfree = true;
   }
 
-  // optionalAttrs isLinux {
+  (mkIf isLinux {
+    environment.systemPackages = with pkgs; [
+      whois
+    ];
+
     services.gpm.enable = true;
 
     time.timeZone = "America/New_York";
@@ -67,8 +74,13 @@ in
     };
 
     system.stateVersion = "19.03";
-  }
+  })
 
-  // optionalAttrs isDarwin {
+  (mkIf isDarwin {
+    environment.systemPackages = with pkgs; [
+      coreutils
+    ];
+
     system.stateVersion = 3;
-  }
+  })
+]

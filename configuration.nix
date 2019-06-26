@@ -1,62 +1,43 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 let
-  inherit (import ./channels) __nixPath nixPath overlays;
 
-  inherit (builtins) getEnv currentSystem;
-  inherit (lib) optional substring stringLength isFunction isString
-    functionArgs pathExists readFile attrNames;
+  inherit (import ./channels) __nixPath;
+  inherit (builtins) currentSystem pathExists;
+  inherit (lib) maybeEnv fileContents flatten;
   inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
-  # Yes, host name shenanigans
-  HOST = getEnv "HOST";
-  hostname = if HOST != "" then HOST else
-    (h: substring 0 (stringLength h - 1) h) (readFile (
-      if !isDarwin then
-        /etc/hostname
-      else
-        derivation {
-          name = "hostname";
-          system = currentSystem;
-          builder = "/bin/sh";
-          args = [ "-c" "/usr/sbin/scutil --get LocalHostName > $out" ];
-        }
-    ));
+  optionalPath = file: if (pathExists file) then [ file ] else [ ];
 
-  inject = {
-    inherit __nixPath hostname isLinux isDarwin;
-    ft = import ./overlays/ft.nix;
-  };
+  hostName = maybeEnv "HOST" (fileContents (
+    if !isDarwin then
+      /etc/hostname
+    else
+      derivation {
+        name = "hostname";
+        system = currentSystem;
+        builder = "/bin/sh";
+        args = [ "-c" "/usr/sbin/scutil --get LocalHostName > $out" ];
+      }
+  ));
 
-  moduleArgs = m: removeAttrs (functionArgs m) (__attrNames inject);
-  pathFixup = path: if isString path then ./. + "/${path}" else path;
-  wrapImports = imports: map (file: wrapModule (pathFixup file) (import (pathFixup file))) imports;
-
-  wrapModuleImports = file: m: m // {
-    _file = toString file;
-    key = toString file;
-    imports = wrapImports (m.imports or [] ++ m.require or []);
-  };
-
-  wrapModule = file: m: if ! isFunction m then wrapModuleImports file m else {
-    __functor = self: { ... }@args: wrapModuleImports file (m (args // inject));
-    __functionArgs = moduleArgs m;
-  };
-
-  optionalIfExists = file: optional (pathExists (pathFixup file)) (pathFixup file);
 in
-  wrapModule ./configuration.nix {
-    networking.hostName = hostname;
 
-    nix.nixPath = nixPath;
-    nixpkgs.overlays = overlays;
+{
+  networking.hostName = hostName;
 
-    imports =
-      [
-        ./modules
-        ./profiles/common.nix
-        "hosts/${hostname}/configuration.nix"
-      ]
-      ++ optionalIfExists ./hardware-configuration.nix
-      ++ optionalIfExists "hosts/${hostname}/hardware-configuration.nix";
-  }
+  nixpkgs.overlays = [ (import <nixpkgs-overlays>) ];
+  nixpkgs.pkgs = import <nixpkgs> {
+    inherit (config.nixpkgs) config overlays localSystem crossSystem;
+  };
+
+  _module.args.ft = import <ft>;
+
+  imports = flatten [
+    ./modules
+    ./profiles/common.nix
+    (./. + "/hosts/${hostName}/configuration.nix")
+    (optionalPath ./hardware-configuration.nix)
+    (optionalPath (./. + "/hosts/${hostName}/hardware-configuration.nix"))
+  ];
+}

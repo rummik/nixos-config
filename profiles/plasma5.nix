@@ -2,7 +2,7 @@
 
 {
   imports = [
-    "config/fonts.nix"
+    ../config/fonts.nix
   ];
 
   environment.systemPackages = with pkgs; [

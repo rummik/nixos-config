@@ -1,8 +1,15 @@
-{ config, pkgs, lib, ft, ... }:
+{ pkgs, lib, ft, ... }:
+
+let
+
+  inherit (lib) mkBefore optionalString;
+  inherit (pkgs.stdenv) isDarwin;
+
+in
 
 {
   # disable zsh-newuser-install
-  environment.etc."zshenv".text = lib.mkBefore ''${ft.zsh}
+  environment.etc."zshenv".text = mkBefore ''${ft.zsh}
     function zsh-newuser-install { }
   '';
 
@@ -57,11 +64,13 @@
       bindkey "^[[3~" delete-char
       bindkey "^[3;5~" delete-char
 
-      # should probably wrap this for isDarwin
+      ${optionalString isDarwin ''${ft.zsh}
+      # the interpreter gets kinda wonk for ack on Nix-Darwin for some reason
       function ack {
         $(head -n1 $(which -p ack) | tail -c +3) \
           $(which -p ack) $@
       }
+      ''}
 
       # sillyness because zprofile contains shell aliases
       if [[ ! $__ETC_ZPROFILE_SOURCED ]]; then

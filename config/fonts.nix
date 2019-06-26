@@ -1,21 +1,23 @@
-{ lib, pkgs, isLinux, isDarwin, ... }:
+{ pkgs, lib, ... }:
 
 let
-  inherit (lib) optional optionalAttrs;
-in
-  {
-    fonts =
-      {
-        fonts =
-          with pkgs; [
-            fira
-            fira-mono
-            fira-code
-          ]
-          ++ optional isLinux emojione;
-      }
 
-      // optionalAttrs isDarwin {
-        enableFontDir = true;
-      };
+  inherit (lib) mkMerge mkIf optional flatten;
+  inherit (pkgs.stdenv) isLinux isDarwin;
+
+in
+
+mkMerge [
+  {
+    fonts.fonts = with pkgs; flatten [
+      fira
+      fira-mono
+      fira-code
+      (optional isLinux emojione)
+    ];
   }
+
+  (mkIf isDarwin {
+    fonts.enableFontDir = true;
+  })
+]

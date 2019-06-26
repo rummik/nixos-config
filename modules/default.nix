@@ -1,16 +1,24 @@
-{ lib, isLinux, isDarwin, ... }:
+{ lib, ... }:
 
 let
-  inherit (lib) optionals;
-  inherit (builtins) attrNames readDir;
 
-  readPath = path: ignore:
+  inherit (lib) optionals flatten;
+  inherit (builtins) attrNames readDir currentSystem;
+  inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
+
+  readPath = path:
     map
       (name: path + "/${name}")
-      (attrNames (removeAttrs (readDir path) ignore));
+      (attrNames (readDir path));
+
 in
-  {
-    imports =
-      readPath ./. [ "os-specific" "default.nix" ]
-      ++ optionals isLinux (readPath ./os-specific/linux []);
-  }
+
+{
+  imports = flatten [
+    ./home-manager.nix
+    ./tmux.nix
+    ./zplug.nix
+
+    (optionals isLinux (readPath ./os-specific/linux))
+  ];
+}

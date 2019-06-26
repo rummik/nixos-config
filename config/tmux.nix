@@ -1,4 +1,10 @@
-{ lib, pkgs, isLinux, ft, ... }:
+{ pkgs, lib, ft, ... }:
+
+let
+
+  inherit (pkgs.stdenv) isLinux;
+
+in
 
 {
   environment.systemPackages = with pkgs; [
@@ -66,7 +72,9 @@
       # resurrect options
       set -g @resurrect-capture-pane-contents "on"
       set -g @resurrect-processes "mosh-client man '~yarn watch'"
-      ${lib.optionalString isLinux "set -g @resurrect-save-command-strategy \"cmdline\""}
+      ${lib.optionalString isLinux ''${ft.tmux}
+      set -g @resurrect-save-command-strategy "cmdline"
+      ''}
       set -g @resurrect-process-match-strategy "basename"
       #set -g @resurrect-strategy-nvim "session"
       #set -g @resurrect-save-shell-history "on"

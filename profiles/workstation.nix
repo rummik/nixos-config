@@ -3,15 +3,15 @@
 {
   imports = [
     ./plasma5.nix
-    "config/chromium.nix"
-    "config/firefox.nix"
-    "config/keybase.nix"
-    "config/networkmanager.nix"
-    "config/nodejs.nix"
-    "config/rust.nix"
-    "config/vagrant.nix"
-    "config/vlc.nix"
-    "config/watson.nix"
+    ../config/chromium.nix
+    ../config/firefox.nix
+    ../config/keybase.nix
+    ../config/networkmanager.nix
+    ../config/nodejs.nix
+    ../config/rust.nix
+    ../config/vagrant.nix
+    ../config/vlc.nix
+    ../config/watson.nix
   ];
 
   environment.systemPackages = with pkgs; [

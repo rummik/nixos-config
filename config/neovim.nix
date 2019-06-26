@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ft, ... } :
+{ config, pkgs, lib, ft, ... }:
 
 let
+
   inherit (pkgs) fetchFromGitHub;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
   inherit (lib) replaceStrings concatMapStringsSep attrNames toUpper substring stringLength;
@@ -66,195 +67,197 @@ let
       };
     });
   };
+
 in
-  {
-    environment.systemPackages = with pkgs; [ neovim ctags wakatime ];
 
-    environment.variables = {
-      EDITOR = pkgs.lib.mkOverride 0 "vim";
-    };
+{
+  environment.systemPackages = with pkgs; [ neovim ctags wakatime ];
 
-    nixpkgs.config.packageOverrides = pkgs: {
-      neovim = pkgs.neovim.override {
-        viAlias = true;
-        vimAlias = true;
+  environment.variables = {
+    EDITOR = pkgs.lib.mkOverride 0 "vim";
+  };
 
-        configure = {
-          customRC = ''${ft.vim}
-            " UI Options
-            " ==========
+  nixpkgs.config.packageOverrides = pkgs: {
+    neovim = pkgs.neovim.override {
+      viAlias = true;
+      vimAlias = true;
 
-            set title
-            set mouse=a
+      configure = {
+        customRC = ''${ft.vim}
+          " UI Options
+          " ==========
 
-            let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
-            set guicursor=
-            set background=dark
+          set title
+          set mouse=a
 
-            set number
-            set relativenumber
+          let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+          set guicursor=
+          set background=dark
 
-            set spelllang=en_us
+          set number
+          set relativenumber
 
-            " Use X clipboard
-            set clipboard=unnamedplus
+          set spelllang=en_us
 
-            " Column markers
-            hi ColorColumn ctermbg=darkgrey guibg=darkgrey
-            set colorcolumn=80,100,120
+          " Use X clipboard
+          set clipboard=unnamedplus
 
-            " Bits to make terminals more convenient
-            autocmd TermOpen * setlocal nonumber norelativenumber foldcolumn=0 foldmethod=manual
-            autocmd TermOpen * startinsert
-            autocmd BufEnter * if &buftype == "terminal" | startinsert | endif
+          " Column markers
+          hi ColorColumn ctermbg=darkgrey guibg=darkgrey
+          set colorcolumn=80,100,120
 
-            " Disable middle-click paste
-            map <MiddleMouse> <Nop>
-            imap <MiddleMouse> <Nop>
+          " Bits to make terminals more convenient
+          autocmd TermOpen * setlocal nonumber norelativenumber foldcolumn=0 foldmethod=manual
+          autocmd TermOpen * startinsert
+          autocmd BufEnter * if &buftype == "terminal" | startinsert | endif
 
-            " Plugin Configuration
-            " ====================
+          " Disable middle-click paste
+          map <MiddleMouse> <Nop>
+          imap <MiddleMouse> <Nop>
 
-            " Airline
-            "" Enable tabline
-            let g:airline#extensions#tabline#enabled = 1
-            let g:airline#extensions#tabline#formatter = "default"
+          " Plugin Configuration
+          " ====================
 
-            "" Hide flietype/encoding/etc
-            let g:airline_section_x=""
-            let g:airline_section_y=""
-            let g:airline_skip_empty_sections = 1
+          " Airline
+          "" Enable tabline
+          let g:airline#extensions#tabline#enabled = 1
+          let g:airline#extensions#tabline#formatter = "default"
 
-            " Use deoplete.
-            let g:deoplete#enable_at_startup = 1
+          "" Hide flietype/encoding/etc
+          let g:airline_section_x=""
+          let g:airline_section_y=""
+          let g:airline_skip_empty_sections = 1
 
-            " General
-            filetype plugin indent on
+          " Use deoplete.
+          let g:deoplete#enable_at_startup = 1
 
-            " Nerdtree
-            map <C-k> :NERDTreeToggle<CR>
+          " General
+          filetype plugin indent on
 
-            let g:NERDTreeShowHidden = 0
-            let g:NERDTreeShowIgnoredStatus = 1
+          " Nerdtree
+          map <C-k> :NERDTreeToggle<CR>
 
-            let g:NERDTreeChDirMode = 2
-            let g:ctrlp_working_path_mode = "rw"
-            let g:ctrlp_dont_split = "NERD_tree"
+          let g:NERDTreeShowHidden = 0
+          let g:NERDTreeShowIgnoredStatus = 1
 
-            " CTRLP ignores
-            "let g:ctrlp_custom_ignore = "/\(bower_components\|node_modules\|\.DS_Store\|\.git)$"
-            let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard"]
+          let g:NERDTreeChDirMode = 2
+          let g:ctrlp_working_path_mode = "rw"
+          let g:ctrlp_dont_split = "NERD_tree"
 
-            " Syntastic configurings
-            let g:syntastic_javascript_checkers = ["jshint"]
-            let g:syntastic_htmldjango_checkers = ["jshint"]
-            let g:syntastic_html_checkers = ["jshint"]
-            let g:syntastic_typescript_checkers = ["tslint"]
+          " CTRLP ignores
+          "let g:ctrlp_custom_ignore = "/\(bower_components\|node_modules\|\.DS_Store\|\.git)$"
+          let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard"]
 
-            " Make paragraph formatting a bit better (gq)
-            set formatprg = "par 79"
+          " Syntastic configurings
+          let g:syntastic_javascript_checkers = ["jshint"]
+          let g:syntastic_htmldjango_checkers = ["jshint"]
+          let g:syntastic_html_checkers = ["jshint"]
+          let g:syntastic_typescript_checkers = ["tslint"]
 
-            " Vim-Workspace
-            let g:workspace_session_disable_on_args = 1
-            nnoremap <leader>s :ToggleWorkspace<CR>
+          " Make paragraph formatting a bit better (gq)
+          set formatprg = "par 79"
 
-            " EditorConfig
-            let g:EditorConfig_exclude_patterns = ["fugitive://.*", "*.tsv", "*.csv"]
+          " Vim-Workspace
+          let g:workspace_session_disable_on_args = 1
+          nnoremap <leader>s :ToggleWorkspace<CR>
+
+          " EditorConfig
+          let g:EditorConfig_exclude_patterns = ["fugitive://.*", "*.tsv", "*.csv"]
 
 
-            " Language Specifics
-            " ==================
+          " Language Specifics
+          " ==================
 
-            " Markdown
-            let g:vim_markdown_folding_style_pythonic = 1
-            let g:vim_markdown_new_list_item_indent = 2
-            let g:vim_markdown_no_extensions_in_markdown = 0
+          " Markdown
+          let g:vim_markdown_folding_style_pythonic = 1
+          let g:vim_markdown_new_list_item_indent = 2
+          let g:vim_markdown_no_extensions_in_markdown = 0
 
-            " Javascript
-            let g:javascript_plugin_jsdoc = 1
-            let g:javascript_plugin_flow = 1
-          '';
+          " Javascript
+          let g:javascript_plugin_jsdoc = 1
+          let g:javascript_plugin_flow = 1
+        '';
 
-          vam.knownPlugins = pkgs.vimPlugins // plugins;
+        vam.knownPlugins = pkgs.vimPlugins // plugins;
 
-          vam.pluginDictionaries = [
-            { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
-            { name = "vim-markdown"; ft_regex = "^markdown\$"; }
-            { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
-            { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
-            { name = "yajs"; ft_regex = "^javascript\$"; }
-            { name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
-            { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
-            { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
+        vam.pluginDictionaries = [
+          { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
+          { name = "vim-markdown"; ft_regex = "^markdown\$"; }
+          { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
+          { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
+          { name = "yajs"; ft_regex = "^javascript\$"; }
+          { name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
+          { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
+          { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
 
-            { name = "vim-SyntaxRange"; ft_regex = "^nix\$";
-              exec =
-                let
-                  syntaxFor = name: let Name = ucFirst name; in ''${ft.vim}
-                    call SyntaxRange#IncludeEx(
-                      printf(
-                        'matchgroup=nixStringSpecial keepend start="%s"lc=2 skip="%s" end="%s"me=s-1 containedin=nixString',
-                          "'''''${ft.${name}}",
-                          "'''['$\\\\]",
-                          "'''"
-                      ),
-                      '${name}',
-                      'ftnixInterpolation${Name},nixStringSpecial,nixInvalidStringEscape'
-                    )
-                    | syn region ftnixInterpolation${Name} matchgroup=nixInterpolationDelimiter start="\''${" end="}" contained contains=@nixExpr,nixInterpolationParam
-                    | syn region ftnixInterpolation${Name} matchgroup=nixStringSpecial start="'''\''${"rs=e-2,hs=e end="}"lc=1 contained contains=@synInclude${Name}
-                  '';
-                in
-                  escapeVimString
-                    ("au Syntax nix au Syntax nix au Syntax nix" +
-                      concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft) + ''${ft.vim}
-                        | syn match nixStringSpecial /''''/me=s+1 contained
-                        | syn match nixStringSpecial /'''\\[nrt]/me=s+2 contained
-                        | syn match nixInvalidStringEscape /'''\\[^nrt]/ contained
-                      ''
-                    );
-            }
+          { name = "vim-SyntaxRange"; ft_regex = "^nix\$";
+            exec =
+              let
+                syntaxFor = name: let Name = ucFirst name; in ''${ft.vim}
+                  call SyntaxRange#IncludeEx(
+                    printf(
+                      'matchgroup=nixStringSpecial keepend start="%s"lc=2 skip="%s" end="%s"me=s-1 containedin=nixString',
+                        "'''''${ft.${name}}",
+                        "'''['$\\\\]",
+                        "'''"
+                    ),
+                    '${name}',
+                    'ftnixInterpolation${Name},nixStringSpecial,nixInvalidStringEscape'
+                  )
+                  | syn region ftnixInterpolation${Name} matchgroup=nixInterpolationDelimiter start="\''${" end="}" contained contains=@nixExpr,nixInterpolationParam
+                  | syn region ftnixInterpolation${Name} matchgroup=nixStringSpecial start="'''\''${"rs=e-2,hs=e end="}"lc=1 contained contains=@synInclude${Name}
+                '';
+              in
+                escapeVimString
+                  ("au Syntax nix au Syntax nix au Syntax nix" +
+                    concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft) + ''${ft.vim}
+                      | syn match nixStringSpecial /''''/me=s+1 contained
+                      | syn match nixStringSpecial /'''\\[nrt]/me=s+2 contained
+                      | syn match nixInvalidStringEscape /'''\\[^nrt]/ contained
+                    ''
+                  );
+          }
 
-            { name = "multiple-cursors";
-              exec = escapeVimString ''${ft.vim}
-                func! Multiple_cursors_before()
-                  if deoplete#is_enabled()
-                    call deoplete#disable()
-                    let g:deoplete_is_enable_before_multi_cursors = 1
-                  else
-                    let g:deoplete_is_enable_before_multi_cursors = 0
-                  endif
-                endfunc
-                func! Multiple_cursors_after()
-                  if g:deoplete_is_enable_before_multi_cursors
-                    call deoplete#enable()
-                  endif
-                endfunc
-              '';
-            }
+          { name = "multiple-cursors";
+            /*exec = escapeVimString ''${ft.vim}
+              func! Multiple_cursors_before()
+                if deoplete#is_enabled()
+                  call deoplete#disable()
+                  let g:deoplete_is_enable_before_multi_cursors = 1
+                else
+                  let g:deoplete_is_enable_before_multi_cursors = 0
+                endif
+              endfunc
+              func! Multiple_cursors_after()
+                if g:deoplete_is_enable_before_multi_cursors
+                  call deoplete#enable()
+                endif
+              endfunc
+            '';*/
+          }
 
-            # Using a filename regex to workaround Wakatime's API token prompt
-            # breaking rplugin manifest generation
-            { name = "vim-wakatime"; filename_regex = "."; }
+          # Using a filename regex to workaround Wakatime's API token prompt
+          # breaking rplugin manifest generation
+          { name = "vim-wakatime"; filename_regex = "."; }
 
-            { names = [
-              "ctrlp"
-              "deoplete-nvim"
-              "editorconfig-vim"
-              "fugitive"
-              "fzf-vim"
-              "nerdtree"
-              "nerdtree-git-plugin"
-              "syntastic"
-              "vim-airline"
-              "vim-easytags"
-              "vim-gitgutter"
-              "vim-multiple-cursors"
-              "vim-surround"
-              "vim-workspace"
-            ]; }
-          ];
-        };
+          { names = [
+            "ctrlp"
+            "deoplete-nvim"
+            "editorconfig-vim"
+            "fugitive"
+            "fzf-vim"
+            "nerdtree"
+            "nerdtree-git-plugin"
+            "syntastic"
+            "vim-airline"
+            "vim-easytags"
+            "vim-gitgutter"
+            "vim-multiple-cursors"
+            "vim-surround"
+            "vim-workspace"
+          ]; }
+        ];
       };
     };
-  }
+  };
+}
