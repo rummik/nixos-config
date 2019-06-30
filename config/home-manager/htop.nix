@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   programs.htop = {
     enable = true;
