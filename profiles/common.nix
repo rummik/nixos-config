@@ -2,7 +2,7 @@
 
 let
 
-  inherit (lib) optional optionals mkIf mkMerge flatten;
+  inherit (lib) optional optionalAttrs mkIf mkMerge flatten;
   inherit (builtins) currentSystem;
   inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
@@ -50,7 +50,7 @@ mkMerge [
     nixpkgs.config.allowUnfree = true;
   }
 
-  (mkIf isLinux {
+  (optionalAttrs isLinux {
     environment.systemPackages = with pkgs; [
       whois
     ];

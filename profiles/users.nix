@@ -2,8 +2,9 @@
 
 let
 
-  inherit (lib) mkIf mkMerge;
-  inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (lib) mkIf mkMerge optionalAttrs;
+  inherit (builtins) currentSystem;
+  inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
   authorizedKeys = import ./authorized-keys.nix;
   homeManager = import ../config/home-manager.nix;
@@ -13,10 +14,10 @@ in
 mkMerge [
   {
     home-manager.users.rummik = homeManager;
-    users.users.rummik.isNormalUser = true;
+    users.users.rummik.home = mkIf isDarwin "/Users/rummik";
   }
 
-  (mkIf isLinux {
+  (optionalAttrs isLinux {
     users.defaultUserShell = pkgs.zsh;
 
     home-manager.users.root = homeManager;
@@ -24,6 +25,7 @@ mkMerge [
     users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
     users.users.rummik = {
+      isNormalUser = true;
       uid = 1000;
       linger = true;
 
