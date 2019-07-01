@@ -2,7 +2,6 @@
 
 let
 
-  inherit (lib) mkIf mkMerge;
   inherit (pkgs.stdenv) isDarwin isLinux;
   inherit (config.home) username;
 
@@ -120,7 +119,7 @@ in
           family = "Fira Code";
 
           # The `style` can be specified to pick a specific face.
-          #style = "Regular";
+          style = if isDarwin then "Retina" else "Regular";
         };
 
         # Bold font face
@@ -133,7 +132,7 @@ in
           #family = "monospace";
 
           # The `style` can be specified to pick a specific face.
-          style = "Regular";
+          style = if isDarwin then "Retina" else "Regular";
         };
 
         # Italic font face
@@ -149,36 +148,22 @@ in
         #};
 
         # Point size
-        size = if isLinux then 5.0 else 9.0;
+        size = if isDarwin then 10.0 else 5.0;
 
         # Offset is the extra space around each character. `offset.y` can be thought of
         # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
-        offset = mkMerge [
-          (mkIf isDarwin {
-            x = 1;
-            y = 5;
-          })
-
-          (mkIf isLinux {
-            x = 0;
-            y = 0;
-          })
-        ];
+        offset =  {
+          x = 0;
+          y = 0;
+        };
 
         # Glyph offset determines the locations of the glyphs within their cells with
         # the default being at the bottom. Increasing `x` moves the glyph to the right,
         # increasing `y` moves the glyph upwards.
-        glyph_offset = mkMerge [
-          (mkIf isDarwin {
-            x = 0;
-            y = 5;
-          })
-
-          (mkIf isLinux {
-            x = 0;
-            y = 0;
-          })
-        ];
+        glyph_offset = {
+          x = 0;
+          y = 0;
+        };
 
         # Thin stroke font rendering (macOS only)
         #
@@ -245,14 +230,6 @@ in
 
         # Normal colors
         normal = {
-#          black = "0x222222";
-#          red = "0xd54e53";
-#          green = "0xb9ca4a";
-#          yellow = "0xe6c547";
-#          blue = "0x7aa6da";
-#          magenta = "0xc397d8";
-#          cyan = "0x70c0ba";
-#          white = "0xeaeaea";
           black = "0x2e3436";
           red = "0xcc0000";
           green = "0x4e9a06";
@@ -265,14 +242,6 @@ in
 
         # Bright colors
         bright = {
-#          black = "0x666666";
-#          red = "0xff3334";
-#          green = "0x9ec400";
-#          yellow = "0xe7c547";
-#          blue = "0x7aa6da";
-#          magenta = "0xb77ee0";
-#          cyan = "0x54ced6";
-#          white = "0xffffff";
           black = "0x555753";
           red = "0xef2929";
           green = "0x8ae234";
@@ -544,11 +513,11 @@ in
         { key = "V"; mods = "Control|Shift"; action = "Paste"; }
         { key = "C"; mods = "Control|Shift"; action = "Copy"; }
         { key = "Insert"; mods = "Shift"; action = "PasteSelection"; }
-        #{ key = "Key0"; mods = "Control"; action = "ResetFontSize"; }
-        #{ key = "Equals"; mods = "Control"; action = "IncreaseFontSize"; }
-        #{ key = "Add"; mods = "Control"; action = "IncreaseFontSize"; }
-        #{ key = "Subtract"; mods = "Control"; action = "DecreaseFontSize"; }
-        #{ key = "Minus"; mods = "Control"; action = "DecreaseFontSize"; }
+        { key = "Key0"; mods = "Control"; action = "ResetFontSize"; }
+        { key = "Equals"; mods = "Control"; action = "IncreaseFontSize"; }
+        { key = "Add"; mods = "Control"; action = "IncreaseFontSize"; }
+        { key = "Subtract"; mods = "Control"; action = "DecreaseFontSize"; }
+        { key = "Minus"; mods = "Control"; action = "DecreaseFontSize"; }
 
         # (macOS only)
         #{ key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
