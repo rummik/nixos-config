@@ -2,9 +2,9 @@
 
 let
 
-  inherit (import ./channels) __nixPath;
+  inherit (import ./channels) __nixPath nixPath;
   inherit (builtins) currentSystem pathExists;
-  inherit (lib) maybeEnv fileContents flatten;
+  inherit (lib) maybeEnv fileContents flatten mkForce;
   inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
   optionalPath = file: if (pathExists file) then [ file ] else [ ];
@@ -26,12 +26,18 @@ in
 {
   networking.hostName = hostName;
 
-  nixpkgs.overlays = [ (import <nixpkgs-overlays>) ];
-  nixpkgs.pkgs = import <nixpkgs> {
-    inherit (config.nixpkgs) config overlays localSystem crossSystem;
-  };
+  nixpkgs.overlays = import <nixpkgs-overlays>;
+
+  nix.nixPath = mkForce nixPath;
 
   _module.args.ft = import <ft>;
+  _module.args.pkgs = import <nixpkgs> (
+    if isLinux then {
+      inherit (config.nixpkgs) config overlays localSystem crossSystem;
+    } else {
+      inherit (config.nixpkgs) config overlays;
+    }
+  );
 
   imports = flatten [
     ./modules
