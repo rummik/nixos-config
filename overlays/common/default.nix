@@ -2,7 +2,7 @@ self: super:
 
 let
 
-  inherit (import ../channels) __nixPath;
+  inherit (import ../../channels) __nixPath;
 
   ft = import <ft>;
   callPackage = package: super.callPackage package { inherit ft; };

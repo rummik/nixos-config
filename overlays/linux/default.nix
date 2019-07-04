@@ -2,7 +2,7 @@ self: super:
 
 let
 
-  inherit (import ../channels) __nixPath;
+  inherit (import ../../channels) __nixPath;
   inherit (super.lib) optionalAttrs;
   inherit (super.stdenv) isLinux;
 
