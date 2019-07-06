@@ -86,23 +86,19 @@ in
 
     plugins = with pkgs.tmuxPlugins; [
       continuum
-      resurrect
+      (resurrect.overrideAttrs (oldAttrs: rec {
+        src = pkgs.fetchFromGitHub {
+          owner = "tmux-plugins";
+          repo = "tmux-resurrect";
+          rev = "e3f05dd34f396a6f81bd9aa02f168e8bbd99e6b2";
+          sha256 = "0w7gn6pjcqqhwlv7qa6kkhb011wcrmzv0msh9z7w2y931hla4ppz";
+        };
+
+        patches = [
+          ./tmux/resurrect-basename-match-strategy.patch
+          ./tmux/resurrect-cmdline-save-strategy.patch
+        ];
+      }))
     ];
-  };
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    resurrect = (pkgs.resurrect.overrideAttrs (oldAttrs: rec {
-      src = pkgs.fetchFromGitHub {
-        owner = "tmux-plugins";
-        repo = "tmux-resurrect";
-        rev = "e3f05dd34f396a6f81bd9aa02f168e8bbd99e6b2";
-        sha256 = "0w7gn6pjcqqhwlv7qa6kkhb011wcrmzv0msh9z7w2y931hla4ppz";
-      };
-
-      patches = [
-        ./tmux/resurrect-basename-match-strategy.patch
-        ./tmux/resurrect-cmdline-save-strategy.patch
-      ];
-    }));
   };
 }
