@@ -71,8 +71,22 @@ in
         #     - buttonless: Title bar, transparent background, but no title bar buttons
         decorations = "none";
 
-        # When true, alacritty starts maximized.
-        start_maximized = true;
+        # Startup Mode (changes require restart)
+        #
+        # Values for `startup_mode`:
+        #   - Windowed
+        #   - Maximized
+        #   - Fullscreen
+        #
+        # Values for `startup_mode` (macOS only):
+        #   - SimpleFullscreen
+        startup_mode = "Maximized";
+
+        # Window title
+        #title = "Alacritty";
+
+        # Window class (Linux only):
+        #class = "Alacritty";
       };
 
       scrolling = {
@@ -181,12 +195,6 @@ in
         # effect.
         use_thin_strokes = true;
       };
-
-      # Display the time it takes to redraw each frame.
-      render_timer = false;
-
-      # Keep the log file after quitting Alacritty.
-      persistent_logging = false;
 
       # If `true`, bold text is drawn using the bright color variants.
       draw_bold_text_with_bright_colors = true;
@@ -311,62 +319,6 @@ in
       # The value `0.0` is completely transparent and `1.0` is opaque.
       background_opacity = 0.93;
 
-      # Mouse bindings
-      #
-      # Available fields:
-      #   - mouse
-      #   - action
-      #   - mods (optional)
-      #
-      # Values for `mouse`:
-      #   - Middle
-      #   - Left
-      #   - Right
-      #   - Numeric identifier such as `5`
-      #
-      # All available `mods` and `action` values are documented in the key binding
-      # section.
-      #mouse_bindings = [
-      #  { mouse = "Middle"; action = "PasteSelection"; }
-      #];
-
-      mouse = {
-        # Click settings
-        #
-        # The `double_click` and `triple_click` settings control the time
-        # alacritty should wait for accepting multiple clicks as one double
-        # or triple click.
-        double_click = { threshold = 300; };
-        triple_click = { threshold = 300; };
-
-        # If this is `true`, the cursor is temporarily hidden when typing.
-        hide_when_typing = true;
-
-        url = {
-          # URL launcher
-          #
-          # This program is executed when clicking on a text which is recognized as a URL.
-          # The URL is always added to the command as the last parameter.
-          #
-          # When set to `None`, URL launching will be disabled completely.
-          #
-          # Default:
-          #   - (macOS) open
-          #   - (Linux) xdg-open
-          #   - (Windows) explorer
-          #launcher = {
-          #  program = "xdg-open";
-          #  args = [];
-          #};
-
-          # URL modifiers
-          #
-          # These are the modifiers that need to be held down for opening URLs when clicking
-          # on them. The available modifiers are documented in the key binding section.
-          modifiers = "Shift";
-        };
-      };
-
       selection = {
         semantic_escape_chars = ",│`|:\"' ()[]{}<>";
 
@@ -409,6 +361,12 @@ in
       #  ];
       #};
 
+      # Startup directory
+      #
+      # Directory the shell is started in. If this is unset, or `None`, the working
+      # directory of the parent process will be used.
+      #working_directory = "None";
+
       # Windows 10 ConPTY backend (Windows only)
       #
       # This will enable better color support and may resolve other issues,
@@ -422,6 +380,87 @@ in
 
       # Send ESC (\x1b) before characters when alt is pressed.
       alt_send_esc = true;
+
+      debug = {
+        # Display the time it takes to redraw each frame.
+        render_timer = false;
+
+        # Keep the log file after quitting Alacritty.
+        persistent_logging = false;
+
+        # Log level
+        #
+        # Values for `log_level`:
+        #   - None
+        #   - Error
+        #   - Warn
+        #   - Info
+        #   - Debug
+        #   - Trace
+        log_level = "Warn";
+
+        # Print all received window events.
+        print_events = false;
+
+        # Record all characters and escape sequences as test data.
+        ref_test = false;
+      };
+
+      mouse = {
+        # Click settings
+        #
+        # The `double_click` and `triple_click` settings control the time
+        # alacritty should wait for accepting multiple clicks as one double
+        # or triple click.
+        double_click = { threshold = 300; };
+        triple_click = { threshold = 300; };
+
+        # If this is `true`, the cursor is temporarily hidden when typing.
+        hide_when_typing = true;
+
+        url = {
+          # URL launcher
+          #
+          # This program is executed when clicking on a text which is recognized as a URL.
+          # The URL is always added to the command as the last parameter.
+          #
+          # When set to `None`, URL launching will be disabled completely.
+          #
+          # Default:
+          #   - (macOS) open
+          #   - (Linux) xdg-open
+          #   - (Windows) explorer
+          #launcher = {
+          #  program = "xdg-open";
+          #  args = [];
+          #};
+
+          # URL modifiers
+          #
+          # These are the modifiers that need to be held down for opening URLs when clicking
+          # on them. The available modifiers are documented in the key binding section.
+          modifiers = "Shift";
+        };
+      };
+
+      # Mouse bindings
+      #
+      # Available fields:
+      #   - mouse
+      #   - action
+      #   - mods (optional)
+      #
+      # Values for `mouse`:
+      #   - Middle
+      #   - Left
+      #   - Right
+      #   - Numeric identifier such as `5`
+      #
+      # All available `mods` and `action` values are documented in the key binding
+      # section.
+      #mouse_bindings = [
+      #  { mouse = "Middle"; action = "PasteSelection"; }
+      #];
 
       # Key bindings
       #
