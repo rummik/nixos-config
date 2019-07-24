@@ -13,7 +13,8 @@ let
 
   plugins = {
     deoplete-zsh = (buildVimPluginFrom2Nix {
-      name = "deoplete-zsh-2018-10-12";
+      pname = "deoplete-zsh";
+      version = "2018-10-12";
 
       src = fetchFromGitHub {
         owner = "zchee";
@@ -24,7 +25,8 @@ let
     });
 
     vim-smali = (buildVimPluginFrom2Nix {
-      name = "vim-smali-2017-03-07";
+      pname = "vim-smali";
+      version = "2017-03-07";
 
       src = fetchFromGitHub {
         owner = "rummik";
@@ -35,7 +37,8 @@ let
     });
 
     vim-workspace = (buildVimPluginFrom2Nix {
-      name = "vim-workspace-2018-12-11";
+      pname = "vim-workspace";
+      version = "2018-12-11";
 
       src = fetchFromGitHub {
         owner = "thaerkh";
@@ -46,7 +49,8 @@ let
     });
 
     yajs = (buildVimPluginFrom2Nix {
-      name = "yajs.vim-2019-02-01";
+      pname = "yajs.vim";
+      version = "2019-02-01";
 
       src = fetchFromGitHub {
         owner = "othree";
@@ -57,7 +61,8 @@ let
     });
 
     yats = (buildVimPluginFrom2Nix {
-      name = "yats.vim-2018-10-12";
+      pname = "yats.vim";
+      version = "2018-10-12";
 
       src = fetchFromGitHub {
         owner = "HerringtonDarkholme";
