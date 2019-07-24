@@ -195,33 +195,40 @@ in
           { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
           { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
 
-          { name = "vim-SyntaxRange"; ft_regex = "^nix\$";
+          { name = "vim-SyntaxRange"; filename_regex = "\\.nix\$";
             exec =
               let
                 syntaxFor = name: let Name = ucFirst name; in ''${ft.vim}
                   call SyntaxRange#IncludeEx(
                     printf(
-                      'matchgroup=nixStringSpecial keepend start="%s"lc=2 skip="%s" end="%s"me=s-1 containedin=nixString',
-                        "'''''${ft.${name}}",
-                        "'''['$\\\\]",
-                        "'''"
+                      'matchgroup=ftnixStringSpecial start="%s" skip="%s"lc=1 end="%s" keepend contained',
+                      "'''''${ft.${name}}\\|/\\*\\s*${name}\\s*\\*/\\s*'''",
+                      "'''['$\\\\]",
+                      "'''"
                     ),
                     '${name}',
-                    'ftnixInterpolation${Name},nixStringSpecial,nixInvalidStringEscape'
+                    'ftnixInterpolation,ftnixStringSpecial,ftnixInvalidStringEscape'
                   )
-                  | syn region ftnixInterpolation${Name} matchgroup=nixInterpolationDelimiter start="\''${" end="}" contained contains=@nixExpr,nixInterpolationParam
-                  | syn region ftnixInterpolation${Name} matchgroup=nixStringSpecial start="'''\''${"rs=e-2,hs=e end="}"lc=1 contained contains=@synInclude${Name}
+                  | syn cluster nixExpr add=synInclude${Name}
+                  | syn region ftnixInterpolation matchgroup=ftnixInterpolationDelimiter start="\''${" end="}" contains=@nixExpr,nixInterpolationParam extend keepend contained containedin=@synInclude${Name}
+                  | syn match ftnixStringSpecial "'''\$"me=e-1 nextgroup=@synInclude${Name} contained containedin=@synInclude${Name}
+                  | syn match ftnixStringSpecial "\$\$"me=e-2 nextgroup=@synInclude${Name} contained containedin=@synInclude${Name}
+                  | syn match ftnixStringSpecial "''''"me=e-2 nextgroup=@synInclude${Name} contained containedin=@synInclude${Name}
+                  | syn match ftnixStringSpecial "'''\\[nrt]" contained containedin=@synInclude${Name}
+                  | syn match ftnixInvalidStringEscape "'''\\[^nrt]" contained containedin=@synInclude${Name}
                 '';
               in
-                escapeVimString
-                  ("au Syntax nix au Syntax nix au Syntax nix" +
-                    concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft) + ''${ft.vim}
-                      | syn match nixStringSpecial /''''/me=s+1 contained
-                      | syn match nixStringSpecial /'''\\[nrt]/me=s+2 contained
-                      | syn match nixInvalidStringEscape /'''\\[^nrt]/ contained
-                    ''
-                  );
-          }
+                escapeVimString (
+                  ''${ft.vim}
+                    au Syntax nix
+                    | ${concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft)}
+                    | hi def link ftnixStringSpecial nixStringSpecial
+                    | hi def link ftnixInterpolation nixInterpolation
+                    | hi def link ftnixInvalidStringEscape nixInvalidStringEscape
+                    | hi def link ftnixInterpolationDelimeter nixInterpolationDelimeter
+                  ''
+                );
+            }
 
           { name = "multiple-cursors";
             /*exec = escapeVimString ''${ft.vim}
