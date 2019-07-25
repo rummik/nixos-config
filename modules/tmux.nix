@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ft, ... }:
+{ config, pkgs, lib, ... }:
 
 let
 
@@ -50,7 +50,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.etc."tmux.conf".text = mkAfter ''${ft.tmux}
+    environment.etc."tmux.conf".text = mkAfter /* tmux */ ''
       set-option -g pane-active-border-fg bright${cfg.theme.secondaryColor}
       set-option -g pane-border-fg brightblack
       set-option -g display-panes-colour ${cfg.theme.primaryColor}

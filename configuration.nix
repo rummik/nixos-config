@@ -30,7 +30,6 @@ in
 
   nix.nixPath = mkForce nixPath;
 
-  _module.args.ft = import <ft>;
   _module.args.pkgs = import <nixpkgs> (
     if isLinux then {
       inherit (config.nixpkgs) config overlays localSystem crossSystem;

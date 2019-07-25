@@ -1,4 +1,4 @@
-{ pkgs, lib, ft, ... }:
+{ pkgs, lib, ... }:
 
 let
 
@@ -16,7 +16,7 @@ in
 
     theme.primaryColor = "green";
 
-    extraConfig = ''${ft.tmux}
+    extraConfig = /* tmux */ ''
       # enable mouse support
       set -g mouse on
 
@@ -72,7 +72,7 @@ in
       # resurrect options
       set -g @resurrect-capture-pane-contents "on"
       set -g @resurrect-processes "mosh-client man '~yarn watch'"
-      ${lib.optionalString isLinux ''${ft.tmux}
+      ${lib.optionalString isLinux /* tmux */ ''
       set -g @resurrect-save-command-strategy "cmdline"
       ''}
       set -g @resurrect-process-match-strategy "basename"

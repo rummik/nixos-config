@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ft, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -45,7 +45,7 @@ in
       # Prevent zsh from overwriting user's prompt
       programs.zsh.promptInit = mkIf (cfg.theme != "") (mkDefault "");
 
-      programs.zsh.interactiveShellInit = mkBefore(with builtins; ''${ft.zsh}
+      programs.zsh.interactiveShellInit = mkBefore(with builtins; /* zsh */ ''
         source ${pkg}/share/zplug/init.zsh
 
         ${optionalString (stringLength(cfg.theme) > 0) "zplug ${cfg.theme}, as:theme"}

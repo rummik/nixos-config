@@ -1,10 +1,19 @@
-{ config, pkgs, lib, ft, ... }:
+{ config, pkgs, lib, ... }:
 
 let
 
   inherit (pkgs) fetchFromGitHub;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
-  inherit (lib) replaceStrings concatMapStringsSep attrNames toUpper substring stringLength;
+  inherit (lib) replaceStrings concatMapStringsSep toUpper substring stringLength;
+
+  fencedLanguages = [
+    "dosini"
+    "sh"
+    "tmux"
+    "vim"
+    "xf86conf"
+    "zsh"
+  ];
 
   escapeVimString = string: replaceStrings [ "\n" "'" ] [ "\n\\ " "''" ] string;
 
@@ -88,7 +97,7 @@ in
       vimAlias = true;
 
       configure = {
-        customRC = ''${ft.vim}
+        customRC = /* vim */ ''
           " UI Options
           " ==========
 
@@ -198,11 +207,11 @@ in
           { name = "vim-SyntaxRange"; filename_regex = "\\.nix\$";
             exec =
               let
-                syntaxFor = name: let Name = ucFirst name; in ''${ft.vim}
+                syntaxFor = name: let Name = ucFirst name; in /* vim */ ''
                   call SyntaxRange#IncludeEx(
                     printf(
                       'matchgroup=ftnixStringSpecial start="%s" skip="%s"lc=1 end="%s" keepend contained',
-                      "'''''${ft.${name}}\\|/\\*\\s*${name}\\s*\\*/\\s*'''",
+                      "/\\*\\s*${name}\\s*\\*/\\s*'''",
                       "'''['$\\\\]",
                       "'''"
                     ),
@@ -218,34 +227,31 @@ in
                   | syn match ftnixInvalidStringEscape "'''\\[^nrt]" contained containedin=@synInclude${Name}
                 '';
               in
-                escapeVimString (
-                  ''${ft.vim}
-                    au Syntax nix
-                    | ${concatMapStringsSep "|"  (name: syntaxFor name) (attrNames ft)}
-                    | hi def link ftnixStringSpecial nixStringSpecial
-                    | hi def link ftnixInterpolation nixInterpolation
-                    | hi def link ftnixInvalidStringEscape nixInvalidStringEscape
-                    | hi def link ftnixInterpolationDelimeter nixInterpolationDelimeter
-                  ''
-                );
+                escapeVimString /* vim */ ''
+                  au Syntax nix ${concatMapStringsSep "|" (name: syntaxFor name) fencedLanguages}
+                  | hi def link ftnixStringSpecial nixStringSpecial
+                  | hi def link ftnixInterpolation nixInterpolation
+                  | hi def link ftnixInvalidStringEscape nixInvalidStringEscape
+                  | hi def link ftnixInterpolationDelimeter nixInterpolationDelimeter
+                '';
             }
 
           { name = "multiple-cursors";
-            /*exec = escapeVimString ''${ft.vim}
-              func! Multiple_cursors_before()
-                if deoplete#is_enabled()
-                  call deoplete#disable()
-                  let g:deoplete_is_enable_before_multi_cursors = 1
-                else
-                  let g:deoplete_is_enable_before_multi_cursors = 0
-                endif
-              endfunc
-              func! Multiple_cursors_after()
-                if g:deoplete_is_enable_before_multi_cursors
-                  call deoplete#enable()
-                endif
-              endfunc
-            '';*/
+#            exec = escapeVimString /* vim */ ''
+#              func! Multiple_cursors_before()
+#                if deoplete#is_enabled()
+#                  call deoplete#disable()
+#                  let g:deoplete_is_enable_before_multi_cursors = 1
+#                else
+#                  let g:deoplete_is_enable_before_multi_cursors = 0
+#                endif
+#              endfunc
+#              func! Multiple_cursors_after()
+#                if g:deoplete_is_enable_before_multi_cursors
+#                  call deoplete#enable()
+#                endif
+#              endfunc
+#            '';
           }
 
           # Using a filename regex to workaround Wakatime's API token prompt

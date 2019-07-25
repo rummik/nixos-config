@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, atomEnv, libXScrnSaver, dpkg, gtk2, makeWrapper, ft,
+{ stdenv, fetchurl, atomEnv, libXScrnSaver, dpkg, gtk2, makeWrapper,
 
   makeLibraryPath ? stdenv.lib.makeLibraryPath,
   replaceStrings ? stdenv.lib.replaceStrings,
@@ -19,17 +19,17 @@ in
 
     buildInputs = [ dpkg makeWrapper ];
 
-    unpackPhase = ''
+    unpackPhase = /* sh */ ''
       dpkg -x $src .
     '';
 
-    installPhase = ''
+    installPhase = /* sh */ ''
       mkdir -p $out/bin
       cp -ar ./usr/share $out
       makeWrapper $out/share/upwork/upwork $out/bin/upwork
     '';
 
-    postFixup = ''
+    postFixup = /* sh */ ''
       patchelf \
         --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
         --set-rpath "${atomEnv.libPath}:${makeLibraryPath [ gtk2 libXScrnSaver ]}:$out/share/upwork" \

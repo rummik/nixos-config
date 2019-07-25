@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ":";
 
-  installPhase = ''
+  installPhase = /* sh */ ''
     mkdir -p $out/bin
     cp -R usr/* $out/
 
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
           curl openssl_1_1_0.out xlibsWrapper libX11 libXi libXtst libXrandr xinput libGL
           qt5.qtbase libsodium avahi qt5.qtdeclarative qt5.qtsvg systemd libXext
         ];
-    in ''
+    in /* sh */ ''
       for file in $out/bin/*; do
         patchelf \
           --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \

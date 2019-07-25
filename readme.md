@@ -9,8 +9,8 @@ Maybe useful to others?  There are shenanigans in `configuration.nix`, and some
 of the `default.nix` files -- primarily when dealing with imports, and platform
 specifics
 
-It also includes some very unconventional Nix syntax adjustments to hack in
-syntax highlighting within strings
+It also includes some slightly unconventional Nix syntax adjustments to hack in
+fenced syntax highlighting within strings
 
 ### Installing
 ```
@@ -23,8 +23,6 @@ curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
 - `config/` - Package configurations
   - `config/home-manager` - [Home Manager](https://github.com/rycee/home-manager) configurations
 - `hosts/` - Host specific configurations
-- `lib/` - Shared additions
-  - `lib/ft.nix` - Highlighted languages
 - `modules/` - Custom  modules
 - `overlays/` - Package overlays
 - `profiles/` - Configuration profiles
@@ -49,8 +47,8 @@ git push origin --all
 git checkout master
 ```
 
-### Syntax highlighting
+### Fenced syntax highlighting
 
-Language types to be included for highlight are at [lib/ft.nix](lib/ft.nix)
+The selection of fenced languages is over at [config/neovim.nix](config/neovim.nix)
 
 ![Tmux syntax highlighting in Vim](screenshots/tmux.png)

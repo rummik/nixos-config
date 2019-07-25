@@ -1,4 +1,4 @@
-{ pkgs, lib, ft, ... }:
+{ pkgs, lib, ... }:
 
 let
 
@@ -9,7 +9,7 @@ in
 
 {
   # disable zsh-newuser-install
-  environment.etc."zshenv".text = mkBefore ''${ft.zsh}
+  environment.etc."zshenv".text = mkBefore /* zsh */ ''
     function zsh-newuser-install { }
   '';
 
@@ -45,7 +45,7 @@ in
       ];
     };
 
-    interactiveShellInit = ''${ft.zsh}
+    interactiveShellInit = /* zsh */ ''
       autoload -U zcalc
 
       autoload -U up-line-or-beginning-search
@@ -64,7 +64,7 @@ in
       bindkey "^[[3~" delete-char
       bindkey "^[3;5~" delete-char
 
-      ${optionalString isDarwin ''${ft.zsh}
+      ${optionalString isDarwin /* zsh */ ''
       # the interpreter gets kinda wonk for ack on Nix-Darwin for some reason
       function ack {
         $(head -n1 $(which -p ack) | tail -c +3) \

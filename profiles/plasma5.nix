@@ -1,4 +1,4 @@
-{ config, pkgs, ft, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -45,10 +45,10 @@
   hardware.bluetooth = {
     enable = true;
 
-    extraConfig = "${ft.dosini}
+    extraConfig = /* dosini */ ''
       [General]
       Enable=Source,Sink,Media,Socket
-    ";
+    '';
   };
 
   nixpkgs.config.pulseaudio = true;

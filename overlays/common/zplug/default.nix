@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, ft }:
+{ stdenv, fetchgit }:
 
 stdenv.mkDerivation rec {
   version = "2.4.2";
@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   phases = "installPhase";
 
-  installPhase = ''
+  installPhase = /* sh */ ''
     outdir=$out/share/zplug
   
     mkdir -p $outdir

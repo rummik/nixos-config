@@ -1,4 +1,4 @@
-{ stdenv, autoconf, automake, libtool, pkgconfig, ft }:
+{ stdenv, autoconf, automake, libtool, pkgconfig }:
 
 stdenv.mkDerivation rec {
   version = "1.30";

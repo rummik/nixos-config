@@ -1,4 +1,4 @@
-{ stdenv, fetchgit, gcc, darwin, clang, ft }:
+{ stdenv, fetchgit, gcc, darwin, clang }:
 
 stdenv.mkDerivation rec {
   name = "tpkb-${version}";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     clang
   ];
 
-  buildPhase = ''${ft.sh}
+  buildPhase = /* sh */ ''
     cd $src/tpkb
     make
   '';

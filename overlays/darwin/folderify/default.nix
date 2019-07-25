@@ -1,4 +1,4 @@
-{ lib, python3, ft,
+{ lib, python3,
   buildPythonPackage ? python3.pkgs.buildPythonPackage,
   fetchPypi ? python3.pkgs.fetchPypi,
 }:
