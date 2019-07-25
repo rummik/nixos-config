@@ -210,7 +210,7 @@ in
                 syntaxFor = name: let Name = ucFirst name; in /* vim */ ''
                   call SyntaxRange#IncludeEx(
                     printf(
-                      'matchgroup=ftnixStringSpecial start="%s" skip="%s"lc=1 end="%s" keepend contained',
+                      'matchgroup=ftnixStringSpecial start="%s" skip="%s"lc=1 end="%s" keepend extend contained',
                       "/\\*\\s*${name}\\s*\\*/\\s*'''",
                       "'''['$\\\\]",
                       "'''"
@@ -234,7 +234,7 @@ in
                   | hi def link ftnixInvalidStringEscape nixInvalidStringEscape
                   | hi def link ftnixInterpolationDelimeter nixInterpolationDelimeter
                 '';
-            }
+          }
 
           { name = "multiple-cursors";
 #            exec = escapeVimString /* vim */ ''
