@@ -10,6 +10,8 @@ let
 in
 
 optionalAttrs isLinux {
+  minipro = callPackage ./minipro {};
+
   synergy2 = callPackage ./synergy2 {
     inherit (super) openssl_1_1_0;
   };

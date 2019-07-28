@@ -16,14 +16,20 @@
 
   environment.systemPackages = with pkgs; [
     #electrum
-    sqlite
-    speedtest-cli
-    xclip
-    mycli
     #kicad
     kubectl
+    minikube
+    minipro
+    mycli
+    speedtest-cli
+    sqlite
     tio
     upwork
+    xclip
+  ];
+
+  services.udev.packages = with pkgs; [
+    minipro
   ];
 
   programs.adb.enable = true;
