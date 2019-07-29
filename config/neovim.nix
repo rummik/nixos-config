@@ -196,6 +196,7 @@ in
 
         vam.pluginDictionaries = [
           { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
+          { name = "vim-jade"; ftilename_regex = "\\.jade\$"; exec = "set ft=jade"; }
           { name = "vim-markdown"; ft_regex = "^markdown\$"; }
           { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
           { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
