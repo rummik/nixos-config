@@ -163,10 +163,10 @@ in
           let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard"]
 
           " Syntastic configurings
-          let g:syntastic_javascript_checkers = ["jshint"]
-          let g:syntastic_htmldjango_checkers = ["jshint"]
-          let g:syntastic_html_checkers = ["jshint"]
-          let g:syntastic_typescript_checkers = ["tslint"]
+          let g:syntastic_javascript_checkers = [ "jshint" ]
+          let g:syntastic_htmldjango_checkers = [ "jshint" ]
+          let g:syntastic_html_checkers = [ "jshint" ]
+          let g:syntastic_typescript_checkers = [ "tslint" ]
 
           " Make paragraph formatting a bit better (gq)
           set formatprg = "par 79"
@@ -176,7 +176,7 @@ in
           nnoremap <leader>s :ToggleWorkspace<CR>
 
           " EditorConfig
-          let g:EditorConfig_exclude_patterns = ["fugitive://.*", "*.tsv", "*.csv"]
+          let g:EditorConfig_exclude_patterns = [ "fugitive://.*", "*.tsv", "*.csv" ]
 
 
           " Language Specifics
