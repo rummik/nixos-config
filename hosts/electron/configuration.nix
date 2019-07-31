@@ -13,8 +13,6 @@
     ../../profiles/workstation.nix
   ];
 
-  programs.tmux.theme.secondaryColor = "cyan";
-
   networking.firewall.allowedTCPPortRanges = [
     { from = 4100; to = 4105; }
   ];

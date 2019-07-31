@@ -2,9 +2,10 @@
 
 {
   imports = [
+    ./home-manager/alacritty.nix
     ./home-manager/git.nix
     ./home-manager/htop.nix
     ./home-manager/obs-studio.nix
-    ./home-manager/alacritty.nix
+    ./home-manager/tmux.nix
   ];
 }

@@ -6,8 +6,6 @@
     ../../config/nodejs.nix
   ];
 
-  programs.tmux.theme.secondaryColor = "cyan";
-
   environment.systemPackages = with pkgs; [
     #tpkb
     folderify

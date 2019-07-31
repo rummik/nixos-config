@@ -11,7 +11,6 @@ in
 {
   imports = flatten [
     ../config/neovim.nix
-    ../config/tmux.nix
     ../config/zsh.nix
     ./users.nix
 

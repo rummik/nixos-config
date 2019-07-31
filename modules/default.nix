@@ -16,7 +16,6 @@ in
 {
   imports = flatten [
     ./home-manager.nix
-    ./tmux.nix
     ./zplug.nix
 
     (optionals isLinux (readPath ./os-specific/linux))

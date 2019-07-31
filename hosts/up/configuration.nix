@@ -10,8 +10,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  programs.tmux.theme.secondaryColor = "yellow";
-
   environment.systemPackages = with pkgs; [
     parted
   ];

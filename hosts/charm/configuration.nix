@@ -11,5 +11,4 @@
   ];
 
   fileSystems."/".options = [ "defaults" "acl" ];
-  programs.tmux.theme.secondaryColor = "magenta";
 }
