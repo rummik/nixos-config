@@ -35,7 +35,7 @@
 
   programs.adb.enable = true;
 
-  services.udev.extraRules = ''
+  services.udev.extraRules = /* udevrules */ ''
     ACTION=="add", SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_interface", \
       ATTRS{idVendor}=="0403", ATTRS{idProduct}=="a6d0", \
       DRIVER=="", RUN+="/sbin/modprobe -b ftdi_sio"
