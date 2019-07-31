@@ -3,6 +3,7 @@
 {
   imports = [
     ./plasma5.nix
+    ../config/barrier.nix
     ../config/chromium.nix
     ../config/firefox.nix
     ../config/keybase.nix
