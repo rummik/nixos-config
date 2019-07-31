@@ -10,6 +10,7 @@ let
     "dosini"
     "sh"
     "tmux"
+    "udevrules"
     "vim"
     "xf86conf"
     "zsh"
@@ -21,18 +22,6 @@ let
     toUpper (substring 0 1 name) + substring 1 (stringLength name) name;
 
   plugins = {
-    deoplete-zsh = (buildVimPluginFrom2Nix {
-      pname = "deoplete-zsh";
-      version = "2018-10-12";
-
-      src = fetchFromGitHub {
-        owner = "zchee";
-        repo = "deoplete-zsh";
-        rev = "6b08b2042699700ffaf6f51476485c5ca4d50a12";
-        sha256 = "0h62v9z5bh9xmaq22pqdb3z79i84a5rknqm68mjpy7nq7s3q42fa";
-      };
-    });
-
     vim-smali = (buildVimPluginFrom2Nix {
       pname = "vim-smali";
       version = "2017-03-07";
@@ -85,7 +74,14 @@ let
 in
 
 {
-  environment.systemPackages = with pkgs; [ neovim ctags wakatime ];
+  environment.systemPackages = with pkgs; [
+    neovim
+    ctags
+    fzf
+    ripgrep
+    silver-searcher
+    wakatime
+  ];
 
   environment.variables = {
     EDITOR = pkgs.lib.mkOverride 0 "vim";
@@ -142,25 +138,92 @@ in
           let g:airline_section_y=""
           let g:airline_skip_empty_sections = 1
 
-          " Use deoplete.
-          let g:deoplete#enable_at_startup = 1
-
           " General
           filetype plugin indent on
 
-          " Nerdtree
-          map <C-k> :NERDTreeToggle<CR>
+          " FZF
 
-          let g:NERDTreeShowHidden = 0
-          let g:NERDTreeShowIgnoredStatus = 1
+          "" Jump to the existing buffer if possible
+          let g:fzf_buffers_jump = 1
 
-          let g:NERDTreeChDirMode = 2
-          let g:ctrlp_working_path_mode = "rw"
-          let g:ctrlp_dont_split = "NERD_tree"
+          "" Disable statusline overwriting
+          let g:fzf_nvim_statusline = 0
 
-          " CTRLP ignores
-          "let g:ctrlp_custom_ignore = "/\(bower_components\|node_modules\|\.DS_Store\|\.git)$"
-          let g:ctrlp_user_command = [".git", "cd %s && git ls-files -co --exclude-standard"]
+          "" FZF Theme
+          let g:fzf_colors =
+            \ { 'fg':      ['fg', 'Normal'],
+            \   'bg':      ['bg', 'Normal'],
+            \   'hl':      ['fg', 'Comment'],
+            \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+            \   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+            \   'hl+':     ['fg', 'Statement'],
+            \   'info':    ['fg', 'PreProc'],
+            \   'border':  ['fg', 'Ignore'],
+            \   'prompt':  ['fg', 'Conditional'],
+            \   'pointer': ['fg', 'Exception'],
+            \   'marker':  ['fg', 'Keyword'],
+            \   'spinner': ['fg', 'Label'],
+            \   'header':  ['fg', 'Comment'] }
+
+					autocmd! FileType fzf
+					autocmd  FileType fzf set laststatus=0 noshowmode noruler
+						\| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+          "" Bind Ctrl-p for muscle memory
+          map <c-p> :Files<CR>
+
+					"" Mapping selecting mappings
+					nmap <leader><tab> <plug>(fzf-maps-n)
+					xmap <leader><tab> <plug>(fzf-maps-x)
+					omap <leader><tab> <plug>(fzf-maps-o)
+
+					"" Insert mode completion
+					imap <c-x><c-k> <plug>(fzf-complete-word)
+					imap <c-x><c-j> <plug>(fzf-complete-path)
+					imap <c-x><c-f> <plug>(fzf-complete-file-ag)
+					imap <c-x><c-l> <plug>(fzf-complete-line)
+
+          "" Leader bindings for most FZF functionality
+          "" See: https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L239
+          nnoremap <silent> <leader><space> :Files<CR>
+          nnoremap <silent> <leader>a :Buffers<CR>
+          nnoremap <silent> <leader>A :Windows<CR>
+          nnoremap <silent> <leader>; :BLines<CR>
+          nnoremap <silent> <leader>o :BTags<CR>
+          nnoremap <silent> <leader>O :Tags<CR>
+          nnoremap <silent> <leader>S :Snippets<CR>
+          nnoremap <silent> <leader>? :History<CR>
+          nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+          nnoremap <silent> <leader>. :AgIn<space>
+
+          nnoremap <silent> K :call SearchWordWithAg()<CR>
+          vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+          nnoremap <silent> <leader>gl :Commits<CR>
+          nnoremap <silent> <leader>ga :BCommits<CR>
+          nnoremap <silent> <leader>ft :Filetypes<CR>
+
+          "" FZF ag functions
+          "" See: https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L244-L263
+          function! SearchWordWithAg()
+            execute 'Ag' expand('<cword>')
+          endfunction
+
+          function! SearchVisualSelectionWithAg() range
+            let old_reg = getreg('"')
+            let old_regtype = getregtype('"')
+            let old_clipboard = &clipboard
+            set clipboard&
+            normal! ""gvy
+            let selection = getreg('"')
+            call setreg('"', old_reg, old_regtype)
+            let &clipboard = old_clipboard
+            execute 'Ag' selection
+          endfunction
+
+          function! SearchWithAgInDirectory(...)
+            call fzf#vim#ag(join(a:000[1:], ' '), {'dir': a:1})
+          endfunction
+          command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
           " Syntastic configurings
           let g:syntastic_javascript_checkers = [ "jshint" ]
@@ -173,6 +236,7 @@ in
 
           " Vim-Workspace
           let g:workspace_session_disable_on_args = 1
+          let g:workspace_autosave_ignore = [ "gitcommit" ]
           nnoremap <leader>s :ToggleWorkspace<CR>
 
           " EditorConfig
@@ -237,36 +301,15 @@ in
                 '';
           }
 
-          { name = "multiple-cursors";
-#            exec = escapeVimString /* vim */ ''
-#              func! Multiple_cursors_before()
-#                if deoplete#is_enabled()
-#                  call deoplete#disable()
-#                  let g:deoplete_is_enable_before_multi_cursors = 1
-#                else
-#                  let g:deoplete_is_enable_before_multi_cursors = 0
-#                endif
-#              endfunc
-#              func! Multiple_cursors_after()
-#                if g:deoplete_is_enable_before_multi_cursors
-#                  call deoplete#enable()
-#                endif
-#              endfunc
-#            '';
-          }
-
           # Using a filename regex to workaround Wakatime's API token prompt
           # breaking rplugin manifest generation
           { name = "vim-wakatime"; filename_regex = "."; }
 
           { names = [
-            "ctrlp"
-            "deoplete-nvim"
             "editorconfig-vim"
             "fugitive"
+            "fzfWrapper"
             "fzf-vim"
-            "nerdtree"
-            "nerdtree-git-plugin"
             "syntastic"
             "vim-airline"
             "vim-easytags"
