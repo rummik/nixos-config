@@ -8,6 +8,7 @@ let
 
   fencedLanguages = [
     "dosini"
+    "modconf"
     "sh"
     "tmux"
     "udevrules"
@@ -142,7 +143,6 @@ in
           filetype plugin indent on
 
           " FZF
-
           "" Jump to the existing buffer if possible
           let g:fzf_buffers_jump = 1
 
