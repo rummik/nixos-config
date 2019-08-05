@@ -71,6 +71,10 @@ mkMerge [
       xkbOptions = "caps:escape,compose:prsc";
     };
 
+    boot.extraModprobeConfig = /* modconf */ ''
+      options usb-storage quirks=0bc2:ac30:u
+    '';
+
     system.stateVersion = "19.03";
   })
 
