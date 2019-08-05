@@ -2,7 +2,7 @@
 
 let
 
-  inherit (lib) optional optionalAttrs mkIf mkMerge flatten;
+  inherit (lib) optional optionalAttrs mkIf mkMerge mkDefault flatten;
   inherit (builtins) currentSystem;
   inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
 
@@ -74,6 +74,12 @@ mkMerge [
     boot.extraModprobeConfig = /* modconf */ ''
       options usb-storage quirks=0bc2:ac30:u
     '';
+
+    environment.variables = {
+      themePrimaryColor = mkDefault "magenta";
+      themeSecondaryColor = mkDefault "green";
+      tmuxPrefixKey = mkDefault "b";
+    };
 
     system.stateVersion = "19.03";
   })

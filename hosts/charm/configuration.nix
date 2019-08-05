@@ -10,5 +10,10 @@
     ../../profiles/server.nix
   ];
 
+  environment.variables = {
+    themeSecondaryColor = "magenta";
+    tmuxPrefixKey = "a";
+  };
+
   fileSystems."/".options = [ "defaults" "acl" ];
 }

@@ -2,12 +2,13 @@
 
 let
 
+  inherit (builtins) currentSystem;
   inherit (lib) optionalString maybeEnv;
   inherit (pkgs) tmuxPlugins;
-  inherit (pkgs.stdenv) isLinux;
+  inherit (pkgs.stdenv) isLinux mkDerivation;
 
-  primaryColor = "magenta";
-  secondaryColor = "green";
+  defaultPrimaryColor = "magenta";
+  defaultSecondaryColor = "green";
 
   resurrect-patched = (tmuxPlugins.resurrect.overrideAttrs (oldAttrs: rec {
     src = pkgs.fetchFromGitHub {
@@ -27,19 +28,24 @@ let
     dependencies = [ resurrect-patched ];
   }));
 
+  inlineScript = name: derivation {
+    name = "tmuxplugin ${name}";
+    rtp = "true";
+  };
+
 in
 
 {
   programs.tmux = {
     enable = true;
 
+    keyMode = "vi";
+
     extraConfig = /* tmux */ ''
-      # enable mouse support
+      # Enable mouse support
       set -g mouse on
 
-      set -g mode-keys vi
-
-      # status line
+      # Status line
       set -g status-right " "
       set -g status-right-length 30
 
@@ -50,44 +56,59 @@ in
       set -g main-pane-width 127
       set -g main-pane-height 45
 
-      set-option -g pane-active-border-fg bright${secondaryColor}
-      set-option -g pane-border-fg brightblack
-      set-option -g display-panes-colour ${primaryColor}
-      set-option -g display-panes-active-colour brightred
-      set-option -g clock-mode-colour brightwhite
-      set-option -g mode-bg ${secondaryColor}
-      set-option -g mode-fg brightwhite
-      set-window-option -g window-status-bg black
-      set-window-option -g window-status-fg bright${primaryColor}
-      set-window-option -g window-status-current-bg black
-      set-window-option -g window-status-current-fg brightwhite
-      set-window-option -g window-status-bell-bg black
-      set-window-option -g window-status-bell-fg brightred
-      set-window-option -g window-status-activity-bg black
-      set-window-option -g window-status-activity-fg brightred
-      set -g status-bg black
-      set -g status-fg bright${secondaryColor}
-      set -g message-bg ${secondaryColor}
-      set -g message-fg brightwhite
+      # Use system prefix
+      if "[[ ! -z $tmuxPrefixKey ]]" "\
+        unbind #{prefix} \
+        set -g prefix C-$tmuxPrefixKey \
+        bind C-$tmuxPrefixKey send-prefix \
+        bind $tmuxPrefixKey last-window \
+      "
+
+      # Profile colors
+      if "[[ -z $themePrimaryColor ]]"   "setenv -g themePrimaryColor ${defaultPrimaryColor}"
+      if "[[ -z $themeSecondaryColor ]]" "setenv -g themeSecondaryColor ${defaultSecondaryColor}"
+      if "[[ $COLORTERM == truecolor ]]" "set -ga terminal-overrides ',alacritty*:Tc'"
+
+      set -g pane-active-border-fg "bright$themeSecondaryColor"
+      set -g pane-border-fg "brightblack"
+      set -g display-panes-colour "$themePrimaryColor"
+      set -g display-panes-active-colour "brightred"
+      set -g clock-mode-colour "brightwhite"
+      set -g mode-bg "$themeSecondaryColor"
+      set -g mode-fg "brightwhite"
+      set -gw window-status-bg "black"
+      set -gw window-status-fg "bright$themePrimaryColor"
+      set -gw window-status-current-bg "black"
+      set -gw window-status-current-fg "brightwhite"
+      set -gw window-status-bell-bg "black"
+      set -gw window-status-bell-fg "brightred"
+      set -gw window-status-activity-bg "black"
+      set -gw window-status-activity-fg "brightred"
+      set -g status-bg "black"
+      set -g status-fg "bright$themeSecondaryColor"
+      set -g message-bg "$themeSecondaryColor"
+      set -g message-fg "brightwhite"
     '';
 
     plugins = with tmuxPlugins; [
       { plugin = yank; }
       { plugin = sensible; }
+      { plugin = pain-control; }
 
       {
-        plugin = pain-control;
+        plugin = inlineScript "remap split";
 
         extraConfig = /* tmux */ ''
-          unbind-key "-"
-          unbind-key "_"
-          bind-key "|" split-window -h -c "#{pane_current_path}"
-          bind-key "\\" split-window -v -c "#{pane_current_path}"
+          unbind "-"
+          unbind "_"
+          bind "|" split-window -h -c "#{pane_current_path}"
+          bind "\\" split-window -v -c "#{pane_current_path}"
         '';
       }
 
       {
         plugin = resurrect-patched;
+
         extraConfig = /* tmux */ ''
           set -g @resurrect-capture-pane-contents "on"
           set -g @resurrect-processes "mosh-client man '~yarn watch'"
@@ -95,13 +116,13 @@ in
           set -g @resurrect-save-command-strategy "cmdline"
           ''}
           set -g @resurrect-process-match-strategy "basename"
-          #set -g @resurrect-strategy-nvim "session"
-          #set -g @resurrect-save-shell-history "on"
+          set -g @resurrect-strategy-nvim "session"
         '';
       }
 
       {
         plugin = continuum-patched;
+
         extraConfig = /* tmux */ ''
           set -g @continuum-save-interval "15"
           set -g @continuum-restore "on"

@@ -13,6 +13,10 @@
     ../../profiles/workstation.nix
   ];
 
+  environment.variables = {
+    themeSecondaryColor = "cyan";
+  };
+
   networking.firewall.allowedTCPPortRanges = [
     { from = 4100; to = 4105; }
   ];
