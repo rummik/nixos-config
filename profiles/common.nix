@@ -58,8 +58,6 @@ mkMerge [
 
     time.timeZone = "America/New_York";
 
-    networking.firewall.enable = true;
-
     i18n = {
       consoleFont = "Lat2-Terminus16";
       defaultLocale = "en_US.UTF-8";
