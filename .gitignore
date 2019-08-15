@@ -3,3 +3,4 @@ Session.vim
 darwin-configuration.nix
 hardware-configuration.nix
 result
+*.qcow2
