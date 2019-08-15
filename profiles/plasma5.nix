@@ -53,9 +53,14 @@
 
   nixpkgs.config.pulseaudio = true;
 
-  hardware.pulseaudio = {
+  hardware.pulseaudio = with pkgs; {
     enable = true;
-    package = pkgs.pulseaudioFull;
+    package = pulseaudioFull;
+    extraModules = [ pulseaudio-modules-bt ];
+
+    extraConfig = ''
+      load-module module-echo-cancel source_name=ec-mic use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1"
+    '';
   };
 
   networking.firewall = {
