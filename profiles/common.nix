@@ -74,8 +74,9 @@ mkMerge [
     '';
 
     environment.variables = {
-      themePrimaryColor = mkDefault "magenta";
+      themePrimaryColor = mkDefault "cyan";
       themeSecondaryColor = mkDefault "green";
+      themeAccentColor = mkDefault "magenta";
       tmuxPrefixKey = mkDefault "b";
     };
 

@@ -7,8 +7,8 @@ let
   inherit (pkgs) tmuxPlugins;
   inherit (pkgs.stdenv) isLinux mkDerivation;
 
-  defaultPrimaryColor = "magenta";
-  defaultSecondaryColor = "green";
+  defaultPrimaryColor = "green";
+  defaultAccentColor = "magenta";
 
   resurrect-patched = (tmuxPlugins.resurrect.overrideAttrs (oldAttrs: rec {
     src = pkgs.fetchFromGitHub {
@@ -65,19 +65,19 @@ in
       "
 
       # Profile colors
-      if "[[ -z $themePrimaryColor ]]"   "setenv -g themePrimaryColor ${defaultPrimaryColor}"
-      if "[[ -z $themeSecondaryColor ]]" "setenv -g themeSecondaryColor ${defaultSecondaryColor}"
+      if "[[ -z $themeAccentColor ]]"   "setenv -g themeAccentColor ${defaultAccentColor}"
+      if "[[ -z $themePrimaryColor ]]" "setenv -g themePrimaryColor ${defaultPrimaryColor}"
       if "[[ $COLORTERM == truecolor ]]" "set -ga terminal-overrides ',alacritty*:Tc'"
 
-      set -g pane-active-border-fg "bright$themeSecondaryColor"
+      set -g pane-active-border-fg "bright$themePrimaryColor"
       set -g pane-border-fg "brightblack"
-      set -g display-panes-colour "$themePrimaryColor"
+      set -g display-panes-colour "$themeAccentColor"
       set -g display-panes-active-colour "brightred"
       set -g clock-mode-colour "brightwhite"
-      set -g mode-bg "$themeSecondaryColor"
+      set -g mode-bg "$themePrimaryColor"
       set -g mode-fg "brightwhite"
       set -gw window-status-bg "black"
-      set -gw window-status-fg "bright$themePrimaryColor"
+      set -gw window-status-fg "bright$themeAccentColor"
       set -gw window-status-current-bg "black"
       set -gw window-status-current-fg "brightwhite"
       set -gw window-status-bell-bg "black"
@@ -85,8 +85,8 @@ in
       set -gw window-status-activity-bg "black"
       set -gw window-status-activity-fg "brightred"
       set -g status-bg "black"
-      set -g status-fg "bright$themeSecondaryColor"
-      set -g message-bg "$themeSecondaryColor"
+      set -g status-fg "bright$themePrimaryColor"
+      set -g message-bg "$themePrimaryColor"
       set -g message-fg "brightwhite"
     '';
 
