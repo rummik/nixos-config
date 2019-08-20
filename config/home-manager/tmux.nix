@@ -56,18 +56,27 @@ in
       set -g main-pane-width 127
       set -g main-pane-height 45
 
+      # All the colors
+      %if #{==:$COLORTERM,truecolor}
+        set -ga terminal-overrides ",alacritty*:Tc"
+      %endif
+
       # Use system prefix
-      if "[[ ! -z $tmuxPrefixKey ]]" "\
-        unbind #{prefix} \
-        set -g prefix C-$tmuxPrefixKey \
-        bind C-$tmuxPrefixKey send-prefix \
-        bind $tmuxPrefixKey last-window \
-      "
+      %if #{!=:$tmuxPrefixKey,}
+        unbind {#{prefix}}
+        set -g prefix "C-$tmuxPrefixKey"
+        bind "C-$tmuxPrefixKey" send-prefix
+        bind "$tmuxPrefixKey" last-window
+      %endif
 
       # Profile colors
-      if "[[ -z $themeAccentColor ]]"   "setenv -g themeAccentColor ${defaultAccentColor}"
-      if "[[ -z $themePrimaryColor ]]" "setenv -g themePrimaryColor ${defaultPrimaryColor}"
-      if "[[ $COLORTERM == truecolor ]]" "set -ga terminal-overrides ',alacritty*:Tc'"
+      %if #{==:$themeAccentColor,}
+        setenv -g themeAccentColor "${defaultAccentColor}"
+      %endif
+
+      %if #{==:$themePrimaryColor,}
+        setenv -g themePrimaryColor "${defaultPrimaryColor}"
+      %endif
 
       set -g pane-active-border-fg "bright$themePrimaryColor"
       set -g pane-border-fg "brightblack"
