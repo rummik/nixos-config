@@ -1,6 +1,6 @@
 .undodir
 Session.vim
-darwin-configuration.nix
-hardware-configuration.nix
+/darwin-configuration.nix
+/hardware-configuration.nix
 result
 *.qcow2
