@@ -12,5 +12,5 @@ rec {
     { prefix = "nixpkgs-unstable"; path = ./nixpkgs-unstable; }
   ];
 
-  nixPath = map ({ prefix, path }: "${prefix}=${toString path}") __nixPath;
+  nixPath = map ({ prefix, path }: "${prefix}=${__replaceStrings [ "/mnt/" ] [ "/" ] (toString path)}") __nixPath;
 }
