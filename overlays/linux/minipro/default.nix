@@ -6,14 +6,15 @@
 , which
 }:
 
-stdenv.mkDerivation {
-  name = "minipro-2018-07-24";
+stdenv.mkDerivation rec {
+  version = "0.3";
+  pname = "minipro";
 
   src = fetchFromGitLab {
     owner = "DavidGriffith";
-    repo = "minipro";
-    rev = "f0ee9d86f513d36d3435a49c822fac09bd7b661b";
-    sha256 = "08bjmsyh34qpz8sakbp149is5mhl8srhz8h30s9ihhdfvvd3ggpz";
+    repo = pname;
+    rev = version;
+    sha256 = "0bxdylsdahakbq99chsyw5p4wnbgiplnkv1br62mr9h73mkwy3gi";
   };
 
   nativeBuildInputs = [
@@ -24,15 +25,6 @@ stdenv.mkDerivation {
   buildInputs = [
     libusb
   ];
-
-#  preConfigure = /* sh */ ''
-#    substituteInPlace
-#    sed \
-#      -e "s/^origincdirs = .*/origincdirs = []/" \
-#      -e "s/^origlibdirs = .*/origlibdirs = []/" \
-#      -e "/\/include\/smpeg/d" \
-#      -i config_unix.py
-#  '';
 
   preBuild = /* sh */ ''
     makeFlagsArray+=(
