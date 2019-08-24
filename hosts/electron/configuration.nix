@@ -17,6 +17,8 @@
     themePrimaryColor = "cyan";
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_5_2;
+
   networking.firewall.allowedTCPPortRanges = [
     { from = 4100; to = 4105; }
   ];

@@ -9,7 +9,8 @@ let
 
 in
 
-optionalAttrs isLinux {
+optionalAttrs isLinux rec {
+  firmwareLinuxNonfree = callPackage <nixpkgs-unstable/pkgs/os-specific/linux/firmware/firmware-linux-nonfree> {};
   minipro = callPackage ./minipro {};
   upwork = callPackage ./upwork {};
 }
