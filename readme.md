@@ -1,7 +1,7 @@
-## *Kim's Personal Nix(OS) configs
+## *Kim's personal NixOS configs
 
 Makes use of [Home Manager](https://github.com/rycee/home-manager) to manage
-(some) dotfiles
+dotfiles
 
 Also works under [Nix-Darwin](https://github.com/LnL7/nix-darwin)
 
@@ -11,12 +11,6 @@ specifics
 
 It also includes some slightly unconventional Nix syntax adjustments to hack in
 fenced syntax highlighting within strings
-
-### Installing
-```
-# optionally set/export HOST to select a default host file
-curl https://gitlab.com/zick.kim/nixos/nixos-config/raw/master/install.sh | sh
-```
 
 ### Layout
 - `channels/` - Pinned channels
@@ -35,17 +29,6 @@ Or use `nixos-option` to determine the current and default values for an option,
 and view the option's description
 
 Alternatively use `nix repl '<darwin>'`, or `darwin-option` if using nix-darwin
-
-### Syncing
-Assuming you have a separate local repository, and want to sync all refs in
-order to push them
-
-```
-git checkout --detach
-git fetch local '+refs/heads/*:refs/heads/*'
-git push origin --all
-git checkout master
-```
 
 ### Fenced syntax highlighting
 
