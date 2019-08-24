@@ -14,7 +14,7 @@
   ];
 
   environment.variables = {
-    themeSecondaryColor = "cyan";
+    themePrimaryColor = "cyan";
   };
 
   networking.firewall.allowedTCPPortRanges = [
