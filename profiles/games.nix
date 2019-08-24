@@ -7,5 +7,6 @@
   environment.systemPackages = with pkgs; [
     minetest
     multimc
+    lutris
   ];
 }
