@@ -22,4 +22,8 @@ in
   nvm = callPackage ./nvm {};
   tio = callPackage ./tio {};
   zplug = callPackage ./zplug {};
+
+  zshPlugins = (import ./zsh-plugins) {
+    inherit (super) lib fetchFromGitHub fetchFromGitLab;
+  };
 }
