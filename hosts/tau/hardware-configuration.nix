@@ -1,13 +1,16 @@
+let
+
+  inherit (import ../../channels) __nixPath;
+
+in
+
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     <nixos-hardware/lenovo/thinkpad/x230>
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.blacklistedKernelModules = [ "mei" "mei_me" ];
 
   boot.loader.grub = {
     enable = true;

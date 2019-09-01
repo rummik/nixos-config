@@ -4,7 +4,5 @@
     ../../profiles/workstation.nix
   ];
 
-  environment.variables = {
-    themePrimaryColor = "blue";
-  };
+  environment.variables.themePrimaryColor = "blue";
 }
