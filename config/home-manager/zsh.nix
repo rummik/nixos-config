@@ -63,6 +63,7 @@ in
       isup
       please
       psmin
+      psmin-gitflow
       slowcat
       tailf
     ];

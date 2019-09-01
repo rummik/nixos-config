@@ -45,6 +45,7 @@ in
   };
 
   nix-shell = zshPluginFromGitHub {
+    name = "nix-shell";
     owner = "chisui";
     repo = "zsh-nix-shell";
     rev = "b2609ca787803f523a18bb9f53277d0121e30389";
@@ -80,6 +81,7 @@ in
   };
 
   dug = zshPluginFromGitLab {
+    name = "dug";
     owner = "rummik";
     repo = "zsh/dug";
     rev = "86fdc610da39f65d2ce24f4a4879f754e2035bd4";
@@ -87,6 +89,7 @@ in
   };
 
   ing = zshPluginFromGitLab {
+    name = "ing";
     owner = "rummik";
     repo = "zsh/ing";
     rev = "166f130c02444065ff489a85ed08bc00fd2bd70f";
@@ -94,6 +97,7 @@ in
   };
 
   isup = zshPluginFromGitLab {
+    name = "isup";
     owner = "rummik";
     repo = "zsh/isup";
     rev = "0ce5d81c2c29955d39c28b48627d5f2ea209611c";
@@ -101,6 +105,7 @@ in
   };
 
   please = zshPluginFromGitLab {
+    name = "please";
     owner = "rummik";
     repo = "zsh/please";
     rev = "5706e7b7eb1d1c6b3dbdbe9402392e84b297568e";
@@ -108,6 +113,7 @@ in
   };
 
   psmin = zshPluginFromGitLab {
+    name = "psmin";
     owner = "rummik";
     repo = "zsh/psmin";
     rev = "3120062717d0a82fe33ee9bf9b4eabca8323f322";
@@ -115,6 +121,7 @@ in
   };
 
   psmin-gitflow = zshPluginFromGitLab {
+    name = "psmin-gitflow";
     owner = "rummik";
     repo = "zsh/psmin-gitflow";
     rev = "4afdf2639891b16b7250fd1065cd0a3ddccea484";
@@ -122,6 +129,7 @@ in
   };
 
   slowcat = zshPluginFromGitLab {
+    name = "slowcat";
     owner = "rummik";
     repo = "zsh/slowcat";
     rev = "f089130d881cef04f46a13322c7998d5aaa4201b";
@@ -129,6 +137,7 @@ in
   };
 
   tailf = zshPluginFromGitLab {
+    name = "tailf";
     owner = "rummik";
     repo = "zsh/tailf";
     rev = "92b04527b784a70a952efde20e6a7269278fb17d";
