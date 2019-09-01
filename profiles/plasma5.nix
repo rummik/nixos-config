@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
 
+let
+
+  inherit (pkgs) hplip hplipWithPlugin;
+
+in
+
 {
   imports = [
     ../config/fonts.nix
@@ -25,12 +31,12 @@
 
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplip ];
+    drivers = [ hplip ];
   };
 
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.hplipWithPlugin ];
+    extraBackends = [ hplipWithPlugin ];
     netConf = "hp-printer.local";
   };
 
