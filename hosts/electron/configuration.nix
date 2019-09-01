@@ -9,13 +9,10 @@
     ../../config/wireshark.nix
     ../../profiles/games.nix
     ../../profiles/haskell.nix
-    ../../profiles/thinkpad.nix
     ../../profiles/workstation.nix
   ];
 
-  environment.variables = {
-    themePrimaryColor = "cyan";
-  };
+  environment.variables.themePrimaryColor = "cyan";
 
   boot.kernelPackages = pkgs.linuxPackages_5_2;
 

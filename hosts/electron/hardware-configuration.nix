@@ -1,9 +1,16 @@
-{ config, pkgs, ... }:
+let
+
+  inherit (import ../../channels) __nixPath;
+
+in
 
 {
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    <nixos-hardware/lenovo/thinkpad/x230>
   ];
+
+  boot.blacklistedKernelModules = [ "mei" "mei_me" ];
 
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
