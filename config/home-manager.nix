@@ -8,6 +8,7 @@
     ./home-manager/git.nix
     ./home-manager/htop.nix
     ./home-manager/obs-studio.nix
+    ./home-manager/taskwarrior.nix
     ./home-manager/tmux.nix
     ./home-manager/zsh.nix
   ];
