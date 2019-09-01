@@ -1,5 +1,3 @@
-{ config, lib, pkgs, ... }:
-
 let
 
   inherit (import ../../channels) __nixPath;
@@ -12,9 +10,6 @@ in
     <nixos-hardware/lenovo/thinkpad/t430>
   ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "sd_mod" "sr_mod" "sdhci_pci" ];
-  boot.initrd.kernelModules = [ "dm-snapshot" ];
-  boot.kernelModules = [ "kvm-intel" ];
   boot.blacklistedKernelModules = [ "mei" "mei_me" ];
 
   boot.loader.grub = {
