@@ -3,6 +3,7 @@
 {
   imports = [
     ./home-manager/alacritty.nix
+    ./home-manager/firefox.nix
     ./home-manager/fzf.nix
     ./home-manager/git.nix
     ./home-manager/htop.nix

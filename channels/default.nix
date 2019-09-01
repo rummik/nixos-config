@@ -10,6 +10,7 @@ rec {
     { prefix = "nixpkgs"; path = ./nixpkgs; }
     { prefix = "nixpkgs-overlays"; path = ../overlays/default.nix; }
     { prefix = "nixpkgs-unstable"; path = ./nixpkgs-unstable; }
+    { prefix = "nur"; path = ./nur; }
   ];
 
   nixPath = map ({ prefix, path }: "${prefix}=${__replaceStrings [ "/mnt/" ] [ "/" ] (toString path)}") __nixPath;

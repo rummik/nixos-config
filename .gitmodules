@@ -18,3 +18,7 @@
 	path = channels/nixos-hardware
 	url = https://github.com/NixOS/nixos-hardware.git
 	branch = master
+[submodule "channels/nur"]
+	path = channels/nur
+	url = https://github.com/nix-community/NUR.git
+	branch = master
