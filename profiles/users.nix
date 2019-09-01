@@ -29,6 +29,8 @@ mkMerge [
       uid = 1000;
       linger = true;
 
+      home = "/home/rummik";
+
       # should really choose something hashed, but XKCD-936 amuses me
       initialPassword = "correct horse battery staple";
 
