@@ -80,18 +80,6 @@ let
         sha256 = "157q2w2bq1p6g1wc67zl53n6iw4l04qz2sqa5j6mgqg71rgqzk0p";
       };
     });
-
-    yats = (buildVimPluginFrom2Nix {
-      pname = "yats.vim";
-      version = "2018-10-12";
-
-      src = fetchFromGitHub {
-        owner = "HerringtonDarkholme";
-        repo = "yats.vim";
-        rev = "29f8add1dd60f0105cabf60daabf578e2e0edfae";
-        sha256 = "0qkhmbz5gz7mrsc3v5yhgzra0zk6l8z5k9xr8ibq2k7ifvr26hwr";
-      };
-    });
   };
 
 in
@@ -275,8 +263,8 @@ in
           { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
           { name = "yajs"; ft_regex = "^javascript\$"; }
           { name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
-          { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
-          { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
+          { name = "yats-vim"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
+          { name = "yats-vim"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
 
           # Using a filename regex to workaround Wakatime's API token prompt
           # breaking rplugin manifest generation
