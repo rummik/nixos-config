@@ -27,6 +27,7 @@ in
     kdeApplications.kdialog
 
     kdeconnect
+    plasma-browser-integration
   ];
 
   services.printing = {
