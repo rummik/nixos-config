@@ -17,12 +17,34 @@ let
     "zsh"
   ];
 
-  escapeVimString = string: replaceStrings [ "\n" "'" ] [ "\n\\ " "''" ] string;
-
   ucFirst = name:
     toUpper (substring 0 1 name) + substring 1 (stringLength name) name;
 
   plugins = {
+    vader = (buildVimPluginFrom2Nix {
+      pname = "vader";
+      version = "ddb71424";
+
+      src = fetchFromGitHub {
+        owner = "junegunn";
+        repo = "vader.vim";
+        rev = "ddb714246535e814ddd7c62b86ca07ffbec8a0af";
+        sha256 = "0jlxbp883y84nal5p55fxg7a3wqh3zny9dhsvfjajrzvazmiz44n";
+      };
+    });
+
+    vim-nix = (buildVimPluginFrom2Nix {
+      pname = "vim-nix";
+      version = "2019-09-02";
+
+      src = fetchFromGitHub {
+        owner = "rummik";
+        repo = "vim-nix";
+        rev = "7cad7f3666a63ff00f7ecd73a98886031901b918";
+        sha256 = "14srhdci02qv25v4s2h0wqd40vh127gcxwjzliqa9dq3pngw96gx";
+      };
+    });
+
     vim-smali = (buildVimPluginFrom2Nix {
       pname = "vim-smali";
       version = "2017-03-07";
@@ -255,38 +277,6 @@ in
           { name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
           { name = "yats"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
           { name = "yats"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
-
-          { name = "vim-SyntaxRange"; filename_regex = "\\.nix\$";
-            exec =
-              let
-                syntaxFor = name: let Name = ucFirst name; in /* vim */ ''
-                  call SyntaxRange#IncludeEx(
-                    printf(
-                      'matchgroup=ftnixStringSpecial start="%s" skip="%s"lc=1 end="%s" keepend extend contained',
-                      "/\\*\\s*${name}\\s*\\*/\\s*'''",
-                      "'''['$\\\\]",
-                      "'''"
-                    ),
-                    '${name}',
-                    'ftnixInterpolation,ftnixStringSpecial,ftnixInvalidStringEscape'
-                  )
-                  | syn cluster nixExpr add=synInclude${Name}
-                  | syn region ftnixInterpolation matchgroup=ftnixInterpolationDelimiter start="\''${" end="}" contains=@nixExpr,nixInterpolationParam extend keepend contained containedin=@synInclude${Name}
-                  | syn match ftnixStringSpecial "'''\$"me=e-1 nextgroup=@synInclude${Name} contained containedin=@synInclude${Name}
-                  | syn match ftnixStringSpecial "\$\$"me=e-2 nextgroup=@synInclude${Name} contained containedin=@synInclude${Name}
-                  | syn match ftnixStringSpecial "''''"me=e-2 nextgroup=@synInclude${Name} contained containedin=@synInclude${Name}
-                  | syn match ftnixStringSpecial "'''\\[nrt]" contained containedin=@synInclude${Name}
-                  | syn match ftnixInvalidStringEscape "'''\\[^nrt]" contained containedin=@synInclude${Name}
-                '';
-              in
-                escapeVimString /* vim */ ''
-                  au Syntax nix ${concatMapStringsSep "|" (name: syntaxFor name) fencedLanguages}
-                  | hi def link ftnixStringSpecial nixStringSpecial
-                  | hi def link ftnixInterpolation nixInterpolation
-                  | hi def link ftnixInvalidStringEscape nixInvalidStringEscape
-                  | hi def link ftnixInterpolationDelimeter nixInterpolationDelimeter
-                '';
-          }
 
           # Using a filename regex to workaround Wakatime's API token prompt
           # breaking rplugin manifest generation
