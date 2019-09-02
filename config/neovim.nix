@@ -276,6 +276,7 @@ in
             "fzfWrapper"
             "fzf-vim"
             "syntastic"
+            "vader"
             "vim-airline"
             "vim-easytags"
             "vim-gitgutter"
