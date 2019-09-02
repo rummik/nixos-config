@@ -124,7 +124,7 @@ in
           set clipboard=unnamedplus
 
           " Column markers
-          hi ColorColumn ctermbg=darkgrey guibg=darkgrey
+          hi ColorColumn ctermbg=black guibg=black
           set colorcolumn=80,100,120
 
           " Bits to make terminals more convenient
