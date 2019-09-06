@@ -4,21 +4,6 @@ let
 
   inherit (pkgs) fetchFromGitHub;
   inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
-  inherit (lib) replaceStrings concatMapStringsSep toUpper substring stringLength;
-
-  fencedLanguages = [
-    "dosini"
-    "modconf"
-    "sh"
-    "tmux"
-    "udevrules"
-    "vim"
-    "xf86conf"
-    "zsh"
-  ];
-
-  ucFirst = name:
-    toUpper (substring 0 1 name) + substring 1 (stringLength name) name;
 
   plugins = {
     vader = (buildVimPluginFrom2Nix {
