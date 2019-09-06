@@ -21,9 +21,16 @@ in
   lab = callPackage ./lab {};
   nvm = callPackage ./nvm {};
   tio = callPackage ./tio {};
+
+  vimPlugins = super.vimPlugins // (import ./vim-plugins) {
+    inherit (super) fetchFromGitHub;
+    inherit (super.vimUtils) buildVimPluginFrom2Nix;
+  };
+
   zplug = callPackage ./zplug {};
 
   zshPlugins = (import ./zsh-plugins) {
     inherit (super) lib fetchFromGitHub fetchFromGitLab;
   };
+
 }
