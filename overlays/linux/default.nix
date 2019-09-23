@@ -27,6 +27,6 @@ optionalAttrs isLinux rec {
     gdk-pixbuf = callPackage <nixpkgs-unstable/pkgs/development/libraries/gdk-pixbuf> { };
   };
 
+  mailspring = callPackage ./mailspring {};
   minipro = callPackage ./minipro {};
-  upwork = callPackage ./upwork {};
 }
