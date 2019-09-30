@@ -1,12 +1,21 @@
-{ cfg, pkgs, ... }:
+{ cfg, pkgs, pkgs-unstable, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    nodejs-10_x
-    (yarn.override { nodejs = nodejs-10_x; })
-    python
-    gnumake
-  ];
+  environment.systemPackages =
+    (with pkgs; [
+      python
+      gnumake
+    ])
+
+    ++
+
+    (with pkgs-unstable;
+      let nodejs = nodejs_latest;
+      in [
+        nodejs
+        (yarn.override { inherit nodejs; })
+      ]
+    );
 
   environment.interactiveShellInit = /* sh */ ''
     export PATH=$HOME/.yarn/bin:$PATH
