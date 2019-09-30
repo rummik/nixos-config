@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, pkgs-unstable, ... }:
 
 let
 
@@ -24,14 +24,17 @@ mkMerge [
       (with pkgs; [
         ack
         curl
+        dnsutils
         file
         gnupg
         mosh
-        nix-prefetch-git
+        ngrok
         nmap
+        pciutils
         pv
         telnet
         unzip
+        usbutils
         w3m
         wget
         youtube-dl
@@ -39,14 +42,18 @@ mkMerge [
 
         cht-sh
 
+        nix-prefetch-scripts
+      ])
+
+      ++
+
+      (with pkgs.gitAndTools; [
         git
-        gitAndTools.git-hub
-        gitAndTools.hub
-        gitAndTools.git-fame
+        git-fame
+        git-hub
+        hub
         lab
       ]);
-
-    nixpkgs.config.allowUnfree = true;
   }
 
   (optionalAttrs isLinux {
