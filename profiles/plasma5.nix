@@ -8,27 +8,42 @@ in
 
 {
   imports = [
+    ../config/ark.nix
     ../config/fonts.nix
+    ../config/kontact.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    filelight
-    kate
-    kdeFrameworks.kdesu
-    krita
-    ktorrent
-    partition-manager
-    spectacle
-    skanlite
+  environment.systemPackages =
+    with pkgs;
 
-    ark
-    p7zip
+    [
+      kdeconnect
+      krita
+      ktorrent
+      partition-manager
+      skanlite
+    ]
 
-    kdeApplications.kdialog
+    ++
 
-    kdeconnect
-    plasma-browser-integration
-  ];
+    (with plasma5; [
+      plasma-browser-integration
+    ])
+
+    ++
+
+    (with kdeApplications; [
+      filelight
+      kate
+      kdialog
+      spectacle
+    ])
+
+    ++
+
+    (with kdeFrameworks; [
+      kdesu
+    ]);
 
   services.printing = {
     enable = true;
