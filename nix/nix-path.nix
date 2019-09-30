@@ -9,24 +9,40 @@ let
 
 in
 
-{
-  nixpkgs.overlays = import <nixpkgs-overlays>;
+rec {
+  nixpkgs = {
+    overlays = import <nixpkgs-overlays>;
+    config.allowUnfree = true;
+  };
 
   nix.nixPath = mkForce nixPath;
 
-  _module.args.pkgs = import <nixpkgs> (
-    if isLinux then {
-      inherit (config.nixpkgs) config overlays localSystem crossSystem;
-    } else {
-      inherit (config.nixpkgs) config overlays;
-    }
-  );
+  _module.args =
+    let
 
-  _module.args.pkgs-unstable = import <nixpkgs-unstable> (
-    if isLinux then {
-      inherit (config.nixpkgs) config localSystem crossSystem;
-    } else {
-      inherit (config.nixpkgs) config;
-    }
-  );
+      pkgsConf = {
+        inherit (config.nixpkgs) localSystem crossSystem;
+        overlays = config.nixpkgs.overlays ++ nixpkgs.overlays;
+        config = config.nixpkgs.config // nixpkgs.config;
+      };
+
+    in
+
+    {
+      pkgs = import <nixpkgs> (
+        if isLinux then {
+          inherit (pkgsConf) overlays config localSystem crossSystem;
+        } else {
+          inherit (pkgsConf) overlays config;
+        }
+      );
+
+      pkgs-unstable = import <nixpkgs-unstable> (
+        if isLinux then {
+          inherit (pkgsConf) config localSystem crossSystem;
+        } else {
+          inherit (pkgsConf) config;
+        }
+      );
+    };
 }
