@@ -63,7 +63,7 @@ in
 
       # Use system prefix
       %if #{!=:$tmuxPrefixKey,}
-        unbind {#{prefix}}
+        unbind #{prefix}
         set -g prefix "C-$tmuxPrefixKey"
         bind "C-$tmuxPrefixKey" send-prefix
         bind "$tmuxPrefixKey" last-window
