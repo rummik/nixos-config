@@ -15,22 +15,14 @@ in
     inherit (super.darwin.apple_sdk.frameworks) AppKit CoreGraphics CoreServices CoreText Foundation OpenGL;
   };
 
-  bitlbee-discord = callPackage ./bitlbee-discord {};
-  bitlbee-mastodon = callPackage ./bitlbee-mastodon {};
   ddpt = callPackage ./ddpt {};
-  lab = callPackage ./lab {};
-  nvm = callPackage ./nvm {};
-  tio = callPackage ./tio {};
 
   vimPlugins = super.vimPlugins // (import ./vim-plugins) {
     inherit (super) fetchFromGitHub;
     inherit (super.vimUtils) buildVimPluginFrom2Nix;
   };
 
-  zplug = callPackage ./zplug {};
-
   zshPlugins = (import ./zsh-plugins) {
     inherit (super) lib fetchFromGitHub fetchFromGitLab;
   };
-
 }
