@@ -2,5 +2,6 @@
 Session.vim
 /darwin-configuration.nix
 /hardware-configuration.nix
+private-configuration.nix
 result
 *.qcow2

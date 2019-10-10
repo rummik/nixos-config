@@ -28,5 +28,6 @@ in
   imports = flatten [
     (../. + "/hosts/${hostName}/configuration.nix")
     (optionalPath (../. + "/hosts/${hostName}/hardware-configuration.nix"))
+    (optionalPath (../. + "/hosts/${hostName}/private-configuration.nix"))
   ];
 }
