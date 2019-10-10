@@ -12,5 +12,9 @@
   networking.networkmanager = {
     enable = true;
     packages = with pkgs; [ networkmanager_openvpn ];
+
+    unmanaged = [
+      "interface-name:veth*"
+    ];
   };
 }
