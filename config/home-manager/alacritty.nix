@@ -4,13 +4,12 @@ let
 
   inherit (lib) flatten optionals;
   inherit (pkgs.stdenv) isDarwin isLinux isWindows;
-  inherit (config.home) username;
 
 in
 
 {
   programs.alacritty = {
-    enable = username != "root";
+    enable = true;
 
     settings = {
 
