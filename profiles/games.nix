@@ -9,11 +9,6 @@
     (with pkgs; [
       minetest
       multimc
-    ])
-
-    ++
-
-    (with pkgs-unstable; [
       lutris
     ]);
 }
