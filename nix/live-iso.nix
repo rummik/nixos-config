@@ -2,8 +2,7 @@
 
 let
 
-  inherit (lib) mkForce substring filterAttrs pathExists mapAttrs;
-  inherit (builtins) readDir;
+  inherit (lib) mkForce substring;
   inherit (import ../channels) __nixPath nixPath;
 
 in
@@ -12,20 +11,30 @@ in
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
 
-    # Provide an initial copy of the NixOS channel so that the user
-    # doesn't need to run "nix-channel --update" first.
-    #<nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
-
     ../modules
     ./nix-path.nix
     ../profiles/common.nix
     ../config/networkmanager.nix
   ];
 
+  services.mingetty.autologinUser = mkForce "rummik";
 
+  # Disable the builtin configuration cloning helper, since we'll do that ourselves
   installer.cloneConfig = false;
 
-  environment.etc =
+  # Include our configs and pinned channels
+  # TODO: Use fetchgit + path to reduce the resulting image size and build times
+  environment.etc = {
+    nixos = {
+      enable = true;
+      source = builtins.path {
+        name = "nixos-configuration";
+        path = ../.;
+      };
+    };
+  };
+
+  /*environment.etc =
     {
       nixos = {
         enable = true;
@@ -38,7 +47,7 @@ in
       };
     };
 
-    /*//
+    //
 
     (
       mapAttrs (name: v: {
@@ -50,8 +59,8 @@ in
       (filterAttrs (n: v: v == "directory" && pathExists (../channels + "/${n}/.git")) (readDir ../channels))
     );*/
 
-
-  # Force disabling networking.wireless, since networkmanager overrides it
+  # Force disabling networking.wireless, since otherwise the iso builder will
+  # create a conflict with our networkmanager config
   networking.wireless.enable = mkForce false;
 
   isoImage = {
