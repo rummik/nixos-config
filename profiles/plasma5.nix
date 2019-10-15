@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 
 let
 
-  inherit (pkgs) hplip hplipWithPlugin;
+  inherit (pkgs) hplip hplipWithPlugin plasma5 kdeApplications kdeFrameworks;
 
 in
 
@@ -14,15 +14,14 @@ in
   ];
 
   environment.systemPackages =
-    with pkgs;
-
-    [
+    (with pkgs; [
+      #calligra
       kdeconnect
       krita
       ktorrent
       partition-manager
       skanlite
-    ]
+    ])
 
     ++
 
@@ -79,10 +78,6 @@ in
     enable = true;
     package = pulseaudioFull;
     extraModules = [ pulseaudio-modules-bt ];
-
-    extraConfig = ''
-      load-module module-echo-cancel source_name=ec-mic use_master_format=1 aec_method=webrtc aec_args="analog_gain_control=0\ digital_gain_control=1"
-    '';
   };
 
   networking.firewall = {
