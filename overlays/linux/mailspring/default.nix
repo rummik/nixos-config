@@ -1,17 +1,6 @@
 { stdenv, fetchurl, autoPatchelfHook,
-
-  atomEnv, cups, db53, dpkg, gtk2, libgnome-keyring, libkrb5, libsecret, openssl, udev,
-
-  makeLibraryPath ? stdenv.lib.makeLibraryPath,
-  replaceStrings ? stdenv.lib.replaceStrings,
-  substring ? stdenv.lib.substring,
+  atomEnv, cups, db53, dpkg, gtk2, libgnome-keyring, libkrb5, libsecret, openssl, udev
 }:
-
-let
-
-  clean = version: replaceStrings [ "_" ] [ "." ] (substring 0 9 version);
-
-in
 
 stdenv.mkDerivation rec {
   name = "${pname}-${version}";
@@ -22,7 +11,6 @@ stdenv.mkDerivation rec {
     url = "https://github.com/Foundry376/Mailspring/releases/download/${version}/mailspring-${version}-amd64.deb";
     sha256 = "0lahvfvxwqbnp12qqc6pzbv5vnr3fr9i11af8lqrdjsd1ylsb73r";
   };
-
 
   nativeBuildInputs = [
     dpkg
@@ -62,9 +50,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "Open-source mail client built on the modern web with Electron, React, and Flux";
+    description = "A beautiful, fast and maintained fork of Nylas Mail by one of the original authors";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rummik ];
+    maintainers = with maintainers; [ ];
     homepage = https://getmailspring.com;
     platforms = [ "x86_64-linux" ];
   };

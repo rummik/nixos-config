@@ -17,6 +17,10 @@ in
 
   ddpt = callPackage ./ddpt {};
 
+  gitAndTools = super.gitAndTools // (import ./git-and-tools) {
+    inherit (super) callPackage;
+  };
+
   vimPlugins = super.vimPlugins // (import ./vim-plugins) {
     inherit (super) fetchFromGitHub;
     inherit (super.vimUtils) buildVimPluginFrom2Nix;

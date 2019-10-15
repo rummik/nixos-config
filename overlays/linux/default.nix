@@ -2,17 +2,16 @@ self: super:
 
 let
 
-  inherit (import ../../channels) __nixPath;
-  inherit (super) callPackage python3 gnome3 wineWowPackages;
+  inherit (super) callPackage callPackage_i686;
   inherit (super.lib) optionalAttrs;
   inherit (super.stdenv) isLinux;
 
 in
 
 optionalAttrs isLinux rec {
-  firmwareLinuxNonfree = callPackage <nixpkgs-unstable/pkgs/os-specific/linux/firmware/firmware-linux-nonfree> {};
-
-
-  mailspring = callPackage ./mailspring {};
+  cmdpcprox = callPackage_i686 ./cmdpcprox {};
+  ferdi = callPackage ./ferdi {};
+  github-desktop = callPackage ./github-desktop {};
   minipro = callPackage ./minipro {};
+  station = callPackage ./station {};
 }
