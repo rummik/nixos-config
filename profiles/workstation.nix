@@ -4,29 +4,29 @@
   imports = [
     ./plasma5.nix
     ../config/barrier.nix
-    ../config/chromium.nix
-    ../config/firefox.nix
     ../config/keybase.nix
     ../config/networkmanager.nix
     ../config/nodejs.nix
-    ../config/rust.nix
-    ../config/vagrant.nix
     ../config/vlc.nix
     ../config/watson.nix
   ];
 
   environment.systemPackages = with pkgs; [
-    #electrum
     #kicad
     kubectl
+    libreoffice
     minikube
     minipro
-    mycli
+    pass
     speedtest-cli
-    sqlite
     tio
-    upwork
     xclip
+    xsel
+
+    #inboxer
+    #mailpile
+    #sylpheed
+    #trojita
   ];
 
   services.udev.packages = with pkgs; [
