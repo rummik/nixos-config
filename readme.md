@@ -12,6 +12,7 @@
   some of the `default.nix` files -- primarily when dealing with imports, and
   platform specifics
 
+
 ### Layout
 - `channels/` - Pinned channels
 - `config/` - Package configurations
@@ -21,8 +22,17 @@
 - `overlays/` - Package overlays
 - `profiles/` - Configuration profiles
 - `nix/` - Nix modules that may alter the default behavior of NixOS/Nix-Darwin
-  - `nix/auto-host.nix` - Shenanigans to detect machine hostname, and load host-specific configurations
+  - `nix/auto-host.nix` - Shenanigans load host-specific configurations
+  - `nix/hostname.nix` - Shenanigans to determine system hostname
   - `nix/nix-path.nix` - Shenanigans for handling pinned repositories
+  - `nix/username.nix` - Shenanigans to get the username from home-manager
+  - `nix/live-iso.nix` - ISO creation config
+
+### Install ISO
+```
+nix-build '<nixpkgs/nixos>' -A config.system.build.isoImage -I nixos-config=nix/live-iso.nix
+pv result/iso/rmk-nixos* | sudo dd of=/dev/sdX bs=$((512*128))
+```
 
 ### Searching
 - Packages
@@ -43,6 +53,7 @@ Or use `nixos-option` to determine the current and default values for an option,
 and view the option's description
 
 Alternatively use `nix repl '<darwin>'`, or `darwin-option` if using nix-darwin
+
 
 ### Fenced syntax highlighting
 
