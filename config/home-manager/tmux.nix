@@ -4,7 +4,7 @@ let
 
   inherit (builtins) currentSystem;
   inherit (lib) optionalString maybeEnv;
-  inherit (pkgs) tmuxPlugins;
+  inherit (pkgs) tmuxPlugins tmux;
   inherit (pkgs.stdenv) isLinux mkDerivation;
 
   defaultPrimaryColor = "green";
@@ -62,8 +62,8 @@ in
       %endif
 
       # Use system prefix
-      %if #{!=:$tmuxPrefixKey,}
-        unbind #{prefix}
+      %if #{&&,#{!=:$tmuxPrefixKey,},#{!=:C-$tmuxPrefixKey,#{prefix}}}
+        run -b "${tmux}/bin/tmux unbind #{prefix}"
         set -g prefix "C-$tmuxPrefixKey"
         bind "C-$tmuxPrefixKey" send-prefix
         bind "$tmuxPrefixKey" last-window
@@ -78,25 +78,18 @@ in
         setenv -g themePrimaryColor "${defaultPrimaryColor}"
       %endif
 
-      set -g pane-active-border-fg "bright$themePrimaryColor"
-      set -g pane-border-fg "brightblack"
-      set -g display-panes-colour "$themeAccentColor"
-      set -g display-panes-active-colour "brightred"
       set -g clock-mode-colour "brightwhite"
-      set -g mode-bg "$themePrimaryColor"
-      set -g mode-fg "brightwhite"
-      set -gw window-status-bg "black"
-      set -gw window-status-fg "bright$themeAccentColor"
-      set -gw window-status-current-bg "black"
-      set -gw window-status-current-fg "brightwhite"
-      set -gw window-status-bell-bg "black"
-      set -gw window-status-bell-fg "brightred"
-      set -gw window-status-activity-bg "black"
-      set -gw window-status-activity-fg "brightred"
-      set -g status-bg "black"
-      set -g status-fg "bright$themePrimaryColor"
-      set -g message-bg "$themePrimaryColor"
-      set -g message-fg "brightwhite"
+      set -g display-panes-active-colour "brightred"
+      set -g display-panes-colour "$themeAccentColor"
+      set -g message-style fg="brightwhite",bg="$themePrimaryColor"
+      set -g mode-style fg="brightwhite",bg="$themePrimaryColor"
+      set -g pane-active-border-style fg="bright$themePrimaryColor",bg="terminal"
+      set -g pane-border-style fg="brightblack",bg="terminal"
+      set -g status-style fg="bright$themePrimaryColor",bg="black"
+      set -gw window-status-activity-style fg="brightred",bg="black"
+      set -gw window-status-bell-style fg="brightred",bg="black"
+      set -gw window-status-current-style fg="brightwhite",bg="black"
+      set -gw window-status-style fg="bright$themeAccentColor",bg="black"
     '';
 
     plugins = with tmuxPlugins; [
