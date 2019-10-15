@@ -23,14 +23,20 @@ mkMerge [
     environment.systemPackages =
       (with pkgs; [
         ack
+        autossh
         curl
         dnsutils
+        ethtool
         file
+        glxinfo
         gnupg
         mosh
         ngrok
         nmap
         pciutils
+        dmidecode
+        powerstat
+        powertop
         pv
         telnet
         unzip
@@ -43,6 +49,8 @@ mkMerge [
         cht-sh
 
         nix-prefetch-scripts
+        nix-prefetch-github
+        nix-prefetch-docker
       ])
 
       ++
@@ -51,6 +59,7 @@ mkMerge [
         git
         git-fame
         git-hub
+        git-meta
         hub
         lab
       ]);
@@ -61,8 +70,7 @@ mkMerge [
       whois
     ];
 
-    services.gpm.enable = true;
-
+    services.ntp.enable = true;
     time.timeZone = "America/New_York";
 
     i18n = {
