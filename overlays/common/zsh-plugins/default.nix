@@ -143,4 +143,12 @@ in
     rev = "92b04527b784a70a952efde20e6a7269278fb17d";
     sha256 = "0z07zj5d2j0lci72ykl471bav3bz2f5ps8sdsdh00c60a8ar6n94";
   };
+
+  vimode-cursor = zshPluginFromGitLab {
+    name = "vimode-cursor";
+    owner = "rummik";
+    repo = "zsh/vimode-cursor";
+    rev = "fb9ef8ba680b1565eaebfb6783d963cf9dded8a0";
+    sha256 = "06dhnsvfc3mrl1z6khmnpxbbar1sgxd51n9h6zzs0ccwph39nf5a";
+  };
 }

@@ -66,6 +66,7 @@ in
       psmin-gitflow
       slowcat
       tailf
+      vimode-cursor
     ];
   };
 }
