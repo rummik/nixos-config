@@ -41,6 +41,7 @@ mkMerge [
         "audio"
         "dialout" # ttyACM*
         "docker"
+        "libvirtd"
         "networkmanager"
         "render"
         "scanner" "lp" # SANE
