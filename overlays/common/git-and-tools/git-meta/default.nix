@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "twosigma";
     repo = "git-meta";
-    rev = "1964ea4ae70b73110a837aa4979f828ddaf752b3";
-    sha256 = "0zysbdjgnpj8cq4m12m627gnzcj9400czj7zv5sajp8d5y4wahq7";
+    rev = "a59c3ef6720c1cf40ca06c465d75eb21a1e8eccf";
+    sha256 = "0kgw0sxjmrxsgnghv07lbkr3xvyd4w60x6mspq009rifmjqvwdzl";
   };
 
   nativeBuildInputs = [ makeWrapper ];
