@@ -39,8 +39,8 @@ in
       owner = "rummik";
       repo = "zsh/theme";
       file = "rummik.zsh-theme";
-      rev = "a65c97c8b99d778a1fa0dcb0e96a91ec67b7d1cd";
-      sha256 = "0jkr30mabha5wf92i5nmrdr4pbv985lm06sw2qqq7b6qj7qdi2y3";
+      rev = "58667da00d0a440ffa7ecff5cb7af7ec7f7bff6b";
+      sha256 = "151y8x9nk48j9qk0w36rz8zk661dc4bqsbyn4mz609n9ihw7gjmd";
     };
   };
 
@@ -116,8 +116,8 @@ in
     name = "psmin";
     owner = "rummik";
     repo = "zsh/psmin";
-    rev = "3120062717d0a82fe33ee9bf9b4eabca8323f322";
-    sha256 = "0sz81q9sc0c8j19qb83n31q28ag5jnigawb7i04023vmxm1ljx88";
+    rev = "a683974a6677723950cc4c42b2941969c0b9e15d";
+    sha256 = "0bpajiy7gl9s5621mw3hhkmhwfcsxqczw50gyh2gwhb1i8lb3g8r";
   };
 
   psmin-gitflow = zshPluginFromGitLab {
