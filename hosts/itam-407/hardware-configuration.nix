@@ -14,11 +14,17 @@ in
     ../../config/tlp.nix
   ];
 
-  hardware.bumblebee = {
-    enable = true;
-    #connectDisplay = true;
-    driver = "nvidia";
-    group = "video";
+  hardware.nvidiaOptimus.disable = true;
+#  hardware.bumblebee = {
+#    enable = true;
+#    #connectDisplay = true;
+#    driver = "nvidia";
+#    group = "video";
+#  };
+
+  hardware.opengl = {
+    extraPackages = [ pkgs.vaapiIntel ];
+    s3tcSupport = true;
   };
 
   boot = {
