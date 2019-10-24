@@ -70,6 +70,8 @@ mkMerge [
       whois
     ];
 
+    networking.wireguard.enable = true;
+
     services.ntp.enable = true;
     time.timeZone = "America/New_York";
 
