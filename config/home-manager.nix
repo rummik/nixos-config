@@ -14,6 +14,7 @@ in
     (optionals (userName != "root" && userName != "nixos")
       (optionals (hostName != "charm") [
         ./home-manager/alacritty.nix
+        ./home-manager/kitty.nix
         ./home-manager/firefox.nix
         ./home-manager/taskwarrior.nix
       ])
