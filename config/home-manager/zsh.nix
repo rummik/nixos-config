@@ -57,6 +57,7 @@ in
       completions
       nix-shell
       syntax-highlighting
+      zunit
 
       dug
       ing

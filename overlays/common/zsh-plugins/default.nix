@@ -44,6 +44,13 @@ in
     };
   };
 
+  zunit = zshPluginFromGitHub {
+    owner = "zunit-zsh";
+    repo = "zunit";
+    rev = "2fbbf7c8a863356b7c35ac8ee63032d843bb9251";
+    sha256 = "0z5qhpk1qrssb1s72ci5kdlnmf7b6mqpsla6r34ayqw804gn326p";
+  };
+
   nix-shell = zshPluginFromGitHub {
     name = "nix-shell";
     owner = "chisui";
