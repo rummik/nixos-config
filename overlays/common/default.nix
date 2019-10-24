@@ -3,11 +3,14 @@ self: super:
 let
 
   inherit (import ../../channels) __nixPath;
-  inherit (super) callPackage;
+  inherit (super) callPackage fetchFromGitHub;
+  inherit (super.lib) replaceStrings;
+
+  mkPackage = pkg: callPackage pkg {};
 
 in
 
-{
+rec {
   #activitywatch = callPackage ./activitywatch;
 
   alacritty = callPackage <nixpkgs-unstable/pkgs/applications/misc/alacritty> {
@@ -62,5 +65,43 @@ in
         export NIX_LDFLAGS="$NIX_LDFLAGS -L$out/lib"
       '')
     ]);
+  });
+
+  proxmark3-flasher = proxmark3.overrideAttrs (pm3: rec {
+    pname = "proxmark3-flasher";
+    installPhase = /* sh */ ''
+      mkdir -p $out/bin
+      cp flasher $out/bin/proxmark3-flasher
+    '';
+  });
+
+  proxmark3-firmware = proxmark3.overrideAttrs (pm3: rec {
+    pname = "proxmark3-firmware";
+
+    buildInputs = pm3.buildInputs ++ (with super.pkgs; [
+      gcc-arm-embedded
+      libusb
+      pcsclite
+      perl
+      qt4
+    ]);
+
+    dontFixup = true;
+
+    preBuild = ":";
+
+    buildPhase = /* sh */ ''
+    git status
+    perl tools/mkversion.pl
+    exit 1
+      make armsrc/obj/fullimage.elf bootrom/obj/bootrom.elf
+    '';
+
+    installPhase = /* sh */ ''
+      mkdir -p $out/share/proxmark3/firmware
+
+      cp bootrom/obj/bootrom.elf $out/share/proxmark3/firmware
+      cp armsrc/obj/fullimage.elf $out/share/proxmark3/firmware
+    '';
   });
 }
