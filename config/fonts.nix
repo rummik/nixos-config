@@ -13,6 +13,7 @@ mkMerge [
       fira
       fira-mono
       fira-code
+      nerdfonts
       (optional isLinux emojione)
     ];
   }
