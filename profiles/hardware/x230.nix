@@ -1,5 +1,3 @@
-{ config, lib, pkgs, ... }:
-
 {
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -26,24 +24,7 @@
   powerManagement.cpuFreqGovernor = "powersave";
   powerManagement.powertop.enable = true;
 
-  hardware.opengl = {
-    extraPackages = [ pkgs.vaapiIntel ];
-    s3tcSupport = true;
-  };
-
-  hardware.trackpoint = {
-    enable = true;
-    emulateWheel = true;
-    sensitivity = 128;
-    speed = 97;
-  };
-
   services.xserver = {
-    libinput = {
-      enable = true;
-      sendEventsMode = "disabled";
-    };
-
     videoDrivers = [ "modesetting" ];
     useGlamor = true;
 
