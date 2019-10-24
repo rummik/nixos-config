@@ -63,6 +63,10 @@ in
     desktopManager.plasma5.enable = true;
   };
 
+  hardware.opengl = {
+    driSupport32Bit = true;
+  };
+
   hardware.bluetooth = {
     enable = true;
 
