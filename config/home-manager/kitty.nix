@@ -3,7 +3,7 @@
     enable = true;
 
     fonts = rec {
-      fontFamily = "Fira Code Retina";
+      fontFamily = "Fira Code Regular";
       boldFont = fontFamily;
       italicFont = fontFamily;
       boldItalicFont = fontFamily;
