@@ -38,10 +38,13 @@ rec {
       );
 
       pkgs-unstable = import <nixpkgs-unstable> (
+        let overlays = pkgsConf.overlays ++ (import <nixpkgs-unstable-overlays>); in
         if isLinux then {
           inherit (pkgsConf) config localSystem crossSystem;
+          inherit overlays;
         } else {
           inherit (pkgsConf) config;
+          inherit overlays;
         }
       );
     };

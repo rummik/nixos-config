@@ -9,6 +9,7 @@ rec {
     { prefix = "nixos-hardware"; path = ./nixos-hardware; }
     { prefix = "nixpkgs"; path = ./nixpkgs; }
     { prefix = "nixpkgs-overlays"; path = ../overlays/default.nix; }
+    { prefix = "nixpkgs-unstable-overlays"; path = ../overlays/unstable.nix; }
     { prefix = "nixpkgs-unstable"; path = ./nixpkgs-unstable; }
     { prefix = "nur"; path = ./nur; }
   ];
