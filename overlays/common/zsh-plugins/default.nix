@@ -39,8 +39,8 @@ in
       owner = "rummik";
       repo = "zsh/theme";
       file = "rummik.zsh-theme";
-      rev = "58667da00d0a440ffa7ecff5cb7af7ec7f7bff6b";
-      sha256 = "151y8x9nk48j9qk0w36rz8zk661dc4bqsbyn4mz609n9ihw7gjmd";
+      rev = "c79cec00cb3e01f5be3ec028ca847a1fa5094e0e";
+      sha256 = "11izvdgrxjqqg5zflp5qfncmcahwzz4w3xfl003m8027r5z28xvw";
     };
   };
 
