@@ -30,13 +30,7 @@
       PCIE_ASPM_ON_AC=performance
       PCIE_ASPM_ON_BAT=powersave
 
-      START_CHARGE_THRESH_BAT0=85
-      STOP_CHARGE_THRESH_BAT0=90
-      
-      START_CHARGE_THRESH_BAT1=85
-      STOP_CHARGE_THRESH_BAT1=90
-      
-      DEVICES_TO_DISABLE_ON_DOCK="wifi wwan"
+      DEVICES_TO_DISABLE_ON_DOCK="wifi"
       DEVICES_TO_ENABLE_ON_UNDOCK="wifi"
     '';
   };

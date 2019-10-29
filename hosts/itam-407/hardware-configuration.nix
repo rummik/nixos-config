@@ -8,10 +8,9 @@ in
 
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     <nixos-hardware/lenovo/thinkpad/t490>
     ../../config/fwupd.nix
-    ../../config/tlp.nix
+    ../../profiles/hardware/thinkpad
   ];
 
   hardware.nvidiaOptimus.disable = true;
