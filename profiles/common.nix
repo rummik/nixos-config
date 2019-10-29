@@ -25,19 +25,21 @@ mkMerge [
         ack
         autossh
         curl
+        dmidecode
         dnsutils
         ethtool
         file
         glxinfo
         gnupg
+        lm_sensors
         mosh
         ngrok
         nmap
         pciutils
-        dmidecode
         powerstat
         powertop
         pv
+        sysstat
         telnet
         unzip
         usbutils
