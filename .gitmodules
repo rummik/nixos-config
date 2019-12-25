@@ -22,3 +22,6 @@
 	path = channels/nur
 	url = https://github.com/nix-community/NUR.git
 	branch = master
+[submodule "channels/nur-rummik"]
+	path = channels/nur-rummik
+	url = git@gitlab.com:rummik/nixos/nur-packages.git

@@ -1,14 +1,13 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ../config/steam.nix
+    ../config/lutris.nix
   ];
 
-  environment.systemPackages =
-    (with pkgs; [
-      minetest
-      multimc
-      lutris
-    ]);
+  environment.systemPackages = with pkgs; [
+    minetest
+    multimc
+  ];
 }
