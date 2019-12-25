@@ -1,4 +1,4 @@
-{config, pkgs, lib, ...}:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 
 let
 
@@ -19,6 +19,11 @@ in
 
   services.mingetty.autologinUser = mkForce "rummik";
 
+  boot.kernelPackages = pkgs-unstable.linuxPackages_5_3;
+  hardware.firmware = with pkgs-unstable; [
+    firmwareLinuxNonfree
+  ];
+
   # Disable the builtin configuration cloning helper, since we'll do that ourselves
   installer.cloneConfig = false;
 
@@ -30,6 +35,7 @@ in
       source = builtins.path {
         name = "nixos-configuration";
         path = ../.;
+        filter = path: type: path != ../result;
       };
     };
   };
