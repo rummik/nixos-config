@@ -7,5 +7,8 @@ let
 in
 
 {
-  nur = import <nur> { pkgs = super; };
+  nur = import <nur> rec {
+    pkgs = super;
+    repoOverrides.rummik = import <nur-rummik> { inherit pkgs; };
+  };
 }

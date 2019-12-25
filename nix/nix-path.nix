@@ -28,7 +28,9 @@ rec {
 
     in
 
-    {
+    rec {
+      nur = pkgs.nur;
+
       pkgs = import <nixpkgs> (
         if isLinux then {
           inherit (pkgsConf) overlays config localSystem crossSystem;
