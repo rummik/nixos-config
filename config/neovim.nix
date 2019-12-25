@@ -2,6 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
+    git
     neovim
     ctags
     fzf
@@ -21,17 +22,23 @@
 
       configure = {
         customRC = /* vim */ ''
-          " UI Options
-          " ==========
+          "  General
+          " =========
 
-          set title
+          " Mouse support
           set mouse=a
 
+          " Background
           set background=dark
 
+          " Enable filetype indentation
+          filetype plugin indent on
+
+          " Line Numbers
           set number
           set relativenumber
 
+          " Spellcheck
           set spelllang=en_us
 
           " Use X clipboard
@@ -44,28 +51,92 @@
           " Bits to make terminals more convenient
           autocmd TermOpen * setlocal nonumber norelativenumber foldcolumn=0 foldmethod=manual
           autocmd TermOpen * startinsert
-          autocmd BufEnter * if &buftype == "terminal" | startinsert | endif
+          autocmd BufEnter * if &buftype == 'terminal' | startinsert | endif
 
           " Disable middle-click paste
           map <MiddleMouse> <Nop>
           imap <MiddleMouse> <Nop>
 
-          " Plugin Configuration
-          " ====================
+          " Make paragraph formatting a bit better (gq)
+          set formatprg="par 79"
+
+          " Tabs
+          nnoremap <Tab> gt
+          nnoremap <S-Tab> gT
+          nnoremap <silent> <S-t> :tabnew<CR>
+
+
+          "  Plugins
+          " =========
 
           " Airline
-          "" Enable tabline
-          let g:airline#extensions#tabline#enabled = 1
-          let g:airline#extensions#tabline#formatter = "default"
-
-          "" Hide flietype/encoding/etc
-          let g:airline_section_x=""
-          let g:airline_section_y=""
           let g:airline_skip_empty_sections = 1
           let g:airline_powerline_fonts = 1
 
-          " General
-          filetype plugin indent on
+          "" Theme
+          "let g:airline_theme = 'powerlineish'
+
+          let g:airline_symbols = {}
+          let g:airline_symbols.paste     = 'ρ'
+          let g:airline_symbols.paste     = 'Þ'
+          let g:airline_symbols.paste     = '∥'
+          let g:airline_symbols.whitespace = 'Ξ'
+
+          let g:airline#extensions#tabline#left_sep = ''
+          let g:airline#extensions#tabline#left_alt_sep = ''
+
+          let g:airline_left_sep = ''
+          let g:airline_left_alt_sep = ''
+          let g:airline_right_sep = ''
+          let g:airline_right_alt_sep = ''
+          let g:airline_symbols.branch = ''
+          let g:airline_symbols.readonly = ''
+          let g:airline_symbols.linenr = ''
+          "let g:airline_symbols = {
+          "  \ 'space': ' ',
+          "  \ 'paste': 'PASTE',
+          "  \ 'maxlinenr': ' ',
+          "  \ 'dirty': '⚡',
+          "  \ 'crypt': '🔒',
+          "  \ 'linenr': '☰ ',
+          "  \ 'readonly': '',
+          "  \ 'spell': 'SPELL',
+          "  \ 'modified': '+',
+          "  \ 'notexists': '﬒', " nf-mdi-file_hidden fb12
+          "  \ 'keymap': 'Keymap:',
+          "  \ 'ellipsis': '...',
+          "  \ 'branch': '',
+          "  \ 'whitespace': '☲' }
+
+          "" Hide flietype/encoding/etc
+          let g:airline_section_x = ""
+          let g:airline_section_y = ""
+
+          "" Virtualenv
+          let g:airline#extensions#virtualenv#enabled = 1
+
+          "" Branch
+          let g:airline#extensions#branch#enabled = 1
+
+          "" Ale
+          let g:airline#extensions#ale#enabled = 1
+
+          "" Tagbar
+          let g:airline#extensions#tagbar#enabled = 1
+
+          "" Tabline
+          let g:airline#extensions#tabline#enabled = 1
+          let g:airline#extensions#tabline#formatter = 'default'
+
+          " Ale
+          let g:ale_linters = {}
+          "let g:ale_completion_enabled = 1
+          "set omnifunc=ale#completion#OmniFunc
+
+          " Deoplete
+          "call deoplete#custom#option('sources', {
+          "  \ '_': ['ale', 'foobar'],
+          "  \})
 
           " FZF
           "" Jump to the existing buffer if possible
@@ -79,7 +150,11 @@
 
           autocmd! FileType fzf
           autocmd  FileType fzf set laststatus=0 noshowmode noruler
-             \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+              \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+          "set wildmode=list:longest,list:full
+          "set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
+          "let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
 
           "" Bind Ctrl-p for muscle memory
           map <c-p> :GFiles<CR>
@@ -98,21 +173,20 @@
           "" Leader bindings for most FZF functionality
           "" See: https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L239
           nnoremap <silent> <leader><space> :Files<CR>
-          nnoremap <silent> <leader>a :Buffers<CR>
-          nnoremap <silent> <leader>A :Windows<CR>
+          nnoremap <silent> <leader>. :AgIn<space>
+          nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
           nnoremap <silent> <leader>; :BLines<CR>
-          nnoremap <silent> <leader>o :BTags<CR>
+          nnoremap <silent> <leader>? :History<CR>
+          nnoremap <silent> <leader>A :Windows<CR>
           nnoremap <silent> <leader>O :Tags<CR>
           nnoremap <silent> <leader>S :Snippets<CR>
-          nnoremap <silent> <leader>? :History<CR>
-          nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-          nnoremap <silent> <leader>. :AgIn<space>
-
+          nnoremap <silent> <leader>a :Buffers<CR>
+          nnoremap <silent> <leader>ft :Filetypes<CR>
+          nnoremap <silent> <leader>ga :BCommits<CR>
+          nnoremap <silent> <leader>gl :Commits<CR>
+          nnoremap <silent> <leader>o :BTags<CR>
           nnoremap <silent> K :call SearchWordWithAg()<CR>
           vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-          nnoremap <silent> <leader>gl :Commits<CR>
-          nnoremap <silent> <leader>ga :BCommits<CR>
-          nnoremap <silent> <leader>ft :Filetypes<CR>
 
           "" FZF ag functions
           "" See: https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L244-L263
@@ -137,66 +211,324 @@
           endfunction
           command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
-          " Syntastic configurings
-          let g:syntastic_javascript_checkers = [ "jshint" ]
-          let g:syntastic_htmldjango_checkers = [ "jshint" ]
-          let g:syntastic_html_checkers = [ "jshint" ]
-          let g:syntastic_typescript_checkers = [ "tslint" ]
+          " Polyglot
+          let g:polyglot_disabled = []
 
-          " Make paragraph formatting a bit better (gq)
-          set formatprg = "par 79"
+          " Syntastic
+          let g:syntastic_html_checkers = [ 'jshint' ]
+          let g:syntastic_htmldjango_checkers = [ 'jshint' ]
+          let g:syntastic_javascript_checkers = [ 'jshint' ]
+          let g:syntastic_typescript_checkers = [ 'tslint' ]
 
-          " Vim-Workspace
+          " Vim Workspace
+          let g:workspace_autosave_ignore = [ 'gitcommit' ]
           let g:workspace_session_disable_on_args = 1
-          let g:workspace_autosave_ignore = [ "gitcommit" ]
           nnoremap <leader>s :ToggleWorkspace<CR>
 
           " EditorConfig
-          let g:EditorConfig_exclude_patterns = [ "fugitive://.*", "*.tsv", "*.csv" ]
+          let g:EditorConfig_exclude_patterns = [
+            \ '*.csv',
+            \ '*.tsv',
+            \ 'fugitive://.*' ]
+
+          " NERDTree
+          let g:NERDTreeChDirMode = 2
+          let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+          let g:NERDTreeShowBookmarks = 1
+          let g:NERDTreeWinSize = 50
+          let g:nerdtree_tabs_focus_on_files = 1
+
+          let g:NERDTreeIgnore = [
+            \ '\.db$',
+            \ '\.pyc$',
+            \ '\.rbc$',
+            \ '\.sqlite$',
+            \ '\~$',
+            \ '__pycache__' ]
+
+          let g:NERDTreeSortOrder = [
+            \ '*',
+            \ '\.bak$',
+            \ '\.swp$',
+            \ '\/$',
+            \ '\~$',
+            \ '^__\.py$' ]
+
+          set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+          nnoremap <silent> <F2> :NERDTreeFind<CR>
+          nnoremap <silent> <F3> :NERDTreeToggle<CR>
 
 
-          " Language Specifics
+          "  Language Plugins
           " ==================
 
+          " C / C++
+          :call extend(g:ale_linters, { 'cpp': [ 'ccls' ] })
+
+          " Go
+          :call extend(g:ale_linters, { 'go': [ 'golint', 'go vet' ] })
+
+          " Javascript
+          let g:javascript_plugin_flow = 1
+          let g:javascript_plugin_jsdoc = 1
+
           " Markdown
+          let g:vim_markdown_conceal = 0
+          let g:vim_markdown_conceal_code_blocks = 0
           let g:vim_markdown_folding_style_pythonic = 1
+          let g:vim_markdown_frontmatter = 1
+          let g:vim_markdown_math = 1
           let g:vim_markdown_new_list_item_indent = 2
           let g:vim_markdown_no_extensions_in_markdown = 0
 
-          " Javascript
-          let g:javascript_plugin_jsdoc = 1
-          let g:javascript_plugin_flow = 1
+          " Python
+          :call extend(g:ale_linters, { 'python': [ 'flake8' ] })
+
+          autocmd FileType python setlocal
+            \ formatoptions+=croq
+            \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+
+          " Ruby
+          let g:rubycomplete_buffer_loading = 1
+          let g:rubycomplete_classes_in_global = 1
+          let g:rubycomplete_rails = 1
+
+          let g:tagbar_type_ruby = {
+            \ 'kinds' : [
+              \ 'm:modules',
+              \ 'c:classes',
+              \ 'd:describes',
+              \ 'C:contexts',
+              \ 'f:methods',
+              \ 'F:singleton methods' ] }
+
+          "" RSpec.vim mappings
+          map <Leader>ra :call RunAllSpecs()<CR>
+          map <Leader>rl :call RunLastSpec()<CR>
+          map <Leader>rs :call RunNearestSpec()<CR>
+          map <Leader>rt :call RunCurrentSpecFile()<CR>
+
+          "" For ruby refactory
+          if has('nvim')
+            runtime! macros/matchit.vim
+          else
+            packadd! matchit
+          endif
+
+          " Ruby refactory
+          nnoremap <leader>rap  :RAddParameter<cr>
+          nnoremap <leader>rcpc :RConvertPostConditional<cr>
+          nnoremap <leader>rel  :RExtractLet<cr>
+          nnoremap <leader>rit  :RInlineTemp<cr>
+          vnoremap <leader>rec  :RExtractConstant<cr>
+          vnoremap <leader>relv :RExtractLocalVariable<cr>
+          vnoremap <leader>rem  :RExtractMethod<cr>
+          vnoremap <leader>rriv :RRenameInstanceVariable<cr>
+          vnoremap <leader>rrlv :RRenameLocalVariable<cr>
+
+          " TypeScript
+          let g:yats_host_keyword = 1
+          let g:ale_completion_tsserver_autoimport = 1
         '';
 
+        #vam.knownPlugins = pkgs.vimPlugins // {
+        #};
+
         vam.pluginDictionaries = [
-          { name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
-          { name = "vim-jade"; ftilename_regex = "\\.jade\$"; exec = "set ft=jade"; }
-          { name = "vim-markdown"; ft_regex = "^markdown\$"; }
-          { name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
-          { name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
-          { name = "yajs"; ft_regex = "^javascript\$"; }
-          { name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
-          { name = "yats-vim"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
-          { name = "yats-vim"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
+          #{ name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
+          #{ name = "vim-jade"; ftilename_regex = "\\.jade\$"; exec = "set ft=jade"; }
+          #{ name = "vim-markdown"; ft_regex = "^markdown\$"; }
+          #{ name = "vim-nix"; filename_regex = "\\.nix\$"; exec = "set ft=nix"; }
+          #{ name = "vim-smali"; filename_regex = "\\.smali\$"; exec = "set ft=smali"; }
+          #{ name = "yajs"; ft_regex = "^javascript\$"; }
+          #{ name = "yajs"; ft_regex = "^json\$"; }
+          #{ name = "yajs"; filename_regex = "\\.json\$"; exec = "set ft=json"; }
+          #{ name = "yats-vim"; filename_regex = "\\.ts\$"; exec = "set ft=typescript"; }
+          #{ name = "yats-vim"; filename_regex = "\\.tsx\$"; exec = "set ft=typescript.tsx"; }
+
+          #{ name = "vim-terraform"; filename_regex = "\\.tf\$"; exec = "set ft=terraform"; }
+          #{ name = "vim-terraform"; filename_regex = "\\.tfvars\$"; exec = "set ft=terraform"; }
+          #{ name = "yajs"; filename_regex = "\\.tfstate(\\.backup)?$"; exec = "set ft=json"; }
 
           # Using a filename regex to workaround Wakatime's API token prompt
           # breaking rplugin manifest generation
           #{ name = "vim-wakatime"; filename_regex = "."; }
 
+          #  Laanguage-Specific
+          # ====================
+
+          # Ansible
           { names = [
-            "editorconfig-vim"
-            "fugitive"
-            "fzfWrapper"
-            "fzf-vim"
-            "syntastic"
-            "vader"
-            "vim-airline"
-            "vim-easytags"
-            "vim-gitgutter"
-            "vim-multiple-cursors"
-            "vim-surround"
-            "vim-workspace"
+            "ansible-vim"
           ]; }
+
+          # CSV
+          { names = [
+            "csv-vim"
+          ]; }
+
+          # HTML + CSS3
+          { names = [
+            "vim-css3-syntax"
+            "vim-coloresque"
+            "vim-haml"
+            "emmet-vim"
+          ]; }
+
+          # Jade
+          { names = [
+            "vim-jade"
+          ]; }
+
+          # Javascript
+          { names = [
+            "yajs-vim"
+          ]; }
+
+          # Markdown
+          { names = [
+            "vim-markdown"
+            "tabular"
+          ]; }
+
+          # Nix
+          { names = [
+            "vim-nix"
+            #"nix-lsp"
+          ]; }
+
+          # Python
+          { names = [
+            #"jedi-vim"
+            #"deoplete-jedi"
+            "requirements-txt-vim" #{'for': 'requirements'}
+           #"vim-flake8"
+          ]; }
+
+          { name = "requirements-txt-vim"; filename_regex = "^requirements\\.txt$"; }
+
+          # Ruby
+          { names = [
+            "vim-rails"
+            "vim-rake"
+            "vim-projectionist"
+            "vim-rspec"
+            "vim-ruby-refactoring"
+
+           #"vim-ruby"
+          ]; }
+
+          # Smali
+          { names = [
+            "vim-smali"
+          ]; }
+
+          # TypeScript
+          { names = [
+            "typescript-vim"
+            "yats-vim"
+          ]; }
+
+          # Terraform
+          { name = "vim-terraform";
+            filename_regex = "\\.(tf|tfvars)$";
+            exec = "set ft=terraform"; }
+          { name = "vim-terraform";
+            filename_regex = "\\.tfstate(\\.backup)?$";
+            exec = "set ft=json"; }
+
+          # Vagrant
+          { names = [
+            "vim-vagrant"
+          ]; }
+
+
+          #  Package Plugins
+          # =================
+
+          # Polyglot
+          { names = [
+            "vim-polyglot"
+          ]; }
+
+          # Syntastic
+         #{ names = [
+         #  "syntastic"
+         #]; }
+
+
+          #  General Plugins
+          # =================
+          { names = [
+            "ale"
+            "delimitMate"
+            "grep-vim"
+            "indentLine"
+            "tagbar"
+            "vim-commentary"
+           #"vim-bootstrap-updater"
+
+           #"vader"
+           #"vim-easytags"
+            "vim-multiple-cursors"
+           #"vim-surround"
+          ]; }
+
+          # Airline
+          { names = [
+            "vim-airline"
+            #"vim-airline-themes"
+          ]; }
+
+          { names = [
+            "deoplete-nvim"
+            "deoplete-lsp"
+          ]; }
+
+          # Editor Config
+          { name = "editorconfig-vim"; }
+
+          # FZF
+          { names = [
+            "fzf-vim"
+            "fzfWrapper"
+          ]; }
+
+          # Git
+          { name = "vim-gitgutter"; }
+
+          ## Fugitive
+          { names = [
+            "vim-fugitive"
+            "vim-rhubarb" # required for :Gbrowse
+          ]; }
+
+          # Nerdtree
+          { names = [
+            "nerdtree"
+            "vim-nerdtree-tabs"
+          ]; }
+
+          # Ultisnips
+          { names = [
+            "ultisnips"
+            "vim-snippets"
+          ]; }
+
+          # Vim Session
+         #{ filename_regex = ".";
+         #  names = [
+         #    "vim-misc"
+         #    "vim-session"
+         #  ];
+         #}
+
+          # Workspace
+          { name = "vim-workspace"; }
+
+          # Using a filename regex to workaround Wakatime's API token
+          # prompt breaking rplugin manifest generation
+          #{ name = "vim-wakatime"; filename_regex = "."; }
         ];
       };
     };
