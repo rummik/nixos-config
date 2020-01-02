@@ -2,13 +2,6 @@
 
 {
   environment.systemPackages =
-    (with pkgs; [
-      python
-      gnumake
-    ])
-
-    ++
-
     (with pkgs-unstable;
       let nodejs = nodejs_latest;
       in [
