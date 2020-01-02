@@ -3,6 +3,6 @@
     enable = true;
     emulateWheel = true;
     sensitivity = 128;
-    speed = 97;
+    speed = 110;
   };
 }
