@@ -70,7 +70,7 @@ in
   hardware.bluetooth = {
     enable = true;
 
-    extraConfig = /* dosini */ ''
+    extraConfig = /* ini */ ''
       [General]
       Enable=Source,Sink,Media,Socket
     '';
