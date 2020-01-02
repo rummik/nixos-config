@@ -24,6 +24,11 @@ in
     ])
 
     ++
+    (with pkgs-unstable; [
+      krohnkite
+    ])
+
+    ++
 
     (with plasma5; [
       plasma-browser-integration
