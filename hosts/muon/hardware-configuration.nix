@@ -1,3 +1,5 @@
+{ pkgs, pkgs-unstable, ... }:
+
 let
 
   inherit (import ../../channels) __nixPath;
@@ -6,34 +8,64 @@ in
 
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    <nixos-hardware/lenovo/thinkpad/t430>
+    <nixos-hardware/lenovo/thinkpad/l13>
+    ../../config/fwupd.nix
+    ../../profiles/hardware/thinkpad
   ];
 
-  boot.blacklistedKernelModules = [ "mei" "mei_me" ];
+  hardware = {
+    firmware = with pkgs-unstable; [
+      firmwareLinuxNonfree
+    ];
 
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    device = "/dev/disk/by-id/wwn-0x5001b44ecab4fc2d";
-    enableCryptodisk = true;
-    extraInitrd = /boot/initrd.keys.gz;
+    opengl = {
+      extraPackages = [ pkgs.vaapiIntel ];
+      s3tcSupport = true;
+    };
   };
 
-  boot.initrd.luks.devices.pv-muon = {
-    device = "/dev/disk/by-id/wwn-0x5001b44ecab4fc2d-part2";
-    allowDiscards = true;
-    fallbackToPassword = true;
-    keyFile = "/pv-muon.key.bin";
+  boot = {
+    kernelModules = [ "kvm-intel" ];
+    #extraModulePackages = [ ];
+    # apparently linuxPackages_5_3 isn't on stable, but linuxPackages_latest
+    # points to 5.4 on stable ¯\(o.°)/¯
+    kernelPackages = pkgs-unstable.linuxPackages_5_3;
+
+    blacklistedKernelModules = [ "nouveau" ];
+
+    initrd = {
+      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" ];
+      kernelModules = [ ];
+
+      luks.devices.pv-muon = {
+        device = "/dev/disk/by-id/nvme-eui.8ce38e05000d42d9-part1";
+        allowDiscards = true;
+      };
+    };
+
+    loader = {
+      systemd-boot.enable = true;
+
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
+    };
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/86a6f24b-0e62-4f0c-84be-d876882d44ab";
-    fsType = "ext4";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/b1f60079-40e8-46ce-b1a3-193f064c2c28";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-id/nvme-eui.8ce38e05000d42d9-part2";
+      fsType = "vfat";
+    };
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/78e9ca86-462e-458c-a6f8-4250e74612ff";
-    fsType = "ext2";
-  };
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/29e5b10e-2d85-4656-ba4f-2e4b90895efd"; }
+  ];
 }
