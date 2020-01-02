@@ -35,16 +35,19 @@ mkMerge [
         mosh
         ngrok
         nmap
+        pass
         pciutils
         powerstat
         powertop
         pv
+        speedtest-cli
         sysstat
         telnet
         unzip
         usbutils
         w3m
         wget
+        xxd
         youtube-dl
         zip
 
