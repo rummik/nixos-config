@@ -9,6 +9,7 @@
     ../config/nodejs.nix
     ../config/vlc.nix
     ../config/watson.nix
+    ../config/yubikey.nix
   ];
 
   environment.systemPackages = with pkgs; [
