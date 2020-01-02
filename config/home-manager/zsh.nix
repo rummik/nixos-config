@@ -9,6 +9,12 @@ let
 in
 
 {
+  home.packages = with pkgs; [
+    any-nix-shell
+    revolver
+    zunit
+  ];
+
   programs.zsh = {
     enable = true;
 
@@ -55,9 +61,10 @@ in
 
       autosuggestions
       completions
-      nix-shell
+      any-nix-shell
+      #zsh-nix-shell
+      nix-zsh-completions
       syntax-highlighting
-      zunit
 
       dug
       ing

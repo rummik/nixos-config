@@ -1,10 +1,10 @@
-{ lib, fetchFromGitHub, fetchFromGitLab }:
+{ lib, stdenv, writeTextFile, fetchFromGitHub, fetchFromGitLab, nix-zsh-completions }:
 
 let
 
   inherit (lib) isString replaceStrings optionalAttrs optionalString;
 
-  mkZshPlugin = { name, src, file ? null }@args:
+  mkZshPlugin = { pname ? null, name ? pname, src, file ? null, ... }:
     {
       inherit src;
       name = replaceStrings [ "/" ] [ "-" ] name;
@@ -31,6 +31,14 @@ let
       };
     };
 
+  mkZshPluginFromPackage = pkg:
+    mkZshPlugin (pkg // {
+      file = stdenv.writeScript "${pkg.name}.plugin.zsh" /* zsh */ ''
+        export PATH="$PATH:${pkg}/bin"
+        fpath+=(${pkg}/share/zsh/site-functions)
+      '';
+    });
+
 in
 
 {
@@ -44,14 +52,28 @@ in
     };
   };
 
-  zunit = zshPluginFromGitHub {
-    owner = "zunit-zsh";
-    repo = "zunit";
-    rev = "2fbbf7c8a863356b7c35ac8ee63032d843bb9251";
-    sha256 = "0z5qhpk1qrssb1s72ci5kdlnmf7b6mqpsla6r34ayqw804gn326p";
+  nix-zsh-completions = mkZshPlugin rec {
+    inherit (nix-zsh-completions) src name;
+    file = "share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh";
   };
 
-  nix-shell = zshPluginFromGitHub {
+  any-nix-shell = mkZshPlugin rec {
+    pname = "any-nix-shell";
+
+    src = writeTextFile rec {
+      name = "${pname}.plugin.zsh";
+
+      text = /* zsh */ ''
+        #any-nix-shell zsh --info-right | source /dev/stdin
+        any-nix-shell zsh | source /dev/stdin
+      '';
+
+      executable = true;
+      destination = "/${name}";
+    };
+  };
+
+  zsh-nix-shell = zshPluginFromGitHub {
     name = "nix-shell";
     owner = "chisui";
     repo = "zsh-nix-shell";
