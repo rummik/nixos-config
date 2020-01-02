@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 let
 
@@ -13,23 +13,58 @@ in
     ../../profiles/hardware/thinkpad
   ];
 
-  hardware.nvidiaOptimus.disable = true;
-#  hardware.bumblebee = {
-#    enable = true;
-#    #connectDisplay = true;
-#    driver = "nvidia";
-#    group = "video";
-#  };
+  #services.dbus.packages = [ fprintd ];
+  #environment.systemPackages = [ fprintd ];
+  #systemd.packages = [ fprintd ];
 
-  hardware.opengl = {
-    extraPackages = [ pkgs.vaapiIntel ];
-    s3tcSupport = true;
+  hardware = {
+    nvidiaOptimus.disable = true;
+
+   #bumblebee = {
+   #  enable = true;
+   #  connectDisplay = true;
+   #  driver = "nvidia";
+   #  group = "video";
+   #};
+
+    firmware = with pkgs; [
+      firmwareLinuxNonfree
+    ];
+
+    opengl = {
+      extraPackages = [ pkgs.vaapiIntel ];
+      s3tcSupport = true;
+    };
+  };
+
+  services.thinkfan = {
+    sensors = /* config */ ''
+      hwmon /sys/class/hwmon/hwmon5/temp1_input (0)
+      hwmon /sys/class/hwmon/hwmon5/temp2_input (0)
+      hwmon /sys/class/hwmon/hwmon5/temp3_input (0)
+      hwmon /sys/class/hwmon/hwmon5/temp4_input (0)
+      hwmon /sys/class/hwmon/hwmon5/temp5_input (0)
+    '';
+
+    # Temperature values increment in steps of 1000
+    levels = /* config */ ''
+      ("level 0"     0  55)
+      ("level 1"    48  60)
+      ("level 2"    50  61)
+      ("level 3"    52  63)
+      ("level 4"    56  65)
+      ("level 5"    59  66)
+      ("level 7"    63  78)
+      ("level 127"  75  32767)
+    '';
   };
 
   boot = {
     kernelModules = [ "kvm-intel" ];
     #extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_latest;
+    # apparently linuxPackages_5_3 isn't on stable, but linuxPackages_latest
+    # points to 5.4 on stable ¯\(o.°)/¯
+    kernelPackages = pkgs-unstable.linuxPackages_5_3;
 
     blacklistedKernelModules = [ "nouveau" ];
 

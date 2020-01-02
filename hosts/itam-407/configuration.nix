@@ -19,22 +19,18 @@
 
   environment.systemPackages =
     (with pkgs; [
-      ansible
-      ansible-lint
       discord
-      docker-compose
-      fly
-      kargo
-      kompose
-      kubernetes-helm3
-      nixops
-      parted
-      python3
       qt5.qttools
       slack
-      terraform
-      terragrunt
       thunderbird
+    ])
+
+    ++
+    
+    (with pkgs-unstable; [
+      kubernetes-helm
+      minikube
+      #minikube140
     ]);
 
   services.openssh = {
