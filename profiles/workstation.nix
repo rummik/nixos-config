@@ -18,11 +18,12 @@
     libreoffice
     minikube
     minipro
-    pass
-    speedtest-cli
+    nixops
     tio
     xclip
     xsel
+
+    android-udev-rules
 
     #inboxer
     #mailpile
