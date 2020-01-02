@@ -25,3 +25,5 @@
 [submodule "channels/nur-rummik"]
 	path = channels/nur-rummik
 	url = git@gitlab.com:rummik/nixos/nur-packages.git
+	url = git@github.com:rummik/nur-packages.git
+	branch = master
