@@ -25,6 +25,7 @@ in
 
     initExtra = /* zsh */ ''
       autoload -U zcalc
+      autoload -Uz compinit && compinit
 
       autoload -U up-line-or-beginning-search
       autoload -U down-line-or-beginning-search
