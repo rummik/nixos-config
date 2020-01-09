@@ -32,6 +32,7 @@ in
       ./home-manager/fzf.nix
       ./home-manager/git.nix
       ./home-manager/htop.nix
+      ./home-manager/ssh.nix
       ./home-manager/tmux.nix
       ./home-manager/zsh.nix
     ];
