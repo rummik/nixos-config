@@ -10,6 +10,7 @@ in
   imports = [
     <nixos-hardware/lenovo/thinkpad/l13>
     ../../config/fwupd.nix
+    ../../config/dptf.nix
     ../../profiles/hardware/thinkpad
   ];
 
