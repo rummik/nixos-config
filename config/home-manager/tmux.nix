@@ -8,6 +8,7 @@ let
   inherit (pkgs.stdenv) isLinux mkDerivation;
 
   defaultPrimaryColor = "green";
+  defaultSecondaryColor = "green";
   defaultAccentColor = "magenta";
 
   resurrect-patched = (tmuxPlugins.resurrect.overrideAttrs (oldAttrs: rec {
@@ -44,13 +45,6 @@ in
       # Enable mouse support
       set -g mouse on
 
-      # Status line
-      set -g status-right " "
-      set -g status-right-length 30
-
-      set -g status-left "[#S] #h "
-      set -g status-left-length 30
-
       # Pane resize options
       set -g main-pane-width 127
       set -g main-pane-height 45
@@ -69,14 +63,28 @@ in
       %endif
 
       # Profile colors
-      %if #{==:$themeAccentColor,}
-        setenv -g themeAccentColor "${defaultAccentColor}"
-      %endif
-
       %if #{==:$themePrimaryColor,}
         setenv -g themePrimaryColor "${defaultPrimaryColor}"
       %endif
 
+      %if #{==:$themeSecondaryColor,}
+        setenv -g themeSecondaryColor "${defaultSecondaryColor}"
+      %endif
+
+      %if #{==:$themeAccentColor,}
+        setenv -g themeAccentColor "${defaultAccentColor}"
+      %endif
+
+      # Status line
+      set -g status-right '#{?#{!=:#(watson status),No project started.},[#[fg=bright#{themeAccentColor}]#(watson status -p) #[fg=default]started #[fg=bright#{themeSecondaryColor}]#(watson status -e)#[fg=default]],}'
+
+
+      set -g status-right-length 50
+
+      set -g status-left "[#S] #h "
+      set -g status-left-length 30
+
+      # Theme
       set -g clock-mode-colour "brightwhite"
       set -g display-panes-active-colour "brightred"
       set -g display-panes-colour "$themeAccentColor"
