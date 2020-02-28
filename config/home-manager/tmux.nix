@@ -112,6 +112,9 @@ in
           unbind "_"
           bind "|" split-window -h -c "#{pane_current_path}"
           bind "\\" split-window -v -c "#{pane_current_path}"
+          bind "_" split-window -fh -c "#{pane_current_path}"
+          bind "C-\\" split-window -fv -c "#{pane_current_path}"
+          bind "c" new-window -c "~/"
         '';
       }
 
