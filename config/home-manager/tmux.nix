@@ -101,6 +101,7 @@ in
 
     plugins = with tmuxPlugins; [
       { plugin = yank; }
+      { plugin = open; }
       { plugin = sensible; }
       { plugin = pain-control; }
 
