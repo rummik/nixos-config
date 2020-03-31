@@ -9,10 +9,10 @@
 [submodule "channels/nixos"]
 	path = channels/nixos
 	url = https://github.com/NixOS/nixpkgs-channels.git
-	branch = nixos-19.09
+	branch = nixos-20.03
 [submodule "channels/nixpkgs-unstable"]
 	path = channels/nixpkgs-unstable
-	url = https://github.com/NixOS/nixpkgs-channels.git
+	url = https://github.com/NixOS/nixpkgs.git
 	branch = nixpkgs-unstable
 [submodule "channels/nixos-hardware"]
 	path = channels/nixos-hardware
