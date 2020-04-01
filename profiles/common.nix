@@ -79,11 +79,11 @@ mkMerge [
 
     services.ntp.enable = true;
     time.timeZone = "America/New_York";
+    i18n.defaultLocale = "en_US.UTF-8";
 
-    i18n = {
-      consoleFont = "Lat2-Terminus16";
-      defaultLocale = "en_US.UTF-8";
-      consoleUseXkbConfig = true;
+    console = {
+      font = "Lat2-Terminus16";
+      useXkbConfig = true;
     };
 
     services.xserver = {
@@ -102,7 +102,7 @@ mkMerge [
       tmuxPrefixKey = mkDefault "b";
     };
 
-    system.stateVersion = "19.09";
+    system.stateVersion = "20.03";
   })
 
   (mkIf isDarwin {
