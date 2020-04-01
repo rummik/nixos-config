@@ -21,7 +21,7 @@ in
 
       ++
 
-      (optionals (hostName == "electron" || hostName == "photon") [
+      (optionals (hostName == "electron" || hostName == "muon" || hostName == "photon") [
         ./home-manager/obs-studio.nix
       ])
     )

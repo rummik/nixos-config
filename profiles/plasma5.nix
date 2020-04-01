@@ -75,10 +75,9 @@ in
   hardware.bluetooth = {
     enable = true;
 
-    extraConfig = /* ini */ ''
-      [General]
-      Enable=Source,Sink,Media,Socket
-    '';
+    config = {
+      General.Enable = "Source,Sink,Media,Socket";
+    };
   };
 
   nixpkgs.config.pulseaudio = true;

@@ -6,7 +6,7 @@ let
   inherit (super) callPackage fetchFromGitHub;
   inherit (super.lib) replaceStrings;
 
-  mkPackage = pkg: callPackage pkg {};
+  mkPackage = args: pkg: callPackage pkg args;
 
 in
 

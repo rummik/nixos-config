@@ -1,4 +1,18 @@
+let
+
+  inherit (import ../../channels) __nixPath;
+
+  nur = import ../../nix/nur.nix;
+
+in
+
 {
+  disabledModules = [ <home-manager/modules/programs/kitty.nix> ];
+
+  imports = [
+    nur.repos.rummik.home-manager.modules.kitty
+  ];
+
   programs.kitty = {
     enable = true;
 
