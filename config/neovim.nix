@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
     git
-    neovim
+    pkgs-unstable.neovim
     ctags
     fzf
     ripgrep
@@ -377,7 +377,7 @@
 
           # Jade
           { names = [
-            "vim-jade"
+            "vim-pug" # formerly vim-jade
           ]; }
 
           # Javascript
