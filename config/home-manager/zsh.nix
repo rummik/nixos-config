@@ -9,11 +9,17 @@ let
 in
 
 {
-  home.packages = with pkgs; [
-    any-nix-shell
-    revolver
-    zunit
-  ];
+  home.packages =
+    (with pkgs; [
+      any-nix-shell
+    ])
+
+    ++
+
+    (with pkgs.zshPackages; [
+      revolver
+      zunit
+    ]);
 
   programs.zsh = {
     enable = true;

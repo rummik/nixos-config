@@ -83,8 +83,8 @@
     src = fetchFromGitHub {
       owner = "rummik";
       repo = "vim-nix";
-      rev = "7cad7f3666a63ff00f7ecd73a98886031901b918";
-      sha256 = "14srhdci02qv25v4s2h0wqd40vh127gcxwjzliqa9dq3pngw96gx";
+      rev = "6affa2b211b02a907ab3bc7064821be57ae93446";
+      sha256 = "1b7zgwhsx5swg6g5k59jwkdpzdklwmnwlcdizycacvsikb8xclmk";
     };
   });
 

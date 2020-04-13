@@ -8,19 +8,19 @@ let
   inherit (pkgs.stdenv) isLinux mkDerivation;
 
   defaultPrimaryColor = "green";
+  defaultSecondaryColor = "green";
   defaultAccentColor = "magenta";
 
   resurrect-patched = (tmuxPlugins.resurrect.overrideAttrs (oldAttrs: rec {
     src = pkgs.fetchFromGitHub {
       owner = "tmux-plugins";
       repo = "tmux-resurrect";
-      rev = "e3f05dd34f396a6f81bd9aa02f168e8bbd99e6b2";
-      sha256 = "0w7gn6pjcqqhwlv7qa6kkhb011wcrmzv0msh9z7w2y931hla4ppz";
+      rev = "905abba3c3b8a1e12c7d0fa31ff7c489a75515f9";
+      sha256 = "1ij3bb4y4bqj0w8m7fmlbg8vhxm7jz6g6mmclid236carixzk5dx";
     };
 
     patches = [
       ../tmux/resurrect-basename-match-strategy.patch
-      ../tmux/resurrect-cmdline-save-strategy.patch
     ];
   }));
 
@@ -45,13 +45,6 @@ in
       # Enable mouse support
       set -g mouse on
 
-      # Status line
-      set -g status-right " "
-      set -g status-right-length 30
-
-      set -g status-left "[#S] #h "
-      set -g status-left-length 30
-
       # Pane resize options
       set -g main-pane-width 127
       set -g main-pane-height 45
@@ -70,14 +63,28 @@ in
       %endif
 
       # Profile colors
-      %if #{==:$themeAccentColor,}
-        setenv -g themeAccentColor "${defaultAccentColor}"
-      %endif
-
       %if #{==:$themePrimaryColor,}
         setenv -g themePrimaryColor "${defaultPrimaryColor}"
       %endif
 
+      %if #{==:$themeSecondaryColor,}
+        setenv -g themeSecondaryColor "${defaultSecondaryColor}"
+      %endif
+
+      %if #{==:$themeAccentColor,}
+        setenv -g themeAccentColor "${defaultAccentColor}"
+      %endif
+
+      # Status line
+      set -g status-right '#{?#{!=:#(watson status),No project started.},[#[fg=bright#{themeAccentColor}]#(watson status -p) #[fg=default]started #[fg=bright#{themeSecondaryColor}]#(watson status -e)#[fg=default]],}'
+
+
+      set -g status-right-length 50
+
+      set -g status-left "[#S] #h "
+      set -g status-left-length 30
+
+      # Theme
       set -g clock-mode-colour "brightwhite"
       set -g display-panes-active-colour "brightred"
       set -g display-panes-colour "$themeAccentColor"
@@ -94,6 +101,7 @@ in
 
     plugins = with tmuxPlugins; [
       { plugin = yank; }
+      { plugin = open; }
       { plugin = sensible; }
       { plugin = pain-control; }
 
@@ -105,6 +113,9 @@ in
           unbind "_"
           bind "|" split-window -h -c "#{pane_current_path}"
           bind "\\" split-window -v -c "#{pane_current_path}"
+          bind "_" split-window -fh -c "#{pane_current_path}"
+          bind "C-\\" split-window -fv -c "#{pane_current_path}"
+          bind "c" new-window -c "~/"
         '';
       }
 
@@ -115,7 +126,7 @@ in
           set -g @resurrect-capture-pane-contents "on"
           set -g @resurrect-processes "mosh-client man '~yarn watch'"
           ${optionalString isLinux /* tmux */ ''
-          set -g @resurrect-save-command-strategy "cmdline"
+          set -g @resurrect-save-command-strategy "linux_procfs"
           ''}
           set -g @resurrect-process-match-strategy "basename"
           set -g @resurrect-strategy-nvim "session"
