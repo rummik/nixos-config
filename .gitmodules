@@ -1,7 +1,7 @@
 [submodule "channels/home-manager"]
 	path = channels/home-manager
 	url = https://github.com/rycee/home-manager.git
-	branch = release-19.09
+	branch = release-20.03
 [submodule "channels/darwin"]
 	path = channels/darwin
 	url = https://github.com/LnL7/nix-darwin.git
