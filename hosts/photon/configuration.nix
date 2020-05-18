@@ -3,7 +3,7 @@
 {
   imports = [
     ../../profiles/common.nix
-    ../../profiles/games.nix
+    #../../profiles/games.nix
     ../../profiles/server.nix
     ../../profiles/workstation.nix
   ];

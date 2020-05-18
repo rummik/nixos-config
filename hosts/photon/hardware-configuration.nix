@@ -1,29 +1,56 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, pkgs-unstable, ... }:
 
 {
-  imports = [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix> ];
+  imports = [
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    <nixos-hardware/common/pc>
+    <nixos-hardware/common/pc/ssd>
+    <nixos-hardware/common/cpu/amd>
+    ../../config/fwupd.nix
+  ];
 
+  nix.maxJobs = lib.mkDefault 12;
+
+  hardware = {
+    firmware = with pkgs-unstable; [
+      firmwareLinuxNonfree
+    ];
+
+    opengl = {
+      extraPackages = with pkgs; [
+        #libvdpau-va-gl
+        #vaapiVdpau
+      ];
+    };
+  };
+
+  #services.xserver.videoDrivers = [ "nvidia" ];
 
   boot = {
-    kernelModules = [ "kvm-intel" ];
+    kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
+    kernelPackages = pkgs-unstable.linuxPackages_5_5;
 
     initrd = {
-      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "sd_mod" "md_mod" "raid456" ];
-      kernelModules = [ "dm-snapshot" "md_mod" "raid456" ];
+      availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" "igb" ];
+      kernelModules = [ "igb" ];
 
-      mdadmConf = /* mdadm */ ''
-        ARRAY /dev/md/imsm0 metadata=imsm UUID=c214758c:bbdfb619:dff4c1ae:47971330
-        ARRAY /dev/md/imsm1 metadata=imsm UUID=4322a507:1dd4590b:da14ab09:64f410ec
-        ARRAY /dev/md/data_0 container=/dev/md/imsm1 member=0 UUID=444f09af:ba2df338:ddd2e72c:e09e0708
-        ARRAY /dev/md/system_0 container=/dev/md/imsm0 member=1 UUID=8d3f4ac6:dad5c0f2:d534edd0:d5990581
-        ARRAY /dev/md/efi_0 container=/dev/md/imsm0 member=0 UUID=6f3e9e3c:d6ce0bbe:08c61f50:2ab769e9
-      '';
+      network = {
+        enable = true;
+        ssh = {
+          enable = true;
+          port = 2222;
+          authorizedKeys = [
+            https://github.com/rummik.keys
+          ];
+
+          hostRSAKey =./secrets/ssh_host_rsa_key;
+        };
+      };
 
       luks.devices.pv-photon = {
-        device = "/dev/disk/by-uuid/cf5a0bf1-0678-4676-8f52-f98025847716";
-        fallbackToPassword = true;
-        keyFile = "/pv-photon.key.bin";
+        device = "/dev/disk/by-id/nvme-eui.8ce38e05000d42d9-part1";
+        allowDiscards = true;
       };
     };
 
@@ -32,22 +59,24 @@
 
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
+        efiSysMountPoint = "/boot";
       };
     };
   };
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/df1682fc-6897-4271-9a8d-7a9e2089692c";
-    fsType = "ext4";
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/b1f60079-40e8-46ce-b1a3-193f064c2c28";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/ADFD-70BF";
-    fsType = "vfat";
+    "/boot" = {
+      device = "/dev/disk/by-id/nvme-eui.8ce38e05000d42d9-part2";
+      fsType = "vfat";
+    };
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/420c5afb-8253-4ecc-b161-82dd6a6285e7"; }
+    { device = "/dev/disk/by-uuid/29e5b10e-2d85-4656-ba4f-2e4b90895efd"; }
   ];
 }
