@@ -2,19 +2,12 @@
 
 {
   imports = [
-    ../../config/networkmanager.nix
     ../../profiles/common.nix
+    #../../profiles/games.nix
     ../../profiles/server.nix
+    ../../profiles/workstation.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  environment.variables = {
-    themeSecondaryColor = "yellow";
-  };
-
-  environment.systemPackages = with pkgs; [
-    parted
-  ];
+  environment.variables.themePrimaryColor = "white";
 }
+
