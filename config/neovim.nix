@@ -524,6 +524,9 @@
          #  ];
          #}
 
+          # Vimwiki
+          { name = "vimwiki"; }
+
           # Workspace
           { name = "vim-workspace"; }
 
