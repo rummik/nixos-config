@@ -47,6 +47,7 @@ mkMerge [
         "scanner" "lp" # SANE
         "vboxusers"
         "video"
+        "render"
         "wheel"
         "wireshark"
       ];
