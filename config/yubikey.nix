@@ -11,6 +11,9 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    yubikey-manager
+    yubikey-manager-qt
+    yubioath-desktop
     yubikey-personalization
     yubikey-personalization-gui
   ];
