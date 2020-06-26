@@ -4,6 +4,10 @@ let
 
   inherit (import ../../channels) __nixPath;
 
+  #fprintd = pkgs-unstable.fprintd;
+
+  nvidia = pkgs.linuxPackages.nvidia_x11;
+
 in
 
 {
@@ -32,41 +36,20 @@ in
     ];
 
     opengl = {
-      extraPackages = [ pkgs.vaapiIntel ];
       s3tcSupport = true;
     };
   };
 
-  services.thinkfan = {
-    sensors = /* config */ ''
-      hwmon /sys/class/hwmon/hwmon5/temp1_input (0)
-      hwmon /sys/class/hwmon/hwmon5/temp2_input (0)
-      hwmon /sys/class/hwmon/hwmon5/temp3_input (0)
-      hwmon /sys/class/hwmon/hwmon5/temp4_input (0)
-      hwmon /sys/class/hwmon/hwmon5/temp5_input (0)
-    '';
-
-    # Temperature values increment in steps of 1000
-    levels = /* config */ ''
-      ("level 0"     0  55)
-      ("level 1"    48  60)
-      ("level 2"    50  61)
-      ("level 3"    52  63)
-      ("level 4"    56  65)
-      ("level 5"    59  66)
-      ("level 7"    63  78)
-      ("level 127"  75  32767)
-    '';
-  };
+  environment.systemPackages = [
+    #nvidia.bin
+    #nvidia.persistenced
+  ];
 
   boot = {
     kernelModules = [ "kvm-intel" ];
-    #extraModulePackages = [ ];
-    # apparently linuxPackages_5_3 isn't on stable, but linuxPackages_latest
-    # points to 5.4 on stable ¯\(o.°)/¯
-    kernelPackages = pkgs-unstable.linuxPackages_5_3;
+    extraModulePackages = [ nvidia.bin ];
 
-    blacklistedKernelModules = [ "nouveau" ];
+    blacklistedKernelModules = [ "nouveau" "nvidiafb" "nvidia" "nvidia-modeset" "nvidia-drm" ];
 
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" ];

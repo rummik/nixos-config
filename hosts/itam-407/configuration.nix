@@ -4,6 +4,7 @@
   imports = [
     ../../config/docker.nix
     ../../config/libvirtd.nix
+    ../../config/ssh.nix
     ../../config/virtualbox.nix
     ../../config/yubikey.nix
     ../../profiles/games.nix
@@ -23,6 +24,7 @@
       qt5.qttools
       slack
       thunderbird
+      zoom-us
     ])
 
     ++
@@ -32,9 +34,4 @@
       minikube
       #minikube140
     ]);
-
-  services.openssh = {
-    enable = true;
-    passwordAuthentication = false;
-  };
 }
