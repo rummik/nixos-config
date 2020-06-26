@@ -29,7 +29,7 @@
   boot = {
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
-    kernelPackages = pkgs-unstable.linuxPackages_5_5;
+    kernelPackages = pkgs-unstable.linuxPackages_latest;
 
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" "igb" ];
@@ -37,14 +37,15 @@
 
       network = {
         enable = true;
+        udhcpc.extraArgs = [ "-t" "20" ];
         ssh = {
           enable = true;
           port = 2222;
-          authorizedKeys = [
-            https://github.com/rummik.keys
-          ];
-
-          hostRSAKey =./secrets/ssh_host_rsa_key;
+          hostRSAKey = "/var/secrets/dropbear.priv";
+          authorizedKeys = with builtins;
+            filter isString (split "\n" (
+              readFile (fetchurl https://github.com/rummik.keys)
+            ));
         };
       };
 
