@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ../config/ssh.nix
+  ];
+
   boot.cleanTmpDir = true;
 
   networking.firewall.allowPing = true;
