@@ -9,6 +9,7 @@
     ripgrep
     silver-searcher
     wakatime
+    python
   ];
 
   environment.variables = {
@@ -528,7 +529,7 @@
 
           # Using a filename regex to workaround Wakatime's API token
           # prompt breaking rplugin manifest generation
-          #{ name = "vim-wakatime"; filename_regex = "."; }
+          { name = "vim-wakatime"; filename_regex = "."; }
         ];
       };
     };
