@@ -174,13 +174,13 @@
 
   vim-workspace = (buildVimPluginFrom2Nix {
     pname = "vim-workspace";
-    version = "2018-12-11";
+    version = "2020-01-19";
 
     src = fetchFromGitHub {
       owner = "thaerkh";
       repo = "vim-workspace";
-      rev = "e48ca349c6dd0c9ea8261b7d626198907550306b";
-      sha256 = "1sknd5hg710lqvqnk8ymvjnfw65lgx5f8xz88wbf7fhl31r9sa89";
+      rev = "faa835406990171bbbeff9254303dad49bad17cb";
+      sha256 = "0lzba39sb4yxla3vr4rmxg342f61sfvf4ygwf8ahb5r9q8arr863";
     };
   });
 
