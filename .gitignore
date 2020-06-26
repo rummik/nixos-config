@@ -1,5 +1,7 @@
+.gcroots
 .undodir
 Session.vim
+/unfree
 /darwin-configuration.nix
 /hardware-configuration.nix
 private-configuration.nix
