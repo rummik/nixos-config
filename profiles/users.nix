@@ -43,6 +43,7 @@ mkMerge [
         "docker"
         "libvirtd"
         "networkmanager"
+        "piavpn"
         "render"
         "scanner" "lp" # SANE
         "vboxusers"
