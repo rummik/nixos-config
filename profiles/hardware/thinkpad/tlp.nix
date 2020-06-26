@@ -108,9 +108,9 @@
       # Default: <none>
 
       #CPU_MIN_PERF_ON_AC=8
-      CPU_MAX_PERF_ON_AC=100
+      #CPU_MAX_PERF_ON_AC=100
       #CPU_MIN_PERF_ON_BAT=8
-      CPU_MAX_PERF_ON_BAT=65
+      #CPU_MAX_PERF_ON_BAT=100
 
       # Set the CPU "turbo boost" feature: 0=disable, 1=allow
       # Requires an Intel Core i processor.
@@ -119,15 +119,15 @@
       # - A value of 1 does *not* activate boosting, it just allows it
       # Default: <none>
 
-      CPU_BOOST_ON_AC=1
+      CPU_BOOST_ON_AC=0
       CPU_BOOST_ON_BAT=0
 
       # Minimize number of used CPU cores/hyper-threads under light load conditions:
       #   0=disable, 1=enable.
       # Default: 0 (AC), 1 (BAT)
 
-      SCHED_POWERSAVE_ON_AC=0
-      SCHED_POWERSAVE_ON_BAT=1
+      #SCHED_POWERSAVE_ON_AC=0
+      #SCHED_POWERSAVE_ON_BAT=1
 
       # Kernel NMI Watchdog:
       #   0=disable (default, saves power), 1=enable (for kernel debugging only).
@@ -210,8 +210,8 @@
       # EXPERIMENTAL ** WARNING: auto may cause system lockups/data loss.
       # Default: <none>
 
-      AHCI_RUNTIME_PM_ON_AC=on
-      AHCI_RUNTIME_PM_ON_BAT=auto
+      #AHCI_RUNTIME_PM_ON_AC=on
+      #AHCI_RUNTIME_PM_ON_BAT=auto
 
       # Seconds of inactivity before disk is suspended.
       # Note: effective only when AHCI_RUNTIME_PM_ON_AC/BAT is activated.
@@ -232,12 +232,12 @@
       # the output of tlp-stat -g.
       # Default: <none>
 
-      INTEL_GPU_MIN_FREQ_ON_AC=300
-      INTEL_GPU_MIN_FREQ_ON_BAT=300
-      INTEL_GPU_MAX_FREQ_ON_AC=1150
-      INTEL_GPU_MAX_FREQ_ON_BAT=500
-      INTEL_GPU_BOOST_FREQ_ON_AC=1150
-      INTEL_GPU_BOOST_FREQ_ON_BAT=700
+      #INTEL_GPU_MIN_FREQ_ON_AC=300
+      #INTEL_GPU_MIN_FREQ_ON_BAT=300
+      #INTEL_GPU_MAX_FREQ_ON_AC=1150
+      #INTEL_GPU_MAX_FREQ_ON_BAT=500
+      #INTEL_GPU_BOOST_FREQ_ON_AC=1150
+      #INTEL_GPU_BOOST_FREQ_ON_BAT=700
 
       # Radeon graphics clock speed (profile method): low, mid, high, auto, default;
       # auto = mid on BAT, high on AC.
@@ -378,7 +378,7 @@
       # Separate multiple devices with spaces.
       # Default: <none>
 
-      DEVICES_TO_DISABLE_ON_STARTUP="wwan"
+      #DEVICES_TO_DISABLE_ON_STARTUP="wwan"
 
       # Radio devices to enable on startup: bluetooth, wifi, wwan.
       # Separate multiple devices with spaces.
@@ -467,11 +467,11 @@
       # Radio devices to enable/disable when docked.
 
       #DEVICES_TO_ENABLE_ON_DOCK=""
-      DEVICES_TO_DISABLE_ON_DOCK="wifi"
+      #DEVICES_TO_DISABLE_ON_DOCK="wifi"
 
       # Radio devices to enable/disable when undocked.
 
-      DEVICES_TO_ENABLE_ON_UNDOCK="wifi"
+      #DEVICES_TO_ENABLE_ON_UNDOCK="wifi"
       #DEVICES_TO_DISABLE_ON_UNDOCK=""
     '';
   };
