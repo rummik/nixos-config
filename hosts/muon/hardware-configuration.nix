@@ -9,37 +9,40 @@ in
 {
   imports = [
     <nixos-hardware/lenovo/thinkpad/l13>
+    ../../config/binfmt.nix
+    #../../config/dptf.nix
     ../../config/fwupd.nix
-    ../../config/dptf.nix
+    #../../config/thermald.nix
     ../../profiles/hardware/thinkpad
   ];
 
   hardware = {
-    firmware = with pkgs-unstable; [
+    firmware = with pkgs; [
       firmwareLinuxNonfree
     ];
 
     opengl = {
-      extraPackages = [ pkgs.vaapiIntel ];
       s3tcSupport = true;
+      extraPackages = with pkgs; pkgs.lib.mkForce [
+        (vaapiIntel.override { enableHybridCodec = true; })
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-media-driver
+      ];
     };
   };
 
   boot = {
     kernelModules = [ "kvm-intel" ];
     #extraModulePackages = [ ];
-    # apparently linuxPackages_5_3 isn't on stable, but linuxPackages_latest
-    # points to 5.4 on stable ¯\(o.°)/¯
-    kernelPackages = pkgs-unstable.linuxPackages_5_3;
-
-    blacklistedKernelModules = [ "nouveau" ];
+    kernelPackages = pkgs.linuxPackages_5_6;
 
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" ];
       kernelModules = [ ];
 
       luks.devices.pv-muon = {
-        device = "/dev/disk/by-id/nvme-eui.8ce38e05000d42d9-part1";
+        device = "/dev/disk/by-id/nvme-eui.6479a72cc0073932-part1";
         allowDiscards = true;
       };
     };
@@ -61,7 +64,7 @@ in
     };
 
     "/boot" = {
-      device = "/dev/disk/by-id/nvme-eui.8ce38e05000d42d9-part2";
+      device = "/dev/disk/by-id/nvme-eui.6479a72cc0073932-part2";
       fsType = "vfat";
     };
   };
