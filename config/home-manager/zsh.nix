@@ -73,6 +73,7 @@ in
       nix-zsh-completions
       syntax-highlighting
 
+      wakatime
       dug
       ing
       isup
