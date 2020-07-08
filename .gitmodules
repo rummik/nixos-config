@@ -27,3 +27,6 @@
 	url = git@gitlab.com:rummik/nixos/nur-packages.git
 	url = git@github.com:rummik/nur-packages.git
 	branch = master
+[submodule "channels/morph"]
+	path = channels/morph
+	url = git@github.com:DBCDK/morph.git

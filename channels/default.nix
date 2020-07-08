@@ -4,6 +4,7 @@ rec {
     { prefix = "darwin"; path = ./darwin; }
     { prefix = "darwin-config"; path = ../configuration.nix; }
     { prefix = "home-manager"; path = ./home-manager; }
+    { prefix = "morph"; path = ./morph; }
     { prefix = "nixos"; path = ./nixos; }
     { prefix = "nixos-config"; path = ../configuration.nix; }
     { prefix = "nixos-hardware"; path = ./nixos-hardware; }
