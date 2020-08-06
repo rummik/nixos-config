@@ -3,7 +3,6 @@
 {
   imports = [
     ../../config/anbox.nix
-    ../../config/docker.nix
     ../../config/immersed-vr.nix
     ../../config/kdenlive.nix
     ../../config/libvirtd.nix
@@ -32,11 +31,14 @@
   ];
 
   networking.firewall.allowedTCPPorts = [
+    22
     3000
     4000
     5000
     9001
     1337
+    1883
+    8123
   ];
 
   environment.systemPackages =
