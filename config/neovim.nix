@@ -160,16 +160,16 @@
           "" Bind Ctrl-p for muscle memory
           map <c-p> :GFiles<CR>
 
-					"" Mapping selecting mappings
-					nmap <leader><tab> <plug>(fzf-maps-n)
-					xmap <leader><tab> <plug>(fzf-maps-x)
-					omap <leader><tab> <plug>(fzf-maps-o)
+          "" Mapping selecting mappings
+          nmap <leader><tab> <plug>(fzf-maps-n)
+          xmap <leader><tab> <plug>(fzf-maps-x)
+          omap <leader><tab> <plug>(fzf-maps-o)
 
-					"" Insert mode completion
-					imap <c-x><c-k> <plug>(fzf-complete-word)
-					imap <c-x><c-j> <plug>(fzf-complete-path)
-					imap <c-x><c-f> <plug>(fzf-complete-file-ag)
-					imap <c-x><c-l> <plug>(fzf-complete-line)
+          "" Insert mode completion
+          imap <c-x><c-k> <plug>(fzf-complete-word)
+          imap <c-x><c-j> <plug>(fzf-complete-path)
+          imap <c-x><c-f> <plug>(fzf-complete-file-ag)
+          imap <c-x><c-l> <plug>(fzf-complete-line)
 
           "" Leader bindings for most FZF functionality
           "" See: https://github.com/zenbro/dotfiles/blob/d3f4bd3136aab297191c062345dfc680abb1efac/.nvimrc#L225-L239
@@ -212,6 +212,9 @@
           endfunction
           command! -nargs=+ -complete=dir AgIn call SearchWithAgInDirectory(<f-args>)
 
+          " indentLine
+          let g:indentLine_char_list = [ '|', '¦', '┆', '┊' ]
+
           " Polyglot
           let g:polyglot_disabled = []
 
@@ -224,6 +227,7 @@
           " Vim Workspace
           let g:workspace_autosave_ignore = [ 'gitcommit' ]
           let g:workspace_session_disable_on_args = 1
+          let g:workspace_session_directory = $HOME . '/.local/share/nvim/sessions/'
           nnoremap <leader>s :ToggleWorkspace<CR>
 
           " EditorConfig
@@ -237,7 +241,10 @@
           let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
           let g:NERDTreeShowBookmarks = 1
           let g:NERDTreeWinSize = 50
+          let g:NERDTreeHijackNetrw = 1
           let g:nerdtree_tabs_focus_on_files = 1
+          let g:nerdtree_tabs_open_on_console_startup = 2
+          let g:nerdtree_tabs_autofind = 1
 
           let g:NERDTreeIgnore = [
             \ '\.db$',
@@ -256,8 +263,8 @@
             \ '^__\.py$' ]
 
           set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-          nnoremap <silent> <F2> :NERDTreeFind<CR>
-          nnoremap <silent> <F3> :NERDTreeToggle<CR>
+          nnoremap <silent> <F2> :NERDTreeTabsFind<CR>
+          nnoremap <silent> <F3> :NERDTreeTabsToggle<CR>
 
 
           "  Language Plugins
@@ -507,6 +514,7 @@
           # Nerdtree
           { names = [
             "nerdtree"
+            "nerdtree-git-plugin"
             "vim-nerdtree-tabs"
           ]; }
 
