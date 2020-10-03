@@ -44,6 +44,9 @@
   environment.systemPackages =
     (with pkgs; [
       parted
+      discord
+      signal-desktop
+      slack
     ])
 
     ++
