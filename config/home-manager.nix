@@ -17,6 +17,7 @@ in
         ./home-manager/firefox.nix
         ./home-manager/kitty.nix
         ./home-manager/taskwarrior.nix
+        ./home-manager/wallpaper.nix
       ])
 
       ++
