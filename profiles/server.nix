@@ -9,7 +9,9 @@
 
   networking.firewall.allowPing = true;
 
-  programs.tmux.shortcut = "s";
+  environment.variables = {
+    tmuxPrefixKey = "s";
+  };
 
   programs.mosh.enable = true;
 
