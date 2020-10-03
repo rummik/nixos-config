@@ -2,11 +2,10 @@
 
 {
   imports = [
-    ./plasma5.nix
+    ./desktop.nix
     ../config/barrier.nix
     ../config/docker.nix
     ../config/keybase.nix
-    ../config/networkmanager.nix
     ../config/nodejs.nix
     #../config/vlc.nix
     ../config/watson.nix

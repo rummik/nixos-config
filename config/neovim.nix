@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
     git
-    pkgs-unstable.neovim
+    neovim
     ctags
     fzf
     ripgrep

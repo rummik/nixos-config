@@ -64,7 +64,7 @@ mkMerge [
         git
         git-fame
         git-hub
-        git-meta
+        #git-meta
         hub
         lab
       ]);
@@ -102,7 +102,7 @@ mkMerge [
       tmuxPrefixKey = mkDefault "b";
     };
 
-    system.stateVersion = "20.03";
+    system.stateVersion = "20.09";
   })
 
   (mkIf isDarwin {

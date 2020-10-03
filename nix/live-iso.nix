@@ -19,8 +19,9 @@ in
 
   services.mingetty.autologinUser = mkForce "rummik";
 
-  boot.kernelPackages = pkgs-unstable.linuxPackages_5_3;
-  hardware.firmware = with pkgs-unstable; [
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  hardware.firmware = with pkgs; [
     firmwareLinuxNonfree
   ];
 

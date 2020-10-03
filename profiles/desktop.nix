@@ -10,6 +10,7 @@ in
   imports = [
     ../config/ark.nix
     ../config/fonts.nix
+    ../config/networkmanager.nix
     ../config/kontact.nix
   ];
 
@@ -21,11 +22,12 @@ in
       ktorrent
       partition-manager
       skanlite
+      krohnkite
     ])
 
     ++
+
     (with pkgs-unstable; [
-      krohnkite
     ])
 
     ++

@@ -11,25 +11,18 @@ let
   defaultSecondaryColor = "green";
   defaultAccentColor = "magenta";
 
-  resurrect-patched = (tmuxPlugins.resurrect.overrideAttrs (oldAttrs: rec {
-    src = pkgs.fetchFromGitHub {
-      owner = "tmux-plugins";
-      repo = "tmux-resurrect";
-      rev = "905abba3c3b8a1e12c7d0fa31ff7c489a75515f9";
-      sha256 = "1ij3bb4y4bqj0w8m7fmlbg8vhxm7jz6g6mmclid236carixzk5dx";
-    };
-
+  resurrect-patched = (tmuxPlugins.resurrect.overrideAttrs (old: rec {
     patches = [
       ../tmux/resurrect-basename-match-strategy.patch
     ];
   }));
 
-  continuum-patched = (tmuxPlugins.continuum.overrideAttrs (oldAttrs: rec {
+  continuum-patched = (tmuxPlugins.continuum.overrideAttrs (old: rec {
     dependencies = [ resurrect-patched ];
   }));
 
   inlineScript = name: derivation {
-    name = "tmuxplugin ${name}";
+    pname = "tmuxplugin ${name}";
     rtp = "true";
   };
 

@@ -16,13 +16,13 @@ in
     ../../profiles/hardware/thinkpad
   ];
 
-  services.tlp.extraConfig = /* config */ ''
-    CPU_SCALING_GOVERNOR_ON_AC=powersave
-    CPU_SCALING_GOVERNOR_ON_BAT=powersave
 
-    CPU_BOOST_ON_AC=0
-    CPU_BOOST_ON_BAT=0
-  '';
+  services.tlp.settings = {
+    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    CPU_BOOST_ON_AC = 0;
+    CPU_BOOST_ON_BAT = 0;
+  };
 
   hardware = {
     firmware = with pkgs; [
@@ -30,7 +30,7 @@ in
     ];
 
     opengl = {
-      s3tcSupport = true;
+      #s3tcSupport = true;
       extraPackages = with pkgs; pkgs.lib.mkForce [
         (vaapiIntel.override { enableHybridCodec = true; })
         vaapiVdpau
@@ -43,7 +43,7 @@ in
   boot = {
     kernelModules = [ "kvm-intel" ];
     #extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_5_6;
+    kernelPackages = pkgs.linuxPackages_5_8;
 
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" ];

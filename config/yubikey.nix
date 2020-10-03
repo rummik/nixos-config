@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  hardware.u2f.enable = true;
   security.pam.u2f.enable = true;
   services.pcscd.enable = true;
 

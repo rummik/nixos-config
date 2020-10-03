@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages =
-    (with pkgs-unstable;
+    (with pkgs;
       let nodejs = nodejs_latest;
       in [
         nodejs
