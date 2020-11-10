@@ -5,6 +5,7 @@ let
   inherit (lib) optionalString;
   inherit (pkgs) fetchFromGitHub fetchFromGitLab;
   inherit (pkgs.stdenv) isDarwin;
+  inherit (pkgs.nur.repos.rummik) zshPlugins zshPackages;
 
 in
 
@@ -16,7 +17,7 @@ in
 
     ++
 
-    (with pkgs.zshPackages; [
+    (with zshPackages; [
       revolver
       zunit
     ]);
@@ -63,7 +64,7 @@ in
       plugins = [ "history" "vi-mode" ];
     };
 
-    plugins = with pkgs.zshPlugins; [
+    plugins = with pkgs.zshPlugins; with zshPlugins; [
       theme.rummik
 
       autosuggestions

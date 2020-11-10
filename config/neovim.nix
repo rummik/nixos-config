@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, nur, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -339,8 +339,7 @@
           let g:ale_completion_tsserver_autoimport = 1
         '';
 
-        #vam.knownPlugins = pkgs.vimPlugins // {
-        #};
+        vam.knownPlugins = pkgs.vimPlugins // nur.repos.rummik.vimPlugins;
 
         vam.pluginDictionaries = [
           #{ name = "csv-vim"; filename_regex = "\\.[tc]sv\$"; exec = "set ft=csv"; }
