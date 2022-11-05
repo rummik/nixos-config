@@ -1,6 +1,6 @@
 let
 
-  inherit (import ../channels) __nixPath;
+  inherit (import ./path.nix) __nixPath;
 
 in
 

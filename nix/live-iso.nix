@@ -29,14 +29,14 @@ in
   installer.cloneConfig = false;
 
   # Include our configs and pinned channels
-  # TODO: Use fetchgit + path to reduce the resulting image size and build times
+  # TODO: Use fetchGit + path to reduce the resulting image size and build times
   environment.etc = {
     nixos = {
       enable = true;
       source = builtins.path {
         name = "nixos-configuration";
         path = ../.;
-        filter = path: type: path != ../result;
+        filter = path: type: path != ../result && ((dirOf path) != ../channels || type != "directory");
       };
     };
   };
@@ -63,7 +63,7 @@ in
         target = "nixos/channels/${name}";
       })
 
-      (filterAttrs (n: v: v == "directory" && pathExists (../channels + "/${n}/.git")) (readDir ../channels))
+      (filterAttrs (p: t: t == "directory" && pathExists (../channels + "/${p}/.git")) (readDir ../channels))
     );*/
 
   # Force disabling networking.wireless, since otherwise the iso builder will

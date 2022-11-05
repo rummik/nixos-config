@@ -27,7 +27,7 @@ mkMerge [
     users.users.rummik = {
       isNormalUser = true;
       uid = 1000;
-      linger = true;
+      #linger = true;
 
       home = "/home/rummik";
 

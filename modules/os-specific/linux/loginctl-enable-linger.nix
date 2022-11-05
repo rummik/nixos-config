@@ -6,38 +6,42 @@
 #
 # Usage: `users.extraUsers.somebody.linger = true` or slt.
 
-with lib;
-
-let
-
-  dataDir = "/var/lib/systemd/linger";
-
-  lingeringUsers = map (u: u.name) (attrValues (flip filterAttrs config.users.users (n: u: u.linger)));
-
-  lingeringUsersFile = builtins.toFile "lingering-users"
-    (concatStrings (map (s: "${s}\n")
-      (sort (a: b: a < b) lingeringUsers))); # this sorting is important for `comm` to work correctly
-
-  updateLingering = pkgs.writeScript "update-lingering" /* sh */ ''
-    if [ -e ${dataDir} ] ; then
-      ls ${dataDir} | sort | comm -3 -1 ${lingeringUsersFile} - | xargs -r ${pkgs.systemd}/bin/loginctl disable-linger
-      ls ${dataDir} | sort | comm -3 -2 ${lingeringUsersFile} - | xargs -r ${pkgs.systemd}/bin/loginctl  enable-linger
-    fi
-  '';
-
-in
-
-{
-  options = {
-    users.users = mkOption {
-      options = [{
-        linger = mkEnableOption "lingering for the user";
-      }];
-    };
-  };
-
-  config = {
-    system.activationScripts.update-lingering =
-      stringAfter [ "users" ] updateLingering;
-  };
-}
+{}
+#
+#with lib;
+#
+#let
+#
+#  dataDir = "/var/lib/systemd/linger";
+#
+#  lingeringUsers = map (u: u.name) (attrValues (flip filterAttrs config.users.users (n: u: u.linger)));
+#
+#  lingeringUsersFile = builtins.toFile "lingering-users"
+#    (concatStrings (map (s: "${s}\n")
+#      (sort (a: b: a < b) lingeringUsers))); # this sorting is important for `comm` to work correctly
+#
+#  updateLingering = /* sh */ ''
+#    if [ -e ${dataDir} ] ; then
+#      ls ${dataDir} | sort | comm -3 -1 ${lingeringUsersFile} - | xargs -r ${pkgs.systemd}/bin/loginctl disable-linger
+#      ls ${dataDir} | sort | comm -3 -2 ${lingeringUsersFile} - | xargs -r ${pkgs.systemd}/bin/loginctl  enable-linger
+#    fi
+#  '';
+#
+#in
+#
+#{
+#  options = {
+#    users.users = mkOption {
+#      type = with types; submodule {
+#        options = {
+#          linger = mkEnableOption "lingering for the user";
+#        };
+#      };
+#    };
+#  };
+#
+#  config = {
+#    system.activationScripts.update-lingering =
+#      stringAfter [ "users" ] updateLingering;
+#  };
+#}

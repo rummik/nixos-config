@@ -15,9 +15,11 @@ in
       (optionals (hostName != "charm") [
         ./home-manager/alacritty.nix
         ./home-manager/firefox.nix
+        #./home-manager/chromium.nix
         ./home-manager/kitty.nix
-        ./home-manager/taskwarrior.nix
+        #./home-manager/taskwarrior.nix
         ./home-manager/wallpaper.nix
+        ./home-manager/pass-secret-service.nix
       ])
 
       ++

@@ -2,7 +2,7 @@
 {
   environment.systemPackages =
     with pkgs; [
-      kdeApplications.ark
+      libsForQt5.ark
       p7zip
     ];
 }

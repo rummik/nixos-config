@@ -3,7 +3,7 @@
 {
   environment.systemPackages =
     (with pkgs;
-      let nodejs = nodejs_latest;
+      let nodejs = nodejs-16_x;
       in [
         nodejs
         (yarn.override { inherit nodejs; })

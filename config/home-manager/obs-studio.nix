@@ -11,8 +11,8 @@ in
   programs.obs-studio =  {
     enable = isLinux && username != "root";
 
-    plugins = with pkgs; [
+    /*plugins = with pkgs; [
       obs-linuxbrowser
-    ];
+    ];*/
   };
 }

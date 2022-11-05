@@ -4,14 +4,14 @@
   environment.systemPackages = with pkgs; [
     openvpn
     dnsmasq
-    networkmanager_openvpn
+    networkmanager-openvpn
   ];
 
   services.hostapd.enable = true;
 
   networking.networkmanager = {
     enable = true;
-    packages = with pkgs; [ networkmanager_openvpn ];
+    plugins = with pkgs; [ networkmanager-openvpn ];
 
     unmanaged = [
       "interface-name:veth*"

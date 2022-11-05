@@ -6,7 +6,6 @@ in
 
 {
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     <nixos-hardware/lenovo/thinkpad/x230>
   ];
 

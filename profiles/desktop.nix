@@ -2,7 +2,7 @@
 
 let
 
-  inherit (pkgs) hplip hplipWithPlugin plasma5 kdeApplications kdeFrameworks;
+  inherit (pkgs) hplip hplipWithPlugin libsForQt5;
 
 in
 
@@ -11,18 +11,44 @@ in
     ../config/ark.nix
     ../config/fonts.nix
     ../config/networkmanager.nix
-    ../config/kontact.nix
+    #../config/kontact.nix
   ];
+
+  programs.nix-ld.enable = true;
 
   environment.systemPackages =
     (with pkgs; [
       #calligra
-      kdeconnect
       krita
-      ktorrent
-      partition-manager
-      skanlite
+      #ktorrent
+      #partition-manager
+      #skanlite
       krohnkite
+      kdeconnect
+      prusa-slicer
+
+      pinentry
+      pinentry-qt
+
+      pass
+      (pass-secret-service.overrideAttrs (old: rec {
+        version = "unstable-2022-03-20";
+        name = "${old.pname}-${version}";
+
+        src = fetchFromGitHub {
+          owner = "mdellweg";
+          repo = "pass_secret_service";
+          rev = "149f8557e07098eee2f46561eea61e83255ac59b";
+          sha256 = "sha256-+/pFi6+K8rl0Ihm6cp/emUQVtau6+Apl8/VEr9AI0Xs=";
+        };
+
+        postPatch = /* sh */ ''
+          ${old.postPatch}
+
+          substituteInPlace Makefile \
+            --replace 'pytest-3' 'pytest'
+        '';
+      }))
     ])
 
     ++
@@ -32,23 +58,14 @@ in
 
     ++
 
-    (with plasma5; [
+    (with libsForQt5; [
       plasma-browser-integration
-    ])
-
-    ++
-
-    (with kdeApplications; [
       filelight
       kate
       kdialog
       spectacle
-    ])
-
-    ++
-
-    (with kdeFrameworks; [
       kdesu
+      kgpg
     ]);
 
   services.printing = {
@@ -59,10 +76,24 @@ in
   hardware.sane = {
     enable = true;
     extraBackends = [ hplipWithPlugin ];
-    netConf = "hp-printer.local";
+    brscan4.enable = true;
+    dsseries.enable = true;
+    netConf = builtins.concatStringsSep "\n" [
+      "hp-printer.local"
+      "hp-p57750-office.local"
+      "brother-printer.local"
+    ];
   };
 
-  services.avahi.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+
+    publish = {
+      enable = true;
+      userServices = true;
+    };
+  };
 
   services.xserver = {
     enable = true;
@@ -74,21 +105,56 @@ in
     driSupport32Bit = true;
   };
 
-  hardware.bluetooth = {
-    enable = true;
+  # Sound
 
-    config = {
-      General.Enable = "Source,Sink,Media,Socket";
+  hardware.bluetooth = with pkgs; {
+    enable = true;
+    package = bluezFull;
+
+    settings = {
+      General.Enable = "Source,Sink,Gateway,Control,Socket,Media";
+      /*General = {
+        Enable = "Source,Sink,Gateway,Control,Socket,Media";
+        #Disable = "Headset";
+      };*/
+      /*Headset = {
+        HFP = "true";
+      };*/
     };
   };
+
+  #services.ofono.enable = true;
 
   nixpkgs.config.pulseaudio = true;
 
   hardware.pulseaudio = with pkgs; {
     enable = true;
-    package = pulseaudioFull;
-    extraModules = [ pulseaudio-modules-bt ];
+    #package = pulseaudioFull;
+#    extraModules = [ ];
+#    extraConfig = ''
+#     #.ifexists module-bluetooth-policy.so
+#     #.nofail
+#     #unload-module module-bluetooth-policy
+#     #.endif
+#     #.ifexists module-bluetooth-policy.so
+#     #load-module module-bluetooth-policy auto_switch=false
+#     #.endif
+#     #.ifexists module-bluez5-device
+#     #load-module module-bluez5-device a2dp_config=""
+#     #.endif
+#    '';
   };
+
+  programs.noisetorch.enable = true;
+
+  programs.gnupg.agent.enable = true;
+
+  /*systemd.user.services.mpris-proxy = {
+    Unit.Description = "Mpris proxy";
+    Unit.After = [ "network.target" "sound.target" ];
+    Service.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+    Install.WantedBy = [ "default.target" ];
+  };*/
 
   networking.firewall = {
     allowedTCPPortRanges = [

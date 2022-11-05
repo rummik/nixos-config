@@ -4,9 +4,9 @@
   programs.htop = {
     enable = true;
 
-    meters = {
-      left = [ "AllCPUs2" "Memory" "Battery" ];
-      right = [ "Hostname" "Tasks" "Uptime" "LoadAverage" ];
+    settings = {
+      left_meters = [ "AllCPUs2" "Memory" "Battery" ];
+      right_meters = [ "Hostname" "Tasks" "Uptime" "LoadAverage" ];
     };
   };
 }

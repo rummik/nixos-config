@@ -1,4 +1,4 @@
-{ pkgs-unstable, ... }:
+{ ... }:
 
 {
   boot.binfmt = {

@@ -2,7 +2,7 @@
   imports = [
     ./modules
     ./nix/auto-host.nix
-    ./nix/nix-path.nix
+    ./nix/environment.nix
     ./profiles/common.nix
   ];
 }

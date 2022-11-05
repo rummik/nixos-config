@@ -1,15 +1,15 @@
 [submodule "channels/home-manager"]
 	path = channels/home-manager
 	url = https://github.com/rycee/home-manager.git
-	branch = release-20.09
+	branch = release-22.05
 [submodule "channels/darwin"]
 	path = channels/darwin
 	url = https://github.com/LnL7/nix-darwin.git
 	branch = master
 [submodule "channels/nixos"]
 	path = channels/nixos
-	url = https://github.com/NixOS/nixpkgs-channels.git
-	branch = nixos-20.09
+	url = https://github.com/NixOS/nixpkgs.git
+	branch = nixos-22.05
 [submodule "channels/nixpkgs-unstable"]
 	path = channels/nixpkgs-unstable
 	url = https://github.com/NixOS/nixpkgs.git

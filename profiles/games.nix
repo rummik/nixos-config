@@ -3,11 +3,12 @@
 {
   imports = [
     ../config/steam.nix
-    ../config/lutris.nix
+    #../config/lutris.nix
   ];
 
   environment.systemPackages = with pkgs; [
-    minetest
-    multimc
+    #minetest
+    #multimc
+    #minecraft
   ];
 }

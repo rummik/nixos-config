@@ -18,7 +18,7 @@ let
   }));
 
   continuum-patched = (tmuxPlugins.continuum.overrideAttrs (old: rec {
-    dependencies = [ resurrect-patched ];
+    #dependencies = [ resurrect-patched ];
   }));
 
   inlineScript = name: derivation {
@@ -68,15 +68,6 @@ in
         setenv -g themeAccentColor "${defaultAccentColor}"
       %endif
 
-      # Status line
-      set -g status-right '#{?#{!=:#(watson status),No project started.},[#[fg=bright#{themeAccentColor}]#(watson status -p) #[fg=default]started #[fg=bright#{themeSecondaryColor}]#(watson status -e)#[fg=default]],}'
-
-
-      set -g status-right-length 50
-
-      set -g status-left "[#S] #h "
-      set -g status-left-length 30
-
       # Theme
       set -g clock-mode-colour "brightwhite"
       set -g display-panes-active-colour "brightred"
@@ -93,10 +84,28 @@ in
     '';
 
     plugins = with tmuxPlugins; [
+      {
+        plugin = inlineScript "status line";
+        extraConfig = /* tmux */ ''
+          set -g status-left "[#S] #h "
+
+          # Watson
+          set -g status-right "#{?#{!=:#(watson status),No project started.},[#[fg=bright#{themeAccentColor}]#(watson status -p) #[fg=default]started #[fg=bright#{themeSecondaryColor}]#(watson status -e)#[fg=default]],}"
+
+          # Battery
+          set -ag status-right "#{battery_color_fg}#{battery_icon}"
+
+          set -g status-right-length 50
+          set -g status-left-length 30
+        '';
+      }
+
       { plugin = yank; }
       { plugin = open; }
       { plugin = sensible; }
       { plugin = pain-control; }
+      { plugin = battery; }
+      { plugin = sidebar; }
 
       {
         plugin = inlineScript "remap split";
@@ -130,7 +139,7 @@ in
         plugin = continuum-patched;
 
         extraConfig = /* tmux */ ''
-          set -g @continuum-save-interval "15"
+          set -g @continuum-save-interval "5"
           set -g @continuum-restore "on"
         '';
       }

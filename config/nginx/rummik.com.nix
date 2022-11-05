@@ -26,14 +26,14 @@ in
       serverAliases = [ "rummik.com" ];
       root = "/home/rummik/public_html";
 
-      extraConfig = ''
+      extraConfig = /* nginx */ ''
         error_page 404 = /pub/404.html;
 
         rewrite ^/pub/((?!404.html).+) http://pub.rummik.com/$1;
         rewrite ^/(archives/.+) http://blg.rummik.com/$1;
       '';
 
-      locations."~ ^/(demos|social|ping)".extraConfig = ''
+      locations."~ ^/(demos|social|ping)".extraConfig = /* nginx */ ''
         return 404;
       '';
 
@@ -44,11 +44,11 @@ in
 
       root = "/home/rummik/public_html/pub";
 
-      extraConfig = ''
+      extraConfig = /* nginx */ ''
         error_page 404 = /404.html;
       '';
 
-      locations."~ ^/(?!\.well-known|404)".extraConfig = ''
+      locations."~ ^/(?!\\.well-known|404)".extraConfig = /* nginx */ ''
         rewrite ^/\.(.+) https://github.com/rummik/dotfiles/raw/master/.$1 last;
         rewrite ^/~ https://github.com/rummik last;
         rewrite ^((/[a-zA-Z0-9_-]+)+)? https://github.com/rummik$1 last;
@@ -58,12 +58,12 @@ in
     services.nginx.virtualHosts."pub.rummik.com" = acmeOptions // {
       root = "/home/rummik/public_html/pub";
 
-      extraConfig = ''
+      extraConfig = /* nginx */ ''
         error_page 404 = /404.html;
         rewrite ^/?$ https://www.rummik.com;
       '';
 
-      locations."~ ^/.+".extraConfig = ''
+      locations."~ ^/.+".extraConfig = /* nginx */ ''
         autoindex on;
       '';
     };
@@ -71,7 +71,7 @@ in
     services.nginx.virtualHosts."blg.rummik.com" = acmeOptions // {
       root = "/home/rummik/public_html/blog";
 
-      extraConfig = ''
+      extraConfig = /* nginx */ ''
         error_page 404 = /404.html;
       '';
     };
@@ -79,7 +79,7 @@ in
     services.nginx.virtualHosts."dmo.rummik.com" = acmeOptions // {
       root = "/home/rummik/public_html/demos";
 
-      extraConfig = ''
+      extraConfig = /* nginx */ ''
         error_page 404 = /404.html;
       '';
     };

@@ -1,10 +1,9 @@
-{ lib, pkgs, pkgs-unstable, ... }:
+{ lib, pkgs, ... }:
 
 let
 
   inherit (lib) optional optionalAttrs mkIf mkMerge mkDefault flatten;
-  inherit (builtins) currentSystem;
-  inherit (lib.systems.elaborate { system = currentSystem; }) isLinux isDarwin;
+  inherit (lib.systems.elaborate { system = builtins.currentSystem; }) isLinux isDarwin;
 
 in
 
@@ -42,7 +41,7 @@ mkMerge [
         pv
         speedtest-cli
         sysstat
-        telnet
+        inetutils
         unzip
         usbutils
         w3m
@@ -56,6 +55,9 @@ mkMerge [
         nix-prefetch-scripts
         nix-prefetch-github
         nix-prefetch-docker
+
+        exfat
+        ntfs3g
       ])
 
       ++
@@ -77,7 +79,7 @@ mkMerge [
 
     networking.wireguard.enable = true;
 
-    services.ntp.enable = true;
+    #services.ntp.enable = true;
     time.timeZone = "America/New_York";
     i18n.defaultLocale = "en_US.UTF-8";
 
@@ -102,7 +104,7 @@ mkMerge [
       tmuxPrefixKey = mkDefault "b";
     };
 
-    system.stateVersion = "20.09";
+    system.stateVersion = "21.05";
   })
 
   (mkIf isDarwin {

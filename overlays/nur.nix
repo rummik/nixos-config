@@ -2,7 +2,7 @@ self: super:
 
 let
 
-  inherit (import ../channels) __nixPath;
+  inherit (import ../nix/path.nix) __nixPath;
 
 in
 

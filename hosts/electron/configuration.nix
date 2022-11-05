@@ -5,7 +5,7 @@
     ../../config/docker.nix
     ../../config/networkmanager.nix
     ../../config/sc-controller.nix
-    ../../config/virtualbox.nix
+    #../../config/virtualbox.nix
     ../../config/wireshark.nix
     ../../profiles/games.nix
     ../../profiles/haskell.nix

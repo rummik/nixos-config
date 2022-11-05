@@ -1,8 +1,8 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, pkgs-unstable, config, ... }:
 
 let
 
-  inherit (import ../../channels) __nixPath;
+  inherit (import ../../nix/path.nix) __nixPath;
 
 in
 
@@ -18,11 +18,15 @@ in
 
 
   services.tlp.settings = {
-    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
-    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    #CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+    #CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
     CPU_BOOST_ON_AC = 0;
     CPU_BOOST_ON_BAT = 0;
   };
+
+
+  environment.systemPackages = with pkgs; [
+  ];
 
   hardware = {
     firmware = with pkgs; [
@@ -32,6 +36,8 @@ in
     opengl = {
       #s3tcSupport = true;
       extraPackages = with pkgs; pkgs.lib.mkForce [
+        #libva
+        #libva1
         (vaapiIntel.override { enableHybridCodec = true; })
         vaapiVdpau
         libvdpau-va-gl
@@ -41,9 +47,9 @@ in
   };
 
   boot = {
-    kernelModules = [ "kvm-intel" ];
-    #extraModulePackages = [ ];
-    kernelPackages = pkgs.linuxPackages_5_8;
+    kernelModules = [ "kvm-intel" "v4l2loopback" ];
+    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    #kernelPackages = pkgs.linuxPackages_5_8;
 
     initrd = {
       availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "nvme_core" "nvme" ];
@@ -54,6 +60,11 @@ in
         allowDiscards = true;
       };
     };
+
+    postBootCommands = /* sh */ ''
+      # Set fan watchdog timer
+      #echo 5 > /sys/devices/platform/thinkpad_hwmon/driver/fan_watchdog
+    '';
 
     loader = {
       systemd-boot.enable = true;

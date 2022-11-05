@@ -5,6 +5,7 @@
     ./desktop.nix
     ../config/barrier.nix
     ../config/docker.nix
+    #../config/heimdall.nix
     ../config/keybase.nix
     ../config/nodejs.nix
     #../config/vlc.nix
@@ -14,11 +15,11 @@
 
   environment.systemPackages = with pkgs; [
     #kicad
-    kubectl
+    #kubectl
     libreoffice
     minikube
-    minipro
-    nixops
+    #minipro
+    #nixops
     morph
     tio
     xclip
@@ -33,7 +34,7 @@
   ];
 
   services.udev.packages = with pkgs; [
-    minipro
+    #minipro
   ];
 
   programs.adb.enable = true;
@@ -78,5 +79,18 @@
 
     # Longan Nano
     ATTRS{idVendor}=="28e9", ATTRS{idProduct}=="0189", MODE="0666"
+
+    # Switch Joy-con (L) (Bluetooth only)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0005:057E:2006.*", MODE="0666"
+
+    # Switch Joy-con (R) (Bluetooth only)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0005:057E:2007.*", MODE="0666"
+
+    # Switch Pro controller (USB and Bluetooth)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", MODE="0666"
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="0005:057E:2009.*", MODE="0666"
+
+    # Switch Joy-con charging grip (USB only)
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="200e", MODE="0666"
   '';
 }
