@@ -1,8 +1,10 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
-    ../config/ssh.nix
+    ./misc/ssh.nix
   ];
 
   boot.cleanTmpDir = true;

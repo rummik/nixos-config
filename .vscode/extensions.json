@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "kamadorueda.alejandra",
+        "arrterian.nix-env-selector",
+        "jnoortheen.nix-ide",
+        "mikestead.dotenv",
+        "tamasfe.even-better-toml"
+    ]
+}

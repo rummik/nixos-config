@@ -1,19 +1,36 @@
-# EditorConfig is awesome: http://EditorConfig.org
+# Editor configuration, see http://editorconfig.org
 root = true
 
 [*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
 charset = utf-8
-
 indent_style = space
 indent_size = 2
 
-quote_type = double
+# Ignore diffs/patches
+[*.{diff,patch}]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_size = unset
 
-curly_bracket_next_line = false
-spaces_around_operators = true
-spaces_around_brackets = false
+[{.*,secrets}/**]
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+charset = unset
+indent_style = unset
+indent_size = unset
+
+[*.py]
+indent_size = 4
 
 [*.md]
-indent_style = space
-indent_size = 2
-max_line_length = 80
+max_line_length = off
+trim_trailing_whitespace = false
+
+[.info]
+indent_style = tab
+indent_size = 4

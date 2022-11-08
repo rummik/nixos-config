@@ -1,4 +1,4 @@
-{
+{lib, ...}: {
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ehci_pci"
@@ -8,8 +8,8 @@
     "sdhci_pci"
   ];
 
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
 
   boot.kernelParams = [
     "i915.enable_rc6=7"
@@ -25,12 +25,16 @@
   powerManagement.powertop.enable = true;
 
   services.xserver = {
-    videoDrivers = [ "modesetting" ];
+    videoDrivers = ["modesetting"];
     useGlamor = true;
 
-    deviceSection = /* xf86conf */ ''
-      Option "TearFree" "true"
-      Option "AccelMethod" "sna"
-    '';
+    deviceSection =
+      /*
+      xf86conf
+      */
+      ''
+        Option "TearFree" "true"
+        Option "AccelMethod" "sna"
+      '';
   };
 }

@@ -1,0 +1,344 @@
+format = """[\
+$nix_shell\
+($shell )\
+($all )\
+($username(@$hostname):)$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_status\
+$git_metrics\
+$status\
+$character\
+](dimmed white)"""
+
+right_format = """
+$battery\
+$time\
+"""
+
+[line_break]
+disabled = true
+
+[status]
+format = "{$symbol} "
+symbol = "[$status]($style)"
+success_symbol = "[$status]($style bright-yellow)"
+style = "bright-red"
+recognize_signal_code = false
+disabled = false
+
+[character]
+error_symbol = "[⟿](bright-red)"
+success_symbol = "[⟶](dimmed white)"
+vimcmd_symbol = "[⟼](dimmed white)"
+vimcmd_replace_one_symbol = "[⟷](bright-purple)"
+vimcmd_replace_symbol = "[⟺](bright-purple)"
+vimcmd_visual_symbol = "[⟾](bright-cyan)"
+
+[username]
+format = "[$user]($style)"
+show_always = true
+style_user = "bright-green"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style)"
+style = "bright-yellow"
+
+[directory]
+repo_root_style = "purple"
+style = "bright-black"
+read_only = " "
+
+[time]
+disabled = false
+format = "[$time]($style) "
+style = "dimmed white"
+time_format = "%R"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+style = "bright-blue"
+symbol = ""
+
+[git_metrics]
+added_style = "bright-green"
+deleted_style = "bright-red"
+disabled = false
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "bright-white"
+
+conflicted = "[×](bright-red)"
+ahead = "[↑](bright-green)"
+behind = "[↓](bright-yellow)"
+diverged = "[↕](bright-red)"
+
+up_to_date = ""
+
+#clean = "[=](bright-green)"
+#dirty = " "
+
+untracked = "[·](bright-yellow)"
+stashed = "[↔](bright-blue)"
+modified = "[≠](bright-yellow)"
+
+staged = "[~](bright-purple)"
+renamed = "[→](bright-cyan)"
+deleted = "[-](bright-red)"
+
+[nix_shell]
+format = '[$symbol$state]($style) '
+symbol = " "
+pure_msg = "λ"
+impure_msg = "[λ](bright-yellow)"
+
+[shell]
+format = "[$indicator]($style)"
+bash_indicator = "bsh"
+zsh_indicator = ""
+disabled = false
+
+
+[battery]
+full_symbol = " "
+#charging_symbol = " "
+charging_symbol = " "
+discharging_symbol = " "
+unknown_symbol = " "
+empty_symbol = " "
+
+
+[[battery.display]]
+style = "bold red"
+threshold = 5
+discharging_symbol = " "
+charging_symbol = " " # missing charging_outline
+
+[[battery.display]]
+style = "bold red"
+threshold = 15
+discharging_symbol = " "
+charging_symbol = " " # missing charging_10
+
+[[battery.display]]
+style = "bold yellow"
+threshold = 25
+discharging_symbol = " "
+charging_symbol = " "
+
+[[battery.display]]
+style = "bold yellow"
+threshold = 35
+discharging_symbol = " "
+charging_symbol = " "
+
+[[battery.display]]
+style = "bold yellow"
+threshold = 45
+discharging_symbol = " "
+charging_symbol = " "
+
+[[battery.display]]
+style = "bold green"
+threshold = 55
+discharging_symbol = " "
+charging_symbol = " " # missing charging_50
+
+[[battery.display]]
+style = "bold green"
+threshold = 65
+discharging_symbol = " "
+charging_symbol = " "
+
+[[battery.display]]
+style = "bold green"
+threshold = 75
+discharging_symbol = " "
+charging_symbol = " " # missing charging_70
+
+[[battery.display]]
+style = "bold green"
+threshold = 85
+discharging_symbol = " "
+charging_symbol = " "
+
+[[battery.display]]
+style = "bold green"
+threshold = 95
+discharging_symbol = " "
+charging_symbol = " "
+
+
+[aws]
+symbol = " "
+format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+
+[bun]
+format = '\[[$symbol($version)]($style)\]'
+
+[c]
+format = '\[[$symbol($version(-$name))]($style)\]'
+
+[cmake]
+format = '\[[$symbol($version)]($style)\]'
+
+[cmd_duration]
+format = '\[[⏱ $duration]($style)\]'
+
+[cobol]
+format = '\[[$symbol($version)]($style)\]'
+
+[conda]
+symbol = " "
+format = '\[[$symbol$environment]($style)\]'
+
+[crystal]
+format = '\[[$symbol($version)]($style)\]'
+
+[daml]
+format = '\[[$symbol($version)]($style)\]'
+
+[dart]
+format = '\[[$symbol($version)]($style)\]'
+
+[deno]
+format = '\[[$symbol($version)]($style)\]'
+
+[docker_context]
+symbol = " "
+format = '\[[$symbol$context]($style)\]'
+
+[dotnet]
+format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+
+[elixir]
+symbol = ""
+format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+
+[elm]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[erlang]
+format = '\[[$symbol($version)]($style)\]'
+
+[gcloud]
+symbol = ""
+disabled = true
+format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+
+[golang]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[haskell]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[helm]
+format = '\[[$symbol($version)]($style)\]'
+
+[hg_branch]
+symbol = ""
+format = '\[[$symbol$branch]($style)\]'
+
+[java]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[julia]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[kotlin]
+format = '\[[$symbol($version)]($style)\]'
+
+[kubernetes]
+format = '\[[$symbol$context( \($namespace\))]($style)\]'
+
+[lua]
+format = '\[[$symbol($version)]($style)\]'
+
+[memory_usage]
+symbol = ""
+disabled = false
+format = '\[$symbol[$ram( | $swap)]($style)\]'
+
+[meson]
+format = '\[[$symbol$project]($style)\]'
+
+[nim]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[nodejs]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[ocaml]
+format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+
+[openstack]
+format = '\[[$symbol$cloud(\($project\))]($style)\]'
+
+[package]
+symbol = ""
+format = '\[[$symbol$version]($style)\]'
+
+[perl]
+format = '\[[$symbol($version)]($style)\]'
+
+[php]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[pulumi]
+format = '\[[$symbol$stack]($style)\]'
+
+[purescript]
+format = '\[[$symbol($version)]($style)\]'
+
+[python]
+symbol = ""
+format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+
+[raku]
+format = '\[[$symbol($version-$vm_version)]($style)\]'
+
+[red]
+format = '\[[$symbol($version)]($style)\]'
+
+[ruby]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[rust]
+symbol = ""
+format = '\[[$symbol($version)]($style)\]'
+
+[scala]
+format = '\[[$symbol($version)]($style)\]'
+
+[spack]
+format = '\[[$symbol$environment]($style)\]'
+
+[sudo]
+format = '\[[as $symbol]\]'
+
+[swift]
+format = '\[[$symbol($version)]($style)\]'
+
+[terraform]
+format = '\[[$symbol$workspace]($style)\]'
+
+[vagrant]
+format = '\[[$symbol($version)]($style)\]'
+
+[vlang]
+format = '\[[$symbol($version)]($style)\]'
+
+[zig]
+format = '\[[$symbol($version)]($style)\]'

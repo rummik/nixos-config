@@ -1,0 +1,63 @@
+./hosts/
+	Host-specific configurations
+
+./hosts/nixos/
+	Configurations for NixOS systems
+
+./hosts/nixos/bootstrap.nix
+	Bootstrap ISO configuration for bootable NixOS ISOs
+	(built via `just bootstrap`)
+
+./hosts/darwin/
+	Configurations for Nix-Darwin systems
+
+./profiles/
+	NixOS/Nix-Darwin shared configuration profiles
+
+	Profiles are accessibile via the `profiles` parameter in both hosts and profiles
+	ex: `profiles/hardware/thinkpad/trackpoint.nix` becomes `profiles.hardware.thinkpad.trackpoint`
+
+./profiles/core/
+	Core configuration profiles for NixOS/Nix-Darwin
+
+./profiles/cachix/
+	Cachix configuration profile (included by core)
+
+./secrets/
+	Age-encrypted secrets
+
+./secrets/secrets.nix
+	Agenix configuration
+
+./secrets/*.age
+	Age-encrypted secret
+
+./secrets/*.pub
+	Public keys file for encrypting secrets
+
+./shell/
+	Devshell configuration
+
+./users/
+	User-specific configurations.
+
+./users/modules/
+	Home Manager modules
+
+./users/profiles/
+	Home Manager configuration profiles
+
+./users/*/
+	User specific configuration
+
+./modules/
+	NixOS/Nix-Darwin modules
+
+./overlays/
+	Nixpkgs overlays
+
+./pkgs/
+	Additional packages
+
+./pkgs/sources.toml
+	NvFetcher configuration
