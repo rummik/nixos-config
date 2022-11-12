@@ -48,7 +48,8 @@
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    nixos-generators.url = "github:nix-community/nixos-generators";
+    # Use a specific commit ref until nix-community/nixos-generators#184 is merged
+    nixos-generators.url = "github:nix-community/nixos-generators?rev=e2f624e7c5a292bf4e04b34d628afa0a29a587a3";
 
     # nil.url = "github:oxalica/nil";
 
