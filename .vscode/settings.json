@@ -1,0 +1,10 @@
+{
+  "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix",
+  "nix.serverPath": "nil",
+  "nix.formatterPath": ["nix", "fmt", "--", "-"],
+  "alejandra.program": "alejandra",
+  "nix.enableLanguageServer": true,
+  "files.associations": {
+    "flake.lock": "json"
+  }
+}

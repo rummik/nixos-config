@@ -1,0 +1,9 @@
+# nvfetcher.toml
+[manix]
+src.git = "https://github.com/mlvzk/manix"
+fetch.github = "mlvzk/manix"
+
+[any-nix-shell]
+src.git = "https://github.com/haslersn/any-nix-shell"
+fetch.github = "haslersn/any-nix-shell"
+
