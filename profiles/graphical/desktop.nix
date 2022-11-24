@@ -25,28 +25,7 @@ in {
       pinentry-qt
 
       pass
-      (pass-secret-service.overrideAttrs (old: rec {
-        version = "unstable-2022-03-20";
-        name = "${old.pname}-${version}";
-
-        src = fetchFromGitHub {
-          owner = "mdellweg";
-          repo = "pass_secret_service";
-          rev = "149f8557e07098eee2f46561eea61e83255ac59b";
-          sha256 = "sha256-+/pFi6+K8rl0Ihm6cp/emUQVtau6+Apl8/VEr9AI0Xs=";
-        };
-
-        postPatch =
-          /*
-          sh
-          */
-          ''
-            ${old.postPatch}
-
-            substituteInPlace Makefile \
-              --replace 'pytest-3' 'pytest'
-          '';
-      }))
+      # pass-secret-service
     ])
     ++ (with plasma5Packages; [
       plasma-browser-integration
