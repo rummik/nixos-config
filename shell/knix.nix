@@ -5,10 +5,8 @@
     git-crypt
     just
     nil
-    nixUnstable
-    rnix-lsp
     shfmt
-    tree-sitter
+    # tree-sitter
     ;
 
   inherit
@@ -23,16 +21,14 @@
   general = pkgWithCategory "general commands";
 in {
   commands = [
-    #(general just)
+    (general just)
     (general git-crypt)
-    (general nixUnstable)
-    (general (tree-sitter.withPlugins (_: tree-sitter.allGrammars)))
+    # (general (tree-sitter.withPlugins (_: tree-sitter.allGrammars)))
 
     (linter alejandra)
     (linter prettier)
     (linter shfmt)
 
     (lsp nil)
-    (lsp rnix-lsp)
   ];
 }
