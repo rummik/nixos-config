@@ -53,12 +53,15 @@
 
     # nil.url = "github:oxalica/nil";
 
-    # neovim.url = "github:neovim/neovim?dir=contrib";
+    # nix-colors.url = "github:misterio77/nix-colors";
+
+    # neovim.url = "github:neovim/neovim/v0.8.1?dir=contrib";
     # neovim.inputs.nixpkgs.follows = "nixpkgs";
     # neovim.inputs.flake-utils.follows = "flake-utils";
 
-    # nixvim.url = "github:pta2002/nixvim";
-    # nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    # Personal fork of github:pta2002/nixvim
+    nixvim.url = "github:rummik/nixvim/rmk-patched";
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
     # nixvim.inputs.flake-utils.follows = "flake-utils";
   };
 
@@ -73,6 +76,7 @@
     nvfetcher,
     deploy,
     nixpkgs,
+    nixvim,
     ...
   } @ inputs:
     digga.lib.mkFlake
@@ -186,12 +190,24 @@
 
       home = {
         imports = [(digga.lib.importExportableModules ./users/modules)];
-        modules = [];
+        modules = [
+          nixvim.homeManagerModules.nixvim
+        ];
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
-          suites = with profiles; {
-            base = [direnv fzf git htop ssh tmux zsh starship];
+          suites = with profiles; let
+            inherit (profiles) nixvim;
+          in rec {
+            base = [direnv fzf git htop ssh tmux zsh starship neovim];
             graphical = [alacritty firefox kitty obs-studio vscode wallpaper watson];
+            neovim = [
+              nixvim.conf
+              nixvim.lang.cxx
+              nixvim.lang.go
+              nixvim.lang.nix
+              nixvim.lang.python
+              nixvim.lang.web
+            ];
           };
         };
         users = {

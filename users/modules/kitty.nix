@@ -1236,6 +1236,18 @@ in {
       };
     };
 
+    maps = mkOption {
+      type = with types; attrsOf str;
+      default = {};
+      description = "Key mappings";
+      example = literalExample ''
+        {
+          "ctrl+shift+enter" = "new_window_with_cwd";
+          "ctrl+shift+p" = "no_op";
+        }
+      '';
+    };
+
     extraConfig = mkOption {
       type = with types; attrsOf (oneOf [str bool int float]);
       default = {};
@@ -1251,13 +1263,25 @@ in {
       conf
       */
       ''
+        # fonts {{{
         ${attrsToKittyConfig "" (removeAttrs cfg.fonts ["symbolMap" "fontFeatures"])}
         ${attrsToKittyConfig "symbol_map " cfg.fonts.symbolMap}
         ${attrsToKittyFontFeatures cfg.fonts.fontFeatures}
+        # }}}
+
+        # colors {{{
         ${attrsToKittyConfig "cursor_" (removeAttrs (cfg.cursor // {_ = cfg.cursor.color;}) ["color" "colors"])}
         ${attrsToKittyConfig "" (removeAttrs cfg.colorScheme ["color"])}
         ${attrsToKittyConfig "color" cfg.colorScheme.color}
+        # }}}
+
+        # maps {{{
+        ${concatStringsSep "\n" (mapAttrsToList (k: v: "map ${k} ${v}") cfg.maps)}
+        # }}}
+
+        # extra {{{
         ${attrsToKittyConfig "" cfg.extraConfig}
+        # }}}
       '';
   };
 }

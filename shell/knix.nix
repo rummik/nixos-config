@@ -1,12 +1,19 @@
 {pkgs, ...}: let
   inherit
     (pkgs)
-    nixUnstable
     alejandra
     git-crypt
     just
     nil
+    nixUnstable
+    rnix-lsp
     shfmt
+    tree-sitter
+    ;
+
+  inherit
+    (pkgs.nodePackages)
+    prettier
     ;
 
   pkgWithCategory = category: package: {inherit package category;};
@@ -19,11 +26,13 @@ in {
     #(general just)
     (general git-crypt)
     (general nixUnstable)
+    (general (tree-sitter.withPlugins (_: tree-sitter.allGrammars)))
 
     (linter alejandra)
-    #(linter prettier)
+    (linter prettier)
     (linter shfmt)
 
     (lsp nil)
+    (lsp rnix-lsp)
   ];
 }

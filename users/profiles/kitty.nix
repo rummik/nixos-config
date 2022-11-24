@@ -10,7 +10,6 @@
 
   imports = [
     ../modules/kitty.nix
-    #nur.repos.rummik.home-manager.modules.kitty
   ];
 
   programs.kitty = {
@@ -112,6 +111,12 @@
         "15" = "#eeeeec";
       };
     };
+
+    maps."ctrl+shift+p>f" = "no_op";
+    maps."ctrl+shift+p>n" = "no_op";
+    maps."ctrl+shift+p>y" = "no_op";
+    maps."ctrl+shift+p" = "no_op";
+    maps."ctrl+shift+k" = "no_op";
 
     extraConfig = {
       scrollbackLines = 0;

@@ -7,7 +7,27 @@ final: prev: rec {
     prev.vimPlugins
     // import ./vim-plugins {
       inherit (final) fetchFromGitHub;
-      inherit (final.vimUtils) buildVimPluginFrom2Nix;
+      inherit (final.vimUtils) buildVimPlugin;
+      inherit sources;
+    }
+    // {
+      nvim-treesitter = prev.vimPlugins.nvim-treesitter.withAllGrammars.overrideAttrs (old:
+        old
+        // {
+          postInstall = let
+            # postFixup = let
+            inherit (prev.tree-sitter-grammars) tree-sitter-nix;
+          in
+            /*
+            bash
+            */
+            ''
+              echo patching nix injections
+              mv $out/queries/nix/injections.scm .
+              cat ${tree-sitter-nix}/queries/injections.scm injections.scm > $out/queries/nix/injections.scm
+              # exit 1
+            '';
+        });
     };
 
   zshPlugins = import ./zsh-plugins {
