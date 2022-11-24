@@ -57,12 +57,10 @@
 
     # neovim.url = "github:neovim/neovim/v0.8.1?dir=contrib";
     # neovim.inputs.nixpkgs.follows = "nixpkgs";
-    # neovim.inputs.flake-utils.follows = "flake-utils";
 
     # Personal fork of github:pta2002/nixvim
     nixvim.url = "github:rummik/nixvim/rmk-patched";
     nixvim.inputs.nixpkgs.follows = "nixpkgs";
-    # nixvim.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = {
@@ -76,6 +74,8 @@
     nvfetcher,
     deploy,
     nixpkgs,
+    # nix-colors,
+    # neovim,
     nixvim,
     ...
   } @ inputs:
@@ -117,6 +117,7 @@
 
         nur.overlay
         agenix.overlay
+        # neovim.overlay
         nvfetcher.overlay
 
         (import ./pkgs)
