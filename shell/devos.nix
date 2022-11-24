@@ -7,7 +7,6 @@
 }: let
   inherit
     (pkgs)
-    alejandra
     agenix
     cachix
     editorconfig-checker
