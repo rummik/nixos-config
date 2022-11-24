@@ -108,6 +108,21 @@ bootstrap-write:
     -I screenshots/ \
     -F
 
+_nvfetcher *args:
+  nix run nixpkgs#nvfetcher \
+    --inputs-from . \
+    -- \
+    --config pkgs/sources.toml \
+    --build-dir pkgs/_sources \
+    {{args}}
+
+# Update pkgs listed in pkgs/sources.toml
+update-pkgs: _nvfetcher
+
+# Update flake inputs
+update-inputs:
+  nix flake update
+
 # Dry run for Home Manager and NixOS/Nix-Darwin
 check:
   nix flake check
