@@ -3,6 +3,21 @@ final: prev: rec {
   sources = prev.callPackage (import ./_sources/generated.nix) {};
   # then, call packages with `final.callPackage`
 
+  pass-secret-service = prev.pass-secret-service.overrideAttrs (old: rec {
+      inherit (sources.pass-secret-service) src version;
+      name = "${old.pname}-${version}";
+
+      postPatch =
+        # sh
+        ''
+          ${old.postPatch}
+
+          substituteInPlace Makefile \
+            --replace 'pytest-3' 'pytest'
+        '';
+    });
+
+
   vimPlugins =
     prev.vimPlugins
     // import ./vim-plugins {
