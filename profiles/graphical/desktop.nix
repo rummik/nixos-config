@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  inherit (pkgs) hplip hplipWithPlugin libsForQt5;
+  inherit (pkgs) hplip hplipWithPlugin plasma5Packages;
 in {
   imports = [
     ./fonts.nix
@@ -49,7 +49,7 @@ in {
           '';
       }))
     ])
-    ++ (with libsForQt5; [
+    ++ (with plasma5Packages; [
       plasma-browser-integration
       filelight
       kate
