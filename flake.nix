@@ -133,6 +133,7 @@
             digga.nixosModules.nixConfig
             home.nixosModules.home-manager
             agenix.nixosModules.age
+            { system.stateVersion = "21.05"; }
           ];
         };
 
@@ -192,6 +193,8 @@
         imports = [(digga.lib.importExportableModules ./users/modules)];
         modules = [
           nixvim.homeManagerModules.nixvim
+          # nix-colors.homeManagerModule
+          { home.stateVersion = "21.05"; }
         ];
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
