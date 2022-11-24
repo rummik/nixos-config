@@ -498,15 +498,16 @@
         "nmdSrc": "nmdSrc"
       },
       "locked": {
-        "lastModified": 1668602255,
-        "narHash": "sha256-65Zv8tSMKXVdOhoXOxYBlO3jGvGpUlU4BwqAfcrJLYs=",
-        "owner": "pta2002",
+        "lastModified": 1669278546,
+        "narHash": "sha256-NqCw0uxkL1JpEaQinoPkS0p4Y8eYwmLisgBnofCVNrw=",
+        "owner": "rummik",
         "repo": "nixvim",
-        "rev": "a601a75d0cae8229f1416506bd172e4e4aef3ce7",
+        "rev": "f0f2bab63be4481a8b7e79250ac1d5055cd4a638",
         "type": "github"
       },
       "original": {
-        "owner": "pta2002",
+        "owner": "rummik",
+        "ref": "rmk-patched",
         "repo": "nixvim",
         "type": "github"
       }
