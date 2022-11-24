@@ -1,6 +1,9 @@
 [formatter.nix]
 command = "alejandra"
 includes = ["*.nix"]
+excludes = [
+  "generated.nix"
+]
 
 [formatter.prettier]
 command = "prettier"
@@ -9,6 +12,9 @@ includes = [
   "*.json",
   "*.yaml",
   "*.md",
+]
+excludes = [
+  "generated.json"
 ]
 
 [formatter.shell]
@@ -19,4 +25,6 @@ options = [
   "-i",
   "2",
 ]
-includes = ["*.sh"]
+includes = [
+  "*.sh"
+]
