@@ -107,6 +107,4 @@
     themeAccentColor = lib.mkDefault "magenta";
     tmuxPrefixKey = lib.mkDefault "b";
   };
-
-  system.stateVersion = "21.05";
 }
