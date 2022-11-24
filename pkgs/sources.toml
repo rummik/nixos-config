@@ -3,6 +3,15 @@
 src.git = "https://github.com/mlvzk/manix"
 fetch.github = "mlvzk/manix"
 
+### Nixpkgs {{{ ###
+
+[pass-secret-service]
+src.git = "https://github.com/mdellweg/pass_secret_service"
+fetch.github = "mdellweg/pass_secret_service"
+
+### }}} ###
+
+
 ### Zsh Plugins {{{ ###
 
 [any-nix-shell]

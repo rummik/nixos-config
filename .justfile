@@ -109,7 +109,7 @@ bootstrap-write:
     -F
 
 _nvfetcher *args:
-  nix run nixpkgs#nvfetcher \
+  nix run nvfetcher \
     --inputs-from . \
     -- \
     --config pkgs/sources.toml \
