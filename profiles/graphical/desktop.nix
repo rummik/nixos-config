@@ -18,7 +18,6 @@ in {
       #ktorrent
       #partition-manager
       #skanlite
-      krohnkite
       kdeconnect
       prusa-slicer
 
@@ -57,6 +56,7 @@ in {
       spectacle
       kdesu
       kgpg
+      bismuth
     ]);
 
   services.printing = {
