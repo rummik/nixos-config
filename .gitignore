@@ -2,6 +2,7 @@ result
 result-*
 *.qcow2
 
+.env
 .direnv
 .gcroots
 .undodir

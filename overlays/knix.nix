@@ -7,7 +7,18 @@ channels: final: prev: {
     just
     nerdfonts
     nixUnstable
+    tree-sitter-grammars
     ;
+
+  vimPlugins =
+    prev.vimPlugins
+    // {
+      inherit
+        (channels.latest.vimPlugins)
+        nvim-treesitter
+        copilot-vim
+        ;
+    };
 
   discord = channels.latest.discord.override {
     # possibly set this to current?

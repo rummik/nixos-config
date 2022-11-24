@@ -6,7 +6,6 @@
   ...
 }: {
   imports = [
-    ../old/neovim.nix
     ./common.nix
   ];
 

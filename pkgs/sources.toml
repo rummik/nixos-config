@@ -3,7 +3,34 @@
 src.git = "https://github.com/mlvzk/manix"
 fetch.github = "mlvzk/manix"
 
+### Zsh Plugins {{{ ###
+
 [any-nix-shell]
 src.git = "https://github.com/haslersn/any-nix-shell"
 fetch.github = "haslersn/any-nix-shell"
 
+### }}} ###
+
+
+### Neovim Plugins {{{ ###
+
+[nvim-session-manager]
+src.git = "https://github.com/Shatur/neovim-session-manager"
+fetch.github = "Shatur/neovim-session-manager"
+
+[vim-just]
+src.git = "https://github.com/NoahTheDuke/vim-just"
+fetch.github = "NoahTheDuke/vim-just"
+
+[vim-nix]
+src.git = "https://github.com/rummik/vim-nix"
+src.branch = "language-fencing"
+fetch.github = "rummik/vim-nix"
+
+[vim-workspace]
+src.git = "https://github.com/thaerkh/vim-workspace"
+fetch.github = "thaerkh/vim-workspace"
+
+### }}} ###
+
+# vim: set foldmethod=marker foldenable :
