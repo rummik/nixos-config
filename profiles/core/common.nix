@@ -77,9 +77,7 @@ in {
       srch = "ns nixos";
       orch = "ns override";
       mn =
-        /*
-        sh
-        */
+        # sh
         ''
           manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | sk --preview="manix '{}'" | xargs manix
         '';
