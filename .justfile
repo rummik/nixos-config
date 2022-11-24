@@ -4,6 +4,10 @@ hostname := lowercase(`hostname -s`)
 username := env_var('USER')
 shell := env_var('SHELL')
 
+set dotenv-load
+
+nix_build_options := env_var_or_default('NIX_BUILD_OPTIONS', '')
+
 @_default:
   just --list --unsorted
 
@@ -14,6 +18,7 @@ shell := env_var('SHELL')
 # Generic builder
 _nix-build platform target activator *args:
   nix build \
+    {{nix_build_options}} \
     --print-build-logs --show-trace --verbose \
     --out-link 'result-{{platform}}-{{target}}' \
     {{args}} \
@@ -26,7 +31,7 @@ _build-toplevel platform *args: (
 
 # NixOS/Nix-Darwin rebuild
 _rebuild platform action *args: (build args)
-  sudo {{platform}}-rebuild {{action}} --flake . {{args}}
+  sudo {{platform}}-rebuild {{action}} --flake . {{nix_build_options}} {{args}}
 
 # Home Manager builder
 _build-home *args: (
