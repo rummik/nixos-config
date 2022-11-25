@@ -1,7 +1,7 @@
 {
   imports = [
     #./thinkfan.nix
-    # ./tlp.nix
+    ./tlp.nix
     ./trackpoint.nix
   ];
 }
