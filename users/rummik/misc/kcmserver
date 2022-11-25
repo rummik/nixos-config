@@ -1,0 +1,9 @@
+# ~/.config/kglobalshortcutsrc
+
+[ksmserver]
+Halt Without Confirmation=Ctrl+Alt+Shift+PgDown,,Halt Without Confirmation
+Lock Session=Ctrl+Alt+L\tScreensaver,Meta+L\tScreensaver,Lock Session
+Log Out=Ctrl+Alt+Del,Ctrl+Alt+Del,Log Out
+Log Out Without Confirmation=Ctrl+Alt+Shift+Del,,Log Out Without Confirmation
+Reboot Without Confirmation=Ctrl+Alt+Shift+PgUp,,Reboot Without Confirmation
+_k_friendly_name=Session Management

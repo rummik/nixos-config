@@ -1,0 +1,26 @@
+# ~/.config/kwinrc
+
+[TabBox]
+BorderActivate=9
+BorderAlternativeActivate=9
+DesktopLayout=org.kde.breeze.desktop
+DesktopListLayout=org.kde.breeze.desktop
+LayoutName=org.kde.breeze.desktop
+
+[Windows]
+ElectricBorderCooldown=350
+ElectricBorderCornerRatio=0.25
+ElectricBorderDelay=150
+ElectricBorderMaximize=true
+ElectricBorderTiling=true
+ElectricBorders=0
+
+[org.kde.kdecoration2]
+BorderSize=NoSides
+BorderSizeAuto=false
+ButtonsOnLeft=MS
+ButtonsOnRight=HIAX
+CloseOnDoubleClickOnMenu=false
+ShowToolTips=true
+library=org.kde.breeze
+theme=Breeze

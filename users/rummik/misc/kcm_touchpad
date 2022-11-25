@@ -1,0 +1,7 @@
+# ~/.config/kglobalshortcutsrc
+
+[kcm_touchpad]
+Disable Touchpad=Touchpad Off,Touchpad Off,Disable Touchpad
+Enable Touchpad=Touchpad On,Touchpad On,Enable Touchpad
+Toggle Touchpad=Tools,Touchpad Toggle,Toggle Touchpad
+_k_friendly_name=Touchpad

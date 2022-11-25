@@ -1,0 +1,6 @@
+# ~/.config/kglobalshortcutsrc
+
+[KDE Keyboard Layout Switcher]
+Switch keyboard layout to English (US)=none,none,Switch keyboard layout to English (US)
+Switch to Next Keyboard Layout=Ctrl+Alt+K,Ctrl+Alt+K,Switch to Next Keyboard Layout
+_k_friendly_name=Keyboard Layout Switcher

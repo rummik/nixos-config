@@ -1,0 +1,6 @@
+# ~/.config/kglobalshortcutsrc
+
+[khotkeys]
+_k_friendly_name=Custom Shortcuts Service
+{aa84fe51-b691-4e43-985e-070869449852}=Ctrl+Alt+T,none,Launch Konsole
+{d03619b6-9b3c-48cc-9d9c-a2aadb485550}=none,none,Search

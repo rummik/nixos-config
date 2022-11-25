@@ -1,0 +1,10 @@
+# ~/.config/kglobalshortcutsrc
+
+[systemsettings.desktop]
+_k_friendly_name=System Settings
+_launch=none,Tools,System Settings
+kcm-kscreen=none,none,Display Configuration
+kcm-lookandfeel=none,none,Global Theme
+kcm-users=none,none,Users
+powerdevilprofilesconfig=none,none,Energy Saving
+screenlocker=none,none,Screen Locking

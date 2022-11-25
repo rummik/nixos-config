@@ -1,3 +1,33 @@
+# ~/.config/kwinrc
+
+[Plugins]
+bismuthEnabled=true
+enforcedecoEnabled=true
+krohnkiteEnabled=false
+minimizeallEnabled=false
+synchronizeskipswitcherEnabled=false
+videowallEnabled=false
+
+[Script-bismuth]
+screenGapBottom=3
+screenGapLeft=3
+screenGapRight=3
+screenGapTop=3
+tileLayoutGap=3
+
+[Script-krohnkite]
+floatingTitle=Live Caption
+ignoreTitle=streaming_client
+monocleMaximize=false
+screenGapBottom=3
+screenGapLeft=3
+screenGapRight=3
+screenGapTop=3
+tileLayoutGap=3
+
+
+# ~/.config/kglobalshortcutsrc
+
 [bismuth]
 _k_friendly_name=Window Tiling
 decrease_master_size=none,,Decrease Master Area Size
