@@ -12,6 +12,7 @@
     ++ [
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-l13
       profiles.hardware.thinkpad
+      profiles.hardware.powersave
 
       profiles.old.fwupd
       profiles.workstation
