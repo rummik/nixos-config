@@ -13,6 +13,7 @@
     ./lspsaga.nix
     ./telescope.nix
     ./treesitter.nix
+    ./trouble.nix
     ./workspace.nix
   ];
 
