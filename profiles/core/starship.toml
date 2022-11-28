@@ -1,6 +1,4 @@
 format = """[\
-$nix_shell\
-($shell )\
 ($all )\
 ($username(@$hostname):)$directory\
 $git_branch\
@@ -8,17 +6,22 @@ $git_commit\
 $git_state\
 $git_status\
 $git_metrics\
+($fill )\
+$battery\
+$time\
+$line_break\
+$nix_shell\
+($shell )\
+$jobs\
 $status\
 $character\
 ](dimmed white)"""
 
-right_format = """
-$battery\
-$time\
-"""
-
 [line_break]
-disabled = true
+disabled = false
+
+[fill]
+symbol = "-"
 
 [status]
 format = "{$symbol} "
@@ -53,7 +56,7 @@ read_only = " "
 
 [time]
 disabled = false
-format = "[$time]($style) "
+format = "[$time]($style)"
 style = "dimmed white"
 time_format = "%R"
 
