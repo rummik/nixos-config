@@ -27,6 +27,14 @@ fetch.github = "haslersn/any-nix-shell"
 src.git = "https://github.com/Shatur/neovim-session-manager"
 fetch.github = "Shatur/neovim-session-manager"
 
+[nvim-treesitter]
+src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
+fetch.github = "nvim-treesitter/nvim-treesitter"
+
+[nvim-treesitter-textobjects]
+src.git = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
+fetch.github = "nvim-treesitter/nvim-treesitter-textobjects"
+
 [vim-just]
 src.git = "https://github.com/NoahTheDuke/vim-just"
 fetch.github = "NoahTheDuke/vim-just"

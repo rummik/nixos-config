@@ -37,6 +37,30 @@
     });
     date = "2022-11-13";
   };
+  nvim-treesitter = {
+    pname = "nvim-treesitter";
+    version = "1821c656d8e42fd8ce6648af58e64268606e8bec";
+    src = fetchFromGitHub ({
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter";
+      rev = "1821c656d8e42fd8ce6648af58e64268606e8bec";
+      fetchSubmodules = false;
+      sha256 = "sha256-NtHjCiYCVKvp2QCB92kXmvFbuA+4GM965hkFLDdIahY=";
+    });
+    date = "2022-11-28";
+  };
+  nvim-treesitter-textobjects = {
+    pname = "nvim-treesitter-textobjects";
+    version = "98476e7364821989ab9b500e4d20d9ae2c5f6564";
+    src = fetchFromGitHub ({
+      owner = "nvim-treesitter";
+      repo = "nvim-treesitter-textobjects";
+      rev = "98476e7364821989ab9b500e4d20d9ae2c5f6564";
+      fetchSubmodules = false;
+      sha256 = "sha256-0s/omiZhjC93MCTkLqD+lQObcldh6nz8jfkOOhTUc78=";
+    });
+    date = "2022-11-27";
+  };
   pass-secret-service = {
     pname = "pass-secret-service";
     version = "fadc09be718ae1e507eeb8719f3a2ea23edb6d7a";

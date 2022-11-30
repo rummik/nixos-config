@@ -26,23 +26,12 @@ final: prev: rec {
       inherit sources;
     }
     // {
-      nvim-treesitter = prev.vimPlugins.nvim-treesitter.withAllGrammars.overrideAttrs (old:
-        old
-        // {
-          postInstall = let
-            # postFixup = let
-            inherit (prev.tree-sitter-grammars) tree-sitter-nix;
-          in
-            /*
-            bash
-            */
-            ''
-              echo patching nix injections
-              mv $out/queries/nix/injections.scm .
-              cat ${tree-sitter-nix}/queries/injections.scm injections.scm > $out/queries/nix/injections.scm
-              # exit 1
-            '';
-        });
+      nvim-treesitter = prev.vimPlugins.nvim-treesitter.withAllGrammars.overrideAttrs (old: rec {
+        inherit (sources.nvim-treesitter) src version;
+        name = "${old.pname}-${version}";
+      });
+
+      nvim-treesitter-textobjects = final.vimUtils.buildVimPlugin sources.nvim-treesitter-textobjects;
     };
 
   zshPlugins = import ./zsh-plugins {

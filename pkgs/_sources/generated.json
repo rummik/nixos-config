@@ -59,6 +59,46 @@
         },
         "version": "24ceb4bfe666ca74f52ed3821a9f778c6324a84b"
     },
+    "nvim-treesitter": {
+        "cargoLocks": null,
+        "date": "2022-11-28",
+        "extract": null,
+        "name": "nvim-treesitter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nvim-treesitter",
+            "repo": "nvim-treesitter",
+            "rev": "1821c656d8e42fd8ce6648af58e64268606e8bec",
+            "sha256": "sha256-NtHjCiYCVKvp2QCB92kXmvFbuA+4GM965hkFLDdIahY=",
+            "type": "github"
+        },
+        "version": "1821c656d8e42fd8ce6648af58e64268606e8bec"
+    },
+    "nvim-treesitter-textobjects": {
+        "cargoLocks": null,
+        "date": "2022-11-27",
+        "extract": null,
+        "name": "nvim-treesitter-textobjects",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nvim-treesitter",
+            "repo": "nvim-treesitter-textobjects",
+            "rev": "98476e7364821989ab9b500e4d20d9ae2c5f6564",
+            "sha256": "sha256-0s/omiZhjC93MCTkLqD+lQObcldh6nz8jfkOOhTUc78=",
+            "type": "github"
+        },
+        "version": "98476e7364821989ab9b500e4d20d9ae2c5f6564"
+    },
     "pass-secret-service": {
         "cargoLocks": null,
         "date": "2022-07-18",

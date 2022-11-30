@@ -7,8 +7,15 @@
     enable = true;
     indent = true;
 
-    # This lets us temporarily create an override to include the injections query from tree-sitter-nix
-    # See /overrides/knix.nix
+    disabledLanguages = [
+      "fish"
+      "help"
+      "tsx"
+      "typescript"
+    ];
+
+    # This lets us temporarily create an override to update nvim-treesitter
+    # See /overlays/knix.nix
     nixGrammars = false;
     ensureInstalled = [];
   };
