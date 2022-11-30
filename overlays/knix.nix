@@ -7,7 +7,6 @@ channels: final: prev: {
     just
     nerdfonts
     nixUnstable
-    tree-sitter-grammars
     ;
 
   vimPlugins =
@@ -15,7 +14,6 @@ channels: final: prev: {
     // {
       inherit
         (channels.latest.vimPlugins)
-        nvim-treesitter
         copilot-vim
         ;
     };
