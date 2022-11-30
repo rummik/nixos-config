@@ -1,17 +1,18 @@
 format = """[\
-($all )\
 ($username(@$hostname):)$directory\
 $git_branch\
 $git_commit\
 $git_state\
 $git_status\
 $git_metrics\
+$hg_branch\
 ($fill )\
 $battery\
 $time\
 $line_break\
 $nix_shell\
 ($shell )\
+$all\
 $jobs\
 $status\
 $character\
@@ -41,13 +42,13 @@ vimcmd_visual_symbol = "[⟾](bright-cyan)"
 
 [username]
 format = "[$user]($style)"
-show_always = true
+# show_always = true
 style_user = "bright-green"
 
 [hostname]
-ssh_only = false
+# ssh_only = false
 format = "[$hostname]($style)"
-style = "bright-yellow"
+style = "#ff74ef"
 
 [directory]
 repo_root_style = "purple"
@@ -91,6 +92,9 @@ modified = "[≠](bright-yellow)"
 staged = "[~](bright-purple)"
 renamed = "[→](bright-cyan)"
 deleted = "[-](bright-red)"
+
+[hg_branch]
+format = '[$branch]($style) '
 
 [nix_shell]
 format = '[$symbol$state]($style) '
@@ -177,171 +181,167 @@ charging_symbol = " "
 
 [aws]
 symbol = " "
-format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\] '
 
 [bun]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [c]
-format = '\[[$symbol($version(-$name))]($style)\]'
+format = '\[[$symbol($version(-$name))]($style)\] '
 
 [cmake]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [cmd_duration]
-format = '\[[⏱ $duration]($style)\]'
+format = '\[[⏱ $duration]($style)\] '
 
 [cobol]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [conda]
 symbol = " "
-format = '\[[$symbol$environment]($style)\]'
+format = '\[[$symbol$environment]($style)\] '
 
 [crystal]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [daml]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [dart]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [deno]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [docker_context]
 symbol = " "
-format = '\[[$symbol$context]($style)\]'
+format = '\[[$symbol$context]($style)\] '
 
 [dotnet]
-format = '\[[$symbol($version)(🎯 $tfm)]($style)\]'
+format = '\[[$symbol($version)(🎯 $tfm)]($style)\] '
 
 [elixir]
 symbol = ""
-format = '\[[$symbol($version \(OTP $otp_version\))]($style)\]'
+format = '\[[$symbol($version \(OTP $otp_version\))]($style)\] '
 
 [elm]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [erlang]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [gcloud]
 symbol = ""
 disabled = true
-format = '\[[$symbol$account(@$domain)(\($region\))]($style)\]'
+format = '\[[$symbol$account(@$domain)(\($region\))]($style)\] '
 
 [golang]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [haskell]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [helm]
-format = '\[[$symbol($version)]($style)\]'
-
-[hg_branch]
-symbol = ""
-format = '\[[$symbol$branch]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [java]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [julia]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [kotlin]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [kubernetes]
-format = '\[[$symbol$context( \($namespace\))]($style)\]'
+format = '\[[$symbol$context( \($namespace\))]($style)\] '
 
 [lua]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [memory_usage]
 symbol = ""
 disabled = false
-format = '\[$symbol[$ram( | $swap)]($style)\]'
+format = '\[$symbol[$ram( | $swap)]($style)\] '
 
 [meson]
-format = '\[[$symbol$project]($style)\]'
+format = '\[[$symbol$project]($style)\] '
 
 [nim]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [nodejs]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [ocaml]
-format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\]'
+format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\] '
 
 [openstack]
-format = '\[[$symbol$cloud(\($project\))]($style)\]'
+format = '\[[$symbol$cloud(\($project\))]($style)\] '
 
 [package]
 symbol = ""
-format = '\[[$symbol$version]($style)\]'
+format = '\[[$symbol$version]($style)\] '
 
 [perl]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [php]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [pulumi]
-format = '\[[$symbol$stack]($style)\]'
+format = '\[[$symbol$stack]($style)\] '
 
 [purescript]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [python]
 symbol = ""
-format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\]'
+format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\] '
 
 [raku]
-format = '\[[$symbol($version-$vm_version)]($style)\]'
+format = '\[[$symbol($version-$vm_version)]($style)\] '
 
 [red]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [ruby]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [rust]
 symbol = ""
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [scala]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [spack]
-format = '\[[$symbol$environment]($style)\]'
+format = '\[[$symbol$environment]($style)\] '
 
 [sudo]
-format = '\[[as $symbol]\]'
+format = '\[[as $symbol]\] '
 
 [swift]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [terraform]
-format = '\[[$symbol$workspace]($style)\]'
+format = '\[[$symbol$workspace]($style)\] '
 
 [vagrant]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [vlang]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
 
 [zig]
-format = '\[[$symbol($version)]($style)\]'
+format = '\[[$symbol($version)]($style)\] '
