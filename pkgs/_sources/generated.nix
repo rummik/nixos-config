@@ -90,15 +90,15 @@
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "1821c656d8e42fd8ce6648af58e64268606e8bec";
+    version = "685e57be18072e0cc3f7255b70c44a33a33782ac";
     src = fetchFromGitHub ({
-      owner = "nvim-treesitter";
+      owner = "figsoda";
       repo = "nvim-treesitter";
-      rev = "1821c656d8e42fd8ce6648af58e64268606e8bec";
+      rev = "685e57be18072e0cc3f7255b70c44a33a33782ac";
       fetchSubmodules = false;
-      sha256 = "sha256-NtHjCiYCVKvp2QCB92kXmvFbuA+4GM965hkFLDdIahY=";
+      sha256 = "sha256-KPgqG8XusILID6TSeRWLY/LLjsw4J7sqLX9ueRSzL3k=";
     });
-    date = "2022-11-28";
+    date = "2022-11-30";
   };
   nvim-treesitter-textobjects = {
     pname = "nvim-treesitter-textobjects";

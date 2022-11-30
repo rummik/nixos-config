@@ -82,8 +82,11 @@ src.git = "https://github.com/Shatur/neovim-session-manager"
 fetch.github = "Shatur/neovim-session-manager"
 
 [nvim-treesitter]
-src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
-fetch.github = "nvim-treesitter/nvim-treesitter"
+# src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
+# fetch.github = "nvim-treesitter/nvim-treesitter"
+src.git = "https://github.com/figsoda/nvim-treesitter"
+src.branch = "nix"
+fetch.github = "figsoda/nvim-treesitter"
 
 [nvim-treesitter-textobjects]
 src.git = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
