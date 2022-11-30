@@ -4,19 +4,14 @@ final: prev: rec {
   # then, call packages with `final.callPackage`
 
   pass-secret-service = prev.pass-secret-service.overrideAttrs (old: rec {
-      inherit (sources.pass-secret-service) src version;
-      name = "${old.pname}-${version}";
+    inherit (sources.pass-secret-service) src version;
+    name = "${old.pname}-${version}";
 
-      postPatch =
-        # sh
-        ''
-          ${old.postPatch}
-
-          substituteInPlace Makefile \
-            --replace 'pytest-3' 'pytest'
-        '';
-    });
-
+    postPatch = ''
+      ${old.postPatch}
+      substituteInPlace Makefile --replace 'pytest-3' 'pytest'
+    '';
+  });
 
   vimPlugins =
     prev.vimPlugins
