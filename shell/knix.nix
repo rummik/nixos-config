@@ -6,7 +6,6 @@
     just
     nil
     shfmt
-    # tree-sitter
     ;
 
   inherit
@@ -23,7 +22,6 @@ in {
   commands = [
     (general just)
     (general git-crypt)
-    # (general (tree-sitter.withPlugins (_: tree-sitter.allGrammars)))
 
     (linter alejandra)
     (linter prettier)
