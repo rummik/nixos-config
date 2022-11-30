@@ -72,43 +72,43 @@
     cursor.blinkInterval = 0;
 
     colorScheme = {
-      foreground = "#ffffff";
+      foreground = "#faf3f8";
       background = "#000000";
-      backgroundOpacity = 0.94;
-      selectionBackground = "#555753";
+      backgroundOpacity = 0.9;
+      selectionBackground = "#454753";
 
       color = {
         #: black
-        "0" = "#2e3436";
-        "8" = "#555753";
+        "0" = "#21222a";
+        "8" = "#797a84";
 
         #: red
-        "1" = "#cc0000";
-        "9" = "#ef2929";
+        "1" = "#cc472d";
+        "9" = "#ff6639";
 
         #: green
-        "2" = "#4e9a06";
-        "10" = "#8ae234";
+        "2" = "#49a43f";
+        "10" = "#88e027";
 
         #: yellow
-        "3" = "#c4a000";
-        "11" = "#fce94f";
+        "3" = "#bdb339";
+        "11" = "#fee900";
 
         #: blue
-        "4" = "#3465a4";
-        "12" = "#729fcf";
+        "4" = "#4d59a5";
+        "12" = "#afbaff";
 
         #: magenta
-        "5" = "#75507b";
-        "13" = "#ad7fa8";
+        "5" = "#a057ad";
+        "13" = "#ff74ef";
 
         #: cyan
-        "6" = "#06989a";
-        "14" = "#34e2e2";
+        "6" = "#119292";
+        "14" = "#46d5ce";
 
         #: white
-        "7" = "#d3d7cf";
-        "15" = "#eeeeec";
+        "7" = "#5a5b64";
+        "15" = "#ecedfa";
       };
     };
 
