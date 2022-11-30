@@ -19,6 +19,8 @@ nvfetcher_options := env_var_or_default('NVFETCHER_OPTIONS', '')
 # Generic builder
 _nix-build platform target activator *args:
   nix build \
+    --no-update-lock-file \
+    --no-write-lock-file \
     {{nix_build_options}} \
     --print-build-logs --show-trace --verbose \
     --out-link 'result-{{platform}}-{{target}}' \
@@ -81,6 +83,8 @@ bootstrap: bootstrap-build bootstrap-write
 bootstrap-build:
   @nix run nixos-generators \
     --inputs-from . \
+    --no-update-lock-file \
+    --no-write-lock-file \
     -- \
     --format install-iso \
     --flake '.#bootstrap' \
@@ -90,6 +94,8 @@ bootstrap-build:
 bootstrap-write:
   @nix run nixpkgs#bootiso \
     --inputs-from . \
+    --no-update-lock-file \
+    --no-write-lock-file \
     -- \
     ./result-iso/iso/bootstrap.iso
 
@@ -99,6 +105,8 @@ bootstrap-write:
   # -I: Do not list files that match the given pattern
   nix run nixpkgs#tree \
     --inputs-from . \
+    --no-update-lock-file \
+    --no-write-lock-file \
     -- \
     --dirsfirst \
     --gitignore \
@@ -112,6 +120,8 @@ bootstrap-write:
 _nvfetcher *args:
   nix run nvfetcher \
     --inputs-from . \
+    --no-update-lock-file \
+    --no-write-lock-file \
     -- \
     {{nvfetcher_options}} \
     --config pkgs/sources.toml \
@@ -124,6 +134,7 @@ update-pkgs: _nvfetcher
 # Update flake inputs
 update-inputs:
   nix flake update
+  nix flake lock
 
 # Dry run for Home Manager and NixOS/Nix-Darwin
 check:
