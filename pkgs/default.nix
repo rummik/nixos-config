@@ -27,11 +27,15 @@ final: prev: rec {
     }
     // {
       nvim-treesitter = prev.vimPlugins.nvim-treesitter.withAllGrammars.overrideAttrs (old: rec {
-        inherit (sources.nvim-treesitter) src version;
+        inherit (sources.nvim-treesitter) src date;
+        version = date;
         name = "${old.pname}-${version}";
       });
 
-      nvim-treesitter-textobjects = final.vimUtils.buildVimPlugin sources.nvim-treesitter-textobjects;
+      nvim-treesitter-textobjects = final.vimUtils.buildVimPlugin rec {
+        inherit (sources.nvim-treesitter-textobjects) pname src date;
+        version = date;
+      };
 
       vim-wakatime = prev.vimPlugins.vim-wakatime.overrideAttrs (old: {
         patchPhase = ''
