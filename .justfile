@@ -33,7 +33,7 @@ _build-toplevel platform *args: (
 )
 
 # NixOS/Nix-Darwin rebuild
-_rebuild platform action *args: (build args)
+_rebuild platform action *args: (build '--no-link' args)
   sudo {{platform}}-rebuild {{action}} --flake . {{nix_build_options}} {{args}}
 
 # Home Manager builder
@@ -53,10 +53,10 @@ dry-build *args: (build args '--dry-run')
 
 # Switch currently running NixOS system
 [linux]
-switch *args: _build-home (_rebuild 'nixos' 'switch' args)
+switch *args: (_build-home '--no-link') (_rebuild 'nixos' 'switch' args)
 
 [linux]
-boot *args: (_rebuild 'nixos' 'boot' args)
+boot *args: (_build-home '--no-link') (_rebuild 'nixos' 'boot' args)
 
 # Switch currenttly active Nix-Darwin system
 [macos]
