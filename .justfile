@@ -7,6 +7,7 @@ shell := env_var('SHELL')
 set dotenv-load
 
 nix_build_options := env_var_or_default('NIX_BUILD_OPTIONS', '')
+nvfetcher_options := env_var_or_default('NVFETCHER_OPTIONS', '')
 
 @_default:
   just --list --unsorted
@@ -112,6 +113,7 @@ _nvfetcher *args:
   nix run nvfetcher \
     --inputs-from . \
     -- \
+    {{nvfetcher_options}} \
     --config pkgs/sources.toml \
     --build-dir pkgs/_sources \
     {{args}}
