@@ -13,6 +13,57 @@
     });
     date = "2022-01-31";
   };
+  dug = {
+    pname = "dug";
+    version = "86fdc610da39f65d2ce24f4a4879f754e2035bd4";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/dug";
+      rev = "86fdc610da39f65d2ce24f4a4879f754e2035bd4";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-CxJC48Iy0t1gNxMg2ERYSieJCp1ek7xYydik1rwH2Cw=";
+    };
+    date = "2019-03-25";
+  };
+  fast-syntax-highlighting = {
+    pname = "fast-syntax-highlighting";
+    version = "7c390ee3bfa8069b8519582399e0a67444e6ea61";
+    src = fetchFromGitHub ({
+      owner = "zdharma-continuum";
+      repo = "fast-syntax-highlighting";
+      rev = "7c390ee3bfa8069b8519582399e0a67444e6ea61";
+      fetchSubmodules = false;
+      sha256 = "sha256-wLpgkX53wzomHMEpymvWE86EJfxlIb3S8TPy74WOBD4=";
+    });
+    date = "2022-11-19";
+  };
+  ing = {
+    pname = "ing";
+    version = "dc75a8b7ae625c3da73e44c2d52a583790b76938";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/ing";
+      rev = "dc75a8b7ae625c3da73e44c2d52a583790b76938";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-c8cCrB2kbJpDP15soVvfurG27NXfqTXDB0LYrWLLRGM=";
+    };
+    date = "2022-11-15";
+  };
+  isup = {
+    pname = "isup";
+    version = "9f34b8dc1fe7641cf4d2dbe7fb5d7d1a297353c7";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/isup";
+      rev = "9f34b8dc1fe7641cf4d2dbe7fb5d7d1a297353c7";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-dCh3MqsWYs9BmLxYQr2i3HearUdSkj7CZMaig6/SPAc=";
+    };
+    date = "2022-11-15";
+  };
   manix = {
     pname = "manix";
     version = "d08e7ca185445b929f097f8bfb1243a8ef3e10e4";
@@ -73,6 +124,45 @@
     });
     date = "2022-07-18";
   };
+  please = {
+    pname = "please";
+    version = "ccd5ee46dd43aa598b7ce530719d38d44f0ff8bd";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/please";
+      rev = "ccd5ee46dd43aa598b7ce530719d38d44f0ff8bd";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-+1Hxt2cOs9U26qU47LsPIIDgFaPj2IUjTNdchNr1RAc=";
+    };
+    date = "2022-11-15";
+  };
+  slowcat = {
+    pname = "slowcat";
+    version = "f089130d881cef04f46a13322c7998d5aaa4201b";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/slowcat";
+      rev = "f089130d881cef04f46a13322c7998d5aaa4201b";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-Il/hrzRgG92bDX5cxQ7RdeLsjNWBHEtLm67LaoL1P38=";
+    };
+    date = "2017-11-23";
+  };
+  tailf = {
+    pname = "tailf";
+    version = "92b04527b784a70a952efde20e6a7269278fb17d";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/tailf";
+      rev = "92b04527b784a70a952efde20e6a7269278fb17d";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-JFmTFVLAMABg000jfYsTf42tVjiETi9OZBRI0Yr8B3w=";
+    };
+    date = "2017-11-30";
+  };
   vim-just = {
     pname = "vim-just";
     version = "838c9096d4c5d64d1000a6442a358746324c2123";
@@ -108,5 +198,80 @@
       sha256 = "sha256-XV7opLyfkHIDO0+JJaO/x0za0gsHuklrzapTGdLHJmI=";
     });
     date = "2021-11-25";
+  };
+  wakatime-zsh-plugin = {
+    pname = "wakatime-zsh-plugin";
+    version = "69c6028b0c8f72e2afcfa5135b1af29afb49764a";
+    src = fetchFromGitHub ({
+      owner = "sobolevn";
+      repo = "wakatime-zsh-plugin";
+      rev = "69c6028b0c8f72e2afcfa5135b1af29afb49764a";
+      fetchSubmodules = false;
+      sha256 = "sha256-pA1VOkzbHQjmcI2skzB/OP5pXn8CFUz5Ok/GLC6KKXQ=";
+    });
+    file = "wakatime.plugin.zsh";
+    date = "2022-04-27";
+  };
+  zsh-autocomplete = {
+    pname = "zsh-autocomplete";
+    version = "866c6610bfeea18b055001703822c9ffd92337f7";
+    src = fetchFromGitHub ({
+      owner = "marlonrichert";
+      repo = "zsh-autocomplete";
+      rev = "866c6610bfeea18b055001703822c9ffd92337f7";
+      fetchSubmodules = false;
+      sha256 = "sha256-9R48yD03CXPJ7UV4Lxnp7lq/7q1sa3aZoNhByC8yxW0=";
+    });
+    date = "2022-11-16";
+  };
+  zsh-autosuggestions = {
+    pname = "zsh-autosuggestions";
+    version = "a411ef3e0992d4839f0732ebeb9823024afaaaa8";
+    src = fetchFromGitHub ({
+      owner = "zsh-users";
+      repo = "zsh-autosuggestions";
+      rev = "a411ef3e0992d4839f0732ebeb9823024afaaaa8";
+      fetchSubmodules = false;
+      sha256 = "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=";
+    });
+    date = "2021-06-04";
+  };
+  zsh-completions = {
+    pname = "zsh-completions";
+    version = "a09284a73443d4a0288c5a984c5adb5f55ace520";
+    src = fetchFromGitHub ({
+      owner = "zsh-users";
+      repo = "zsh-completions";
+      rev = "a09284a73443d4a0288c5a984c5adb5f55ace520";
+      fetchSubmodules = false;
+      sha256 = "sha256-Z+jFelPlH1tQsneLDnUZrnI8co/wo/kHo949WEVYxk4=";
+    });
+    date = "2022-11-26";
+  };
+  zsh-theme-rummik = {
+    pname = "zsh-theme-rummik";
+    version = "c79cec00cb3e01f5be3ec028ca847a1fa5094e0e";
+    src = fetchgit {
+      url = "https://gitlab.com/rummik/zsh/theme";
+      rev = "c79cec00cb3e01f5be3ec028ca847a1fa5094e0e";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sha256 = "sha256-fHckfslHAFQHANT1wcn/HCpWmXW4XOp+eRjLnl/bP4Y=";
+    };
+    file = "rummik.zsh-theme";
+    date = "2019-10-24";
+  };
+  zsh-vi-mode = {
+    pname = "zsh-vi-mode";
+    version = "0e666689b6b636fee6a80564fd6c4cb02b8b590d";
+    src = fetchFromGitHub ({
+      owner = "jeffreytse";
+      repo = "zsh-vi-mode";
+      rev = "0e666689b6b636fee6a80564fd6c4cb02b8b590d";
+      fetchSubmodules = false;
+      sha256 = "sha256-lrnC+VyGLlq3oReF0MtHcQRanA8Av6fDyF8VUT8evrM=";
+    });
+    date = "2022-11-21";
   };
 }

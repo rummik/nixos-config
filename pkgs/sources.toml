@@ -14,9 +14,63 @@ fetch.github = "mdellweg/pass_secret_service"
 
 ### Zsh Plugins {{{ ###
 
+[zsh-theme-rummik]
+src.git = "https://gitlab.com/rummik/zsh/theme"
+fetch.git = "https://gitlab.com/rummik/zsh/theme"
+passthru = { file = "rummik.zsh-theme" }
+
 [any-nix-shell]
 src.git = "https://github.com/haslersn/any-nix-shell"
 fetch.github = "haslersn/any-nix-shell"
+
+[dug]
+src.git = "https://gitlab.com/rummik/zsh/dug"
+fetch.git = "https://gitlab.com/rummik/zsh/dug"
+
+[fast-syntax-highlighting]
+src.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
+fetch.github = "zdharma-continuum/fast-syntax-highlighting"
+
+[ing]
+src.git = "https://gitlab.com/rummik/zsh/ing"
+fetch.git = "https://gitlab.com/rummik/zsh/ing"
+
+[isup]
+src.git = "https://gitlab.com/rummik/zsh/isup"
+fetch.git = "https://gitlab.com/rummik/zsh/isup"
+
+[please]
+src.git = "https://gitlab.com/rummik/zsh/please"
+fetch.git = "https://gitlab.com/rummik/zsh/please"
+
+[slowcat]
+src.git = "https://gitlab.com/rummik/zsh/slowcat"
+fetch.git = "https://gitlab.com/rummik/zsh/slowcat"
+
+[tailf]
+src.git = "https://gitlab.com/rummik/zsh/tailf"
+fetch.git = "https://gitlab.com/rummik/zsh/tailf"
+
+[wakatime-zsh-plugin]
+src.git = "https://github.com/sobolevn/wakatime-zsh-plugin"
+fetch.github = "sobolevn/wakatime-zsh-plugin"
+passthru = { file = "wakatime.plugin.zsh" }
+
+[zsh-autocomplete]
+src.git = "https://github.com/marlonrichert/zsh-autocomplete"
+fetch.github = "marlonrichert/zsh-autocomplete"
+
+[zsh-autosuggestions]
+src.git = "https://github.com/zsh-users/zsh-autosuggestions"
+fetch.github = "zsh-users/zsh-autosuggestions"
+
+[zsh-completions]
+src.git = "https://github.com/zsh-users/zsh-completions"
+fetch.github = "zsh-users/zsh-completions"
+
+[zsh-vi-mode]
+src.git = "https://github.com/jeffreytse/zsh-vi-mode"
+fetch.github = "jeffreytse/zsh-vi-mode"
 
 ### }}} ###
 

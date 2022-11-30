@@ -50,15 +50,8 @@ final: prev: rec {
     };
 
   zshPlugins = import ./zsh-plugins {
-    inherit
-      (final)
-      stdenv
-      lib
-      writeTextFile
-      fetchFromGitHub
-      fetchFromGitLab
-      nix-zsh-completions
-      ;
+    inherit (final) lib pkgs;
+    inherit sources;
   };
 
   zshPackages = import ./zsh-packages {

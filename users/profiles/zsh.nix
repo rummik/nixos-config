@@ -6,21 +6,16 @@
 }: let
   inherit (pkgs) zshPlugins zshPackages;
 in {
-  home.packages =
-    (with pkgs; [
-      any-nix-shell
-    ])
-    ++ (with zshPackages; [
-      revolver
-      zunit
-    ]);
+  home.packages = with zshPackages; [
+    revolver
+    zunit
+  ];
 
   programs.zsh = {
     enable = true;
 
-    enableAutosuggestions = true;
-    enableCompletion = true;
-    enableSyntaxHighlighting = true;
+    # disable completion; zsh-autocomplete will handle it
+    enableCompletion = false;
 
     # VTE is broken on Nix-Darwin, so we're limiting to just linux
     #enableVteIntegration = lib.mkIf pkgs.stdenv.isLinux true;
@@ -30,11 +25,7 @@ in {
       ll = "ls -l";
     };
 
-    initExtra = ''
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-
-      ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
-
+    initExtraBeforeCompInit = ''
       autoload -U zcalc
 
       autoload -U up-line-or-beginning-search
@@ -42,7 +33,12 @@ in {
       zle -N up-line-or-beginning-search
       zle -N down-line-or-beginning-search
 
-      function line-or-beginning-search-bindkeys {
+      ZVM_INIT_MODE=sourcing
+
+    '';
+
+    initExtra = ''
+      # function zvm_after_init {
         zvm_bindkey viins '^[[A' up-line-or-beginning-search
         zvm_bindkey viins '^[[B' down-line-or-beginning-search
         zvm_bindkey viins '^P' up-line-or-beginning-search
@@ -52,20 +48,25 @@ in {
 
         zvm_bindkey viins '^[3;5~' delete-char
         zvm_bindkey vicmd '^[3;5~' delete-char
-      }
-
-      zvm_after_init_commands+=(line-or-beginning-search-bindkeys)
+     # }
     '';
 
-    plugins = with pkgs.zshPlugins;
-    with zshPlugins; [
-      wakatime
+    plugins = with zshPlugins; [
+      # any-nix-shell
+      # wakatime-zsh-plugin
+      zsh-autocomplete
       dug
+      fast-syntax-highlighting
+      just-completions
       ing
       isup
+      nix-zsh-completions
       please
       slowcat
       tailf
+      zsh-autosuggestions
+      zsh-completions
+      zsh-vi-mode
     ];
   };
 }

@@ -19,6 +19,83 @@
         },
         "version": "67d8b02e605684c46a12445e689cda0c88fe278e"
     },
+    "dug": {
+        "cargoLocks": null,
+        "date": "2019-03-25",
+        "extract": null,
+        "name": "dug",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "86fdc610da39f65d2ce24f4a4879f754e2035bd4",
+            "sha256": "sha256-CxJC48Iy0t1gNxMg2ERYSieJCp1ek7xYydik1rwH2Cw=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/dug"
+        },
+        "version": "86fdc610da39f65d2ce24f4a4879f754e2035bd4"
+    },
+    "fast-syntax-highlighting": {
+        "cargoLocks": null,
+        "date": "2022-11-19",
+        "extract": null,
+        "name": "fast-syntax-highlighting",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "zdharma-continuum",
+            "repo": "fast-syntax-highlighting",
+            "rev": "7c390ee3bfa8069b8519582399e0a67444e6ea61",
+            "sha256": "sha256-wLpgkX53wzomHMEpymvWE86EJfxlIb3S8TPy74WOBD4=",
+            "type": "github"
+        },
+        "version": "7c390ee3bfa8069b8519582399e0a67444e6ea61"
+    },
+    "ing": {
+        "cargoLocks": null,
+        "date": "2022-11-15",
+        "extract": null,
+        "name": "ing",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "dc75a8b7ae625c3da73e44c2d52a583790b76938",
+            "sha256": "sha256-c8cCrB2kbJpDP15soVvfurG27NXfqTXDB0LYrWLLRGM=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/ing"
+        },
+        "version": "dc75a8b7ae625c3da73e44c2d52a583790b76938"
+    },
+    "isup": {
+        "cargoLocks": null,
+        "date": "2022-11-15",
+        "extract": null,
+        "name": "isup",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "9f34b8dc1fe7641cf4d2dbe7fb5d7d1a297353c7",
+            "sha256": "sha256-dCh3MqsWYs9BmLxYQr2i3HearUdSkj7CZMaig6/SPAc=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/isup"
+        },
+        "version": "9f34b8dc1fe7641cf4d2dbe7fb5d7d1a297353c7"
+    },
     "manix": {
         "cargoLocks": null,
         "date": "2021-04-20",
@@ -119,6 +196,63 @@
         },
         "version": "fadc09be718ae1e507eeb8719f3a2ea23edb6d7a"
     },
+    "please": {
+        "cargoLocks": null,
+        "date": "2022-11-15",
+        "extract": null,
+        "name": "please",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "ccd5ee46dd43aa598b7ce530719d38d44f0ff8bd",
+            "sha256": "sha256-+1Hxt2cOs9U26qU47LsPIIDgFaPj2IUjTNdchNr1RAc=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/please"
+        },
+        "version": "ccd5ee46dd43aa598b7ce530719d38d44f0ff8bd"
+    },
+    "slowcat": {
+        "cargoLocks": null,
+        "date": "2017-11-23",
+        "extract": null,
+        "name": "slowcat",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "f089130d881cef04f46a13322c7998d5aaa4201b",
+            "sha256": "sha256-Il/hrzRgG92bDX5cxQ7RdeLsjNWBHEtLm67LaoL1P38=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/slowcat"
+        },
+        "version": "f089130d881cef04f46a13322c7998d5aaa4201b"
+    },
+    "tailf": {
+        "cargoLocks": null,
+        "date": "2017-11-30",
+        "extract": null,
+        "name": "tailf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "92b04527b784a70a952efde20e6a7269278fb17d",
+            "sha256": "sha256-JFmTFVLAMABg000jfYsTf42tVjiETi9OZBRI0Yr8B3w=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/tailf"
+        },
+        "version": "92b04527b784a70a952efde20e6a7269278fb17d"
+    },
     "vim-just": {
         "cargoLocks": null,
         "date": "2022-11-02",
@@ -178,5 +312,128 @@
             "type": "github"
         },
         "version": "c26b473f9b073f24bacecd38477f44c5cd1f5a62"
+    },
+    "wakatime-zsh-plugin": {
+        "cargoLocks": null,
+        "date": "2022-04-27",
+        "extract": null,
+        "name": "wakatime-zsh-plugin",
+        "passthru": {
+            "file": "wakatime.plugin.zsh"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sobolevn",
+            "repo": "wakatime-zsh-plugin",
+            "rev": "69c6028b0c8f72e2afcfa5135b1af29afb49764a",
+            "sha256": "sha256-pA1VOkzbHQjmcI2skzB/OP5pXn8CFUz5Ok/GLC6KKXQ=",
+            "type": "github"
+        },
+        "version": "69c6028b0c8f72e2afcfa5135b1af29afb49764a"
+    },
+    "zsh-autocomplete": {
+        "cargoLocks": null,
+        "date": "2022-11-16",
+        "extract": null,
+        "name": "zsh-autocomplete",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "marlonrichert",
+            "repo": "zsh-autocomplete",
+            "rev": "866c6610bfeea18b055001703822c9ffd92337f7",
+            "sha256": "sha256-9R48yD03CXPJ7UV4Lxnp7lq/7q1sa3aZoNhByC8yxW0=",
+            "type": "github"
+        },
+        "version": "866c6610bfeea18b055001703822c9ffd92337f7"
+    },
+    "zsh-autosuggestions": {
+        "cargoLocks": null,
+        "date": "2021-06-04",
+        "extract": null,
+        "name": "zsh-autosuggestions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "zsh-users",
+            "repo": "zsh-autosuggestions",
+            "rev": "a411ef3e0992d4839f0732ebeb9823024afaaaa8",
+            "sha256": "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=",
+            "type": "github"
+        },
+        "version": "a411ef3e0992d4839f0732ebeb9823024afaaaa8"
+    },
+    "zsh-completions": {
+        "cargoLocks": null,
+        "date": "2022-11-26",
+        "extract": null,
+        "name": "zsh-completions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "zsh-users",
+            "repo": "zsh-completions",
+            "rev": "a09284a73443d4a0288c5a984c5adb5f55ace520",
+            "sha256": "sha256-Z+jFelPlH1tQsneLDnUZrnI8co/wo/kHo949WEVYxk4=",
+            "type": "github"
+        },
+        "version": "a09284a73443d4a0288c5a984c5adb5f55ace520"
+    },
+    "zsh-theme-rummik": {
+        "cargoLocks": null,
+        "date": "2019-10-24",
+        "extract": null,
+        "name": "zsh-theme-rummik",
+        "passthru": {
+            "file": "rummik.zsh-theme"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "c79cec00cb3e01f5be3ec028ca847a1fa5094e0e",
+            "sha256": "sha256-fHckfslHAFQHANT1wcn/HCpWmXW4XOp+eRjLnl/bP4Y=",
+            "type": "git",
+            "url": "https://gitlab.com/rummik/zsh/theme"
+        },
+        "version": "c79cec00cb3e01f5be3ec028ca847a1fa5094e0e"
+    },
+    "zsh-vi-mode": {
+        "cargoLocks": null,
+        "date": "2022-11-21",
+        "extract": null,
+        "name": "zsh-vi-mode",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jeffreytse",
+            "repo": "zsh-vi-mode",
+            "rev": "0e666689b6b636fee6a80564fd6c4cb02b8b590d",
+            "sha256": "sha256-lrnC+VyGLlq3oReF0MtHcQRanA8Av6fDyF8VUT8evrM=",
+            "type": "github"
+        },
+        "version": "0e666689b6b636fee6a80564fd6c4cb02b8b590d"
     }
 }
