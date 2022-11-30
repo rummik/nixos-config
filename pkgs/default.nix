@@ -32,6 +32,21 @@ final: prev: rec {
       });
 
       nvim-treesitter-textobjects = final.vimUtils.buildVimPlugin sources.nvim-treesitter-textobjects;
+
+      vim-wakatime = prev.vimPlugins.vim-wakatime.overrideAttrs (old: {
+        patchPhase = ''
+          # Move the BufEnter hook from the InitAndHandleActivity call
+          # to the common HandleActivity call. This is necessary because
+          # InitAndHandleActivity prompts the user for an API key if
+          # one is not found, which breaks the remote plugin manifest
+          # generation.
+          substituteInPlace plugin/wakatime.vim \
+            --replace 'autocmd BufEnter,VimEnter' \
+                      'autocmd VimEnter' \
+            --replace 'autocmd CursorMoved,CursorMovedI' \
+                      'autocmd CursorMoved,CursorMovedI,BufEnter'
+          '';
+      });
     };
 
   zshPlugins = import ./zsh-plugins {

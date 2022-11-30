@@ -86,6 +86,7 @@
       editorconfig-nvim
       vim-just
       vim-visual-multi
+      vim-wakatime
     ];
   };
 }
