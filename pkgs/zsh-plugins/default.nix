@@ -29,8 +29,6 @@ in {
   just-completions = buildZshPlugin (with pkgs.just; {
     name = "just-completions";
     script = ''
-      ${src}/bin/just-syntax-highlighting zsh | source /dev/stdin
-
       path+=(${pkgs.just}/share/zsh/site-functions)
       fpath+=(${pkgs.just}/share/zsh/site-functions)
     '';
