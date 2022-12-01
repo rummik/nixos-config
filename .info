@@ -47,6 +47,9 @@
 ./users/profiles/
 	Home Manager configuration profiles
 
+./users/profiles/nixvim/
+	Nixvim configuration profiles
+
 ./users/*/
 	User specific configuration
 
