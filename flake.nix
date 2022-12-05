@@ -53,6 +53,10 @@
 
     # nil.url = "github:oxalica/nil";
 
+    # fork of github:kamadorueda/alejandra with container padding
+    alejandra.url = "github:rummik/alejandra/pad-non-empty-containers";
+    alejandra.inputs.nixpkgs.follows = "nixos";
+
     # nix-colors.url = "github:misterio77/nix-colors";
 
     # neovim.url = "github:neovim/neovim/v0.8.1?dir=contrib";
@@ -119,6 +123,7 @@
         agenix.overlay
         # neovim.overlay
         nvfetcher.overlay
+        alejandra.overlay
 
         (import ./pkgs)
       ];

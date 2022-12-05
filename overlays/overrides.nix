@@ -10,7 +10,6 @@ channels: final: prev: {
     rage
     nix-index
     qutebrowser
-    alejandra
     signal-desktop
     starship
     deploy-rs
