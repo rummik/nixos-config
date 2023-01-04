@@ -33,7 +33,7 @@ _build-toplevel platform *args: (
 )
 
 # NixOS/Nix-Darwin rebuild
-_rebuild platform action *args: (build '--no-link' args)
+_rebuild platform action *args: (build args)
   sudo {{platform}}-rebuild {{action}} --flake . {{nix_build_options}} {{args}}
 
 # Home Manager builder
@@ -61,6 +61,16 @@ boot *args: (_build-home '--no-link') (_rebuild 'nixos' 'boot' args)
 # Switch currenttly active Nix-Darwin system
 [macos]
 switch *args: (_rebuild 'darwin' 'switch' args)
+
+# Search NixOS packages
+[linux]
+search *args:
+  nix search nixos {{args}}
+
+# Search Nix-Darwin packages
+[macos]
+search *args:
+  nix search darwin {{args}}
 
 build-home *args: (_build-home args)
 dry-build-home *args: (build-home args '--dry-run')
@@ -116,6 +126,11 @@ bootstrap-write:
     -I nixos-disabled/ \
     -I screenshots/ \
     -F
+
+edit *args: build-home
+  ./result-home-{{username}}/home-path/bin/nvim \
+    -u ./result-home-{{username}}/home-files/.config/nvim/init.lua \
+    {{args}}
 
 _nvfetcher *args:
   nix run nvfetcher \
