@@ -16,6 +16,7 @@ pkgs/_sources/.shake*
 /darwin-configuration.nix
 /hardware-configuration.nix
 private-configuration.nix
+hosts/*-disabled/
 
 /_*
 /:*
