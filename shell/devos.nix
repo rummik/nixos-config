@@ -18,15 +18,15 @@
 
   hooks = import ./hooks;
 
-  pkgWithCategory = category: package: {inherit package category;};
+  pkgWithCategory = category: package: { inherit package category; };
   devos = pkgWithCategory "devos";
   linter = pkgWithCategory "linter";
   docs = pkgWithCategory "docs";
 in {
   _file = toString ./.;
 
-  imports = ["${extraModulesPath}/git/hooks.nix"];
-  git = {inherit hooks;};
+  imports = [ "${extraModulesPath}/git/hooks.nix" ];
+  git = { inherit hooks; };
 
   commands =
     [

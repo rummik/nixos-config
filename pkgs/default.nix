@@ -3,15 +3,23 @@ final: prev: rec {
   sources = prev.callPackage (import ./_sources/generated.nix) {};
   # then, call packages with `final.callPackage`
 
-  pass-secret-service = prev.pass-secret-service.overrideAttrs (old: rec {
-    inherit (sources.pass-secret-service) src version;
-    name = "${old.pname}-${version}";
+  # pass-secret-service = prev.pass-secret-service.overrideAttrs (old: rec {
+  #   inherit (sources.pass-secret-service) src version;
+  #   name = "${old.pname}-${version}";
+  #
+  #   postPatch = ''
+  #     ${old.postPatch}
+  #     substituteInPlace Makefile --replace 'pytest-3' 'pytest'
+  #   '';
+  # });
 
-    postPatch = ''
-      ${old.postPatch}
-      substituteInPlace Makefile --replace 'pytest-3' 'pytest'
-    '';
-  });
+  # prusa-slicer = prev.callPackage (import ./prusa-slicer.nix) {};
+
+  fishPlugins =
+    prev.fishPlugins
+    // {
+      foreign-env = prev.fishPlugins.buildFishPlugin sources.foreign-env;
+    };
 
   vimPlugins =
     prev.vimPlugins
@@ -21,16 +29,20 @@ final: prev: rec {
       inherit sources;
     }
     // {
-      nvim-treesitter = prev.vimPlugins.nvim-treesitter.withAllGrammars.overrideAttrs (old: rec {
-        inherit (sources.nvim-treesitter) src date;
-        version = date;
-        name = "${old.pname}-${version}";
-      });
+      # nvim-treesitter = (prev.vimUtils.buildVimPlugin rec {
+      #   inherit (sources.nvim-treesitter) pname src;
+      #   version = sources.nvim-treesitter.date;
+      #   inherit (prev.vimPlugins.nvim-treesitter) passthru;
+      # })
+      # .overrideAttrs (old:
+      #   prev.callPackage "${prev.path}/pkgs/applications/editors/vim/plugins/nvim-treesitter/overrides.nix" { } final prev
+      # );
+      # ;
 
-      nvim-treesitter-textobjects = final.vimUtils.buildVimPlugin rec {
-        inherit (sources.nvim-treesitter-textobjects) pname src date;
-        version = date;
-      };
+      # nvim-treesitter-textobjects = final.vimUtils.buildVimPlugin rec {
+      #   inherit (sources.nvim-treesitter-textobjects) pname src date;
+      #   version = date;
+      # };
 
       vim-wakatime = prev.vimPlugins.vim-wakatime.overrideAttrs (old: {
         patchPhase = ''
@@ -44,7 +56,7 @@ final: prev: rec {
                       'autocmd VimEnter' \
             --replace 'autocmd CursorMoved,CursorMovedI' \
                       'autocmd CursorMoved,CursorMovedI,BufEnter'
-          '';
+        '';
       });
     };
 

@@ -7,4 +7,5 @@
   vim-just = buildVimPlugin sources.vim-just;
   vim-nix = buildVimPlugin sources.vim-nix;
   vim-workspace = buildVimPlugin sources.vim-workspace;
+  lspsaga-nvim = buildVimPlugin sources.lspsaga-nvim;
 }

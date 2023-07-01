@@ -3,13 +3,8 @@
   config,
   lib,
   ...
-}: let
-  inherit (pkgs) zshPlugins zshPackages;
-in {
-  home.packages = with zshPackages; [
-    revolver
-    zunit
-  ];
+}: {
+  home.packages = with pkgs.zshPackages; [ revolver zunit ];
 
   programs.zsh = {
     enable = true;
@@ -25,47 +20,81 @@ in {
       ll = "ls -l";
     };
 
-    initExtraBeforeCompInit = ''
-      autoload -U zcalc
+    initExtraBeforeCompInit =
+      /*
+      zsh
+      */
+      ''
+        autoload -U zcalc
 
-      autoload -U up-line-or-beginning-search
-      autoload -U down-line-or-beginning-search
-      zle -N up-line-or-beginning-search
-      zle -N down-line-or-beginning-search
+        autoload -U up-line-or-beginning-search
+        autoload -U down-line-or-beginning-search
+        zle -N up-line-or-beginning-search
+        zle -N down-line-or-beginning-search
 
-      ZVM_INIT_MODE=sourcing
+        ZVM_INIT_MODE=sourcing
 
-    '';
+        zmodload -i zsh/complist
 
-    initExtra = ''
-      # function zvm_after_init {
-        zvm_bindkey viins '^[[A' up-line-or-beginning-search
-        zvm_bindkey viins '^[[B' down-line-or-beginning-search
-        zvm_bindkey viins '^P' up-line-or-beginning-search
-        zvm_bindkey viins '^N' down-line-or-beginning-search
-        zvm_bindkey vicmd 'k' up-line-or-beginning-search
-        zvm_bindkey vicmd 'j' down-line-or-beginning-search
+        WORDCHARS='''
 
-        zvm_bindkey viins '^[3;5~' delete-char
-        zvm_bindkey vicmd '^[3;5~' delete-char
-     # }
-    '';
+        unsetopt menu_complete   # do not autoselect the first completion entry
+        unsetopt flowcontrol
+        setopt auto_menu         # show completion menu on successive tab press
+        setopt complete_in_word
+        setopt always_to_end
 
-    plugins = with zshPlugins; [
+        bindkey -M menuselect '^o' accept-and-infer-next-history
+        zstyle ':completion:*:*:*:*:*' menu select
+
+        # disable case sensitive completion
+        zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+
+
+        autoload -Uz compinit && compinit
+      '';
+
+    initExtra =
+      /*
+      zsh
+      */
+      ''
+         # function zvm_after_init {
+           # zvm_bindkey viins '^[[A' up-line-or-beginning-search
+           # zvm_bindkey viins '^[[B' down-line-or-beginning-search
+           zvm_bindkey viins '^P' up-line-or-beginning-search
+           zvm_bindkey viins '^N' down-line-or-beginning-search
+           zvm_bindkey vicmd 'k' up-line-or-beginning-search
+           zvm_bindkey vicmd 'j' down-line-or-beginning-search
+
+           # zvm_bindkey viins '^P' up-line-or-history
+           # zvm_bindkey viins '^N' down-line-or-history
+           #
+           # zvm_bindkey viins '\ek' up-line-or-search
+           # zvm_bindkey viins '\ej' down-line-or-select
+
+           zvm_bindkey viins '^[3;5~' delete-char
+           zvm_bindkey vicmd '^[3;5~' delete-char
+        # }
+      '';
+
+    plugins = with pkgs.zshPlugins; [
       # any-nix-shell
       # wakatime-zsh-plugin
-      zsh-autocomplete
-      dug
-      fast-syntax-highlighting
+      # dug
+      # ing
+      # isup
+      # please
+      # slowcat
+      # tailf
+
       just-completions
-      ing
-      isup
-      nix-zsh-completions
-      please
-      slowcat
-      tailf
-      zsh-autosuggestions
+      # nix-zsh-completions
       zsh-completions
+
+      fast-syntax-highlighting
+      # zsh-autocomplete
+      zsh-autosuggestions
       zsh-vi-mode
     ];
   };

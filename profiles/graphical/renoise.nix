@@ -1,21 +1,17 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     (
-      (renoise.override {releasePath = ../unfree/rns_321_linux_x86_64.tar.gz;}).overrideAttrs (orig: rec {
-        extraBuildInputs = [freetype webkitgtk gtk3 glib.out];
+      (renoise.override { releasePath = ../unfree/rns_321_linux_x86_64.tar.gz; }).overrideAttrs (orig: rec {
+        extraBuildInputs = [ freetype webkitgtk gtk3 glib.out ];
 
-        installPhase =
-          /*
-          sh
-          */
-          ''
-            ${orig.installPhase}
+        installPhase = ''
+          ${orig.installPhase}
 
             for path in ${toString extraBuildInputs}; do
               echo $path
               ln -s $path/lib/*.so* $out/lib/
             done
-          '';
+        '';
       })
     )
   ];

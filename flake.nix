@@ -6,52 +6,61 @@
   nixConfig.extra-trusted-public-keys = "nrdxp.cachix.org-1:Fc5PSqY2Jm1TrWfm88l6cvGWwz3s93c6IOifQWnhNW4= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
 
   inputs = {
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
 
     # Track channels with commits tested and built by hydra
-    nixos.url = "github:nixos/nixpkgs/nixos-22.11";
-    latest.url = "github:nixos/nixpkgs/nixos-unstable";
-    # For darwin hosts: it can be helpful to track this darwin-specific stable
-    # channel equivalent to the `nixos-*` channels for NixOS. For one, these
-    # channels are more likely to provide cached binaries for darwin systems.
-    # But, perhaps even more usefully, it provides a place for adding
-    # darwin-specific overlays and packages which could otherwise cause build
-    # failures on Linux systems.
-    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-22.11-darwin";
 
+    nixos.url = "github:nixos/nixpkgs/nixos-23.05";
+
+    latest.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-darwin-stable.url = "github:NixOS/nixpkgs/nixpkgs-23.05-darwin";
+
+    # Cheap instantiation of just the NixPkgs lib
+    nixlib.url = "github:nix-community/nixpkgs.lib";
+
+    # Filesystem-based module system for Nix
+    haumea.url = "github:nix-community/haumea/v0.2.1";
+    haumea.inputs.nixpkgs.follows = "nixlib";
+
+    # Deprecated.  Moving to flake.parts and/or haumea
     digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixos";
     digga.inputs.nixlib.follows = "nixos";
     digga.inputs.home-manager.follows = "home";
     digga.inputs.deploy.follows = "deploy";
+    digga.inputs.flake-utils-plus.follows = "flake-utils-plus";
 
-    home.url = "github:nix-community/home-manager/release-22.11";
+    flake-utils-plus.url = "github:ravensiris/flake-utils-plus/ravensiris/fix-devshell-legacy-packages";
+
+    # Home Manager
+    home.url = "github:nix-community/home-manager/release-23.05";
     home.inputs.nixpkgs.follows = "nixos";
 
+    # Nix-Darwin
     darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-darwin-stable";
 
     deploy.url = "github:serokell/deploy-rs";
     deploy.inputs.nixpkgs.follows = "nixos";
 
+    # Support for age-encrypted secrets
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixos";
+    agenix.inputs.home-manager.follows = "home";
 
+    # Local package updater
     nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixos";
 
-    naersk.url = "github:nmattia/naersk";
-    naersk.inputs.nixpkgs.follows = "nixos";
+    # naersk.url = "github:nmattia/naersk";
+    # naersk.inputs.nixpkgs.follows = "nixos";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    # Use a specific commit ref until nix-community/nixos-generators#184 is merged
-    nixos-generators.url = "github:nix-community/nixos-generators?rev=e2f624e7c5a292bf4e04b34d628afa0a29a587a3";
+    nixos-generators.url = "github:nix-community/nixos-generators";
 
-    # nil.url = "github:oxalica/nil";
+    nil.url = "github:oxalica/nil/2023-05-09";
 
     # fork of github:kamadorueda/alejandra with container padding
     alejandra.url = "github:rummik/alejandra/pad-non-empty-containers";
@@ -59,12 +68,21 @@
 
     # nix-colors.url = "github:misterio77/nix-colors";
 
-    # neovim.url = "github:neovim/neovim/v0.8.1?dir=contrib";
-    # neovim.inputs.nixpkgs.follows = "nixpkgs";
-
     # Personal fork of github:pta2002/nixvim
-    nixvim.url = "github:rummik/nixvim/rmk-patched";
-    nixvim.inputs.nixpkgs.follows = "nixpkgs";
+    # nixvim.url = "github:rummik/nixvim/rmk-patched";
+    nixvim.url = "github:pta2002/nixvim";
+    nixvim.inputs.nixpkgs.follows = "nixos";
+
+    nix-alien.url = "github:thiagokokada/nix-alien";
+    nix-alien.inputs.nixpkgs.follows = "nixos";
+
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixos";
+
+    # Plasma configuration manager
+    plasma-manager.url = "github:pjones/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixos";
+    plasma-manager.inputs.home-manager.follows = "home";
   };
 
   outputs = {
@@ -78,38 +96,37 @@
     nvfetcher,
     deploy,
     nixpkgs,
-    # nix-colors,
-    # neovim,
-    nixvim,
+    alejandra,
+    nil,
+    nix-alien,
+    plasma-manager,
     ...
   } @ inputs:
     digga.lib.mkFlake
     {
       inherit self inputs;
 
-      channelsConfig = {allowUnfree = true;};
+      channelsConfig = { allowUnfree = true; };
 
       channels = {
         nixos = {
-          imports = [(digga.lib.importOverlays ./overlays)];
+          imports = [ (digga.lib.importOverlays ./overlays) ];
           overlays = [];
         };
         nixpkgs-darwin-stable = {
-          imports = [(digga.lib.importOverlays ./overlays)];
+          imports = [ (digga.lib.importOverlays ./overlays) ];
           overlays = [
             # TODO: restructure overlays directory for per-channel overrides
             # `importOverlays` will import everything under the path given
-            (channels: final: prev:
-              {
-                inherit (channels.latest) mas;
-              }
-              // prev.lib.optionalAttrs true {})
+            (channels: final: prev: {
+              inherit (channels.latest) mas;
+            })
           ];
         };
         latest = {};
       };
 
-      lib = import ./lib {lib = digga.lib // nixos.lib;};
+      lib = import ./lib { lib = digga.lib // nixos.lib; };
 
       sharedOverlays = [
         (final: prev: {
@@ -120,10 +137,11 @@
         })
 
         nur.overlay
-        agenix.overlay
-        # neovim.overlay
-        nvfetcher.overlay
         alejandra.overlay
+        nil.overlays.nil
+        agenix.overlays.default
+        nvfetcher.overlays.default
+        nix-alien.overlays.default
 
         (import ./pkgs)
       ];
@@ -132,18 +150,19 @@
         hostDefaults = {
           system = "x86_64-linux";
           channelName = "nixos";
-          imports = [(digga.lib.importExportableModules ./modules)];
+          imports = [ (digga.lib.importExportableModules ./modules) ];
           modules = [
-            {lib.our = self.lib;}
+            { lib.our = self.lib; }
             digga.nixosModules.bootstrapIso
             digga.nixosModules.nixConfig
             home.nixosModules.home-manager
             agenix.nixosModules.age
+            inputs.nix-ld.nixosModules.nix-ld
             { system.stateVersion = "21.05"; }
           ];
         };
 
-        imports = [(digga.lib.importHosts ./hosts/nixos)];
+        imports = [ (digga.lib.importHosts ./hosts/nixos) ];
         hosts = {
           # set host-specific properties here
           NixOS = {};
@@ -155,8 +174,8 @@
               users = digga.lib.rakeLeaves ./users;
             };
           suites = with profiles; {
-            base = [hosts core.nixos users.rummik users.root];
-            graphical = [graphical games];
+            base = [ hosts core.nixos users.rummik users.root ];
+            graphical = [ graphical games ];
           };
         };
       };
@@ -165,16 +184,16 @@
         hostDefaults = {
           system = "x86_64-darwin";
           channelName = "nixpkgs-darwin-stable";
-          imports = [(digga.lib.importExportableModules ./modules)];
+          imports = [ (digga.lib.importExportableModules ./modules) ];
           modules = [
-            {lib.our = self.lib;}
+            { lib.our = self.lib; }
             digga.darwinModules.nixConfig
             home.darwinModules.home-manager
             agenix.nixosModules.age
           ];
         };
 
-        imports = [(digga.lib.importHosts ./hosts/darwin)];
+        imports = [ (digga.lib.importHosts ./hosts/darwin) ];
         hosts = {
           # set host-specific properties here
           Mac = {};
@@ -186,35 +205,40 @@
               users = digga.lib.rakeLeaves ./users;
             };
           suites = with profiles; {
-            base = [core.darwin users.darwin];
+            base = [ core.darwin users.darwin ];
           };
         };
       };
 
       home = {
-        imports = [(digga.lib.importExportableModules ./users/modules)];
+        imports = [ (digga.lib.importExportableModules ./users/modules) ];
+
         modules = [
-          nixvim.homeManagerModules.nixvim
+          inputs.nixvim.homeManagerModules.nixvim
+          # todo: only enable this on linux
+          plasma-manager.homeManagerModules.plasma-manager
           # nix-colors.homeManagerModule
           { home.stateVersion = "21.05"; }
         ];
+
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
-          suites = with profiles; let
-            inherit (profiles) nixvim;
-          in rec {
-            base = [direnv fzf git htop ssh tmux zsh starship neovim];
-            graphical = [alacritty firefox kitty obs-studio vscode wallpaper watson];
-            neovim = [
-              nixvim.conf
-              nixvim.lang.cxx
-              nixvim.lang.go
-              nixvim.lang.nix
-              nixvim.lang.python
-              nixvim.lang.web
+          suites = with profiles; rec {
+            base = [ xdg direnv fzf git htop ssh tmux shells.zsh shells.starship shells.fish neovim watson ];
+            graphical = [ alacritty firefox kitty obs-studio vscode wallpaper ];
+            neovim = with profiles.nixvim; [
+              conf
+              lang.cxx
+              # lang.dart
+              lang.go
+              lang.nix
+              lang.python
+              lang.web
             ];
+            plasma-desktop = with plasma; [ bismuth ];
           };
         };
+
         users = {
           # TODO: does this naming convention still make sense with darwin support?
           #
@@ -231,15 +255,16 @@
           # it could just be left to the developer to determine what's
           # appropriate. after all, configuring these hm users is one of the
           # first steps in customizing the template.
-          nixos = {suites, ...}: {imports = suites.base;};
-          darwin = {suites, ...}: {imports = suites.base;};
+          nixos = { suites, ... }: { imports = suites.base; };
+          darwin = { suites, ... }: { imports = suites.base; };
+          root = { profiles, ... }: { imports = [ profiles.nixvim.conf profiles.nixvim.lang.nix ]; };
           rummik = {
             suites,
             profiles,
             hostName,
             ...
           }: {
-            imports = suites.base ++ suites.graphical ++ [profiles.git-users.rummik];
+            imports = suites.base ++ suites.graphical ++ [ profiles.git-users.rummik ];
           };
         }; # digga.lib.importers.rakeLeaves ./users/hm;
       };
@@ -248,13 +273,14 @@
 
       # TODO: similar to the above note: does it make sense to make all of
       # these users available on all systems?
-      homeConfigurations =
-        digga.lib.mergeAny
+      homeConfigurations = builtins.foldl' digga.lib.mergeAny {} [
+        # (builtins.mapAttrs (_: config: home.lib.homeManagerConfiguration config) home.users)
         (digga.lib.mkHomeConfigurations self.darwinConfigurations)
-        (digga.lib.mkHomeConfigurations self.nixosConfigurations);
+        (digga.lib.mkHomeConfigurations self.nixosConfigurations)
+      ];
 
       deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {};
 
-      outputsBuilder = channels: {formatter = channels.latest.treefmt;};
+      outputsBuilder = channels: { formatter = channels.latest.treefmt; };
     };
 }

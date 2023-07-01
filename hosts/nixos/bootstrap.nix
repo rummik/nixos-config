@@ -28,5 +28,5 @@
   # isoImage.squashfsCompression = "zstd -Xcompression-level 6";
 
   # Required, but will be overridden in the resulting installer ISO.
-  fileSystems."/" = {device = "/dev/disk/by-label/nixos";};
+  fileSystems."/" = { device = "/dev/disk/by-label/nixos"; };
 }

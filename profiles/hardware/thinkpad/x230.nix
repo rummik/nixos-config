@@ -1,4 +1,4 @@
-{lib, ...}: {
+{ lib, ... }: {
   boot.initrd.availableKernelModules = [
     "xhci_pci"
     "ehci_pci"
@@ -8,7 +8,7 @@
     "sdhci_pci"
   ];
 
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [];
 
   boot.kernelParams = [
@@ -25,7 +25,7 @@
   powerManagement.powertop.enable = true;
 
   services.xserver = {
-    videoDrivers = ["modesetting"];
+    videoDrivers = [ "modesetting" ];
     useGlamor = true;
 
     deviceSection =

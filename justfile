@@ -9,6 +9,7 @@ set dotenv-load
 nix_build_options := env_var_or_default('NIX_BUILD_OPTIONS', '')
 nvfetcher_options := env_var_or_default('NVFETCHER_OPTIONS', '')
 
+
 @_default:
   just --list --unsorted
 
@@ -150,6 +151,9 @@ update-pkgs: _nvfetcher
 update-inputs:
   nix flake update
   nix flake lock
+
+# Update inputs and pkgs
+update: update-inputs update-pkgs
 
 # Dry run for Home Manager and NixOS/Nix-Darwin
 check:

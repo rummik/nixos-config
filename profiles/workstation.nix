@@ -12,7 +12,7 @@
 
     profiles.virtualisation.binfmt
     profiles.virtualisation.docker
-    profiles.virtualisation.virtualbox
+    # profiles.virtualisation.virtualbox
   ];
 
   environment.systemPackages = with pkgs; [
@@ -38,9 +38,7 @@
   programs.adb.enable = true;
 
   services.udev.extraRules =
-    /*
-    udevrules
-    */
+    # udevrules
     ''
       ACTION=="add", SUBSYSTEM=="usb", \
         ENV{DEVTYPE}=="usb_interface", \

@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+{ pkgs, ... }: let
   inherit (pkgs) tmuxPlugins tmux;
 
   defaultPrimaryColor = "green";
@@ -27,9 +27,7 @@ in {
     keyMode = "vi";
 
     extraConfig =
-      /*
-      tmux
-      */
+      # tmux
       ''
         # Enable mouse support
         set -g mouse on
@@ -42,6 +40,17 @@ in {
         %if #{==:$COLORTERM,truecolor}
           set -ga terminal-overrides ",alacritty*:Tc"
         %endif
+        #
+        # set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+        # set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+        # TERM options
+        set -g default-terminal "tmux-256color" # This is the correct option.
+        # set -g default-terminal "xterm-256color"   # Centos 7.7 does not have tmux terminfo so we need to use xterm-256color. (DO NOT use screen-256color)
+        set -ga terminal-overrides ",*256col*:Tc"  # true colous support
+        set -as terminal-overrides ',*:sitm=\E[3m' # Italics support for older ncurses
+        set -as terminal-overrides ',*:smxx=\E[9m' # Strikeout
+        set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+        set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
 
         # Use system prefix
         %if #{&&,#{!=:$tmuxPrefixKey,},#{!=:C-$tmuxPrefixKey,#{prefix}}}
@@ -83,9 +92,7 @@ in {
       {
         plugin = inlineScript "status line";
         extraConfig =
-          /*
-          tmux
-          */
+          # tmux
           ''
             set -g status-left "[#S] #h "
 
@@ -100,20 +107,18 @@ in {
           '';
       }
 
-      {plugin = yank;}
-      {plugin = open;}
-      {plugin = sensible;}
-      {plugin = pain-control;}
-      {plugin = battery;}
-      {plugin = sidebar;}
+      { plugin = yank; }
+      { plugin = open; }
+      { plugin = sensible; }
+      { plugin = pain-control; }
+      { plugin = battery; }
+      { plugin = sidebar; }
 
       {
         plugin = inlineScript "remap split";
 
         extraConfig =
-          /*
-          tmux
-          */
+          # tmux
           ''
             unbind "-"
             unbind "_"
@@ -129,9 +134,7 @@ in {
         plugin = resurrect-patched;
 
         extraConfig =
-          /*
-          tmux
-          */
+          # tmux
           ''
             # need to figure out how to make this work on mac
             set -g @resurrect-save-command-strategy "linux_procfs"
@@ -147,9 +150,7 @@ in {
         plugin = continuum-patched;
 
         extraConfig =
-          /*
-          tmux
-          */
+          # tmux
           ''
             set -g @continuum-save-interval "5"
             set -g @continuum-restore "on"

@@ -1,16 +1,43 @@
 # nvfetcher.toml
 [manix]
 src.git = "https://github.com/mlvzk/manix"
-fetch.github = "mlvzk/manix"
+fetch.git = "https://github.com/mlvzk/manix"
 
 ### Nixpkgs {{{ ###
 
 [pass-secret-service]
 src.git = "https://github.com/mdellweg/pass_secret_service"
-fetch.github = "mdellweg/pass_secret_service"
+fetch.git = "https://github.com/mdellweg/pass_secret_service"
+
+[home-assistant-desktop]
+src.git = "https://github.com/iprodanovbg/homeassistant-desktop"
+fetch.github = "iprodanovbg/homeassistant-desktop"
+
+### Prusa-Slicer {{{ ###
+[prusa-slicer]
+src.git = "https://github.com/prusa3d/PrusaSlicer"
+fetch.github = "prusa3d/PrusaSlicer"
+fetch.release = "version_2.6.0-beta4"
+
+[prusa-wxwidgets]
+src.git = "https://github.com/prusa3d/wxWidgets"
+fetch.github = "prusa3d/wxWidgets"
+fetch.branch = "v3.2.0-patched"
+
+[nanosvg-fltk]
+src.git = "https://github.com/fltk/nanosvg"
+fetch.github = "fltk/nanosvg"
+### }}} ###
 
 ### }}} ###
 
+### Fish Plugins {{{ ###
+
+[foreign-env]
+src.git = "https://github.com/oh-my-fish/plugin-foreign-env"
+fetch.git = "https://github.com/oh-my-fish/plugin-foreign-env"
+
+### }}} ###
 
 ### Zsh Plugins {{{ ###
 
@@ -21,7 +48,7 @@ passthru = { file = "rummik.zsh-theme" }
 
 [any-nix-shell]
 src.git = "https://github.com/haslersn/any-nix-shell"
-fetch.github = "haslersn/any-nix-shell"
+fetch.git = "https://github.com/haslersn/any-nix-shell"
 
 [dug]
 src.git = "https://gitlab.com/rummik/zsh/dug"
@@ -29,7 +56,7 @@ fetch.git = "https://gitlab.com/rummik/zsh/dug"
 
 [fast-syntax-highlighting]
 src.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
-fetch.github = "zdharma-continuum/fast-syntax-highlighting"
+fetch.git = "https://github.com/zdharma-continuum/fast-syntax-highlighting"
 
 [ing]
 src.git = "https://gitlab.com/rummik/zsh/ing"
@@ -53,57 +80,57 @@ fetch.git = "https://gitlab.com/rummik/zsh/tailf"
 
 [wakatime-zsh-plugin]
 src.git = "https://github.com/sobolevn/wakatime-zsh-plugin"
-fetch.github = "sobolevn/wakatime-zsh-plugin"
+fetch.git = "https://github.com/sobolevn/wakatime-zsh-plugin"
 passthru = { file = "wakatime.plugin.zsh" }
 
 [zsh-autocomplete]
 src.git = "https://github.com/marlonrichert/zsh-autocomplete"
-fetch.github = "marlonrichert/zsh-autocomplete"
+fetch.git = "https://github.com/marlonrichert/zsh-autocomplete"
 
 [zsh-autosuggestions]
 src.git = "https://github.com/zsh-users/zsh-autosuggestions"
-fetch.github = "zsh-users/zsh-autosuggestions"
+fetch.git = "https://github.com/zsh-users/zsh-autosuggestions"
 
 [zsh-completions]
 src.git = "https://github.com/zsh-users/zsh-completions"
-fetch.github = "zsh-users/zsh-completions"
+fetch.git = "https://github.com/zsh-users/zsh-completions"
 
 [zsh-vi-mode]
 src.git = "https://github.com/jeffreytse/zsh-vi-mode"
-fetch.github = "jeffreytse/zsh-vi-mode"
+fetch.git = "https://github.com/jeffreytse/zsh-vi-mode"
 
 ### }}} ###
 
-
 ### Neovim Plugins {{{ ###
+
+[lspsaga-nvim]
+src.github = "nvimdev/lspsaga.nvim"
+fetch.git = "https://github.com/nvimdev/lspsaga.nvim"
 
 [nvim-session-manager]
 src.git = "https://github.com/Shatur/neovim-session-manager"
-fetch.github = "Shatur/neovim-session-manager"
+fetch.git = "https://github.com/Shatur/neovim-session-manager"
 
 [nvim-treesitter]
-# src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
-# fetch.github = "nvim-treesitter/nvim-treesitter"
-src.git = "https://github.com/figsoda/nvim-treesitter"
-src.branch = "nix"
-fetch.github = "figsoda/nvim-treesitter"
+src.git = "https://github.com/nvim-treesitter/nvim-treesitter"
+fetch.git = "https://github.com/nvim-treesitter/nvim-treesitter"
 
 [nvim-treesitter-textobjects]
 src.git = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
-fetch.github = "nvim-treesitter/nvim-treesitter-textobjects"
+fetch.git = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
 
 [vim-just]
 src.git = "https://github.com/NoahTheDuke/vim-just"
-fetch.github = "NoahTheDuke/vim-just"
+fetch.git = "https://github.com/NoahTheDuke/vim-just"
 
 [vim-nix]
 src.git = "https://github.com/rummik/vim-nix"
 src.branch = "language-fencing"
-fetch.github = "rummik/vim-nix"
+fetch.git = "https://github.com/rummik/vim-nix"
 
 [vim-workspace]
 src.git = "https://github.com/thaerkh/vim-workspace"
-fetch.github = "thaerkh/vim-workspace"
+fetch.git = "https://github.com/thaerkh/vim-workspace"
 
 ### }}} ###
 

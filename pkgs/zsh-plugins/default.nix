@@ -3,14 +3,23 @@
   pkgs,
   sources,
 }: let
-  buildZshPlugin =
-    { file ? null, name ? pname, pname ? null, script ? null,
-      src ? pkgs.writeTextDir "${lib.getName name}.plugin.zsh" script, ... }:
-    {
-      src = toString src;
-      name = lib.getName name;
-      ${if isNull file then null else "file"} = toString file;
-    };
+  buildZshPlugin = {
+    file ? null,
+    name ? pname,
+    pname ? null,
+    script ? null,
+    src ? pkgs.writeTextDir "${lib.getName name}.plugin.zsh" script,
+    ...
+  }: {
+    src = toString src;
+    name = lib.getName name;
+    ${
+      if file == null
+      then null
+      else "file"
+    } =
+      toString file;
+  };
 in {
   themes.rummik = buildZshPlugin sources.zsh-theme-rummik;
 
@@ -40,7 +49,7 @@ in {
   tailf = buildZshPlugin sources.tailf;
   wakatime-zsh-plugin = buildZshPlugin sources.wakatime-zsh-plugin;
   zsh-autocomplete = buildZshPlugin sources.zsh-autocomplete;
-  zsh-autosuggestions = buildZshPlugin sources.zsh-autosuggestions;
+  zsh-autosuggestions = buildZshPlugin pkgs.zsh-autosuggestions;
   zsh-completions = buildZshPlugin sources.zsh-completions;
   zsh-vi-mode = buildZshPlugin sources.zsh-vi-mode;
 }

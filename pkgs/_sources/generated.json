@@ -1,7 +1,7 @@
 {
     "any-nix-shell": {
         "cargoLocks": null,
-        "date": "2022-01-31",
+        "date": "2022-12-11",
         "extract": null,
         "name": "any-nix-shell",
         "passthru": null,
@@ -11,13 +11,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "haslersn",
-            "repo": "any-nix-shell",
-            "rev": "67d8b02e605684c46a12445e689cda0c88fe278e",
-            "sha256": "sha256-y9oOn1pDVPcY1ttWlTBZVptavgTwGQbADWpwe4yZG04=",
-            "type": "github"
+            "rev": "c8536fa43f0e8b506e9dd1a91e2f01ceccca0251",
+            "sha256": "sha256-dQd1/RYH/j3R7MgMoz3EZ2Nxf3XXYCTKxBvi+cvyV2g=",
+            "type": "git",
+            "url": "https://github.com/haslersn/any-nix-shell"
         },
-        "version": "67d8b02e605684c46a12445e689cda0c88fe278e"
+        "version": "c8536fa43f0e8b506e9dd1a91e2f01ceccca0251"
     },
     "dug": {
         "cargoLocks": null,
@@ -40,7 +39,7 @@
     },
     "fast-syntax-highlighting": {
         "cargoLocks": null,
-        "date": "2022-11-19",
+        "date": "2023-04-03",
         "extract": null,
         "name": "fast-syntax-highlighting",
         "passthru": null,
@@ -50,13 +49,51 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "zdharma-continuum",
-            "repo": "fast-syntax-highlighting",
-            "rev": "7c390ee3bfa8069b8519582399e0a67444e6ea61",
-            "sha256": "sha256-wLpgkX53wzomHMEpymvWE86EJfxlIb3S8TPy74WOBD4=",
+            "rev": "13d7b4e63468307b6dcb2dadf6150818f242cbff",
+            "sha256": "sha256-AmsexwVombgVmRvl4O9Kd/WbnVJHPTXETxBv18PDHz4=",
+            "type": "git",
+            "url": "https://github.com/zdharma-continuum/fast-syntax-highlighting"
+        },
+        "version": "13d7b4e63468307b6dcb2dadf6150818f242cbff"
+    },
+    "foreign-env": {
+        "cargoLocks": null,
+        "date": "2023-01-14",
+        "extract": null,
+        "name": "foreign-env",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "3ee95536106c11073d6ff466c1681cde31001383",
+            "sha256": "sha256-vyW/X2lLjsieMpP9Wi2bZPjReaZBkqUbkh15zOi8T4Y=",
+            "type": "git",
+            "url": "https://github.com/oh-my-fish/plugin-foreign-env"
+        },
+        "version": "3ee95536106c11073d6ff466c1681cde31001383"
+    },
+    "home-assistant-desktop": {
+        "cargoLocks": null,
+        "date": "2023-02-09",
+        "extract": null,
+        "name": "home-assistant-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iprodanovbg",
+            "repo": "homeassistant-desktop",
+            "rev": "ec49f76c2abf450de94cf5ced17358177a2f1649",
+            "sha256": "sha256-Fu54mGYkJn92803QJOOkyL63I1yGi30OFWTEi1Y2IcM=",
             "type": "github"
         },
-        "version": "7c390ee3bfa8069b8519582399e0a67444e6ea61"
+        "version": "ec49f76c2abf450de94cf5ced17358177a2f1649"
     },
     "ing": {
         "cargoLocks": null,
@@ -96,6 +133,25 @@
         },
         "version": "9f34b8dc1fe7641cf4d2dbe7fb5d7d1a297353c7"
     },
+    "lspsaga-nvim": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "lspsaga-nvim",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "v0.2.9",
+            "sha256": "sha256-yssNxTvMfu7rG+LN6UWRAL/GW1L23bbFsYd3OiXjb6I=",
+            "type": "git",
+            "url": "https://github.com/nvimdev/lspsaga.nvim"
+        },
+        "version": "v0.2.9"
+    },
     "manix": {
         "cargoLocks": null,
         "date": "2021-04-20",
@@ -108,17 +164,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "mlvzk",
-            "repo": "manix",
             "rev": "d08e7ca185445b929f097f8bfb1243a8ef3e10e4",
             "sha256": "sha256-GqPuYscLhkR5E2HnSFV4R48hCWvtM3C++3zlJhiK/aw=",
-            "type": "github"
+            "type": "git",
+            "url": "https://github.com/mlvzk/manix"
         },
         "version": "d08e7ca185445b929f097f8bfb1243a8ef3e10e4"
     },
     "nvim-session-manager": {
         "cargoLocks": null,
-        "date": "2022-11-13",
+        "date": "2023-05-19",
         "extract": null,
         "name": "nvim-session-manager",
         "passthru": null,
@@ -128,17 +183,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "Shatur",
-            "repo": "neovim-session-manager",
-            "rev": "24ceb4bfe666ca74f52ed3821a9f778c6324a84b",
-            "sha256": "sha256-iuADiGQ1fJLu8JAuHnSFUExfI6fGBMm+NV+HycIcLXg=",
-            "type": "github"
+            "rev": "fd92e73506601a48adb843cdc0a15f2e63513754",
+            "sha256": "sha256-WuxBjhwdQsgPq7rx2vKhNdpqkx2NU/PEw90F+YC8Q68=",
+            "type": "git",
+            "url": "https://github.com/Shatur/neovim-session-manager"
         },
-        "version": "24ceb4bfe666ca74f52ed3821a9f778c6324a84b"
+        "version": "fd92e73506601a48adb843cdc0a15f2e63513754"
     },
     "nvim-treesitter": {
         "cargoLocks": null,
-        "date": "2022-11-30",
+        "date": "2023-05-25",
         "extract": null,
         "name": "nvim-treesitter",
         "passthru": null,
@@ -148,17 +202,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "figsoda",
-            "repo": "nvim-treesitter",
-            "rev": "685e57be18072e0cc3f7255b70c44a33a33782ac",
-            "sha256": "sha256-KPgqG8XusILID6TSeRWLY/LLjsw4J7sqLX9ueRSzL3k=",
-            "type": "github"
+            "rev": "dae928b3bbbcdd3890c61549bdc4c50e1e0d3094",
+            "sha256": "sha256-3uogO3rSl3DUPXhpEg2DVo/YK7SR5w8B912dKv9Ki/M=",
+            "type": "git",
+            "url": "https://github.com/nvim-treesitter/nvim-treesitter"
         },
-        "version": "685e57be18072e0cc3f7255b70c44a33a33782ac"
+        "version": "dae928b3bbbcdd3890c61549bdc4c50e1e0d3094"
     },
     "nvim-treesitter-textobjects": {
         "cargoLocks": null,
-        "date": "2022-11-27",
+        "date": "2023-05-23",
         "extract": null,
         "name": "nvim-treesitter-textobjects",
         "passthru": null,
@@ -168,13 +221,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "nvim-treesitter",
-            "repo": "nvim-treesitter-textobjects",
-            "rev": "98476e7364821989ab9b500e4d20d9ae2c5f6564",
-            "sha256": "sha256-0s/omiZhjC93MCTkLqD+lQObcldh6nz8jfkOOhTUc78=",
-            "type": "github"
+            "rev": "95b76b95eff25e1e64f363938cd853852355d70a",
+            "sha256": "sha256-dmFJR1at2xtKMqBlh76sjcA5dSBEytZ3P6502QTONUg=",
+            "type": "git",
+            "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
         },
-        "version": "98476e7364821989ab9b500e4d20d9ae2c5f6564"
+        "version": "95b76b95eff25e1e64f363938cd853852355d70a"
     },
     "pass-secret-service": {
         "cargoLocks": null,
@@ -188,11 +240,10 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "mdellweg",
-            "repo": "pass_secret_service",
             "rev": "fadc09be718ae1e507eeb8719f3a2ea23edb6d7a",
             "sha256": "sha256-lrNU5bkG4/fMu5rDywfiI8vNHyBsMf/fiWIeEHug03c=",
-            "type": "github"
+            "type": "git",
+            "url": "https://github.com/mdellweg/pass_secret_service"
         },
         "version": "fadc09be718ae1e507eeb8719f3a2ea23edb6d7a"
     },
@@ -255,7 +306,7 @@
     },
     "vim-just": {
         "cargoLocks": null,
-        "date": "2022-11-02",
+        "date": "2023-04-21",
         "extract": null,
         "name": "vim-just",
         "passthru": null,
@@ -265,13 +316,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "NoahTheDuke",
-            "repo": "vim-just",
-            "rev": "838c9096d4c5d64d1000a6442a358746324c2123",
-            "sha256": "sha256-DSC47z2wOEXvo2kGO5JtmR3hyHPiYXrkX7MgtagV5h4=",
-            "type": "github"
+            "rev": "9fc9a1afaa9e3567b25f4141a01f6172a1992a0b",
+            "sha256": "sha256-O3HCNOVlo3MAkTQw622n5KTUIVPZd4HJvOXyDZbEWXI=",
+            "type": "git",
+            "url": "https://github.com/NoahTheDuke/vim-just"
         },
-        "version": "838c9096d4c5d64d1000a6442a358746324c2123"
+        "version": "9fc9a1afaa9e3567b25f4141a01f6172a1992a0b"
     },
     "vim-nix": {
         "cargoLocks": null,
@@ -285,17 +335,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "rummik",
-            "repo": "vim-nix",
             "rev": "0def8020f152a51c011a707680780dac61a8989a",
             "sha256": "sha256-Q+Jx6/MgeE2hsd/a6FqfXpAOaRcNymZW6t75hYCcH4E=",
-            "type": "github"
+            "type": "git",
+            "url": "https://github.com/rummik/vim-nix"
         },
         "version": "0def8020f152a51c011a707680780dac61a8989a"
     },
     "vim-workspace": {
         "cargoLocks": null,
-        "date": "2021-11-25",
+        "date": "2023-05-23",
         "extract": null,
         "name": "vim-workspace",
         "passthru": null,
@@ -305,13 +354,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "thaerkh",
-            "repo": "vim-workspace",
-            "rev": "c26b473f9b073f24bacecd38477f44c5cd1f5a62",
-            "sha256": "sha256-XV7opLyfkHIDO0+JJaO/x0za0gsHuklrzapTGdLHJmI=",
-            "type": "github"
+            "rev": "2218d346d30bcf251ef4c4675767394f8b1e91a3",
+            "sha256": "sha256-j5WJxmBHtuyeS2kD44ASZpJnMvDvA1Ge1u1E8u9F5xo=",
+            "type": "git",
+            "url": "https://github.com/thaerkh/vim-workspace"
         },
-        "version": "c26b473f9b073f24bacecd38477f44c5cd1f5a62"
+        "version": "2218d346d30bcf251ef4c4675767394f8b1e91a3"
     },
     "wakatime-zsh-plugin": {
         "cargoLocks": null,
@@ -327,17 +375,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "sobolevn",
-            "repo": "wakatime-zsh-plugin",
             "rev": "69c6028b0c8f72e2afcfa5135b1af29afb49764a",
             "sha256": "sha256-pA1VOkzbHQjmcI2skzB/OP5pXn8CFUz5Ok/GLC6KKXQ=",
-            "type": "github"
+            "type": "git",
+            "url": "https://github.com/sobolevn/wakatime-zsh-plugin"
         },
         "version": "69c6028b0c8f72e2afcfa5135b1af29afb49764a"
     },
     "zsh-autocomplete": {
         "cargoLocks": null,
-        "date": "2022-11-16",
+        "date": "2023-05-21",
         "extract": null,
         "name": "zsh-autocomplete",
         "passthru": null,
@@ -347,13 +394,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "marlonrichert",
-            "repo": "zsh-autocomplete",
-            "rev": "866c6610bfeea18b055001703822c9ffd92337f7",
-            "sha256": "sha256-9R48yD03CXPJ7UV4Lxnp7lq/7q1sa3aZoNhByC8yxW0=",
-            "type": "github"
+            "rev": "52e2e03ad5c9d56571be228f8b6a3131070286b9",
+            "sha256": "sha256-/6V6IHwB5p0GT1u5SAiUa20LjFDSrMo731jFBq/bnpw=",
+            "type": "git",
+            "url": "https://github.com/marlonrichert/zsh-autocomplete"
         },
-        "version": "866c6610bfeea18b055001703822c9ffd92337f7"
+        "version": "52e2e03ad5c9d56571be228f8b6a3131070286b9"
     },
     "zsh-autosuggestions": {
         "cargoLocks": null,
@@ -367,17 +413,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "zsh-users",
-            "repo": "zsh-autosuggestions",
             "rev": "a411ef3e0992d4839f0732ebeb9823024afaaaa8",
             "sha256": "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=",
-            "type": "github"
+            "type": "git",
+            "url": "https://github.com/zsh-users/zsh-autosuggestions"
         },
         "version": "a411ef3e0992d4839f0732ebeb9823024afaaaa8"
     },
     "zsh-completions": {
         "cargoLocks": null,
-        "date": "2022-11-26",
+        "date": "2023-05-24",
         "extract": null,
         "name": "zsh-completions",
         "passthru": null,
@@ -387,13 +432,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "zsh-users",
-            "repo": "zsh-completions",
-            "rev": "a09284a73443d4a0288c5a984c5adb5f55ace520",
-            "sha256": "sha256-Z+jFelPlH1tQsneLDnUZrnI8co/wo/kHo949WEVYxk4=",
-            "type": "github"
+            "rev": "744af1910b1baf1521df4a72e7b06f21eb35fe45",
+            "sha256": "sha256-jXlsB9Xz1sijATmQeMl7u9k+eYUaEdBi9N1ZkMgv4nk=",
+            "type": "git",
+            "url": "https://github.com/zsh-users/zsh-completions"
         },
-        "version": "a09284a73443d4a0288c5a984c5adb5f55ace520"
+        "version": "744af1910b1baf1521df4a72e7b06f21eb35fe45"
     },
     "zsh-theme-rummik": {
         "cargoLocks": null,
@@ -418,7 +462,7 @@
     },
     "zsh-vi-mode": {
         "cargoLocks": null,
-        "date": "2022-11-21",
+        "date": "2023-05-18",
         "extract": null,
         "name": "zsh-vi-mode",
         "passthru": null,
@@ -428,12 +472,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "jeffreytse",
-            "repo": "zsh-vi-mode",
-            "rev": "0e666689b6b636fee6a80564fd6c4cb02b8b590d",
-            "sha256": "sha256-lrnC+VyGLlq3oReF0MtHcQRanA8Av6fDyF8VUT8evrM=",
-            "type": "github"
+            "rev": "c4fc3a60d0c8ca9f435dd0e28cdc6ec42c4b7ad8",
+            "sha256": "sha256-6z3a/AemeoFcV4SBZ47JU8ifWIz2BsnLN8qV/DfSGoA=",
+            "type": "git",
+            "url": "https://github.com/jeffreytse/zsh-vi-mode"
         },
-        "version": "0e666689b6b636fee6a80564fd6c4cb02b8b590d"
+        "version": "c4fc3a60d0c8ca9f435dd0e28cdc6ec42c4b7ad8"
     }
 }

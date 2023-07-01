@@ -1,4 +1,4 @@
-{nur, ...}: {
+{ nur, ... }: {
   environment.systemPackages = [
     #nur.repos.rummik.immersed
   ];

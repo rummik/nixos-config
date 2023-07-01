@@ -27,7 +27,7 @@ in {
       pass
       # pass-secret-service
     ])
-    ++ (with plasma5Packages; [
+    ++ (with pkgs.plasma5Packages; [
       plasma-browser-integration
       filelight
       kate
@@ -40,12 +40,12 @@ in {
 
   services.printing = {
     enable = true;
-    drivers = [hplip];
+    drivers = [ pkgs.hplip ];
   };
 
   hardware.sane = {
     enable = true;
-    extraBackends = [hplipWithPlugin];
+    extraBackends = [ pkgs.hplipWithPlugin ];
     brscan4.enable = true;
     dsseries.enable = true;
     netConf = builtins.concatStringsSep "\n" [
@@ -83,17 +83,6 @@ in {
 
     settings = {
       General.Enable = "Source,Sink,Gateway,Control,Socket,Media";
-      /*
-        General = {
-        Enable = "Source,Sink,Gateway,Control,Socket,Media";
-        #Disable = "Headset";
-      };
-      */
-      /*
-        Headset = {
-        HFP = "true";
-      };
-      */
     };
   };
 
@@ -101,36 +90,11 @@ in {
 
   nixpkgs.config.pulseaudio = true;
 
-  hardware.pulseaudio = {
-    enable = true;
-    #package = pulseaudioFull;
-    #    extraModules = [ ];
-    #    extraConfig = ''
-    #     #.ifexists module-bluetooth-policy.so
-    #     #.nofail
-    #     #unload-module module-bluetooth-policy
-    #     #.endif
-    #     #.ifexists module-bluetooth-policy.so
-    #     #load-module module-bluetooth-policy auto_switch=false
-    #     #.endif
-    #     #.ifexists module-bluez5-device
-    #     #load-module module-bluez5-device a2dp_config=""
-    #     #.endif
-    #    '';
-  };
+  hardware.pulseaudio.enable = true;
 
   programs.noisetorch.enable = true;
 
   programs.gnupg.agent.enable = true;
-
-  /*
-  systemd.user.services.mpris-proxy = {
-  Unit.Description = "Mpris proxy";
-  Unit.After = [ "network.target" "sound.target" ];
-  Service.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
-  Install.WantedBy = [ "default.target" ];
-  };
-  */
 
   networking.firewall = {
     allowedTCPPortRanges = [

@@ -64,7 +64,7 @@
     chromium =
       (pkgs.chromium.override {
         # load-media-router-component-extension is required for Chromecast/Google Cast
-        commandLineArgs = builtins.replaceStrings ["\n"] [" "] ''
+        commandLineArgs = builtins.replaceStrings [ "\n" ] [ " " ] ''
           --load-media-router-component-extension=1
           --ignore-gpu-blacklist=1
           --enable-features=ViewsCastDialog

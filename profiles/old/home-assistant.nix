@@ -1,4 +1,4 @@
-{pkgs-unstable, ...}: {
+{ pkgs-unstable, ... }: {
   services.home-assistant = {
     enable = true;
 

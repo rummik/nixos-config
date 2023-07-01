@@ -9,9 +9,16 @@
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 in {
   # Sets nrdxp.cachix.org binary cache which just speeds up some builds
-  imports = [../cachix ../common.nix];
+  imports = [ ../cachix ../common.nix ];
 
   environment = {
+    # TODO: update /etc/profiles/per-user/$USER without a full rebuild?
+    profiles = [
+      # "$HOME/.nix-profile"
+      "/nix/var/nix/profiles/per-user/$USER/home-manager/home-path"
+      # "/etc/profiles/per-user/$USER"
+    ];
+
     # Selection of sysadmin tools that can come in handy
     systemPackages = with pkgs; [
       # TODO: must come from unstable channel
@@ -25,8 +32,11 @@ in {
       git
       bottom
       jq
+      yq
+      just
       manix
       moreutils
+      nix-alien
       nix-index
       nmap
       ripgrep
@@ -90,17 +100,17 @@ in {
     };
   };
 
-  fonts.fonts = with pkgs; [powerline-fonts dejavu_fonts];
+  fonts.fonts = with pkgs; [ powerline-fonts dejavu_fonts ];
 
   nix = {
     # Improve nix store disk usage
     gc.automatic = true;
 
     # Prevents impurities in builds
-    useSandbox = true;
+    settings.sandbox = true;
 
     # Give root user and wheel group special Nix privileges.
-    trustedUsers = ["root" "@wheel"];
+    settings.trusted-users = [ "root" "@wheel" ];
 
     # Generally useful nix option defaults
     extraOptions = ''

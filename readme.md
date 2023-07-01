@@ -1,20 +1,24 @@
-# *Kim's personal NixOS configs
+# \*Kim's personal NixOS configs
 
 Now with 100% more flake!
 
 This repository is home to the nix code that builds my systems.
 
-- *Allows unfree packages `nixpkgs.config.allowUnfree = true`*
+- _Allows unfree packages `nixpkgs.config.allowUnfree = true`_
 - Uses [digga][]
 - Makes use of [Home Manager][] to manage dotfiles
 - Compatible with [Nix-Darwin][] (probably; haven't used it in a while)
-- Uses VAM to handle loading Neovim plugins
-- Fenced syntax highlighting via a [modified version of vim-nix][vim-nix]
+- Uses [Nixvim][] to handle [Neovim configuration](users/profiles/nixvim)
+- ~~Fenced syntax highlighting via a [modified version of vim-nix][vim-nix]~~
+  - Has some injections with [nvim-treesitter][], which does not currently
+    support dynamic language injection with comment prefixes
 
-[Home Manager]: https://github.com/rycee/home-manager
-[Nix-Darwin]: https://github.com/LnL7/nix-darwin
+[home manager]: https://github.com/rycee/home-manager
+[nix-darwin]: https://github.com/LnL7/nix-darwin
 [vim-nix]: https://github.com/rummik/vim-nix/tree/language-fencing
 [digga]: https://github.com/divnix/digga
+[nixvim]: https://github.com/pta2002/nixvim/
+[nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 
 <!--
 ## Layout

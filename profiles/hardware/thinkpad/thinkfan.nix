@@ -1,4 +1,4 @@
-{lib, ...}: {
+{ lib, ... }: {
   services.thinkfan = {
     enable = true;
     levels = lib.mkDefault ''
@@ -14,9 +14,7 @@
   };
 
   boot.extraModprobeConfig =
-    /*
-    modconf
-    */
+    # modconf
     ''
       options thinkpad_acpi fan_control=1
     '';

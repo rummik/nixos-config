@@ -1,4 +1,4 @@
-{config, ...}: {
+{ config, ... }: {
   virtualisation.docker.enable = true;
 
   networking.networkmanager.unmanaged = [

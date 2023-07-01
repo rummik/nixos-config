@@ -36,9 +36,9 @@ with lib; let
   #     imap0 (i: value: "${mkOptionString prefix i} ${mkValueString value}") list
   #   );
 in {
-  disabledModules = ["programs/kitty.nix"];
+  disabledModules = [ "programs/kitty.nix" ];
 
-  meta.maintainers = with maintainers; [rummik];
+  meta.maintainers = with maintainers; [ rummik ];
 
   options.programs.kitty = {
     enable = mkEnableOption "kitty - the fast, featureful, GPU based terminal emulator";
@@ -1123,7 +1123,7 @@ in {
       };
 
       fontSize = mkOption {
-        type = with types; oneOf [float int];
+        type = with types; oneOf [ float int ];
         default = 11.0;
         description = "";
       };
@@ -1160,7 +1160,7 @@ in {
       };
 
       disableLigatures = mkOption {
-        type = types.enum ["always" "cursor" "never"];
+        type = types.enum [ "always" "cursor" "never" ];
         default = "never";
         description = "";
       };
@@ -1186,7 +1186,7 @@ in {
       };
 
       shape = mkOption {
-        type = types.enum ["block" "beam" "underline"];
+        type = types.enum [ "block" "beam" "underline" ];
         default = "block";
         description = "";
       };
@@ -1249,39 +1249,35 @@ in {
     };
 
     extraConfig = mkOption {
-      type = with types; attrsOf (oneOf [str bool int float]);
+      type = with types; attrsOf (oneOf [ str bool int float ]);
       default = {};
       description = "Extra config options";
     };
   };
 
   config = mkIf cfg.enable {
-    home.packages = [pkgs.kitty];
+    home.packages = [ pkgs.kitty ];
 
-    xdg.configFile."kitty/kitty.conf".text =
-      /*
-      conf
-      */
-      ''
-        # fonts {{{
-        ${attrsToKittyConfig "" (removeAttrs cfg.fonts ["symbolMap" "fontFeatures"])}
-        ${attrsToKittyConfig "symbol_map " cfg.fonts.symbolMap}
-        ${attrsToKittyFontFeatures cfg.fonts.fontFeatures}
-        # }}}
+    xdg.configFile."kitty/kitty.conf".text = ''
+      # fonts {{{
+      ${attrsToKittyConfig "" (removeAttrs cfg.fonts [ "symbolMap" "fontFeatures" ])}
+      ${attrsToKittyConfig "symbol_map " cfg.fonts.symbolMap}
+      ${attrsToKittyFontFeatures cfg.fonts.fontFeatures}
+      # }}}
 
-        # colors {{{
-        ${attrsToKittyConfig "cursor_" (removeAttrs (cfg.cursor // {_ = cfg.cursor.color;}) ["color" "colors"])}
-        ${attrsToKittyConfig "" (removeAttrs cfg.colorScheme ["color"])}
-        ${attrsToKittyConfig "color" cfg.colorScheme.color}
-        # }}}
+      # colors {{{
+      ${attrsToKittyConfig "cursor_" (removeAttrs (cfg.cursor // { _ = cfg.cursor.color; }) [ "color" "colors" ])}
+      ${attrsToKittyConfig "" (removeAttrs cfg.colorScheme [ "color" ])}
+      ${attrsToKittyConfig "color" cfg.colorScheme.color}
+      # }}}
 
-        # maps {{{
-        ${concatStringsSep "\n" (mapAttrsToList (k: v: "map ${k} ${v}") cfg.maps)}
-        # }}}
+      # maps {{{
+      ${concatStringsSep "\n" (mapAttrsToList (k: v: "map ${k} ${v}") cfg.maps)}
+      # }}}
 
-        # extra {{{
-        ${attrsToKittyConfig "" cfg.extraConfig}
-        # }}}
-      '';
+      # extra {{{
+      ${attrsToKittyConfig "" cfg.extraConfig}
+      # }}}
+    '';
   };
 }

@@ -1,30 +1,31 @@
-{pkgs, ...}: {
-  programs.nixvim = {
-    extraPlugins = [pkgs.vimPlugins.nvim-colorizer-lua];
-    extraConfigLua = ''
-      require 'colorizer'.setup {
-        filetypes = {
-          '*';
-          css = { css = true; };
-          scss = { css = true; };
-          sass = { css = true; };
-          less = { css = true; };
-          stylus = { css = true; };
-        };
+{
+  programs.nixvim.plugins.nvim-colorizer = {
+    enable = true;
 
-        user_default_options = {
-          RGB = false;
-          names = false;
-          RRGGBBAA = true;
-          AARRGGBB = true;
-        };
+    fileTypes =
+      let
+        css = { css = true; };
+      in
+      [
+        "*"
+        ({ language = "css"; } // css)
+        ({ language = "scss"; } // css)
+        ({ language = "sass"; } // css)
+        ({ language = "less"; } // css)
+        ({ language = "stylus"; } // css)
+      ];
 
-        buftypes = {
-          '*';
-          '!prompt';
-          '!popup';
-        };
-      }
-    '';
+    bufTypes = [
+      "*"
+      "!prompt"
+      "!popup"
+    ];
+
+    userDefaultOptions = {
+      RGB = false;
+      names = false;
+      RRGGBBAA = true;
+      AARRGGBB = true;
+    };
   };
 }

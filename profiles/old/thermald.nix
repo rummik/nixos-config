@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+{ pkgs, ... }: let
   nur-no-pkgs = import ../nix/nur.nix;
 in {
   imports = [

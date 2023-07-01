@@ -33,12 +33,14 @@ recognize_signal_code = false
 disabled = false
 
 [character]
-error_symbol = "[⟿](bright-red)"
+error_symbol = "[⟿ ](bright-red)"
 success_symbol = "[⟶](dimmed white)"
-vimcmd_symbol = "[⟼](dimmed white)"
+vimcmd_symbol = "[⟼ ](dimmed white)"
 vimcmd_replace_one_symbol = "[⟷](bright-purple)"
-vimcmd_replace_symbol = "[⟺](bright-purple)"
-vimcmd_visual_symbol = "[⟾](bright-cyan)"
+vimcmd_replace_symbol = "[⟺ ](bright-purple)"
+# vicmd_replace_symbol = "[ ](bright-purple)"
+# vicmd_replace_symbol = "[](bright-purple)"
+vimcmd_visual_symbol = "[⟾ ](bright-cyan)"
 
 [username]
 format = "[$user]($style)"
@@ -53,7 +55,7 @@ style = "#ff74ef"
 [directory]
 repo_root_style = "purple"
 style = "bright-black"
-read_only = " "
+read_only = " 󰌾"
 
 [time]
 disabled = false
@@ -79,7 +81,9 @@ conflicted = "[×](bright-red)"
 ahead = "[↑](bright-green)"
 behind = "[↓](bright-yellow)"
 diverged = "[↕](bright-red)"
-
+# 󰕚 󰕛 󰕜
+# cod:           
+# oct:          
 up_to_date = ""
 
 #clean = "[=](bright-green)"
@@ -110,73 +114,75 @@ disabled = false
 
 
 [battery]
-full_symbol = " "
-#charging_symbol = " "
-charging_symbol = " "
-discharging_symbol = " "
-unknown_symbol = " "
-empty_symbol = " "
-
+full_symbol = "󰁹 "
+#charging_symbol = "󰁹 "
+charging_symbol = "󰂅 "
+discharging_symbol = "󰁹 "
+# 󰂃 󱃌 󱃍
+unknown_symbol = "󰂑 "
+empty_symbol = "󰂎 "
+# 󱊦 󱊥 󱊤
+#         
 
 [[battery.display]]
 style = "bold red"
 threshold = 5
-discharging_symbol = " "
-charging_symbol = " " # missing charging_outline
+discharging_symbol = "󰂎 "
+charging_symbol = "󰢟 "
 
 [[battery.display]]
 style = "bold red"
 threshold = 15
-discharging_symbol = " "
-charging_symbol = " " # missing charging_10
+discharging_symbol = "󰁺 "
+charging_symbol = "󰢜 "
 
 [[battery.display]]
 style = "bold yellow"
 threshold = 25
-discharging_symbol = " "
-charging_symbol = " "
+discharging_symbol = "󰁻 "
+charging_symbol = "󰂆 "
 
 [[battery.display]]
 style = "bold yellow"
 threshold = 35
-discharging_symbol = " "
-charging_symbol = " "
+discharging_symbol = "󰁼 "
+charging_symbol = "󰂇 "
 
 [[battery.display]]
 style = "bold yellow"
 threshold = 45
-discharging_symbol = " "
-charging_symbol = " "
+discharging_symbol = "󰁽 "
+charging_symbol = "󰂈 "
 
 [[battery.display]]
 style = "bold green"
 threshold = 55
-discharging_symbol = " "
-charging_symbol = " " # missing charging_50
+discharging_symbol = "󰁾 "
+charging_symbol = "󰢝 "
 
 [[battery.display]]
 style = "bold green"
 threshold = 65
-discharging_symbol = " "
-charging_symbol = " "
+discharging_symbol = "󰁿 "
+charging_symbol = "󰂉 "
 
 [[battery.display]]
 style = "bold green"
 threshold = 75
-discharging_symbol = " "
-charging_symbol = " " # missing charging_70
+discharging_symbol = "󰂀 "
+charging_symbol = "󰢞 "
 
 [[battery.display]]
 style = "bold green"
 threshold = 85
-discharging_symbol = " "
-charging_symbol = " "
+discharging_symbol = "󰂁 "
+charging_symbol = "󰂊 "
 
 [[battery.display]]
 style = "bold green"
 threshold = 95
-discharging_symbol = " "
-charging_symbol = " "
+discharging_symbol = "󰂂 "
+charging_symbol = "󰂋 "
 
 
 [aws]
@@ -203,12 +209,14 @@ symbol = " "
 format = '\[[$symbol$environment]($style)\] '
 
 [crystal]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [daml]
 format = '\[[$symbol($version)]($style)\] '
 
 [dart]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [deno]
@@ -222,18 +230,19 @@ format = '\[[$symbol$context]($style)\] '
 format = '\[[$symbol($version)(🎯 $tfm)]($style)\] '
 
 [elixir]
-symbol = ""
+symbol = ""
 format = '\[[$symbol($version \(OTP $otp_version\))]($style)\] '
 
 [elm]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [erlang]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [gcloud]
-symbol = ""
+symbol = " "
 disabled = true
 format = '\[[$symbol$account(@$domain)(\($region\))]($style)\] '
 
@@ -242,31 +251,34 @@ symbol = ""
 format = '\[[$symbol($version)]($style)\] '
 
 [haskell]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [helm]
 format = '\[[$symbol($version)]($style)\] '
 
 [java]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [julia]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [kotlin]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [kubernetes]
+symbol = "󱃾 "
 format = '\[[$symbol$context( \($namespace\))]($style)\] '
 
 [lua]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [memory_usage]
-symbol = ""
+symbol = "󰍛 "
 disabled = false
 format = '\[$symbol[$ram( | $swap)]($style)\] '
 
@@ -274,11 +286,11 @@ format = '\[$symbol[$ram( | $swap)]($style)\] '
 format = '\[[$symbol$project]($style)\] '
 
 [nim]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [nodejs]
-symbol = ""
+symbol = "󰎙 "
 format = '\[[$symbol($version)]($style)\] '
 
 [ocaml]
@@ -288,24 +300,26 @@ format = '\[[$symbol($version)(\($switch_indicator$switch_name\))]($style)\] '
 format = '\[[$symbol$cloud(\($project\))]($style)\] '
 
 [package]
-symbol = ""
+symbol = "󰏗 "
 format = '\[[$symbol$version]($style)\] '
 
 [perl]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [php]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [pulumi]
 format = '\[[$symbol$stack]($style)\] '
 
 [purescript]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [python]
-symbol = ""
+symbol = " "
 format = '\[[${symbol}${pyenv_prefix}(${version})(\($virtualenv\))]($style)\] '
 
 [raku]
@@ -315,14 +329,15 @@ format = '\[[$symbol($version-$vm_version)]($style)\] '
 format = '\[[$symbol($version)]($style)\] '
 
 [ruby]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [rust]
-symbol = ""
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [scala]
+symbol = ""
 format = '\[[$symbol($version)]($style)\] '
 
 [spack]
@@ -332,9 +347,11 @@ format = '\[[$symbol$environment]($style)\] '
 format = '\[[as $symbol]\] '
 
 [swift]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '
 
 [terraform]
+symbol = " "
 format = '\[[$symbol$workspace]($style)\] '
 
 [vagrant]
@@ -344,4 +361,5 @@ format = '\[[$symbol($version)]($style)\] '
 format = '\[[$symbol($version)]($style)\] '
 
 [zig]
+symbol = " "
 format = '\[[$symbol($version)]($style)\] '

@@ -418,8 +418,8 @@ in {
         # The `double_click` and `triple_click` settings control the time
         # alacritty should wait for accepting multiple clicks as one double
         # or triple click.
-        double_click = {threshold = 300;};
-        triple_click = {threshold = 300;};
+        double_click = { threshold = 300; };
+        triple_click = { threshold = 300; };
 
         # If this is `true`, the cursor is temporarily hidden when typing.
         hide_when_typing = true;

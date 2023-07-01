@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   security.pam.u2f.enable = true;
   services.pcscd.enable = true;
 

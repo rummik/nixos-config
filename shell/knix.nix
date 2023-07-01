@@ -1,11 +1,15 @@
-{pkgs, ...}: let
+{ pkgs, ... }: let
   inherit
     (pkgs)
     alejandra
+    deadnix
     git-crypt
     just
     nil
+    nixfmt
+    nixpkgs-fmt
     shfmt
+    statix
     ;
 
   inherit
@@ -13,19 +17,28 @@
     prettier
     ;
 
-  pkgWithCategory = category: package: {inherit package category;};
+  pkgWithCategory = category: package: {
+    inherit package category;
+  };
 
   lsp = pkgWithCategory "language server";
   linter = pkgWithCategory "linter";
+  formatter = pkgWithCategory "formatter";
   general = pkgWithCategory "general commands";
 in {
   commands = [
     (general just)
     (general git-crypt)
 
-    (linter alejandra)
-    (linter prettier)
-    (linter shfmt)
+    (formatter alejandra)
+    (formatter nixfmt)
+    (formatter nixpkgs-fmt)
+
+    (linter deadnix)
+    (linter statix)
+
+    (formatter prettier)
+    (formatter shfmt)
 
     (lsp nil)
   ];

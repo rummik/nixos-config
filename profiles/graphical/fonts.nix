@@ -13,7 +13,10 @@ in
           fira
           fira-mono
           fira-code
-          nerdfonts
+          (nerdfonts.override { fonts = [
+            "FiraCode"
+            "FiraMono"
+          ]; })
           material-design-icons
           (optional isLinux emojione)
         ];

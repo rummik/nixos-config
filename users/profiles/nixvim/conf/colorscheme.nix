@@ -37,6 +37,11 @@ in {
     highlight.PmenuSel.fg = "black";
 
     highlight.Visual.bg = "#1f2335";
+
+    # highlight.BufferAlternate.bg = "#0000ff";
+    # highlight.BufferVisible.bg = "#ff0000";
+    # highlight.BufferInactive.bg = bg;
+    # highlight.BufferCurrent.bg = "#ffff00";
   };
 
   # programs.nixvim.plugins.bufferline.highlights = let

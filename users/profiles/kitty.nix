@@ -2,15 +2,21 @@
   pkgs,
   inputs,
   modulesPath,
+  lib,
   ...
-}: {
-  disabledModules = [
-    "${modulesPath}/programs/kitty.nix"
-  ];
+}: let
+  inherit (pkgs.stdenv) /* isDarwin */ isLinux;
+  mkIfLinux = lib.mkIf isLinux;
+  # mkIfDarwin = lib.mkIf isDarwin;
+in {
+  disabledModules = [ "${modulesPath}/programs/kitty.nix" ];
 
-  imports = [
-    ../modules/kitty.nix
-  ];
+  imports = [ ../modules/kitty.nix ];
+
+  programs.plasma.files.kdeglobals = mkIfLinux {
+    General.TerminalApplication = "kitty";
+    General.TerminalService = "kitty.desktop";
+  };
 
   programs.kitty = {
     enable = true;

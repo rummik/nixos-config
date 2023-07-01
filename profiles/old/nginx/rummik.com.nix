@@ -1,4 +1,4 @@
-{config, ...}: let
+{ config, ... }: let
   acmeOptions = {
     useACMEHost = "www.rummik.com";
     forceSSL = true;
@@ -22,7 +22,7 @@ in {
       default = true;
       enableACME = true;
       useACMEHost = null;
-      serverAliases = ["rummik.com"];
+      serverAliases = [ "rummik.com" ];
       root = "/home/rummik/public_html";
 
       extraConfig =
@@ -48,7 +48,7 @@ in {
   services.nginx.virtualHosts."src.rummik.com" =
     acmeOptions
     // {
-      serverAliases = ["git.rummik.com"];
+      serverAliases = [ "git.rummik.com" ];
 
       root = "/home/rummik/public_html/pub";
 

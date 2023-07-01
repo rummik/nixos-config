@@ -13,13 +13,18 @@ channels: final: prev: {
     signal-desktop
     starship
     deploy-rs
+    prusa-slicer
     ;
+
+  vaapiIntel = prev.vaapiIntel.override {
+    enableHybridCodec = true;
+  };
 
   haskellPackages =
     prev.haskellPackages.override
     (old: {
       overrides = prev.lib.composeExtensions (old.overrides or (_: _: {})) (hfinal: hprev: let
-        version = prev.lib.replaceChars ["."] [""] prev.ghc.version;
+        version = prev.lib.replaceChars [ "." ] [ "" ] prev.ghc.version;
       in {
         # same for haskell packages, matching ghc versions
         inherit

@@ -3,11 +3,11 @@
   pkgs,
   ...
 }: {
-  environment.systemPackages = with pkgs; [weechat aspell aspellDicts.en];
+  environment.systemPackages = with pkgs; [ weechat aspell aspellDicts.en ];
 
   nixpkgs.config.packageOverrides = pkgs: {
     weechat = pkgs.weechat.override {
-      configure = {availablePlugins, ...}: {
+      configure = { availablePlugins, ... }: {
         plugins = with availablePlugins; [
           perl
           tcl

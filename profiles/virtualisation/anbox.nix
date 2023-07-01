@@ -1,3 +1,3 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   virtualisation.anbox.enable = true;
 }

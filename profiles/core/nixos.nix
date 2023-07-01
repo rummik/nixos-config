@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -10,7 +11,14 @@
   ];
 
   # This is just a representation of the nix default
-  nix.systemFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+  nix.settings.system-features = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+
+  programs.fish.enable = true;
+
+  programs.command-not-found = {
+    enable = true;
+    dbPath = "${inputs.nixos}/programs.sqlite";
+  };
 
   environment = {
     # Selection of sysadmin tools that can come in handy
@@ -46,16 +54,14 @@
   };
 
   fonts.fontconfig.defaultFonts = {
-    monospace = ["DejaVu Sans Mono for Powerline"];
-    sansSerif = ["DejaVu Sans"];
+    monospace = [ "DejaVu Sans Mono for Powerline" ];
+    sansSerif = [ "DejaVu Sans" ];
   };
 
-  nix = {
-    # Improve nix store disk usage
-    autoOptimiseStore = true;
-    optimise.automatic = true;
-    allowedUsers = ["@wheel"];
-  };
+  # Improve nix store disk usage
+  nix.settings.auto-optimise-store = true;
+  nix.optimise.automatic = true;
+  nix.settings.allowed-users = [ "@wheel" ];
 
   programs.bash = {
     # Enable starship
@@ -84,7 +90,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   console = {
-    font = "Lat2-Terminus16";
+    # font = "Lat2-Terminus16";
     useXkbConfig = true;
   };
 
@@ -93,13 +99,9 @@
     xkbOptions = "caps:escape,compose:prsc";
   };
 
-  boot.extraModprobeConfig =
-    /*
-    modconf
-    */
-    ''
-      options usb-storage quirks=0bc2:ac30:u
-    '';
+  boot.extraModprobeConfig = ''
+    options usb-storage quirks=0bc2:ac30:u
+  '';
 
   environment.variables = {
     themePrimaryColor = lib.mkDefault "cyan";

@@ -33,4 +33,4 @@ let
 
   ciDrvs = lib.mapAttrs (_: system: filterSystems system) systemOutputs;
 in
-  (recurseIntoAttrsRecursive ciDrvs) // {shell = import ./shell.nix;}
+  (recurseIntoAttrsRecursive ciDrvs) // { shell = import ./shell.nix; }

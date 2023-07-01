@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   services.fwupd.enable = true;
-  environment.systemPackages = [pkgs.fwupd];
+  environment.systemPackages = [ pkgs.fwupd ];
 }

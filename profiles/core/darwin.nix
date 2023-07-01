@@ -1,5 +1,6 @@
 {
   self,
+  inputs,
   config,
   lib,
   pkgs,
@@ -43,7 +44,7 @@
     ];
 
     # Administrative users on Darwin are part of this group.
-    trustedUsers = ["@admin"];
+    trustedUsers = [ "@admin" ];
   };
 
   programs.bash = {

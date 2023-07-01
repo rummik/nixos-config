@@ -3,9 +3,7 @@
     enable = true;
 
     extraConfig =
-      /*
-      sshconfig
-      */
+      # sshconfig
       ''
         Include config_local
       '';

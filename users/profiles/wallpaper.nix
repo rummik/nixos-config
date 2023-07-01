@@ -1,5 +1,5 @@
-{
+{ self, ... }: {
   home.file.".background-image" = {
-    source = ../../profiles/graphical/wallpaper.png;
+    source = "${self}/profiles/graphical/wallpaper.png";
   };
 }

@@ -9,6 +9,12 @@ in {
     # Just going to limit this to x86_64 Linux
     enable = lib.mkIf (isLinux && isx86_64) true;
 
+    package = pkgs.firefox.override {
+      cfg = {
+        enableTridactylNative = true;
+      };
+    };
+
     # error: cannot build '/nix/store/...-source.drv' during evaluation because the option 'allow-import-from-derivation' is disabled
     # extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     #   auto-tab-discard
