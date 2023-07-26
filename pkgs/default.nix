@@ -13,8 +13,6 @@ final: prev: rec {
   #   '';
   # });
 
-  # prusa-slicer = prev.callPackage (import ./prusa-slicer.nix) {};
-
   fishPlugins =
     prev.fishPlugins
     // {

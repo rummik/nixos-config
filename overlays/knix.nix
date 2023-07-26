@@ -3,13 +3,10 @@ channels: final: prev: {
 
   inherit
     (channels.latest)
-    nil
     just
     nerdfonts
-    nixUnstable
-    neovim
-    neovim-unwrapped
-    vimPlugins
+    prusa-slicer
+    input-leap
     ;
 
   # discord = channels.latest.discord.override {

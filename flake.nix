@@ -9,8 +9,10 @@
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
 
-    # Track channels with commits tested and built by hydra
+    nix.url = "github:nixos/nix/2.17.0";
+    nix.inputs.nixpkgs.follows = "nixos";
 
+    # Track channels with commits tested and built by hydra
     nixos.url = "github:nixos/nixpkgs/nixos-23.05";
 
     latest.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -20,8 +22,10 @@
     nixlib.url = "github:nix-community/nixpkgs.lib";
 
     # Filesystem-based module system for Nix
-    haumea.url = "github:nix-community/haumea/v0.2.1";
+    haumea.url = "github:nix-community/haumea/v0.2.2";
     haumea.inputs.nixpkgs.follows = "nixlib";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     # Deprecated.  Moving to flake.parts and/or haumea
     digga.url = "github:divnix/digga";
@@ -35,7 +39,7 @@
 
     # Home Manager
     home.url = "github:nix-community/home-manager/release-23.05";
-    home.inputs.nixpkgs.follows = "nixos";
+    home.inputs.nixpkgs.follows = "nixlib";
 
     # Nix-Darwin
     darwin.url = "github:LnL7/nix-darwin";
@@ -46,12 +50,12 @@
 
     # Support for age-encrypted secrets
     agenix.url = "github:ryantm/agenix";
-    agenix.inputs.nixpkgs.follows = "nixos";
+    agenix.inputs.nixpkgs.follows = "nixlib";
     agenix.inputs.home-manager.follows = "home";
 
     # Local package updater
     nvfetcher.url = "github:berberman/nvfetcher";
-    nvfetcher.inputs.nixpkgs.follows = "nixos";
+    nvfetcher.inputs.nixpkgs.follows = "nixlib";
 
     # naersk.url = "github:nmattia/naersk";
     # naersk.inputs.nixpkgs.follows = "nixos";
@@ -60,7 +64,8 @@
 
     nixos-generators.url = "github:nix-community/nixos-generators";
 
-    nil.url = "github:oxalica/nil/2023-05-09";
+    nil.url = "github:oxalica/nil/59bcad0b13b5d77668c0c125fef71d7b41406d7a";
+    nil.inputs.nixpkgs.follows = "nixos";
 
     # fork of github:kamadorueda/alejandra with container padding
     alejandra.url = "github:rummik/alejandra/pad-non-empty-containers";
@@ -68,10 +73,11 @@
 
     # nix-colors.url = "github:misterio77/nix-colors";
 
-    # Personal fork of github:pta2002/nixvim
-    # nixvim.url = "github:rummik/nixvim/rmk-patched";
-    nixvim.url = "github:pta2002/nixvim";
+    nixvim.url = "github:nix-community/nixvim";
     nixvim.inputs.nixpkgs.follows = "nixos";
+
+    # neovim-flake.url = "github:neovim/neovim?dir=contrib";
+    # neovim-flake.inputs.nixpkgs.follows = "nixos";
 
     nix-alien.url = "github:thiagokokada/nix-alien";
     nix-alien.inputs.nixpkgs.follows = "nixos";
@@ -87,7 +93,9 @@
 
   outputs = {
     self,
+    nix,
     digga,
+    haumea,
     nixos,
     home,
     nixos-hardware,
@@ -104,7 +112,10 @@
   } @ inputs:
     digga.lib.mkFlake
     {
-      inherit self inputs;
+      inherit self;
+
+      # omit rust-overlay from nixpkgs inputs...
+      inputs = builtins.removeAttrs inputs [ "nil" "rust-overlay" ];
 
       channelsConfig = { allowUnfree = true; };
 
@@ -123,7 +134,9 @@
             })
           ];
         };
-        latest = {};
+        latest = {
+          overlays = [ nil.overlays.nil ];
+        };
       };
 
       lib = import ./lib { lib = digga.lib // nixos.lib; };
@@ -136,9 +149,9 @@
           });
         })
 
+        nix.overlays.default
         nur.overlay
         alejandra.overlay
-        nil.overlays.nil
         agenix.overlays.default
         nvfetcher.overlays.default
         nix-alien.overlays.default
@@ -279,7 +292,24 @@
         (digga.lib.mkHomeConfigurations self.nixosConfigurations)
       ];
 
-      deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {};
+      deploy.nodes = digga.lib.mkDeployNodes self.nixosConfigurations {
+        photon = {
+          # fastConnection = true;
+          magicRollback = false;
+          autoRollback = false;
+          # remoteBuild = true;
+        };
+        # photon = {
+        #   hostname = "photon.astorisk.home.arpa";
+        #   profilesOrder = [ "system" "rummik" ];
+        #   profiles.system.sshUser = "root";
+        #   profiles.rummik = {
+        #     user = "rummik";
+        #     sshUser = "rummik";
+        #     path = deploy.lib.x86_64-linux.activate.home-manager self.homeConfigurationsPortable.x86_64-linux.rummik;
+        #   };
+        # };
+      };
 
       outputsBuilder = channels: { formatter = channels.latest.treefmt; };
     };

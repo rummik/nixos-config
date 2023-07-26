@@ -2,7 +2,8 @@ let
   # set ssh public keys here for your system and user
   muon = builtins.readFile ./host-muon.pub;
   up = builtins.readFile ./host-up.pub;
-  hosts = [ muon up ];
+  photon = builtins.readFile ./host-photon.pub;
+  hosts = [ muon up photon ];
 
   rummik = builtins.readFile ./rummik.pub;
   users = [ rummik ];

@@ -10,20 +10,10 @@
     suites.base
     ++ suites.graphical
     ++ [
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-l13
-      profiles.hardware.thinkpad
-      profiles.hardware.powersave
-
       profiles.old.fwupd
       profiles.workstation
+      profiles.sshd
     ];
-
-  security.pam.loginLimits = [{
-    domain = "*";
-    type = "soft";
-    item = "nofile";
-    value = "8192";
-  }];
 
   environment.systemPackages = with pkgs; [
     discord
@@ -104,7 +94,7 @@
         pkgs.lib.mkForce [
           #libva
           #libva1
-          vaapiIntel
+          # vaapiIntel
           vaapiVdpau
           libvdpau-va-gl
           intel-media-driver
@@ -116,11 +106,11 @@
     kernelPackages = pkgs.linuxPackages_latest;
 
     blacklistedKernelModules = [
-      "thinkpad_acpi"
+      # "thinkpad_acpi"
     ];
 
     kernelModules = [
-      "kvm-intel"
+      # "kvm-intel"
       # "v4l2loopback"
     ];
 
@@ -136,35 +126,44 @@
     initrd = {
       availableKernelModules = [ "nvme_core" "nvme" ];
 
-      luks.devices.pv-muon = {
-        device = "/dev/disk/by-partuuid/321c7565-0cd1-4026-b017-4ca8253866b7";
+      luks.devices.pv-electron = {
+        device = "/dev/disk/by-id/wwn-0x5002538e40b257d1-part2";
+# luks-df9fc797-7e1d-4400-94b1-462d063bc0c4
         allowDiscards = true;
+        # fallbackToPassword = true;
+        # keyFile = "/pv-electron.key.bin";
       };
+
+      # secrets."/pv-electron.key.bin" = age.secrets.pv-electron.path;
     };
 
-    loader = {
-      systemd-boot.enable = true;
+    # loader = {
+    #   systemd-boot.enable = true;
+    #
+    #   efi = {
+    #     canTouchEfiVariables = true;
+    #     efiSysMountPoint = "/boot";
+    #   };
+    # };
 
-      efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot";
-      };
+    loader.grub = {
+      enable = true;
+      device = "/dev/disk/by-id/wwn-0x5002538e40b257d1";
+      enableCryptodisk = true;
+      # extraInitrd = /boot/initrd.keys.gz;
     };
   };
 
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/b1f60079-40e8-46ce-b1a3-193f064c2c28";
-      fsType = "ext4";
-    };
+  # age.secrets.pv-electron.file = "${self}/secrets/pv-electron";
 
-    "/boot" = {
-      device = "/dev/disk/by-partuuid/187f6a74-b1c5-4db2-bc7c-9cd8bd87e59c";
-      fsType = "vfat";
-    };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/796e3b3a-7189-4ea4-b39a-5b26d8fb47e1";
+    fsType = "ext4";
   };
 
-  swapDevices = [
-    { device = "/dev/disk/by-uuid/29e5b10e-2d85-4656-ba4f-2e4b90895efd"; }
-  ];
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/8b35a14f-6c0d-4c97-a4c4-cd594936f789";
+    fsType = "ext2";
+  };
 }

@@ -1,12 +1,7 @@
 {
-  config,
-  pkgs,
+  profiles,
   ...
 }: {
-  imports = [
-    ./misc/ssh.nix
-  ];
-
   boot.cleanTmpDir = true;
 
   networking.firewall.allowPing = true;

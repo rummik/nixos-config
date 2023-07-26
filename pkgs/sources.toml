@@ -103,8 +103,12 @@ fetch.git = "https://github.com/jeffreytse/zsh-vi-mode"
 
 ### Neovim Plugins {{{ ###
 
+[bufferline-nvim]
+src.github = "akinsho/bufferline.nvim"
+fetch.git = "https://github.com/akinsho/bufferline.nvim"
+
 [lspsaga-nvim]
-src.github = "nvimdev/lspsaga.nvim"
+src.git = "https://github.com/nvimdev/lspsaga.nvim"
 fetch.git = "https://github.com/nvimdev/lspsaga.nvim"
 
 [nvim-session-manager]

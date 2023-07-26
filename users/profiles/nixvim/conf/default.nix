@@ -108,6 +108,7 @@
       vim-just
       vim-visual-multi
       vim-wakatime
+      flutter-tools-nvim
     ];
   };
 }
