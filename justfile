@@ -3,13 +3,12 @@
 hostname := lowercase(`hostname -s`)
 username := env_var('USER')
 shell := env_var('SHELL')
-pkgs := if os() == 'macos' { 'darwin' } else { 'nixos' }
+host_platform := if os() == 'macos' { 'darwin' } else { 'nixos' }
 
 set dotenv-load
 set ignore-comments
 
 nix_build_options := env_var_or_default('NIX_BUILD_OPTIONS', '')
-overrides_options := env_var_or_default('OVERRIDES_OPTIONS', '')
 nvfetcher_options := env_var_or_default('NVFETCHER_OPTIONS', '')
 
 # Enable some experimental nix features without having to set them system-wide
@@ -27,7 +26,7 @@ export RULES := absolute_path('./secrets/secrets.nix')
   just --list --unsorted
 
 # Start a nix development shell
-@shell: (build-home) (_nix 'develop -c' shell)
+shell: (build-home) (_nix 'develop -c' shell)
 
 # Simple wrapper around `nix`
 [no-exit-message,no-cd]
@@ -37,7 +36,11 @@ export RULES := absolute_path('./secrets/secrets.nix')
 # Just + sudo + PATH passthrough
 [private,no-exit-message]
 @sudo COMMAND *ARGS:
-  sudo PATH=$PATH just {{COMMAND}} {{ARGS}}
+  sudo PATH=$PATH just \
+    --set nix_build_options "'{{nix_build_options}}'" \
+    --set nvfetcher_options "'{{nvfetcher_options}}'" \
+    {{COMMAND}} \
+    {{ARGS}}
 
 # Wrapper around `nix` that selectively disables inadvertent lockfile
 # updates, and ensures inputs are read from the local flake
@@ -46,8 +49,15 @@ nix COMMAND ACTION *ARGS: (
   _nix
     (COMMAND)
     (if COMMAND == 'run' { '--inputs-from .' } else { '' })
-    (if COMMAND / ACTION =~ '^flake/(update|lock)$' { '' } else {
+    (if COMMAND / ACTION =~ '^(profile/.*|flake/(update|lock|check))$' {
+      ''
+    } else {
       '--no-update-lock-file --no-write-lock-file'
+    })
+    (if COMMAND / ACTION =~ '^(build/.*|flake/check)$' {
+      nix_build_options
+    } else {
+      ''
     })
     (ACTION)
     (ARGS)
@@ -56,8 +66,6 @@ nix COMMAND ACTION *ARGS: (
 # Generic builder
 _nix-build PLATFORM TARGET ACTIVATOR *ARGS: (
   nix 'build'
-    (nix_build_options)
-    (overrides_options)
     '--print-build-logs'
     '--show-trace'
     '--verbose'
@@ -72,23 +80,30 @@ _build-toplevel PLATFORM *ARGS: (
 )
 
 [private]
-rebuild ACTION *ARGS: (_nix_rebuild hostname pkgs ACTION ARGS)
+rebuild ACTION *ARGS: (_nix-rebuild hostname host_platform ACTION ARGS)
 
 [private]
 target HOST ACTION *ARGS: (
-  _nix_rebuild HOST pkgs ACTION
+  _nix-rebuild HOST host_platform ACTION
     '--use-remote-sudo'
     '--target-host' ('root@' + HOST)
     ARGS
 )
 
+# `nix profile` for your system profile
+[private]
+@_nix-profile ACTION *ARGS: (
+  nix 'profile' ACTION
+    '--profile' '/nix/var/nix/profiles/system'
+    ARGS
+)
+
 # NixOS/Nix-Darwin rebuild
 [no-exit-message]
-_nix_rebuild HOST PLATFORM ACTION *ARGS: (
+_nix-rebuild HOST PLATFORM ACTION *ARGS: (
   nix 'run'
     (PLATFORM + '#' + PLATFORM + '-rebuild')
     '--'
-    '--no-update-lock-file --no-write-lock-file'
     '--flake' ('.#' + HOST)
     ACTION
     '--fast'
@@ -97,11 +112,11 @@ _nix_rebuild HOST PLATFORM ACTION *ARGS: (
 )
 
 _rebuild PLATFORM ACTION *ARGS: (build ARGS) (
-  sudo '_nix_rebuild' hostname PLATFORM ACTION ARGS
+  sudo '_nix-rebuild' hostname PLATFORM ACTION ARGS
 )
 
-_switch-to-configuration PLATFORM ACTION *ARGS: (build ARGS)
-  sudo ./result-{{PLATFORM}}-{{hostname}}/bin/switch-to-configuration {{ACTION}} {{ARGS}}
+_activate-configuration PLATFORM TARGET ACTION *ARGS: (build ARGS)
+  sudo ./result-{{PLATFORM}}-{{TARGET}}/bin/switch-to-configuration {{ACTION}} {{ARGS}}
 
 # Home Manager builder
 _build-home *ARGS: (
@@ -109,18 +124,18 @@ _build-home *ARGS: (
 )
 
 # Build a NixOS/Nix-Darwin system
-build *ARGS: (_build-toplevel pkgs ARGS)
+build *ARGS: (_build-toplevel host_platform ARGS)
 
 dry-build *ARGS: (build ARGS '--dry-run')
 
 # Switch currently running system
-switch *ARGS: (_build-home '--no-link') (_rebuild pkgs 'switch' ARGS)
+switch *ARGS: (_build-home '--no-link') (_rebuild host_platform 'switch' ARGS)
 
 [linux]
-boot *ARGS: (_build-home '--no-link') (_rebuild pkgs 'boot' ARGS)
+boot *ARGS: (_build-home '--no-link') (_rebuild host_platform 'boot' ARGS)
 
 # Search NixOS or Nix-Darwin packages
-search *ARGS: (nix 'search' pkgs ARGS)
+search *ARGS: (nix 'search' host_platform ARGS)
 
 build-home *ARGS: (_build-home ARGS)
 dry-build-home *ARGS: (build-home ARGS '--dry-run')
@@ -200,7 +215,6 @@ _nvfetcher *ARGS: (
     ('.#' + HOST)
     '--'
     nix_build_options
-    overrides_options
 )
 
 # Update pkgs listed in pkgs/sources.toml
