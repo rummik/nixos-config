@@ -30,17 +30,23 @@ shell: (build-home) (_nix 'develop -c' shell)
 
 # Simple wrapper around `nix`
 [no-exit-message,no-cd]
-@_nix COMMAND *ARGS:
+_nix COMMAND *ARGS:
   nix {{COMMAND}} {{ARGS}}
 
 # Just + sudo + PATH passthrough
+## The `--set` parameter needs a space in there to avoid a bug in just where it
+## thinks it's a flag if it begins with a dash
 [private,no-exit-message]
-@sudo COMMAND *ARGS:
+sudo COMMAND *ARGS:
   sudo PATH=$PATH just \
-    --set nix_build_options "'{{nix_build_options}}'" \
-    --set nvfetcher_options "'{{nvfetcher_options}}'" \
+    --set nix_build_options ' {{nix_build_options}}' \
+    --set nvfetcher_options ' {{nvfetcher_options}}' \
     {{COMMAND}} \
     {{ARGS}}
+
+[no-exit-message]
+_activate-configuration PLATFORM TARGET ACTION *ARGS: (build ARGS)
+  sudo ./result-{{PLATFORM}}-{{TARGET}}/bin/switch-to-configuration {{ACTION}} {{ARGS}}
 
 # Wrapper around `nix` that selectively disables inadvertent lockfile
 # updates, and ensures inputs are read from the local flake
@@ -114,9 +120,6 @@ _nix-rebuild HOST PLATFORM ACTION *ARGS: (
 _rebuild PLATFORM ACTION *ARGS: (build ARGS) (
   sudo '_nix-rebuild' hostname PLATFORM ACTION ARGS
 )
-
-_activate-configuration PLATFORM TARGET ACTION *ARGS: (build ARGS)
-  sudo ./result-{{PLATFORM}}-{{TARGET}}/bin/switch-to-configuration {{ACTION}} {{ARGS}}
 
 # Home Manager builder
 _build-home *ARGS: (
