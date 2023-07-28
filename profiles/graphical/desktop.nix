@@ -90,7 +90,12 @@ in {
 
   nixpkgs.config.pulseaudio = true;
 
-  hardware.pulseaudio.enable = true;
+  hardware.pulseaudio = {
+    enable = true;
+    tcp.enable = true;
+    zeroconf.publish.enable = true;
+    zeroconf.discovery.enable = true;
+  };
 
   programs.noisetorch.enable = true;
 

@@ -64,6 +64,9 @@
 
     nixos-generators.url = "github:nix-community/nixos-generators";
 
+    disko.url = "github:nix-community/disko";
+    disko.inputs.nixpkgs.follows = "nixos";
+
     nil.url = "github:oxalica/nil/59bcad0b13b5d77668c0c125fef71d7b41406d7a";
     nil.inputs.nixpkgs.follows = "nixos";
 

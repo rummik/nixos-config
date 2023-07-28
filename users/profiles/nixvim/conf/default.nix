@@ -107,7 +107,7 @@
       # hologram-nvim
       vim-just
       vim-visual-multi
-      vim-wakatime
+      # vim-wakatime
       flutter-tools-nvim
     ];
   };

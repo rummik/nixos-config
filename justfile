@@ -28,6 +28,9 @@ export RULES := absolute_path('./secrets/secrets.nix')
 # Start a nix development shell
 shell: (build-home) (_nix 'develop -c' shell)
 
+# Run a REPL with the flake loaded
+repl: (nix 'repl' '.')
+
 # Simple wrapper around `nix`
 [no-exit-message,no-cd]
 _nix COMMAND *ARGS:
@@ -54,7 +57,7 @@ _activate-configuration PLATFORM TARGET ACTION *ARGS: (build ARGS)
 nix COMMAND ACTION *ARGS: (
   _nix
     (COMMAND)
-    (if COMMAND == 'run' { '--inputs-from .' } else { '' })
+    (if COMMAND =~ '^(run|shell)$' { '--inputs-from .' } else { '' })
     (if COMMAND / ACTION =~ '^(profile/.*|flake/(update|lock|check))$' {
       ''
     } else {
@@ -75,6 +78,7 @@ _nix-build PLATFORM TARGET ACTIVATOR *ARGS: (
     '--print-build-logs'
     '--show-trace'
     '--verbose'
+    '--no-eval-cache'
     '--out-link' ('result-' + PLATFORM + '-' + TARGET)
     (ARGS)
     ('.#' + PLATFORM + 'Configurations.' + ACTIVATOR)
@@ -98,14 +102,13 @@ target HOST ACTION *ARGS: (
 
 # `nix profile` for your system profile
 [private]
-@_nix-profile ACTION *ARGS: (
+_nix-profile ACTION *ARGS: (
   nix 'profile' ACTION
     '--profile' '/nix/var/nix/profiles/system'
     ARGS
 )
 
 # NixOS/Nix-Darwin rebuild
-[no-exit-message]
 _nix-rebuild HOST PLATFORM ACTION *ARGS: (
   nix 'run'
     (PLATFORM + '#' + PLATFORM + '-rebuild')
@@ -119,6 +122,23 @@ _nix-rebuild HOST PLATFORM ACTION *ARGS: (
 
 _rebuild PLATFORM ACTION *ARGS: (build ARGS) (
   sudo '_nix-rebuild' hostname PLATFORM ACTION ARGS
+)
+
+# NixOS/Nix-Darwin rebuild
+_nix-install HOST PLATFORM *ARGS: (
+  nix 'shell'
+    (PLATFORM + '#' + PLATFORM + '-install-tools')
+    '-c' 'nixos-install'
+      '--root' '/mnt'
+      '--show-trace'
+      '--no-root-password'
+      '--flake' ('.#' + HOST)
+      nix_build_options
+      ARGS
+)
+
+_install HOST *ARGS: (
+  sudo '_nix-install' HOST host_platform ARGS
 )
 
 # Home Manager builder
@@ -148,14 +168,18 @@ switch-home *ARGS: (_build-home ARGS)
 
 # Agenix wrapper
 [private,no-exit-message]
-@agenix *ARGS:
+agenix *ARGS:
   cd secrets && just nix run agenix -- {{ARGS}}
 
 # Edit an Agenix secret
-edit-secret SECRET: (agenix '-e' file_name(SECRET))
+[no-cd]
+edit-secret FILE:
+  VIMINIT="set noeol nofixeol|source ~/.config/nvim/init.lua" \
+  RULES="{{justfile_directory()}}/secrets/secrets.nix" \
+    just agenix -e "{{replace(absolute_path(FILE), (justfile_directory() + '/secrets/'), '')}}"
 
 # Rekey Agenix secrets
-rekey: (agenix '-r')
+rekey *ARGS: (agenix '-r' (ARGS))
 
 
 # Alias for `bootstrap-build bootstrap-write`
@@ -178,7 +202,7 @@ bootstrap-write: (
 )
 
 # Directory tree with .info annotations
-@info: (
+info: (
   nix 'run' 'nixpkgs#tree'
     '--'
     '--dirsfirst'
@@ -209,7 +233,7 @@ _nvfetcher *ARGS: (
 )
 
 [private]
-@deploy HOST *ARGS: (
+deploy HOST *ARGS: (
   nix 'run' 'deploy'
     '--'
     '--boot'
@@ -218,6 +242,18 @@ _nvfetcher *ARGS: (
     ('.#' + HOST)
     '--'
     nix_build_options
+)
+
+# Disko wrapper
+[private]
+disko *ARGS: (
+  nix 'run' 'disko'
+    '--'
+    '--show-trace'
+    '--dry-run'
+    '--debug'
+    '--flake' ('git+file:.#' + (hostname))
+    (ARGS)
 )
 
 # Update pkgs listed in pkgs/sources.toml
