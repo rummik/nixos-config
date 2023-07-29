@@ -12,6 +12,8 @@
     nix.url = "github:nixos/nix/2.17.0";
     nix.inputs.nixpkgs.follows = "nixos";
 
+    cachix.url = "github:cachix/cachix";
+
     # Track channels with commits tested and built by hydra
     nixos.url = "github:nixos/nixpkgs/nixos-23.05";
 
@@ -30,7 +32,7 @@
     # Deprecated.  Moving to flake.parts and/or haumea
     digga.url = "github:divnix/digga";
     digga.inputs.nixpkgs.follows = "nixos";
-    digga.inputs.nixlib.follows = "nixos";
+    digga.inputs.nixlib.follows = "nixlib";
     digga.inputs.home-manager.follows = "home";
     digga.inputs.deploy.follows = "deploy";
     digga.inputs.flake-utils-plus.follows = "flake-utils-plus";
@@ -65,7 +67,7 @@
     nixos-generators.url = "github:nix-community/nixos-generators";
 
     disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixos";
+    disko.inputs.nixpkgs.follows = "nixlib";
 
     nil.url = "github:oxalica/nil/59bcad0b13b5d77668c0c125fef71d7b41406d7a";
     nil.inputs.nixpkgs.follows = "nixos";
@@ -76,7 +78,8 @@
 
     # nix-colors.url = "github:misterio77/nix-colors";
 
-    nixvim.url = "github:nix-community/nixvim";
+    # nixvim.url = "github:nix-community/nixvim/nixos-23.05";
+    nixvim.url = "github:rummik/nixvim/nixos-23.05-rummik";
     nixvim.inputs.nixpkgs.follows = "nixos";
 
     # neovim-flake.url = "github:neovim/neovim?dir=contrib";
@@ -90,7 +93,7 @@
 
     # Plasma configuration manager
     plasma-manager.url = "github:pjones/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixos";
+    plasma-manager.inputs.nixpkgs.follows = "nixlib";
     plasma-manager.inputs.home-manager.follows = "home";
   };
 
