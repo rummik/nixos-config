@@ -76,11 +76,11 @@ in {
     };
 
     cursor.blinkInterval = 0;
-    cursor.color = "#d3d8ce";
+    cursor.color = "#f9fff3";
     cursor.textColor = "#454753";
 
     colorScheme = {
-      foreground = "#f9fff3";
+      foreground = "#d3d8ce";
       background = "#000000";
       backgroundOpacity = 0.9;
       selectionBackground = "#454753";
