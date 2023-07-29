@@ -5,8 +5,8 @@ username := env_var('USER')
 shell := env_var('SHELL')
 host_platform := if os() == 'macos' { 'darwin' } else { 'nixos' }
 
-set dotenv-load
-set ignore-comments
+set dotenv-load := true
+set ignore-comments := true
 
 nix_build_options := env_var_or_default('NIX_BUILD_OPTIONS', '')
 nvfetcher_options := env_var_or_default('NVFETCHER_OPTIONS', '')
@@ -14,10 +14,10 @@ nvfetcher_options := env_var_or_default('NVFETCHER_OPTIONS', '')
 # Enable some experimental nix features without having to set them system-wide
 # or in ~/.config/nix/nix.conf
 export NIX_CONFIG := '
-warn-dirty = false
-accept-flake-config = true
-extra-experimental-features = nix-command flakes repl-flake
-max-jobs = auto
+  warn-dirty = false
+  # accept-flake-config = true
+  extra-experimental-features = nix-command flakes repl-flake
+  max-jobs = auto
 '
 
 export RULES := absolute_path('./secrets/secrets.nix')
@@ -26,21 +26,21 @@ export RULES := absolute_path('./secrets/secrets.nix')
   just --list --unsorted
 
 # Start a nix development shell
-shell: (build-home) (_nix 'develop -c' shell)
+shell: (_nix 'develop -c' shell)
 
-# Run a REPL with the flake loaded
-repl: (nix 'repl' '.')
+# Run a REPL with the specified flake loaded
+repl FLAKE='.': (nix 'repl' FLAKE)
 
 # Simple wrapper around `nix`
 [no-exit-message,no-cd]
-_nix COMMAND *ARGS:
+@_nix COMMAND *ARGS:
   nix {{COMMAND}} {{ARGS}}
 
 # Just + sudo + PATH passthrough
 ## The `--set` parameter needs a space in there to avoid a bug in just where it
 ## thinks it's a flag if it begins with a dash
 [private,no-exit-message]
-sudo COMMAND *ARGS:
+@sudo COMMAND *ARGS:
   sudo PATH=$PATH just \
     --set nix_build_options ' {{nix_build_options}}' \
     --set nvfetcher_options ' {{nvfetcher_options}}' \
@@ -48,27 +48,42 @@ sudo COMMAND *ARGS:
     {{ARGS}}
 
 [no-exit-message]
-_activate-configuration PLATFORM TARGET ACTION *ARGS: (build ARGS)
+@_activate-configuration PLATFORM TARGET ACTION *ARGS: (build ARGS)
   sudo ./result-{{PLATFORM}}-{{TARGET}}/bin/switch-to-configuration {{ACTION}} {{ARGS}}
+
+[no-exit-message]
+@_activate PLATFORM TARGET ACTION *ARGS:
+  ./result-{{PLATFORM}}-{{TARGET}}/activate {{ACTION}} {{ARGS}}
 
 # Wrapper around `nix` that selectively disables inadvertent lockfile
 # updates, and ensures inputs are read from the local flake
 [no-exit-message]
-nix COMMAND ACTION *ARGS: (
+nix COMMAND ACTION='' *ARGS='': (
   _nix
+    (if COMMAND / ACTION =~ 'flake/(update|lock)' {
+      ''
+    } else {
+      '--accept-flake-config'
+    })
+
     (COMMAND)
-    (if COMMAND =~ '^(run|shell)$' { '--inputs-from .' } else { '' })
-    (if COMMAND / ACTION =~ '^(profile/.*|flake/(update|lock|check))$' {
+
+    (if COMMAND =~ 'flake|search' {
+      ACTION
+    } else {
+      ''
+    })
+    (if COMMAND =~ 'run|shell|repl|flake|search' { '--inputs-from .' } else { '' })
+
+    (if COMMAND / ACTION =~ 'show-config|help|profile|flake/(-|update|lock)' {
       ''
     } else {
       '--no-update-lock-file --no-write-lock-file'
     })
-    (if COMMAND / ACTION =~ '^(build/.*|flake/check)$' {
-      nix_build_options
-    } else {
-      ''
-    })
-    (ACTION)
+
+    (if COMMAND / ACTION =~ 'build/.*|flake/check' { nix_build_options } else { '' })
+    (if COMMAND =~ 'flake|search' { '' } else { ACTION })
+
     (ARGS)
 )
 
@@ -120,7 +135,7 @@ _nix-rebuild HOST PLATFORM ACTION *ARGS: (
     ARGS
 )
 
-_rebuild PLATFORM ACTION *ARGS: (build ARGS) (
+_rebuild PLATFORM ACTION *ARGS: (build '--no-link' ARGS) (
   sudo '_nix-rebuild' hostname PLATFORM ACTION ARGS
 )
 
@@ -143,12 +158,13 @@ _install HOST *ARGS: (
 
 # Home Manager builder
 _build-home *ARGS: (
-  _nix-build ('home') (username) (username + '@' + hostname + '.activationPackage') (ARGS)
+  _nix-build 'home' (username) (username + '@' + hostname + '.activationPackage') ARGS
 )
 
 # Build a NixOS/Nix-Darwin system
 build *ARGS: (_build-toplevel host_platform ARGS)
 
+# Dry run for Home Manager and NixOS/Nix-Darwin
 dry-build *ARGS: (build ARGS '--dry-run')
 
 # Switch currently running system
@@ -175,11 +191,10 @@ agenix *ARGS:
 [no-cd]
 edit-secret FILE:
   VIMINIT="set noeol nofixeol|source ~/.config/nvim/init.lua" \
-  RULES="{{justfile_directory()}}/secrets/secrets.nix" \
     just agenix -e "{{replace(absolute_path(FILE), (justfile_directory() + '/secrets/'), '')}}"
 
 # Rekey Agenix secrets
-rekey *ARGS: (agenix '-r' (ARGS))
+rekey *ARGS: (agenix '-r' ARGS)
 
 
 # Alias for `bootstrap-build bootstrap-write`
@@ -223,15 +238,6 @@ edit *ARGS: build-home
     -u ./result-home-{{username}}/home-files/.config/nvim/init.lua \
     {{ARGS}}
 
-_nvfetcher *ARGS: (
-  nix 'run' 'nvfetcher'
-    '--'
-    nvfetcher_options
-    '--config pkgs/sources.toml'
-    '--build-dir pkgs/_sources'
-    ARGS
-)
-
 [private]
 deploy HOST *ARGS: (
   nix 'run' 'deploy'
@@ -252,20 +258,39 @@ disko *ARGS: (
     '--show-trace'
     '--dry-run'
     '--debug'
-    '--flake' ('git+file:.#' + (hostname))
-    (ARGS)
+    '--flake' ('git+file:.#' + hostname)
+    ARGS
+)
+
+[private]
+cachix *ARGS: (
+  nix 'run' 'cachix'
+    '--'
+    ARGS
+)
+
+# nvfetcher wrapper
+[private]
+nvfetcher *ARGS: (
+  nix 'run' 'nvfetcher'
+    '--'
+    nvfetcher_options
+    '--config pkgs/sources.toml'
+    '--build-dir pkgs/_sources'
+    ARGS
 )
 
 # Update pkgs listed in pkgs/sources.toml
-update-pkgs: _nvfetcher
+update-pkgs: nvfetcher
 
 # Update flake inputs
-update-inputs: (nix 'flake' 'update') (nix 'flake' 'lock')
+update-inputs: (nix 'flake' 'update' '--commit-lock-file')
+
+update-missing-inputs: (nix 'flake' 'lock' '--commit-lock-file')
 
 # Update inputs and pkgs
 update: update-inputs update-pkgs
 
-# Dry run for Home Manager and NixOS/Nix-Darwin
 check: (nix 'flake' 'check')
 
 # Lint and format Nix code
