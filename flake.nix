@@ -240,8 +240,23 @@
         importables = rec {
           profiles = digga.lib.rakeLeaves ./users/profiles;
           suites = with profiles; rec {
-            base = [ xdg direnv fzf git htop ssh tmux shells.zsh shells.starship shells.fish neovim watson ];
+            base = [
+              xdg
+              direnv
+              fzf
+              git
+              htop
+              ssh
+              tmux
+              shells.zsh
+              shells.starship
+              shells.fish
+              neovim
+              watson
+            ];
+
             graphical = [ alacritty firefox kitty obs-studio vscode wallpaper ];
+
             neovim = with profiles.nixvim; [
               conf
               lang.cxx
@@ -251,6 +266,7 @@
               lang.python
               lang.web
             ];
+
             plasma-desktop = with plasma; [ bismuth ];
           };
         };
