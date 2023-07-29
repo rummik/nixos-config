@@ -245,6 +245,7 @@
               direnv
               fzf
               git
+              gh
               htop
               ssh
               tmux
