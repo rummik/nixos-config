@@ -33,14 +33,14 @@ recognize_signal_code = false
 disabled = false
 
 [character]
-error_symbol = "[⟿ ](bright-red)"
+error_symbol = "[⟿](bright-red)"
 success_symbol = "[⟶](dimmed white)"
-vimcmd_symbol = "[⟼ ](dimmed white)"
+vimcmd_symbol = "[⟼](dimmed white)"
 vimcmd_replace_one_symbol = "[⟷](bright-purple)"
-vimcmd_replace_symbol = "[⟺ ](bright-purple)"
+vimcmd_replace_symbol = "[⟺](bright-purple)"
 # vicmd_replace_symbol = "[ ](bright-purple)"
 # vicmd_replace_symbol = "[](bright-purple)"
-vimcmd_visual_symbol = "[⟾ ](bright-cyan)"
+vimcmd_visual_symbol = "[⟾](bright-cyan)"
 
 [username]
 format = "[$user]($style)"
@@ -109,7 +109,7 @@ impure_msg = "[λ](bright-yellow)"
 [shell]
 format = "[$indicator]($style)"
 bash_indicator = "bsh"
-zsh_indicator = ""
+fish_indicator = ""
 disabled = false
 
 
