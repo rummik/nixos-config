@@ -38,9 +38,7 @@ in {
       %if #{==:$COLORTERM,truecolor}
         set -ga terminal-overrides ",alacritty*:Tc"
       %endif
-      #
-      # set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
-      # set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+
       # TERM options
       set -g default-terminal "tmux-256color" # This is the correct option.
       # set -g default-terminal "xterm-256color"   # Centos 7.7 does not have tmux terminfo so we need to use xterm-256color. (DO NOT use screen-256color)
@@ -51,12 +49,14 @@ in {
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours
 
       # Use system prefix
-      %if #{&&,#{!=:$tmuxPrefixKey,},#{!=:C-$tmuxPrefixKey,#{prefix}}}
-        run -b "${tmux}/bin/tmux unbind #{prefix}"
+      %if #{&&,#{!=:$tmuxPrefixKey,},#{!=:$tmuxPrefixKey,b}}
+        unbind C-b
+        unbind b
         set -g prefix "C-$tmuxPrefixKey"
-        bind "C-$tmuxPrefixKey" send-prefix
         bind "$tmuxPrefixKey" last-window
       %endif
+
+      bind "C-$tmuxPrefixKey" send-prefix
 
       # Profile colors
       %if #{==:$themePrimaryColor,}
