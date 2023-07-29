@@ -43,6 +43,7 @@ in {
       skim
       tealdeer
       whois
+      tmux
     ];
 
     # Starship is a fast and featureful shell prompt
