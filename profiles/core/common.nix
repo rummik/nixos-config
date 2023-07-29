@@ -47,12 +47,12 @@ in {
 
     # Starship is a fast and featureful shell prompt
     # starship.toml has sane defaults that can be changed there
-    shellInit = ''
-      export STARSHIP_CONFIG=${
-        pkgs.writeText "starship.toml"
-        (fileContents ./starship.toml)
-      }
-    '';
+    # shellInit = ''
+    #   export STARSHIP_CONFIG=${
+    #     pkgs.writeText "starship.toml"
+    #     (fileContents ./starship.toml)
+    #   }
+    # '';
 
     shellAliases = let
       # The `security.sudo.enable` option does not exist on darwin because

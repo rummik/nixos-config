@@ -64,10 +64,10 @@
   nix.settings.allowed-users = [ "@wheel" ];
 
   programs.bash = {
-    # Enable starship
-    promptInit = ''
-      eval "$(${pkgs.starship}/bin/starship init bash)"
-    '';
+    # # Enable starship
+    # promptInit = ''
+    #   eval "$(${pkgs.starship}/bin/starship init bash)"
+    # '';
     # Enable direnv, a tool for managing shell environments
     interactiveShellInit = ''
       eval "$(${pkgs.direnv}/bin/direnv hook bash)"

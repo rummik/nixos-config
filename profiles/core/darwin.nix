@@ -54,7 +54,7 @@
     #
     # https://github.com/LnL7/nix-darwin/blob/master/modules/programs/bash/default.nix
     interactiveShellInit = ''
-      eval "$(${pkgs.starship}/bin/starship init bash)"
+      # eval "$(${pkgs.starship}/bin/starship init bash)"
       eval "$(${pkgs.direnv}/bin/direnv hook bash)"
     '';
   };
