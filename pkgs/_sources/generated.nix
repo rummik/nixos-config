@@ -65,6 +65,17 @@
     };
     date = "2023-01-14";
   };
+  gh-dash = {
+    pname = "gh-dash";
+    version = "v3.10.0";
+    src = fetchFromGitHub {
+      owner = "dlvhdr";
+      repo = "gh-dash";
+      rev = "v3.10.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-ypYM/FXp+BObR2fjVCV8nDJhRuuu2Y7213haAJnzRIE=";
+    };
+  };
   home-assistant-desktop = {
     pname = "home-assistant-desktop";
     version = "ec49f76c2abf450de94cf5ced17358177a2f1649";
@@ -105,16 +116,16 @@
   };
   lspsaga-nvim = {
     pname = "lspsaga-nvim";
-    version = "31b4b4336d05e7c8ff0f833a493de2a2875f1b38";
+    version = "b1b43c12be028330eb259de241449f5a64d3f26c";
     src = fetchgit {
       url = "https://github.com/nvimdev/lspsaga.nvim";
-      rev = "31b4b4336d05e7c8ff0f833a493de2a2875f1b38";
+      rev = "b1b43c12be028330eb259de241449f5a64d3f26c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-W6jw4dJv290Qbw5kxF0Y/wiWkNCy2+b6gCpS0/o3glQ=";
+      sha256 = "sha256-dfofDSzuiY1pKpvrDYicYE+j2Y91es3eBKWHQQgFEKI=";
     };
-    date = "2023-07-25";
+    date = "2023-07-29";
   };
   manix = {
     pname = "manix";
@@ -156,16 +167,16 @@
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "736a672afe852dbad4199002c89b7461b285c47f";
+    version = "ee107fc759647293a84ad42b867f518331364fbe";
     src = fetchgit {
       url = "https://github.com/nvim-treesitter/nvim-treesitter";
-      rev = "736a672afe852dbad4199002c89b7461b285c47f";
+      rev = "ee107fc759647293a84ad42b867f518331364fbe";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-EedVsFjkfBP369UPY3WdwYk4GqiakpPQOw3NFtXw6s4=";
+      sha256 = "sha256-esy5DRNUNyzvCKx/SZN+X35xsvaIsDVf19YmzIZ7jCA=";
     };
-    date = "2023-07-25";
+    date = "2023-07-29";
   };
   nvim-treesitter-textobjects = {
     pname = "nvim-treesitter-textobjects";
@@ -258,16 +269,16 @@
   };
   vim-just = {
     pname = "vim-just";
-    version = "8e5c882f8d6fb213b160ac2cbb5b28fea620ed0b";
+    version = "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c";
     src = fetchgit {
       url = "https://github.com/NoahTheDuke/vim-just";
-      rev = "8e5c882f8d6fb213b160ac2cbb5b28fea620ed0b";
+      rev = "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-cCm/TGOUa2/oyM5YSlw7rdo/2BjyEgsoZWKRvvY4YJ4=";
+      sha256 = "sha256-cHKOGaa/9StBzsgC5Zg/eWIP8sAuRUDcZgowaGVo+jA=";
     };
-    date = "2023-07-23";
+    date = "2023-07-28";
   };
   vim-nix = {
     pname = "vim-nix";
@@ -364,15 +375,15 @@
   };
   zsh-vi-mode = {
     pname = "zsh-vi-mode";
-    version = "78b2d4f0de683eb882281e0a208a67c092391b08";
+    version = "1f28e1886dc8e49f41b817634d5c7695b6abb145";
     src = fetchgit {
       url = "https://github.com/jeffreytse/zsh-vi-mode";
-      rev = "78b2d4f0de683eb882281e0a208a67c092391b08";
+      rev = "1f28e1886dc8e49f41b817634d5c7695b6abb145";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-JDP/efsfOO3lnroupMgHC7i5adYcLHUIyjNvuPiAbnI=";
+      sha256 = "sha256-ylkZ4oVRxBJbk6tJ6UxkDjS+5eCr7efezuTrz8OZm+4=";
     };
-    date = "2023-07-24";
+    date = "2023-07-26";
   };
 }

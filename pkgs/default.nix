@@ -13,6 +13,20 @@ final: prev: rec {
   #   '';
   # });
 
+  gh-dash = prev.buildGoModule rec {
+    inherit (sources.gh-dash) pname version src;
+
+    vendorHash = "sha256-lOIONv+7cUUC0mGCwYkOkDn3zHreYpFeqmTbp2Ob3yM=";
+
+    ldflags = [
+      "-s" "-w" "-X github.com/dlvhdr/gh-dash/cmd.Version=${version}"
+    ];
+
+    passthru.tests = {
+      version = prev.testers.testVersion { package = gh-dash; };
+    };
+  };
+
   fishPlugins =
     prev.fishPlugins
     // {

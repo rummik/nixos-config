@@ -94,6 +94,26 @@
         },
         "version": "3ee95536106c11073d6ff466c1681cde31001383"
     },
+    "gh-dash": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gh-dash",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dlvhdr",
+            "repo": "gh-dash",
+            "rev": "v3.10.0",
+            "sha256": "sha256-ypYM/FXp+BObR2fjVCV8nDJhRuuu2Y7213haAJnzRIE=",
+            "type": "github"
+        },
+        "version": "v3.10.0"
+    },
     "home-assistant-desktop": {
         "cargoLocks": null,
         "date": "2023-02-09",
@@ -154,7 +174,7 @@
     },
     "lspsaga-nvim": {
         "cargoLocks": null,
-        "date": "2023-07-25",
+        "date": "2023-07-29",
         "extract": null,
         "name": "lspsaga-nvim",
         "passthru": null,
@@ -164,12 +184,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "31b4b4336d05e7c8ff0f833a493de2a2875f1b38",
-            "sha256": "sha256-W6jw4dJv290Qbw5kxF0Y/wiWkNCy2+b6gCpS0/o3glQ=",
+            "rev": "b1b43c12be028330eb259de241449f5a64d3f26c",
+            "sha256": "sha256-dfofDSzuiY1pKpvrDYicYE+j2Y91es3eBKWHQQgFEKI=",
             "type": "git",
             "url": "https://github.com/nvimdev/lspsaga.nvim"
         },
-        "version": "31b4b4336d05e7c8ff0f833a493de2a2875f1b38"
+        "version": "b1b43c12be028330eb259de241449f5a64d3f26c"
     },
     "manix": {
         "cargoLocks": null,
@@ -231,7 +251,7 @@
     },
     "nvim-treesitter": {
         "cargoLocks": null,
-        "date": "2023-07-25",
+        "date": "2023-07-29",
         "extract": null,
         "name": "nvim-treesitter",
         "passthru": null,
@@ -241,12 +261,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "736a672afe852dbad4199002c89b7461b285c47f",
-            "sha256": "sha256-EedVsFjkfBP369UPY3WdwYk4GqiakpPQOw3NFtXw6s4=",
+            "rev": "ee107fc759647293a84ad42b867f518331364fbe",
+            "sha256": "sha256-esy5DRNUNyzvCKx/SZN+X35xsvaIsDVf19YmzIZ7jCA=",
             "type": "git",
             "url": "https://github.com/nvim-treesitter/nvim-treesitter"
         },
-        "version": "736a672afe852dbad4199002c89b7461b285c47f"
+        "version": "ee107fc759647293a84ad42b867f518331364fbe"
     },
     "nvim-treesitter-textobjects": {
         "cargoLocks": null,
@@ -385,7 +405,7 @@
     },
     "vim-just": {
         "cargoLocks": null,
-        "date": "2023-07-23",
+        "date": "2023-07-28",
         "extract": null,
         "name": "vim-just",
         "passthru": null,
@@ -395,12 +415,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8e5c882f8d6fb213b160ac2cbb5b28fea620ed0b",
-            "sha256": "sha256-cCm/TGOUa2/oyM5YSlw7rdo/2BjyEgsoZWKRvvY4YJ4=",
+            "rev": "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c",
+            "sha256": "sha256-cHKOGaa/9StBzsgC5Zg/eWIP8sAuRUDcZgowaGVo+jA=",
             "type": "git",
             "url": "https://github.com/NoahTheDuke/vim-just"
         },
-        "version": "8e5c882f8d6fb213b160ac2cbb5b28fea620ed0b"
+        "version": "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c"
     },
     "vim-nix": {
         "cargoLocks": null,
@@ -541,7 +561,7 @@
     },
     "zsh-vi-mode": {
         "cargoLocks": null,
-        "date": "2023-07-24",
+        "date": "2023-07-26",
         "extract": null,
         "name": "zsh-vi-mode",
         "passthru": null,
@@ -551,11 +571,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "78b2d4f0de683eb882281e0a208a67c092391b08",
-            "sha256": "sha256-JDP/efsfOO3lnroupMgHC7i5adYcLHUIyjNvuPiAbnI=",
+            "rev": "1f28e1886dc8e49f41b817634d5c7695b6abb145",
+            "sha256": "sha256-ylkZ4oVRxBJbk6tJ6UxkDjS+5eCr7efezuTrz8OZm+4=",
             "type": "git",
             "url": "https://github.com/jeffreytse/zsh-vi-mode"
         },
-        "version": "78b2d4f0de683eb882281e0a208a67c092391b08"
+        "version": "1f28e1886dc8e49f41b817634d5c7695b6abb145"
     }
 }
