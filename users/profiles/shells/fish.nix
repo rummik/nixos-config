@@ -46,6 +46,9 @@
 
             # bind insert-mode delete to delete-char; default fiddles with cursor position
             bind -M insert -k dc delete-char
+
+            # bind insert-mode alt+l to complete autosuggestted line
+            bind -M insert \el accept-autosuggestion
           '';
       };
     };
