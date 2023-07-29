@@ -14,6 +14,10 @@ with lib; let
   mkValueString = value:
     if builtins.isFloat value
     then toString value
+    else if builtins.isInt value
+    then toString value
+    else if builtins.isList value
+    then concatStringsSep " " (map mkValueString value)
     else generators.mkValueStringDefault {} value;
 
   mkOptionString = prefix: option:
@@ -1229,6 +1233,12 @@ in {
         description = "";
       };
 
+      selectionForeground = mkOption {
+        type = types.str;
+        default = "#000000";
+        description = "";
+      };
+
       color = mkOption {
         type = with types; attrsOf str;
         default = {};
@@ -1249,7 +1259,7 @@ in {
     };
 
     extraConfig = mkOption {
-      type = with types; attrsOf (oneOf [ str bool int float ]);
+      type = with types; attrsOf (oneOf [ str bool int float (listOf (either int float)) ]);
       default = {};
       description = "Extra config options";
     };

@@ -22,7 +22,7 @@ in {
     enable = true;
 
     fonts = rec {
-      fontFamily = "Fira Code Regular Nerd Font Complete";
+      fontFamily = "FiraCode Nerd Font Mono Reg";
       boldFont = fontFamily;
       italicFont = fontFamily;
       boldItalicFont = fontFamily;
@@ -44,7 +44,7 @@ in {
           "cv02" # g
           # "cv03" # cv03..06: i
           # "cv07" # cv07..10: l
-          "cv13" # zero, cv11..13: 0
+          # "cv13" # zero, cv11..13: 0
           "cv14" # 3
           # "cv15" # cv15..16: *
           # "cv17" # ~
@@ -63,12 +63,12 @@ in {
           "cv32" # .=
         ];
       in {
-        FiraCodeNerdFontComplete-Bold = firaCodeFeatures;
-        FiraCodeNerdFontComplete-Light = firaCodeFeatures;
-        FiraCodeNerdFontComplete-Medium = firaCodeFeatures;
-        FiraCodeNerdFontComplete-Regular = firaCodeFeatures;
-        FiraCodeNerdFontComplete-Retina = firaCodeFeatures;
-        FiraCodeNerdFontComplete-SemiBold = firaCodeFeatures;
+        FiraCodeNFM-Bold = firaCodeFeatures;
+        FiraCodeNFM-Light = firaCodeFeatures;
+        FiraCodeNFM-Med = firaCodeFeatures;
+        FiraCodeNFM-Reg = firaCodeFeatures;
+        FiraCodeNFM-Ret = firaCodeFeatures;
+        FiraCodeNFM-SemBd = firaCodeFeatures;
       };
 
       fontSize = 72.0 / 96.0 * 12.0; # ~12px
@@ -76,17 +76,23 @@ in {
     };
 
     cursor.blinkInterval = 0;
+    cursor.color = "#d3d8ce";
+    cursor.textColor = "#454753";
 
     colorScheme = {
-      foreground = "#faf3f8";
+      foreground = "#f9fff3";
       background = "#000000";
       backgroundOpacity = 0.9;
       selectionBackground = "#454753";
+      selectionForeground = "#d3d8ce";
 
       color = {
         #: black
+        # "0" = "#21222a";
         "0" = "#21222a";
-        "8" = "#797a84";
+        # "8" = "#797a84";
+        # "8" = "#aaabb4";
+        "8" = "#555753";
 
         #: red
         "1" = "#cc472d";
@@ -113,9 +119,32 @@ in {
         "14" = "#46d5ce";
 
         #: white
-        "7" = "#5a5b64";
-        "15" = "#ecedfa";
+        # "7" = "#5a5b64";
+        # "7" = "#797a84";
+        "7" = "#c5cac1";
+        "15" = "#edf3e7";
       };
+
+      # *.background: #000000
+      # *.backgroundIntense: #1b1b1b
+      # *.color0:  #2e3436
+      # *.color8:  #555753
+      # *.color1:  #cc0000
+      # *.color9:  #ef2929
+      # *.color2:  #4e9a06
+      # *.color10: #8ae234
+      # *.color3:  #c4a000
+      # *.color11: #fce94f
+      # *.color4:  #3465a4
+      # *.color12: #729fcf
+      # *.color5:  #75507b
+      # *.color13: #ad7fa8
+      # *.color6:  #06989a
+      # *.color14: #34e2e2
+      # *.color7:  #d3d7cf
+      # *.color15: #eeeeec
+      # *.foreground: #ffffff
+      # *.foregroundIntense #ffffff
     };
 
     maps."ctrl+shift+p>f" = "no_op";
@@ -128,6 +157,8 @@ in {
       scrollbackLines = 0;
       mouseHideWait = -1;
       windowPaddingWidth = 1.0;
+      # textFgOverrideThreshold = 80;
+      # textCompositionStrategy = [ 1.0 20 ];
     };
   };
 }
