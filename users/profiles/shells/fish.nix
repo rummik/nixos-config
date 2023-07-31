@@ -1,4 +1,9 @@
 { pkgs, ... }: {
+
+  home.packages = [
+    pkgs.babelfish
+  ];
+
   programs.fish = {
     enable = true;
 
