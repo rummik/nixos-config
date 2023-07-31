@@ -1,6 +1,7 @@
 {
   programs.git = {
     enable = true;
+    lfs.enable = true;
 
     extraConfig = {
       pull.rebase = false;
