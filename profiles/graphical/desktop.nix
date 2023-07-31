@@ -77,24 +77,36 @@ in {
 
   # Sound
 
-  hardware.bluetooth = with pkgs; {
+  hardware.bluetooth = {
     enable = true;
-    package = bluezFull;
+    package = pkgs.bluezFull;
 
     settings = {
-      General.Enable = "Source,Sink,Gateway,Control,Socket,Media";
+      General.Enable = "Source,Sink,Media,Socket,Gateway,Control";
     };
   };
 
   #services.ofono.enable = true;
 
-  nixpkgs.config.pulseaudio = true;
+  environment.etc = {
+    "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+      bluez_monitor.properties = {
+        ["bluez5.enable-sbc-xq"] = true,
+        ["bluez5.enable-msbc"] = true,
+        ["bluez5.enable-hw-volume"] = true,
+        ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
+      }
+    '';
+  };
 
-  hardware.pulseaudio = {
+  services.pipewire = {
     enable = true;
-    tcp.enable = true;
-    zeroconf.publish.enable = true;
-    zeroconf.discovery.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
+    wireplumber.enable = true;
   };
 
   programs.noisetorch.enable = true;
