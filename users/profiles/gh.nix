@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  home.packages = [
-    pkgs.gh-dash
-  ];
-
   programs.gh = {
     enable = true;
 
@@ -13,6 +9,7 @@
 
     extensions = [
       pkgs.gh-dash
+      pkgs.gh-cal
     ];
   };
 
