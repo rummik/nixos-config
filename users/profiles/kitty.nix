@@ -159,6 +159,7 @@ in {
       windowPaddingWidth = 1.0;
       # textFgOverrideThreshold = 80;
       # textCompositionStrategy = [ 1.0 20 ];
+      modifyFont = "underline_position +5";
     };
   };
 }
