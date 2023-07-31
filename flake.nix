@@ -69,7 +69,9 @@
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixlib";
 
-    nil.url = "github:oxalica/nil/59bcad0b13b5d77668c0c125fef71d7b41406d7a";
+    # Patch for use with nix 2.17  See: https://github.com/oxalica/nil/pull/99
+    nil.url = "github:jordanisaacs/nil/cf44cd1c694edad2caabee5d402f67d5df0ab6dd";
+    # nil.url = "github:oxalica/nil";
     nil.inputs.nixpkgs.follows = "nixos";
 
     # fork of github:kamadorueda/alejandra with container padding
