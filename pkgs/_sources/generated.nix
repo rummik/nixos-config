@@ -116,16 +116,16 @@
   };
   lspsaga-nvim = {
     pname = "lspsaga-nvim";
-    version = "b1b43c12be028330eb259de241449f5a64d3f26c";
+    version = "d42fe8162356f3b55c24044f94e1880a4c317a95";
     src = fetchgit {
       url = "https://github.com/nvimdev/lspsaga.nvim";
-      rev = "b1b43c12be028330eb259de241449f5a64d3f26c";
+      rev = "d42fe8162356f3b55c24044f94e1880a4c317a95";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-dfofDSzuiY1pKpvrDYicYE+j2Y91es3eBKWHQQgFEKI=";
+      sha256 = "sha256-HLq8nPR4ELC7C88RSbm3oQ1M44nfzyDWI21cXoOPr7g=";
     };
-    date = "2023-07-29";
+    date = "2023-07-30";
   };
   manix = {
     pname = "manix";
@@ -167,16 +167,16 @@
   };
   nvim-treesitter = {
     pname = "nvim-treesitter";
-    version = "ee107fc759647293a84ad42b867f518331364fbe";
+    version = "1c79da3300951e934f635eaf8703480b57644e7e";
     src = fetchgit {
       url = "https://github.com/nvim-treesitter/nvim-treesitter";
-      rev = "ee107fc759647293a84ad42b867f518331364fbe";
+      rev = "1c79da3300951e934f635eaf8703480b57644e7e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-esy5DRNUNyzvCKx/SZN+X35xsvaIsDVf19YmzIZ7jCA=";
+      sha256 = "sha256-RE36Mr14kwq1vy2AnKVN846Q+vnj+zJfMCWZ003WiB0=";
     };
-    date = "2023-07-29";
+    date = "2023-07-30";
   };
   nvim-treesitter-textobjects = {
     pname = "nvim-treesitter-textobjects";
@@ -269,16 +269,16 @@
   };
   vim-just = {
     pname = "vim-just";
-    version = "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c";
+    version = "9129b096a6b43e0a47e405cc7b3fb55bc0e31c42";
     src = fetchgit {
       url = "https://github.com/NoahTheDuke/vim-just";
-      rev = "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c";
+      rev = "9129b096a6b43e0a47e405cc7b3fb55bc0e31c42";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-cHKOGaa/9StBzsgC5Zg/eWIP8sAuRUDcZgowaGVo+jA=";
+      sha256 = "sha256-GR+xY2MF5lT+mxeHccjijFAuSfuhSR4Gfwmtals3UBM=";
     };
-    date = "2023-07-28";
+    date = "2023-07-30";
   };
   vim-nix = {
     pname = "vim-nix";

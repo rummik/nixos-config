@@ -174,7 +174,7 @@
     },
     "lspsaga-nvim": {
         "cargoLocks": null,
-        "date": "2023-07-29",
+        "date": "2023-07-30",
         "extract": null,
         "name": "lspsaga-nvim",
         "passthru": null,
@@ -184,12 +184,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b1b43c12be028330eb259de241449f5a64d3f26c",
-            "sha256": "sha256-dfofDSzuiY1pKpvrDYicYE+j2Y91es3eBKWHQQgFEKI=",
+            "rev": "d42fe8162356f3b55c24044f94e1880a4c317a95",
+            "sha256": "sha256-HLq8nPR4ELC7C88RSbm3oQ1M44nfzyDWI21cXoOPr7g=",
             "type": "git",
             "url": "https://github.com/nvimdev/lspsaga.nvim"
         },
-        "version": "b1b43c12be028330eb259de241449f5a64d3f26c"
+        "version": "d42fe8162356f3b55c24044f94e1880a4c317a95"
     },
     "manix": {
         "cargoLocks": null,
@@ -251,7 +251,7 @@
     },
     "nvim-treesitter": {
         "cargoLocks": null,
-        "date": "2023-07-29",
+        "date": "2023-07-30",
         "extract": null,
         "name": "nvim-treesitter",
         "passthru": null,
@@ -261,12 +261,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ee107fc759647293a84ad42b867f518331364fbe",
-            "sha256": "sha256-esy5DRNUNyzvCKx/SZN+X35xsvaIsDVf19YmzIZ7jCA=",
+            "rev": "1c79da3300951e934f635eaf8703480b57644e7e",
+            "sha256": "sha256-RE36Mr14kwq1vy2AnKVN846Q+vnj+zJfMCWZ003WiB0=",
             "type": "git",
             "url": "https://github.com/nvim-treesitter/nvim-treesitter"
         },
-        "version": "ee107fc759647293a84ad42b867f518331364fbe"
+        "version": "1c79da3300951e934f635eaf8703480b57644e7e"
     },
     "nvim-treesitter-textobjects": {
         "cargoLocks": null,
@@ -405,7 +405,7 @@
     },
     "vim-just": {
         "cargoLocks": null,
-        "date": "2023-07-28",
+        "date": "2023-07-30",
         "extract": null,
         "name": "vim-just",
         "passthru": null,
@@ -415,12 +415,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c",
-            "sha256": "sha256-cHKOGaa/9StBzsgC5Zg/eWIP8sAuRUDcZgowaGVo+jA=",
+            "rev": "9129b096a6b43e0a47e405cc7b3fb55bc0e31c42",
+            "sha256": "sha256-GR+xY2MF5lT+mxeHccjijFAuSfuhSR4Gfwmtals3UBM=",
             "type": "git",
             "url": "https://github.com/NoahTheDuke/vim-just"
         },
-        "version": "c78d092d2f9ce580ee6f9751c8d4ad09f54d2a7c"
+        "version": "9129b096a6b43e0a47e405cc7b3fb55bc0e31c42"
     },
     "vim-nix": {
         "cargoLocks": null,
