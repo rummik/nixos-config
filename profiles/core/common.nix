@@ -114,11 +114,12 @@ in {
     settings.trusted-users = [ "root" "@wheel" ];
 
     # Generally useful nix option defaults
-    extraOptions = ''
+    extraOptions = lib.mkAfter ''
       min-free = 536870912
       keep-outputs = true
       keep-derivations = true
       fallback = true
+      extra-experimental-features = nix-command flakes repl-flake
     '';
   };
 }
