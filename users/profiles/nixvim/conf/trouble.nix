@@ -1,6 +1,8 @@
 {
   programs.nixvim = {
-    plugins.trouble.enable = true;
+    plugins.trouble = {
+      enable = true;
+    };
 
     maps.normalVisualOp = {
       "<leader>xx" = "<cmd>TroubleToggle<cr>";

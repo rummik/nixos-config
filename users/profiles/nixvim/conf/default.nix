@@ -18,6 +18,7 @@
     # ./workspace.nix # Workspace management
     # ./persistence.nix # Persistent sessions
     ./session-manager.nix # Session management
+    ./indent-blankline.nix # Indentation guides
   ];
 
   home.sessionVariables.EDITOR = "nvim";
@@ -26,10 +27,12 @@
   programs.nixvim = {
     enable = true;
 
-   viAlias = true;
+    viAlias = true;
     vimAlias = true;
 
     package = pkgs.neovim-unwrapped;
+
+    globals.mapleader = " ";
 
     options = {
       # Mouse support

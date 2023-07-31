@@ -14,10 +14,10 @@
     indent = true;
 
     disabledLanguages = [
-    #   "fish"
+      # "fish"
       # "help"
-    #   "tsx"
-    #   "typescript"
+      # "tsx"
+      # "typescript"
     ];
 
     # This lets us temporarily create an override to update nvim-treesitter

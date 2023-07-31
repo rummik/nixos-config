@@ -118,10 +118,16 @@ in
       expr =  helpers.camelToSnakeAttrs {
         fooBarBaz = 1;
         qux = 2;
+        bah = {
+          fooBarBaz = 3;
+        };
       };
       expected = {
         foo_bar_baz = 1;
         qux = 2;
+        bah = {
+          foo_bar_baz = 3;
+        };
       };
     };
 

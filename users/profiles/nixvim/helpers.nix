@@ -19,9 +19,7 @@ let
     upperChars
     ;
 
-
   inherit (builtins)
-    attrNames
     elem
     hasAttr
     substring
@@ -35,7 +33,14 @@ rec {
   camelToSnake = replaceStrings upperChars (map (s: "_${s}") lowerChars);
 
   camelToSnakeAttrs =
-    mapAttrs' (name: nameValuePair (camelToSnake name));
+    mapAttrs' (
+      name: value:
+        nameValuePair
+          (camelToSnake name)
+          (if isAttrs value
+           then camelToSnakeAttrs value
+           else value)
+    );
 
   isLua = isType "lua";
   isLuaFunction = x: isLua x && x._lua_type == "function";

@@ -4,7 +4,7 @@
   ...
 }:
 let
-  helpers = import ../helpers.nix { inherit lib; };
+  inherit (import ../helpers.nix { inherit lib; }) camelToSnakeAttrs mkPluginSetupCall;
 in
 {
   programs.nixvim = {
@@ -13,10 +13,17 @@ in
       pkgs.vimPlugins.lspsaga-nvim
     ];
 
-    extraConfigLua = helpers.mkPluginSetupCall "lspsaga" (helpers.camelToSnakeAttrs {
+    extraConfigLua = mkPluginSetupCall "lspsaga" (camelToSnakeAttrs {
       symbolInWinbar = {
         enable = false;
       };
+
+      lightbulb = {
+        sign = false;
+      };
+
+      ui.codeAction = " "; #󰌵"; #󰌶󱠂";
+
       scrollPreview = {
         scrollDown = "<C-j>";
         scrollUp = "<C-k>";
@@ -24,12 +31,12 @@ in
     });
 
     maps = {
-      # normal = {
-      #   "gh" = "<cmd>Lspsaga lsp_finder<CR>";
-      #   "gr" = "<cmd>Lspsaga rename<CR>";
-      #   "gd" = "<cmd>Lspsaga peek_definition<CR>";
-      # };
-      # normalVisual."<leader>ca" = "<cmd>Lspsaga code_action<CR>";
+      normal = {
+        "gh" = "<cmd>Lspsaga lsp_finder<CR>";
+        "gr" = "<cmd>Lspsaga rename<CR>";
+        "gd" = "<cmd>Lspsaga peek_definition<CR>";
+      };
+      normalVisualOp."<leader>ca" = "<cmd>Lspsaga code_action<CR>";
     };
   };
 }
