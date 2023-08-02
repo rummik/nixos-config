@@ -13,6 +13,19 @@ final: prev: rec {
   #   '';
   # });
 
+  blackmagic-desktop-video = prev.qt5.callPackage ./blackmagic/desktop-video.nix { };
+  blackmagic-media-express = prev.qt5.callPackage ./blackmagic/media-express.nix { };
+  decklink = prev.linuxPackages_6_1.callPackage ./blackmagic/decklink.nix { };
+
+  # obs-studio with qt5
+  obs-studio = (prev.qt5.callPackage (prev.pkgs.path + "/pkgs/applications/video/obs-studio/default.nix") {})
+    .overrideAttrs (old: {
+      postInstall = ''
+        wrapProgram $out/bin/obs \
+          --prefix LD_LIBRARY_PATH : "${ prev.lib.makeLibraryPath [ blackmagic-desktop-video ]}"
+      '';
+    });
+
   gh-dash = prev.buildGoModule rec {
     inherit (sources.gh-dash) pname version src;
 
