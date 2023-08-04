@@ -36,7 +36,9 @@ in {
     highlight.PmenuSel.bg = "#ff00ff";
     highlight.PmenuSel.fg = "black";
 
-    highlight.Visual.bg = "#1f2335";
+    highlight.Visual.bg = "#454753"; # selection
+
+    highlight.NonText.fg = "#787572";
 
     # highlight.BufferAlternate.bg = "#0000ff";
     # highlight.BufferVisible.bg = "#ff0000";
