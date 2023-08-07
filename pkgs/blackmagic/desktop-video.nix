@@ -3,9 +3,11 @@
   lib,
   requireFile,
   autoPatchelfHook,
-  llvmPackages,
+  libcxx,
+  libcxxabi,
   libGL,
   glib,
+  libusb,
   xorg,
   dbus,
   freetype,
@@ -20,14 +22,15 @@ stdenv.mkDerivation rec {
   version = "${major}a15";
 
   buildInputs = [
-    llvmPackages.libcxx
-    llvmPackages.libcxxabi
+    libcxx
+    libcxxabi
     libGL
     glib
     xorg.libICE
     xorg.libSM
     xorg.libXrender
     dbus
+    libusb
     freetype
     fontconfig
     qtbase
@@ -59,13 +62,21 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,share/doc,lib}
+    mkdir -p $out/{bin,share/doc,lib/blackmagic/DesktopVideo}
 
-    cp -r usr/lib/* $out/lib
-    cp -r usr/share/doc/desktopvideo $out/share/doc
+    # Copy API libraries
+    cp -rv usr/lib/*.so $out/lib
 
-    mv $out/lib/blackmagic/DesktopVideo/lib*.so* $out/lib
-    rm $out/lib/libQt*
+    # Copy utils and firmware
+    cp -rv usr/lib/blackmagic/DesktopVideo/Firmware $out/lib/blackmagic/DesktopVideo
+    cp -v usr/lib/blackmagic/DesktopVideo/*DesktopVideo* $out/lib/blackmagic/DesktopVideo
+    cp -v usr/lib/blackmagic/DesktopVideo/libDVUpdate.so $out/lib/blackmagic/DesktopVideo
+
+    # Copy docs and systemd service
+    cp -rv usr/share/doc/desktopvideo $out/share/doc
+    cp -rv usr/lib/systemd $out/lib
+
+    # Symlink utils to bin
     ln -sr $out/lib/blackmagic/DesktopVideo/*DesktopVideo* $out/bin
 
     runHook postInstall
@@ -73,6 +84,9 @@ stdenv.mkDerivation rec {
 
   fixupPhase = ''
     runHook preFixup
+
+    patchelf --add-needed libDeckLinkAPI.so $out/bin/*
+    patchelf --add-needed libDeckLinkPreviewAPI.so $out/bin/BlackmagicDesktopVideoSetup
 
     substituteInPlace \
       $out/lib/systemd/system/DesktopVideoHelper.service \
