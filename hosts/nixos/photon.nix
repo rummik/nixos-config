@@ -55,6 +55,7 @@
     discord
     # discord-canary
     element-desktop
+    renoise
   ];
 
   environment.variables.themePrimaryColor = "white";
