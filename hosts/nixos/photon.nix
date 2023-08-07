@@ -156,20 +156,13 @@
         enableCryptodisk = true;
         efiSupport = true;
         efiInstallAsRemovable = true;
+        device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z8NB0KC42760H";
       };
 
       efi = {
         # canTouchEfiVariables = true;
         efiSysMountPoint = "/boot";
       };
-    };
-
-    loader.grub = {
-      # enable = true;
-      device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z8NB0KC42760H";
-      # efiSupport = true;
-      # enableCryptodisk = true;
-      # efiInstallAsRemovable = true;
     };
   };
 
