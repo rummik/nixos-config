@@ -82,7 +82,7 @@
     kernelPackages = pkgs.linuxPackages_6_1;
 
     blacklistedKernelModules = [
-      "asus_wmi_sensors"
+      # "asus_wmi_sensors"
     ];
 
     kernelModules = [
@@ -94,7 +94,10 @@
       v4l2loopback
     ];
 
-    kernelParams = [ ];
+    kernelParams = [
+      # "usbcore.autosuspend=-1"
+      # "amd_iommu=off"
+    ];
 
     initrd = {
       availableKernelModules = [
@@ -144,28 +147,28 @@
       # secrets."/pv-electron.key.bin" = config.age.secrets.pv-electron.path;
     };
 
-    # loader = {
-    #   # systemd-boot.enable = true;
-    #   # systemd-boot.graceful = true;
-    #
-    #   grub = {
-    #     enable = true;
-    #     enableCryptodisk = true;
-    #     efiSupport = true;
-    #     efiInstallAsRemovable = true;
-    #   };
-    #
-    #   efi = {
-    #     # canTouchEfiVariables = true;
-    #     efiSysMountPoint = "/boot";
-    #   };
-    # };
+    loader = {
+      # systemd-boot.enable = true;
+      # systemd-boot.graceful = true;
+
+      grub = {
+        enable = true;
+        enableCryptodisk = true;
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+      };
+
+      efi = {
+        # canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
+    };
 
     loader.grub = {
-      enable = true;
+      # enable = true;
       device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z8NB0KC42760H";
       # efiSupport = true;
-      enableCryptodisk = true;
+      # enableCryptodisk = true;
       # efiInstallAsRemovable = true;
     };
   };
@@ -258,12 +261,12 @@
     fsType = "ext4";
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8b35a14f-6c0d-4c97-a4c4-cd594936f789";
-    fsType = "ext2";
-  };
+  # fileSystems."/boot" = {
+  #   device = "/dev/disk/by-uuid/8b35a14f-6c0d-4c97-a4c4-cd594936f789";
+  #   fsType = "ext2";
+  # };
 
-  fileSystems."/boot/EFI" = {
+  fileSystems."/boot" = {
     device = "/dev/disk/by-id/ata-Samsung_SSD_860_EVO_1TB_S3Z8NB0KC42760H-part3";
     fsType = "vfat";
   };
