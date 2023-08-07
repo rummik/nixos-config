@@ -1,5 +1,4 @@
-result
-result-*
+/result*
 *.qcow2
 
 .env
