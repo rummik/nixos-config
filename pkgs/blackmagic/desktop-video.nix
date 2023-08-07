@@ -3,17 +3,17 @@
   lib,
   requireFile,
   autoPatchelfHook,
+  wrapQtAppsHook,
+  dbus,
+  fontconfig,
+  freetype,
+  glib,
+  libGL,
   libcxx,
   libcxxabi,
-  libGL,
-  glib,
   libusb,
-  xorg,
-  dbus,
-  freetype,
-  fontconfig,
   qtbase,
-  wrapQtAppsHook
+  xorg
 }:
 
 stdenv.mkDerivation rec {
@@ -22,18 +22,18 @@ stdenv.mkDerivation rec {
   version = "${major}a15";
 
   buildInputs = [
+    dbus
+    fontconfig
+    freetype
+    glib
+    libGL
     libcxx
     libcxxabi
-    libGL
-    glib
+    libusb
+    qtbase
     xorg.libICE
     xorg.libSM
     xorg.libXrender
-    dbus
-    libusb
-    freetype
-    fontconfig
-    qtbase
   ];
 
   src = requireFile {
@@ -62,21 +62,20 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,share/doc,lib/blackmagic/DesktopVideo}
+    mkdir -p $out/{bin,etc,share/doc,lib/blackmagic/DesktopVideo}
 
-    # Copy API libraries
     cp -rv usr/lib/*.so $out/lib
 
-    # Copy utils and firmware
     cp -rv usr/lib/blackmagic/DesktopVideo/Firmware $out/lib/blackmagic/DesktopVideo
     cp -v usr/lib/blackmagic/DesktopVideo/*DesktopVideo* $out/lib/blackmagic/DesktopVideo
     cp -v usr/lib/blackmagic/DesktopVideo/libDVUpdate.so $out/lib/blackmagic/DesktopVideo
 
-    # Copy docs and systemd service
-    cp -rv usr/share/doc/desktopvideo $out/share/doc
-    cp -rv usr/lib/systemd $out/lib
+    cp -rv usr/share/* $out/share
 
-    # Symlink utils to bin
+    cp -rv usr/lib/systemd $out/lib
+    cp -rv etc/udev $out/etc
+    cp -rv etc/xdg $out/etc
+
     ln -sr $out/lib/blackmagic/DesktopVideo/*DesktopVideo* $out/bin
 
     runHook postInstall
@@ -89,15 +88,15 @@ stdenv.mkDerivation rec {
     patchelf --add-needed libDeckLinkPreviewAPI.so $out/bin/BlackmagicDesktopVideoSetup
 
     substituteInPlace \
+      $out/etc/udev/rules.d/55-blackmagic.rules \
       $out/lib/systemd/system/DesktopVideoHelper.service \
-      --replace "/usr/lib/blackmagic/DesktopVideo/DesktopVideoHelper" "$out/bin/DesktopVideoHelper"
+      --replace "/usr/lib/blackmagic/DesktopVideo/" "$out/bin/"
 
     runHook postFixup
   '';
 
   meta = with lib; {
     homepage = "https://www.blackmagicdesign.com/support/family/capture-and-playback";
-    maintainers = [ maintainers.hexchen ];
     license = licenses.unfree;
     description = "Supporting applications for Blackmagic Decklink. Doesn't include the desktop applications, only the helper required to make the driver work.";
     platforms = platforms.linux;

@@ -3,10 +3,9 @@
   lib,
   requireFile,
   autoPatchelfHook,
-  makeWrapper,
+  wrapQtAppsHook,
   alsa-lib,
   blackmagic-desktop-video,
-  wrapQtAppsHook
 }:
 
 stdenv.mkDerivation rec {
@@ -40,28 +39,35 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     wrapQtAppsHook
-    makeWrapper
   ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/{bin,share,lib}
+    mkdir -p $out/{bin,share,lib/blackmagic/MediaExpress}
 
-    ls -R
+    cp -v usr/lib/blackmagic/MediaExpress/MediaExpress $out/lib/blackmagic/MediaExpress/
+    cp -v usr/lib/blackmagic/MediaExpress/libMXF.so $out/lib/blackmagic/MediaExpress/
+    cp -v usr/lib/blackmagic/MediaExpress/libQtSingleApplication.so $out/lib/blackmagic/MediaExpress/
 
-    cp -rv usr/lib/* $out/lib
     cp -rv usr/share/* $out/share
 
-    mv $out/lib/blackmagic/MediaExpress/lib*.so* $out/lib
     ln -sr $out/lib/blackmagic/MediaExpress/MediaExpress $out/bin
 
     runHook postInstall
   '';
 
+  fixupPhase = ''
+    runHook preFixup
+
+    patchelf --add-needed libDeckLinkAPI.so $out/bin/MediaExpress
+    patchelf --add-needed libDeckLinkPreviewAPI.so $out/bin/MediaExpress
+
+    runHook postFixup
+  '';
+
   meta = with lib; {
     homepage = "https://www.blackmagicdesign.com/support/family/capture-and-playback";
-    maintainers = [ maintainers.hexchen ];
     license = licenses.unfree;
     description = "Supporting applications for Blackmagic Decklink. Doesn't include the desktop applications, only the helper required to make the driver work.";
     platforms = platforms.linux;

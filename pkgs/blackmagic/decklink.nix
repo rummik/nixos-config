@@ -54,20 +54,14 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    install -D \
-      ./blackmagic-${version}/*.ko \
-      ./blackmagic-io-${version}/*.ko \
-      -t $out/lib/modules/${kernel.modDirVersion}/extra
-
-    # make $installFlags M=$PWD/blackmagic-${version} $makeFlags $installTargets
-    # make $installFlags M=$PWD/blackmagic-io-${version} $makeFlags $installTargets
+    make $installFlags M=$PWD/blackmagic-${version} $makeFlags $installTargets
+    make $installFlags M=$PWD/blackmagic-io-${version} $makeFlags $installTargets
 
     runHook postInstall
   '';
 
   meta = with lib; {
     homepage = "https://www.blackmagicdesign.com/support/family/capture-and-playback";
-    maintainers = [ maintainers.hexchen ];
     license = licenses.unfree;
     description = "Kernel module for the Blackmagic Design Decklink cards";
     platforms = platforms.linux;
