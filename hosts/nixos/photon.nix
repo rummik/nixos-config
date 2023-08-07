@@ -26,7 +26,7 @@
       hw.common-pc-ssd
       # inputs.disko.nixosModules.disko
 
-      profiles.hardare.decklink
+      profiles.hardware.decklink
     ];
 
   # users.mutableUsers = lib.mkForce true;
