@@ -20,9 +20,9 @@
       profiles.workstation
       profiles.sshd
 
-      #profiles.hardware.nvidia
+      profiles.hardware.nvidia
       hw.common-cpu-amd
-      #hw.common-gpu-nvidia-nonprime
+      # hw.common-gpu-nvidia-nonprime
       hw.common-pc-ssd
       # inputs.disko.nixosModules.disko
 
