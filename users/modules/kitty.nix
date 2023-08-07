@@ -1151,18 +1151,6 @@ in {
         description = "";
       };
 
-      adjustLineHeight = mkOption {
-        type = types.int;
-        default = 0;
-        description = "";
-      };
-
-      adjustColumnWidth = mkOption {
-        type = types.int;
-        default = 0;
-        description = "";
-      };
-
       disableLigatures = mkOption {
         type = types.enum [ "always" "cursor" "never" ];
         default = "never";
