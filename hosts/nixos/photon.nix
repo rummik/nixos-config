@@ -25,9 +25,9 @@
       #hw.common-gpu-nvidia-nonprime
       hw.common-pc-ssd
       # inputs.disko.nixosModules.disko
-    ];
 
-  services.openssh.settings.PasswordAuthentication = lib.mkForce true;
+      profiles.hardare.decklink
+    ];
 
   # users.mutableUsers = lib.mkForce true;
   #
@@ -78,7 +78,7 @@
   };
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_6_1;
 
     blacklistedKernelModules = [
       "asus_wmi_sensors"
