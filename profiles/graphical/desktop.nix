@@ -1,10 +1,8 @@
 {
-  config,
   pkgs,
   ...
-}: let
-  inherit (pkgs) hplip hplipWithPlugin plasma5Packages;
-in {
+}:
+{
   imports = [
     ./fonts.nix
   ];
