@@ -40,6 +40,26 @@ final: prev: rec {
     };
   };
 
+  renoise = prev.renoise.overrideAttrs (orig: rec {
+    version = "3.4.2";
+    src = prev.requireFile {
+      name = "rns_342_linux_x86_64.tar.gz";
+      url = "https://backstage.renoise.com/frontend/app/index.html";
+      sha256 = "sha256-11wqTOhNdM6RcNk4BWAMoTpai5m+FSsv5RGZTN5DPTI=";
+    };
+
+    extraBuildInputs = with prev; [ freetype webkitgtk gtk3 glib.out ];
+
+    installPhase = ''
+      ${orig.installPhase}
+
+        for path in ${toString extraBuildInputs}; do
+          echo $path
+          ln -s $path/lib/*.so* $out/lib/
+        done
+    '';
+  });
+
   fishPlugins =
     prev.fishPlugins
     // {
