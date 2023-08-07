@@ -11,12 +11,19 @@ in {
   # Sets nrdxp.cachix.org binary cache which just speeds up some builds
   imports = [ ../cachix ../common.nix ];
 
+  # Enabling causes NixOS rebuilds to generate outputs in
+  # /etc/profiles/per-user/$USER, which confuses PATH if running Home Manager
+  # outside of NixOS generation. This is a workaround. In reality I'm likely
+  # abusing Home Manager by using it both in- and out-side of nixos generations
+  # on the same machine.
+  home-manager.useUserPackages = false;
+
   environment = {
-    # TODO: update /etc/profiles/per-user/$USER without a full rebuild?
     profiles = [
-      # "$HOME/.nix-profile"
-      "/nix/var/nix/profiles/per-user/$USER/home-manager/home-path"
-      # "/etc/profiles/per-user/$USER"
+      "$HOME/.nix-profile"
+      "/nix/var/nix/profiles/per-user/$USER/profile"
+      # TODO: update /etc/profiles/per-user/$USER without a full rebuild?
+      "/etc/profiles/per-user/$USER"
     ];
 
     # Selection of sysadmin tools that can come in handy
