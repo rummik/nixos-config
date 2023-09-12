@@ -37,6 +37,8 @@ in
         "gd" = "<cmd>Lspsaga peek_definition<CR>";
       };
       normalVisualOp."<leader>ca" = "<cmd>Lspsaga code_action<CR>";
+      normalVisualOp."<A-d>" = "<cmd>Lspsaga term_toggle<CR>";
+      terminal."<A-d>" = "<cmd>Lspsaga term_toggle<CR>";
     };
   };
 }
