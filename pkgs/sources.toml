@@ -111,6 +111,10 @@ fetch.git = "https://github.com/jeffreytse/zsh-vi-mode"
 src.github = "akinsho/bufferline.nvim"
 fetch.git = "https://github.com/akinsho/bufferline.nvim"
 
+[flutter-tools-nvim]
+src.github_tag = "akinsho/flutter-tools.nvim"
+fetch.git = "https://github.com/akinsho/flutter-tools.nvim"
+
 [lspsaga-nvim]
 src.git = "https://github.com/nvimdev/lspsaga.nvim"
 fetch.git = "https://github.com/nvimdev/lspsaga.nvim"

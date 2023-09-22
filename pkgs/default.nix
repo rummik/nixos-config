@@ -29,7 +29,7 @@ final: prev: rec {
   gh-dash = prev.buildGoModule rec {
     inherit (sources.gh-dash) pname version src;
 
-    vendorHash = "sha256-lOIONv+7cUUC0mGCwYkOkDn3zHreYpFeqmTbp2Ob3yM=";
+    vendorHash = "sha256-COPEgRqogRkGuJm56n9Cqljr7H8QT0RSKAdnXbHm+nw=";
 
     ldflags = [
       "-s" "-w" "-X github.com/dlvhdr/gh-dash/cmd.Version=${version}"

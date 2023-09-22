@@ -75,9 +75,28 @@
         },
         "version": "cf318e06a9b7c9f2219d78f41b46fa6e06011fd9"
     },
+    "flutter-tools-nvim": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "flutter-tools-nvim",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "v1.3.1",
+            "sha256": "sha256-eX24uvO75xgbgCBUyCdy4WRRXnuFYhvM4f2GOUmFPn0=",
+            "type": "git",
+            "url": "https://github.com/akinsho/flutter-tools.nvim"
+        },
+        "version": "v1.3.1"
+    },
     "foreign-env": {
         "cargoLocks": null,
-        "date": "2023-01-14",
+        "date": "2023-08-23",
         "extract": null,
         "name": "foreign-env",
         "passthru": null,
@@ -87,12 +106,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3ee95536106c11073d6ff466c1681cde31001383",
-            "sha256": "sha256-vyW/X2lLjsieMpP9Wi2bZPjReaZBkqUbkh15zOi8T4Y=",
+            "rev": "7f0cf099ae1e1e4ab38f46350ed6757d54471de7",
+            "sha256": "sha256-4+k5rSoxkTtYFh/lEjhRkVYa2S4KEzJ/IJbyJl+rJjQ=",
             "type": "git",
             "url": "https://github.com/oh-my-fish/plugin-foreign-env"
         },
-        "version": "3ee95536106c11073d6ff466c1681cde31001383"
+        "version": "7f0cf099ae1e1e4ab38f46350ed6757d54471de7"
     },
     "gh-dash": {
         "cargoLocks": null,
@@ -108,11 +127,11 @@
             "name": null,
             "owner": "dlvhdr",
             "repo": "gh-dash",
-            "rev": "v3.10.0",
-            "sha256": "sha256-ypYM/FXp+BObR2fjVCV8nDJhRuuu2Y7213haAJnzRIE=",
+            "rev": "v3.11.0",
+            "sha256": "sha256-XvNc68pVwqBLthkr3jb578Avpnr1NKT1XWUD4aazBHw=",
             "type": "github"
         },
-        "version": "v3.10.0"
+        "version": "v3.11.0"
     },
     "home-assistant-desktop": {
         "cargoLocks": null,
@@ -174,7 +193,7 @@
     },
     "lspsaga-nvim": {
         "cargoLocks": null,
-        "date": "2023-07-30",
+        "date": "2023-09-15",
         "extract": null,
         "name": "lspsaga-nvim",
         "passthru": null,
@@ -184,12 +203,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "d42fe8162356f3b55c24044f94e1880a4c317a95",
-            "sha256": "sha256-HLq8nPR4ELC7C88RSbm3oQ1M44nfzyDWI21cXoOPr7g=",
+            "rev": "32c1b404489723771d385579d695b61cf12bf3a4",
+            "sha256": "sha256-8l9VX09Pii1Z1hQT7/hOe+3fEFug1v/WZ7rUkIEQjsQ=",
             "type": "git",
             "url": "https://github.com/nvimdev/lspsaga.nvim"
         },
-        "version": "d42fe8162356f3b55c24044f94e1880a4c317a95"
+        "version": "32c1b404489723771d385579d695b61cf12bf3a4"
     },
     "manix": {
         "cargoLocks": null,
@@ -232,7 +251,7 @@
     },
     "nvim-session-manager": {
         "cargoLocks": null,
-        "date": "2023-07-22",
+        "date": "2023-09-05",
         "extract": null,
         "name": "nvim-session-manager",
         "passthru": null,
@@ -242,16 +261,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "4883372b1ef2bdcf4cbdac44c98d68c216914462",
-            "sha256": "sha256-04GL+0JdtD2hEOSrRJUh3Wdpoy2igjHt95Nf3WioFU4=",
+            "rev": "df544e17798dd0e6e33ecf0991dfde9174367837",
+            "sha256": "sha256-9z974T4Wu0+WXnrrijS9ySZNWCF/s8588k9lBGhg0/k=",
             "type": "git",
             "url": "https://github.com/Shatur/neovim-session-manager"
         },
-        "version": "4883372b1ef2bdcf4cbdac44c98d68c216914462"
+        "version": "df544e17798dd0e6e33ecf0991dfde9174367837"
     },
     "nvim-treesitter": {
         "cargoLocks": null,
-        "date": "2023-07-30",
+        "date": "2023-09-16",
         "extract": null,
         "name": "nvim-treesitter",
         "passthru": null,
@@ -261,16 +280,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "1c79da3300951e934f635eaf8703480b57644e7e",
-            "sha256": "sha256-RE36Mr14kwq1vy2AnKVN846Q+vnj+zJfMCWZ003WiB0=",
+            "rev": "794266a4edc8ab57b0d637626f01b5278a9123d8",
+            "sha256": "sha256-/eMyqR8r8oSaG3Ir95u6QRxhfScuLua8KXk+SVFSXEA=",
             "type": "git",
             "url": "https://github.com/nvim-treesitter/nvim-treesitter"
         },
-        "version": "1c79da3300951e934f635eaf8703480b57644e7e"
+        "version": "794266a4edc8ab57b0d637626f01b5278a9123d8"
     },
     "nvim-treesitter-textobjects": {
         "cargoLocks": null,
-        "date": "2023-07-25",
+        "date": "2023-08-29",
         "extract": null,
         "name": "nvim-treesitter-textobjects",
         "passthru": null,
@@ -280,12 +299,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9e519b6146512c8e2e702faf8ac48420f4f5deec",
-            "sha256": "sha256-6TLtXRBYCianxn1j+WkcD7EpBYsGC4bTjYrcmaaXTas=",
+            "rev": "bd103502252027434ec42f628d2dbf54821d4ce6",
+            "sha256": "sha256-bC3yXw0qbcojHNy0peObGUK9DD047CqOAiQ8soEAHww=",
             "type": "git",
             "url": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
         },
-        "version": "9e519b6146512c8e2e702faf8ac48420f4f5deec"
+        "version": "bd103502252027434ec42f628d2dbf54821d4ce6"
     },
     "pass-secret-service": {
         "cargoLocks": null,
@@ -327,7 +346,7 @@
     },
     "prusa-slicer": {
         "cargoLocks": null,
-        "date": "2023-07-24",
+        "date": "2023-09-11",
         "extract": null,
         "name": "prusa-slicer",
         "passthru": null,
@@ -339,11 +358,11 @@
             "name": null,
             "owner": "prusa3d",
             "repo": "PrusaSlicer",
-            "rev": "287e1e28cd6de02585671d7f74d4e36fddd46674",
-            "sha256": "sha256-b9jvvR1ZnpkICmggsR+qzbZXb9p/DZ8Zf4GPxx0tElo=",
+            "rev": "49306cdfce36d9c011f39427856873b9c5b04aeb",
+            "sha256": "sha256-U0INHNchtEHWir12ueLU/2WGshfWM1GTG1NQ0MomPzA=",
             "type": "github"
         },
-        "version": "287e1e28cd6de02585671d7f74d4e36fddd46674"
+        "version": "49306cdfce36d9c011f39427856873b9c5b04aeb"
     },
     "prusa-wxwidgets": {
         "cargoLocks": null,
@@ -405,7 +424,7 @@
     },
     "vim-just": {
         "cargoLocks": null,
-        "date": "2023-07-30",
+        "date": "2023-08-02",
         "extract": null,
         "name": "vim-just",
         "passthru": null,
@@ -415,12 +434,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9129b096a6b43e0a47e405cc7b3fb55bc0e31c42",
-            "sha256": "sha256-GR+xY2MF5lT+mxeHccjijFAuSfuhSR4Gfwmtals3UBM=",
+            "rev": "927b41825b9cd07a40fc15b4c68635c4b36fa923",
+            "sha256": "sha256-BmxYWUVBzTowH68eWNrQKV1fNN9d1hRuCnXqbEagRoY=",
             "type": "git",
             "url": "https://github.com/NoahTheDuke/vim-just"
         },
-        "version": "9129b096a6b43e0a47e405cc7b3fb55bc0e31c42"
+        "version": "927b41825b9cd07a40fc15b4c68635c4b36fa923"
     },
     "vim-nix": {
         "cargoLocks": null,
@@ -483,7 +502,7 @@
     },
     "zsh-autocomplete": {
         "cargoLocks": null,
-        "date": "2023-06-29",
+        "date": "2023-08-28",
         "extract": null,
         "name": "zsh-autocomplete",
         "passthru": null,
@@ -493,16 +512,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6d059a3634c4880e8c9bb30ae565465601fb5bd2",
-            "sha256": "sha256-0NW0TI//qFpUA2Hdx6NaYdQIIUpRSd0Y4NhwBbdssCs=",
+            "rev": "afc5afd15fe093bfd96faa521abe0255334c85b0",
+            "sha256": "sha256-npflZ7sr2yTeLQZIpozgxShq3zbIB5WMIZwMv8rkLJg=",
             "type": "git",
             "url": "https://github.com/marlonrichert/zsh-autocomplete"
         },
-        "version": "6d059a3634c4880e8c9bb30ae565465601fb5bd2"
+        "version": "afc5afd15fe093bfd96faa521abe0255334c85b0"
     },
     "zsh-autosuggestions": {
         "cargoLocks": null,
-        "date": "2021-06-04",
+        "date": "2023-09-07",
         "extract": null,
         "name": "zsh-autosuggestions",
         "passthru": null,
@@ -512,16 +531,16 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a411ef3e0992d4839f0732ebeb9823024afaaaa8",
-            "sha256": "sha256-KLUYpUu4DHRumQZ3w59m9aTW6TBKMCXl2UcKi4uMd7w=",
+            "rev": "c3d4e576c9c86eac62884bd47c01f6faed043fc5",
+            "sha256": "sha256-B+Kz3B7d97CM/3ztpQyVkE6EfMipVF8Y4HJNfSRXHtU=",
             "type": "git",
             "url": "https://github.com/zsh-users/zsh-autosuggestions"
         },
-        "version": "a411ef3e0992d4839f0732ebeb9823024afaaaa8"
+        "version": "c3d4e576c9c86eac62884bd47c01f6faed043fc5"
     },
     "zsh-completions": {
         "cargoLocks": null,
-        "date": "2023-07-02",
+        "date": "2023-09-15",
         "extract": null,
         "name": "zsh-completions",
         "passthru": null,
@@ -531,12 +550,12 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "5328eb7c01270417ad6d0ce75682dea00dfa18f2",
-            "sha256": "sha256-wUlWy0FqZyluqxnRT7LD57lhEJYZ6Zkm99j99J1ppUE=",
+            "rev": "07fe4030a6a830f394593a78f495db41b0427fa6",
+            "sha256": "sha256-xyXMwhyj03CvnLcjyrF0yKuybgNR/kBoekgm7A7+6WI=",
             "type": "git",
             "url": "https://github.com/zsh-users/zsh-completions"
         },
-        "version": "5328eb7c01270417ad6d0ce75682dea00dfa18f2"
+        "version": "07fe4030a6a830f394593a78f495db41b0427fa6"
     },
     "zsh-theme-rummik": {
         "cargoLocks": null,
